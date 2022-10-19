@@ -1,13 +1,9 @@
 package Domain;
 
-public class Bicycle extends BicycleComponent {
+public class Bicycle {
 	private Frameset _frame;
 	private Handlebar _handlebar;
 	private Wheel _wheels;
-	
-	public Bicycle(String _brandName, int _serialNumber, double _cost) {
-		super(_brandName, _serialNumber, _cost);
-	}
 	
 	public Frameset get_frame() {
 		return _frame;
