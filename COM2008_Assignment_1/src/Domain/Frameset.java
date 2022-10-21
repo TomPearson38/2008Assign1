@@ -5,8 +5,15 @@ public class Frameset extends BicycleComponent {
 	private boolean _shocks;
 	private Gearset _gearset;
 	
-	public Frameset(String _brandName, int _serialNumber, double _cost) {
+	public Frameset(String _brandName, int _serialNumber, double _cost, double _size, Gearset _gearset) {
+		this(_brandName, _serialNumber, _cost, _size, _gearset, false);
+	}
+	
+	public Frameset(String _brandName, int _serialNumber, double _cost, double _size, Gearset _gearset, boolean _shocks) {
 		super(_brandName, _serialNumber, _cost);
+		this._size = _size;
+		this._shocks = _shocks;
+		this._gearset = _gearset;
 	}
 	
 	/*
@@ -15,9 +22,6 @@ public class Frameset extends BicycleComponent {
 	public double get_size() {
 		return _size;
 	}
-	void set_size(double value) {
-		_size = value;
-	}
 	
 	/*
 	 * whether the frame has shock absorbers
@@ -25,15 +29,12 @@ public class Frameset extends BicycleComponent {
 	public boolean get_shocks() {
 		return _shocks;
 	}
-	void set_shocks(boolean value) {
+	public void set_shocks(boolean value) {
 		_shocks = value;
 	}
 	
 	public Gearset get_gearset() {
 		return _gearset;
-	}
-	void set_gearset(Gearset _gearset) {
-		this._gearset = _gearset;
 	}
 
 }
