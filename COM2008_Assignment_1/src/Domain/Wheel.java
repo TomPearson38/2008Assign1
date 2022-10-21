@@ -5,8 +5,8 @@ public class Wheel extends BicycleComponent {
 	private TyreType _tyre;
 	private BrakeType _brakes;
 	
-	public Wheel(String _brandName, int _serialNumber, double _cost) {
-		super(_brandName, _serialNumber, _cost);
+	public Wheel(int _id, String _brandName, int _serialNumber, double _cost) {
+		super(_id, _brandName, _serialNumber, _cost);
 	}
 	
 	/*

@@ -1,5 +1,5 @@
 package Domain;
 
 public interface IDataRecord {
-	public int getId();
+	public int get_id();
 }

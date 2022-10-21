@@ -1,16 +1,16 @@
 package Domain;
 
-public class Frameset extends BicycleComponent {
+public class Frameset extends BicycleComponent implements IDataRecord{
 	private double _size;
 	private boolean _shocks;
 	private Gearset _gearset;
 	
-	public Frameset(String _brandName, int _serialNumber, double _cost, double _size, Gearset _gearset) {
-		this(_brandName, _serialNumber, _cost, _size, _gearset, false);
+	public Frameset(int _id, String _brandName, int _serialNumber, double _cost, double _size, Gearset _gearset) {
+		this(_id, _brandName, _serialNumber, _cost, _size, _gearset, false);
 	}
 	
-	public Frameset(String _brandName, int _serialNumber, double _cost, double _size, Gearset _gearset, boolean _shocks) {
-		super(_brandName, _serialNumber, _cost);
+	public Frameset(int _id, String _brandName, int _serialNumber, double _cost, double _size, Gearset _gearset, boolean _shocks) {
+		super(_id, _brandName, _serialNumber, _cost);
 		this._size = _size;
 		this._shocks = _shocks;
 		this._gearset = _gearset;
@@ -36,5 +36,4 @@ public class Frameset extends BicycleComponent {
 	public Gearset get_gearset() {
 		return _gearset;
 	}
-
 }
