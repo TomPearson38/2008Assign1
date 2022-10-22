@@ -1,10 +1,10 @@
 package Domain;
 
-public class Gearset {
+public class Gearset extends DataRecord {
 	private String _name;
 
-	public Gearset(String _name) {
-		super();
+	public Gearset(int _id, String _name) {
+		super(_id);
 		this._name = _name;
 	}
 	
