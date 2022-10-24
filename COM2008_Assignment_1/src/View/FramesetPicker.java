@@ -17,6 +17,7 @@ import java.util.Collection;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import javax.swing.BorderFactory;
@@ -37,10 +38,12 @@ public class FramesetPicker extends JDialog {
     JButton applyButton = new JButton("Apply");
     FlowLayout framesLayout = new FlowLayout(FlowLayout.LEFT);
     FlowLayout controlsLayout = new FlowLayout(FlowLayout.RIGHT);
-    GridBagLayout mainLayout = new GridBagLayout();
+    
     
     private Frameset _currentFrameset;
     private Frameset result = null;
+    
+
     
     InfoPanel rightPanel = new InfoPanel();
     
@@ -70,8 +73,8 @@ public class FramesetPicker extends JDialog {
     
     public FramesetPicker(JFrame parent) {
         super(parent, true);
-        this.setPreferredSize(new Dimension(850,800));
-        setResizable(false);
+        this.setPreferredSize(new Dimension(850,650));
+        setResizable(true);
         
         this.addComponentsToPane();
     }
@@ -87,9 +90,8 @@ public class FramesetPicker extends JDialog {
     
     private JPanel setUpFramesPanel() {
     	final JPanel framesPanel = new JPanel();
-        framesPanel.setLayout(framesLayout);
 
-        framesPanel.setPreferredSize(new Dimension(400, 600));
+//        framesPanel.setPreferredSize(new Dimension(560, 600));
         framesPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
         
         
@@ -130,48 +132,36 @@ public class FramesetPicker extends JDialog {
     
     
     private void addComponentsToPane() {
-    	final Container pane = this.getContentPane();
-    	pane.setLayout(mainLayout);
+           	
+    	final Container pane = new JPanel();
+    	pane.setLayout(new BorderLayout());
+    	
+    	
+    	
+    	final JPanel centralPanel = new JPanel();
+    	centralPanel.setLayout(new BorderLayout());
+    	centralPanel.setBorder(BorderFactory.createLineBorder(Color.red));
     	
         final JPanel framesPanel = setUpFramesPanel();
-        GridBagConstraints framesPanelConstraints = new GridBagConstraints();
-        framesPanelConstraints.gridx = 0;
-        framesPanelConstraints.gridy = 0;
-        framesPanelConstraints.gridwidth = 4;
-        framesPanelConstraints.gridheight = 4;
-        framesPanelConstraints.weightx = 0.5;
-        framesPanelConstraints.weighty = 0.5;
-        framesPanelConstraints.fill = GridBagConstraints.BOTH;
+//        framesPanel.setLayout(new GridLayout(0,3));
+        framesPanel.setLayout(new GridLayout(0,3));
+    	final JScrollPane scrollPane = new JScrollPane(framesPanel);
+    	
+    	centralPanel.add(rightPanel, BorderLayout.EAST);
+    	rightPanel.setBorder(BorderFactory.createLineBorder(Color.blue));
+        centralPanel.add(scrollPane, BorderLayout.CENTER);
         
+        
+        pane.add(centralPanel, BorderLayout.CENTER);
 
+        
+        
+        final JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BorderLayout());
+        
         final JPanel controlsPanel = setUpControlsPanel();
-        GridBagConstraints controlsPanelConstraints = new GridBagConstraints();
-        controlsPanelConstraints.gridx = 0;
-        controlsPanelConstraints.gridy = 5;
-        controlsPanelConstraints.gridwidth = 4;
-        controlsPanelConstraints.gridheight = 1;
-        controlsPanelConstraints.weightx = 0.5;
-        controlsPanelConstraints.weighty = 0.5;
-        controlsPanelConstraints.fill = GridBagConstraints.BOTH;
-        
-        GridBagConstraints rightPanelConstraints = new GridBagConstraints();
-        rightPanelConstraints.gridx = 5;
-        rightPanelConstraints.gridy = 0;
-        rightPanelConstraints.gridwidth = 1;
-        rightPanelConstraints.gridheight = 4;
-        rightPanelConstraints.weightx = 0.5;
-        rightPanelConstraints.weighty = 0.5;
-        rightPanelConstraints.fill = GridBagConstraints.HORIZONTAL;
-        
-        
-        GridBagConstraints applyButtonConstraints = new GridBagConstraints();
-        applyButtonConstraints.gridx = 5;
-        applyButtonConstraints.gridy = 5;
-        applyButtonConstraints.gridwidth = 1;
-        applyButtonConstraints.gridheight = 1;
-        applyButtonConstraints.weightx = 0.5;
-        applyButtonConstraints.weighty = 0.5;
-        applyButtonConstraints.fill = GridBagConstraints.BOTH;
+        bottomPanel.add(controlsPanel, BorderLayout.CENTER);
+        bottomPanel.add(applyButton, BorderLayout.EAST);
         
         final JDialog dialog = this;
 
@@ -182,20 +172,10 @@ public class FramesetPicker extends JDialog {
         	}
         });
         
+        pane.add(bottomPanel, BorderLayout.SOUTH);
         
-
-        
-        
-        
-        
-        
-        pane.add(framesPanel, framesPanelConstraints);
-
-        pane.add(controlsPanel,controlsPanelConstraints);
-        
-        pane.add(rightPanel, rightPanelConstraints);
-        
-        pane.add(applyButton, applyButtonConstraints);
+        final Container dialogContainer = this.getContentPane();
+        dialogContainer.add(pane, BorderLayout.CENTER);
     }
     
     class InfoPanel extends JPanel {
@@ -212,6 +192,8 @@ public class FramesetPicker extends JDialog {
     	public InfoPanel() {
 			super();
 			this.setLayout(infoPanelLayout);
+			
+			this.setPreferredSize(new Dimension(200, getPreferredSize().height));
 			
 			this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
 			
@@ -260,7 +242,7 @@ public class FramesetPicker extends JDialog {
     		public void setText(String value) {
     			content.setText(value);
     			
-    			this.setPreferredSize(new Dimension(200, getPreferredSize().height));
+    			
     		}
     	}
     	
