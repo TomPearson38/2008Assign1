@@ -35,7 +35,7 @@ import Domain.Gearset;
 public class FramesetPicker extends JDialog {
     JComboBox<Gearset> gearsComboBox;
     JComboBox<Boolean> shocksComboBox;
-    JButton applyButton = new JButton("Apply");
+    JButton okButton = new JButton("OK");
     FlowLayout framesLayout = new FlowLayout(FlowLayout.LEFT);
     FlowLayout controlsLayout = new FlowLayout(FlowLayout.RIGHT);
     
@@ -161,11 +161,11 @@ public class FramesetPicker extends JDialog {
         
         final JPanel controlsPanel = setUpControlsPanel();
         bottomPanel.add(controlsPanel, BorderLayout.CENTER);
-        bottomPanel.add(applyButton, BorderLayout.EAST);
+        bottomPanel.add(okButton, BorderLayout.EAST);
         
         final JDialog dialog = this;
 
-        applyButton.addActionListener(new ActionListener(){
+        okButton.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
         		result = _currentFrameset;
         		dialog.setVisible(false);
