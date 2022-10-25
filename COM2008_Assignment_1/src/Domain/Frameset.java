@@ -1,6 +1,6 @@
 package Domain;
 
-public class Frameset extends BicycleComponent implements IDataRecord{
+public class Frameset extends BicycleComponent implements IDataRecord, IToUIString{
 	private double _size;
 	private boolean _shocks;
 	private Gearset _gearset;
@@ -35,5 +35,11 @@ public class Frameset extends BicycleComponent implements IDataRecord{
 	
 	public Gearset get_gearset() {
 		return _gearset;
+	}
+
+	@Override
+	public String toUIString() {
+		// TODO Auto-generated method stub
+		return "<html>" + BrandName() + "<br>" + get_size() + "cm" + "</html>";
 	}
 }
