@@ -5,33 +5,25 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Function;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JFrame;
-import javax.swing.JComboBox;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
-
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 
-import Database.FrameOperations;
-import Database.GearsetOperations;
-import Domain.Frameset;
-import Domain.Gearset;
 import Domain.IToUIString;
 
 public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
@@ -46,7 +38,7 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     InfoPanel rightPanel;
     
     
-    public T showFramesetDialog() {
+    public T showDialog() {
         pack();
         setLocationRelativeTo(getParent());
         setVisible(true);
@@ -60,7 +52,7 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     
     private void setSelectedObject(T value) {
     	_currentObject = value;
-    	rightPanel.set_frameset(value);
+    	rightPanel.set_currentObject(value);
     }
     
     public AbstractPicker(JFrame parent) {
@@ -200,11 +192,11 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
 
 		
     	
-    	public T get_frameset() {
+    	public T get_currentObject() {
     		return _currentObject;
     	}
     	
-    	public void set_frameset(T value) {
+    	public void set_currentObject(T value) {
     		_currentObject = value;
     		
     		for (LabelAndValue<T> l : LabelsAndValues) {

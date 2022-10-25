@@ -23,7 +23,7 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
     	
     	PickerWindow.setTitle("Frameset Picker");
     	
-    	return PickerWindow.showFramesetDialog();  	
+    	return PickerWindow.showDialog();  	
     }
 
 	@Override
