@@ -1,7 +1,5 @@
 package View;
 
-import java.awt.HeadlessException;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 

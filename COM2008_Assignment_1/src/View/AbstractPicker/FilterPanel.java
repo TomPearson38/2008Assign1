@@ -27,6 +27,7 @@ class FilterPanel<T> extends JPanel {
 		_changeListeners.forEach(x -> x.FilterValuesChanged(newFilters));
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Collection<Predicate<T>> getActiveFilters() {
 		return dropdowns.stream().<FilterValue<T>>map(d -> (FilterValue<T>)d.getSelectedItem()).<Predicate<T>>map(FilterValue::getPredicate).toList();
 	}

@@ -3,26 +3,18 @@ package View.AbstractPicker;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EtchedBorder;
 
 import Domain.IToUIString;
-import View.AbstractPicker.Filter;
 
 public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     JComboBox<Boolean> shocksComboBox;

@@ -6,10 +6,6 @@ import java.util.Collection;
 import javax.swing.JFrame;
 
 import Database.FrameOperations;
-
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 import Domain.Frameset;
 import View.AbstractPicker.AbstractPicker;
 import View.AbstractPicker.Filter;

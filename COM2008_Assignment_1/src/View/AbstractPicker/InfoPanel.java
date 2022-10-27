@@ -1,14 +1,11 @@
 package View.AbstractPicker;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.function.Function;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
@@ -47,36 +44,6 @@ class InfoPanel<T> extends JPanel {
 		
 		for (LabelAndValue<T> l : LabelsAndValues) {
 			l.objectChanged(value);
-		}
-	}
-	
-	class LabelAndValue<T> extends JPanel implements InfoPanel.ObjectChangedListener<T> {
-		JLabel label;
-		JLabel content;
-		
-		Function<T, String> propertySelector;
-		
-		public LabelAndValue(PropertyDescriptor<T> backingInfo) {
-			label = new JLabel(backingInfo.label + ": ");
-			content = new JLabel("");
-			propertySelector = backingInfo.propertySelector;
-			
-			this.add(label);
-			this.add(content);
-			
-			this.setAlignmentY(Component.LEFT_ALIGNMENT);
-		}
-		
-		public void setText(String value) {
-			content.setText(value);
-			
-			
-		}
-
-		@Override
-		public void objectChanged(T newObject) {
-			content.setText(propertySelector.apply(newObject));
-			
 		}
 	}
 	
