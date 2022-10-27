@@ -8,8 +8,14 @@ import javax.swing.JFrame;
 import Database.FrameOperations;
 
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import Domain.Frameset;
+import View.AbstractPicker.AbstractPicker;
+import View.AbstractPicker.Filter;
+import View.AbstractPicker.FilterValue;
+import View.AbstractPicker.PropertyDescriptor;
+
 
 public class FramesetPicker extends AbstractPicker<Frameset> {
 
@@ -43,6 +49,15 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 		Collection<PropertyDescriptor<Frameset>> descriptors = Arrays.asList(BrandNameDescriptor, SerialNumberDescriptor, CostDescriptor, ShocksDescriptor, SizeDescriptor);
 		
 		return descriptors;
+	}
+	
+	@Override
+	protected Collection<Filter<Frameset>> getFilters() {
+		FilterValue<Frameset> hasShocks = new FilterValue<Frameset>("Shocks", f -> f.get_shocks() == true);
+		FilterValue<Frameset> noShocks = new FilterValue<Frameset>("No shocks", f -> f.get_shocks() == false);
+		Filter<Frameset> shocksFilter = new Filter<Frameset>("Shocks",  Arrays.asList(hasShocks, noShocks));
+		
+		return Arrays.asList(shocksFilter);
 	}
 
 }
