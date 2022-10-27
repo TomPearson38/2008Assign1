@@ -71,5 +71,9 @@ public class PickerPanel<T extends IToUIString> extends JPanel {
           this.add(newButton);
         }
     }
+    
+    public interface IPickerPanelChangeSubscriber<T> {
+    	public void PickerPanelChanged(T newObject);
+    }
 	
 }
