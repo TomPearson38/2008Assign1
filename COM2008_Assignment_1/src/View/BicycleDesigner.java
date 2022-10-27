@@ -41,7 +41,12 @@ public class BicycleDesigner extends JDialog {
 	
 	public void setCurrentFrameset(Frameset value) {
 		_currentFrameset = value;
-		chooseFrameButton.setText(value.toUIString());
+		
+		if (_currentFrameset != null) {
+			chooseFrameButton.setText(value.toUIString());
+		} else {
+			chooseFrameButton.setText("Frame");
+		}
 	}
 	
 	private Wheel _currentWheels;
