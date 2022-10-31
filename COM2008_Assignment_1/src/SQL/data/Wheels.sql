@@ -1,4 +1,4 @@
-USE buildabike;
+USE team028;
 
 CREATE TABLE Wheels (
     id INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
