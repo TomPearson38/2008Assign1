@@ -10,9 +10,9 @@ public class ConnectionManager {
 	private static Connection _conn;
 
     private static Connection createConnection() throws SQLException {
-    	String url       = "jdbc:mysql://localhost:3306/buildabike";
-        String user      = "client";
-        String password  = "password";
+    	String url       = "jdbc:mysql://stusql.dcs.shef.ac.uk/team028";
+        String user      = "team028";
+        String password  = "33842f35";
         
         try {
         	return DriverManager.getConnection(url, user, password);
