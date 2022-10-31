@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -32,7 +33,7 @@ public class PickerPanel<T extends IToUIString> extends JPanel {
 	}
 	
 	private Collection<T> filterObjects(Collection<T> objects, Collection<Predicate<T>> predicates) {
-		return objects.stream().filter(o -> predicates.stream().allMatch(p -> p.test(o))).toList();
+		return objects.stream().filter(o -> predicates.stream().allMatch(p -> p.test(o))).collect(Collectors.toList());
 	}
 	
 	public void addEventListener(IPickerPanelChangeSubscriber<T> listener) {

@@ -6,6 +6,7 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
@@ -29,7 +30,7 @@ class FilterPanel<T> extends JPanel {
 	
 	@SuppressWarnings("unchecked")
 	public Collection<Predicate<T>> getActiveFilters() {
-		return dropdowns.stream().<FilterValue<T>>map(d -> (FilterValue<T>)d.getSelectedItem()).<Predicate<T>>map(FilterValue::getPredicate).toList();
+		return dropdowns.stream().<FilterValue<T>>map(d -> (FilterValue<T>)d.getSelectedItem()).<Predicate<T>>map(FilterValue::getPredicate).collect(Collectors.toList());
 	}
 	
 	public FilterPanel(Collection<Filter<T>> filters) {
