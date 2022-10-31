@@ -9,6 +9,13 @@ public class Wheel extends BicycleComponent {
 		super(_id, _brandName, _serialNumber, _cost);
 	}
 	
+	public Wheel(int _id, int _serialNumber, String _brandName, double _cost, double diameter, TyreType tyre, BrakeType brake) {
+		super(_id, _brandName, _serialNumber, _cost);
+		_diameter = diameter;
+		_tyre = tyre;
+		_brakes = brake;
+	}
+
 	/*
 	 * wheel diameter in cm
 	 */
