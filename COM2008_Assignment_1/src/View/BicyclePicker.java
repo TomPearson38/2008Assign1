@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.Container;
+import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +17,7 @@ public class BicyclePicker extends JFrame {
 		super("Bicycle Picker");
 				
 		final Container pane = this.getContentPane();
+		pane.setLayout(new FlowLayout());
 		
 		designNewBicycleButton.addActionListener(e -> BicycleDesigner.designBicycle(this));
 		pane.add(designNewBicycleButton);
