@@ -1,5 +1,7 @@
 package View;
 
+import java.awt.Container;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -7,15 +9,18 @@ import Domain.Bicycle;
 
 public class BicyclePicker extends JFrame {
 	
-	private JButton addNewBicycleButton = new JButton("Design new bicycle");
+	private JButton designNewBicycleButton = new JButton("Design new bicycle");
+	private JButton designNewHandlebarButton = new JButton("Add a new handlebar");
 
 	public BicyclePicker() {
 		super("Bicycle Picker");
 				
-		Bicycle chosenBike = BicycleDesigner.designBicycle(this);
+		final Container pane = this.getContentPane();
+		
+		designNewBicycleButton.addActionListener(e -> BicycleDesigner.designBicycle(this));
+		pane.add(designNewBicycleButton);
+		
+		designNewHandlebarButton.addActionListener(e -> HandlebarCreator.addHandlebar(this));
+		pane.add(designNewHandlebarButton);
 	}
-	
-	
-
-
 }
