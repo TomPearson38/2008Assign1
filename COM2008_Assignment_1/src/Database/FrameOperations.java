@@ -131,4 +131,8 @@ VALUES(?,?,?,?,?, ?);
 		
 		return null;
 	}
+
+	public static Collection<String> getBrandsInFramesTable() {
+		return ComponentOperations.getAllBrands("Frames");
+	}
 }

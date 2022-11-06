@@ -61,8 +61,10 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 		
 		Filter<BicycleComponent> costFilter = BicycleComponentFilters.getCostFilter();
 		
-		
-		return Arrays.asList(shocksFilter, sizeFilter, costFilter);
+		Collection<String> brands = FrameOperations.getBrandsInFramesTable();
+		Filter<BicycleComponent> brandFilter = BicycleComponentFilters.getBrandFilter(brands);
+				
+		return Arrays.asList(shocksFilter, sizeFilter, costFilter, brandFilter);
 	}
 
 }
