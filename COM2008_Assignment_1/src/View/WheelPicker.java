@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.swing.JFrame;
 
 import Database.WheelOperations;
+import Domain.BicycleComponent;
 import Domain.BrakeType;
 import Domain.TyreType;
 import Domain.Wheel;
@@ -59,7 +60,9 @@ public class WheelPicker extends AbstractPicker<Wheel>{
 		FilterValue<Wheel> hasHybridTyres = new FilterValue<Wheel>("Hybrid Tyres", wheel -> wheel.get_tyre() == TyreType.HYBRID);
 		Filter<Wheel> tyresFilter = new Filter<Wheel>("Tyres",  Arrays.asList(hasRoadTyres, hasMountainTyres, hasHybridTyres));
 		
-		return Arrays.asList(brakesFilter, tyresFilter);
+		Filter<BicycleComponent> costFilter = BicycleComponentFilters.getCostFilter();
+		
+		return Arrays.asList(brakesFilter, tyresFilter, costFilter);
 	}
 
 }
