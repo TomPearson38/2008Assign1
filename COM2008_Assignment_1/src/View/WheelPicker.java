@@ -50,15 +50,16 @@ public class WheelPicker extends AbstractPicker<Wheel>{
 	
 	@Override
 	protected Collection<Filter<Wheel>> getFilters() {
-		FilterValue<Wheel> hasRimBrakes = new FilterValue<Wheel>("Rim Breaks", f -> f.get_brakes() == BrakeType.RIM);
-		FilterValue<Wheel> hasDiskBrakes = new FilterValue<Wheel>("Disk Breaks", f -> f.get_brakes() == BrakeType.DISK);
-		FilterValue<Wheel> hasRoadTyres = new FilterValue<Wheel>("Road Tyres", f -> f.get_tyre() == TyreType.ROAD);
-		FilterValue<Wheel> hasMountainTyres = new FilterValue<Wheel>("Mountain Tyres", f -> f.get_tyre() == TyreType.MOUNTAIN);
-		FilterValue<Wheel> hasHybridTyres = new FilterValue<Wheel>("Hybrid Tyres", f -> f.get_tyre() == TyreType.HYBRID);
-
-		Filter<Wheel> wheelFilter = new Filter<Wheel>("Wheel",  Arrays.asList(hasRimBrakes, hasDiskBrakes, hasRoadTyres, hasMountainTyres, hasHybridTyres));
+		FilterValue<Wheel> hasRimBrakes = new FilterValue<Wheel>("Rim Breaks", wheel -> wheel.get_brakes() == BrakeType.RIM);
+		FilterValue<Wheel> hasDiskBrakes = new FilterValue<Wheel>("Disk Breaks", wheel -> wheel.get_brakes() == BrakeType.DISK);
+		Filter<Wheel> brakesFilter = new Filter<Wheel>("Brakes",  Arrays.asList(hasRimBrakes, hasDiskBrakes));
 		
-		return Arrays.asList(wheelFilter);
+		FilterValue<Wheel> hasRoadTyres = new FilterValue<Wheel>("Road Tyres", wheel -> wheel.get_tyre() == TyreType.ROAD);
+		FilterValue<Wheel> hasMountainTyres = new FilterValue<Wheel>("Mountain Tyres", wheel -> wheel.get_tyre() == TyreType.MOUNTAIN);
+		FilterValue<Wheel> hasHybridTyres = new FilterValue<Wheel>("Hybrid Tyres", wheel -> wheel.get_tyre() == TyreType.HYBRID);
+		Filter<Wheel> tyresFilter = new Filter<Wheel>("Tyres",  Arrays.asList(hasRoadTyres, hasMountainTyres, hasHybridTyres));
+		
+		return Arrays.asList(brakesFilter, tyresFilter);
 	}
 
 }
