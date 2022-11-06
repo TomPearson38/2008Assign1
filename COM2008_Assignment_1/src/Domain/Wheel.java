@@ -1,6 +1,6 @@
 package Domain;
 
-public class Wheel extends BicycleComponent {
+public class Wheel extends BicycleComponent implements IDataRecord, IToUIString{
 	private double _diameter;
 	private TyreType _tyre;
 	private BrakeType _brakes;
@@ -41,5 +41,11 @@ public class Wheel extends BicycleComponent {
 
 	public void set_brakes(BrakeType _brakes) {
 		this._brakes = _brakes;
+	}
+	
+	@Override
+	public String toUIString() {
+		// TODO Auto-generated method stub
+		return "<html>" + BrandName() + "<br>" + get_diameter() + "cm" + "</html>";
 	}
 }

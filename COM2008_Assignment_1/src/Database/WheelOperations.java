@@ -16,7 +16,7 @@ public class WheelOperations {
 	/*
 	 * Returns all the records in the Wheels table as Wheel objects
 	 */
-	public static Collection<Wheel> getAllGears() {
+	public static Collection<Wheel> getAllWheels() {
 	
 		String sql = """				
 SELECT *

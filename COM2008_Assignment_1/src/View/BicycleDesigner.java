@@ -47,8 +47,19 @@ public class BicycleDesigner extends JDialog {
 			chooseFrameButton.setText("Frame");
 		}
 	}
-	
+		
 	private Wheel _currentWheels;
+	
+	public void setCurrentWheels(Wheel value) {
+		_currentWheels = value;
+		
+		if (_currentWheels != null) {
+			chooseWheelsButton.setText(value.toUIString());
+		} else {
+			chooseWheelsButton.setText("Wheels");
+		}
+	}
+	
 	private Handlebar _currentHandlebars;
 	
 	public BicycleDesigner(JFrame parent) {
@@ -86,6 +97,8 @@ public class BicycleDesigner extends JDialog {
 
 		
 		chooseFrameButton.addActionListener(e -> setCurrentFrameset(FramesetPicker.chooseFrameset(_parent)));
+		chooseWheelsButton.addActionListener(e -> setCurrentWheels(WheelPicker.chooseWheels(_parent)));
+
 		
 		
 		componentsPanel.setLayout(new FlowLayout());
