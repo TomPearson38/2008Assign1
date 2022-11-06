@@ -49,7 +49,7 @@ public class WheelPicker extends AbstractPicker<Wheel>{
 	}
 	
 	@Override
-	protected Collection<Filter<Wheel>> getFilters() {
+	protected Collection<Filter<? super Wheel>> getFilters() {
 		FilterValue<Wheel> hasRimBrakes = new FilterValue<Wheel>("Rim Breaks", wheel -> wheel.get_brakes() == BrakeType.RIM);
 		FilterValue<Wheel> hasDiskBrakes = new FilterValue<Wheel>("Disk Breaks", wheel -> wheel.get_brakes() == BrakeType.DISK);
 		Filter<Wheel> brakesFilter = new Filter<Wheel>("Brakes",  Arrays.asList(hasRimBrakes, hasDiskBrakes));

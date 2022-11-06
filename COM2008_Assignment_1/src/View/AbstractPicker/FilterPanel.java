@@ -15,9 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 class FilterPanel<T> extends JPanel {
-	private Collection<Filter<T>> _filters;
+	private Collection<Filter<? super T>> _filters;
 	
-	private Collection<JComboBox<FilterValue<T>>> dropdowns = new ArrayList<JComboBox<FilterValue<T>>>();
+	private Collection<JComboBox<FilterValue<? super T>>> dropdowns = new ArrayList<JComboBox<FilterValue<? super T>>>();
 	
 	private Collection<FilterPanel.IFilterValuesChangeListener<T>> _changeListeners = new ArrayList<FilterPanel.IFilterValuesChangeListener<T>>();
 	
@@ -33,7 +33,7 @@ class FilterPanel<T> extends JPanel {
 		return dropdowns.stream().<FilterValue<T>>map(d -> (FilterValue<T>)d.getSelectedItem()).<Predicate<T>>map(FilterValue::getPredicate).collect(Collectors.toList());
 	}
 	
-	public FilterPanel(Collection<Filter<T>> filters) {
+	public FilterPanel(Collection<Filter<? super T>> filters) {
 		super();
 		_filters = filters;
 		setUpFilterPanel();
@@ -43,15 +43,15 @@ class FilterPanel<T> extends JPanel {
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
         this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
         
-        final Collection<Filter<T>> filters = _filters;
+        final Collection<Filter<? super T>> filters = _filters;
         
-    	for (Filter<T> f : filters) {
-    		JComboBox<FilterValue<T>> newFilterDropdown = new JComboBox<FilterValue<T>>();
+    	for (Filter<? super T> f : filters) {
+    		JComboBox<FilterValue<? super T>> newFilterDropdown = new JComboBox<FilterValue<? super T>>();
     		
     		FilterValue<T> allValuesFilter = new FilterValue<T>("All", t -> true);
     		newFilterDropdown.addItem(allValuesFilter);
     		
-    		for (FilterValue<T> fv : f.filterValues) {
+    		for (FilterValue<? super T> fv : f.filterValues) {
     			newFilterDropdown.addItem(fv);
     		}
     		

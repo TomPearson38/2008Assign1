@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.swing.JFrame;
 
 import Database.FrameOperations;
+import Domain.BicycleComponent;
 import Domain.Frameset;
 import View.AbstractPicker.AbstractPicker;
 import View.AbstractPicker.Filter;
@@ -48,12 +49,20 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 	}
 	
 	@Override
-	protected Collection<Filter<Frameset>> getFilters() {
-		FilterValue<Frameset> hasShocks = new FilterValue<Frameset>("Shocks", f -> f.get_shocks() == true);
-		FilterValue<Frameset> noShocks = new FilterValue<Frameset>("No shocks", f -> f.get_shocks() == false);
+	protected Collection<Filter<? super Frameset>> getFilters() {
+		FilterValue<Frameset> hasShocks = new FilterValue<Frameset>("Shocks", frame -> frame.get_shocks() == true);
+		FilterValue<Frameset> noShocks = new FilterValue<Frameset>("No shocks", frame -> frame.get_shocks() == false);
 		Filter<Frameset> shocksFilter = new Filter<Frameset>("Shocks",  Arrays.asList(hasShocks, noShocks));
 		
-		return Arrays.asList(shocksFilter);
+		FilterValue<Frameset> smallerThan100 = new FilterValue<Frameset>("< 100", frame -> frame.get_size() < 100);
+		FilterValue<Frameset> from100to500 = new FilterValue<Frameset>("100 - 500", frame -> frame.get_size() < 100 && frame.get_size() < 500);
+		FilterValue<Frameset> greaterThan500 = new FilterValue<Frameset>("> 500", frame -> frame.get_size() > 500);
+		Filter<Frameset> sizeFilter = new Filter<Frameset>("Size",  Arrays.asList(smallerThan100, from100to500, greaterThan500));
+		
+		Filter<BicycleComponent> costFilter = BicycleComponentFilters.getCostFilter();
+		
+		
+		return Arrays.asList(shocksFilter, sizeFilter, costFilter);
 	}
 
 }

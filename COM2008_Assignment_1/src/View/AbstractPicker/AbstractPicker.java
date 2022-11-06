@@ -43,7 +43,13 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     
     protected abstract Collection<PropertyDescriptor<T>> getPropertyDescriptors();
     
-    protected abstract Collection<Filter<T>> getFilters();
+    /*
+     * Gets the filters that can be applied to T.
+     * each Filter<T> becomes a JComboBox dropdown in the filter panel at the top
+     * Filter objects may be of T, or any parent class of type T
+     * For example: you can add the costFilter of type Filter<BicycleComponent> to a list of Filter<Wheel> because Wheel extends BicycleComponent
+     */
+    protected abstract Collection<Filter<? super T>> getFilters();
     
     private void setSelectedObject(T value) {
     	_currentObject = value;
