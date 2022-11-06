@@ -38,8 +38,8 @@ FROM Wheels;
 				String brandName = rs.getString("brand_name");
 				double cost = rs.getDouble("cost");
 				double diameter = rs.getDouble("diameter");
-				TyreType tyre = TyreType.valueOf(rs.getString("tyre_type"));
-				BrakeType brake = BrakeType.valueOf(rs.getString("brake_type"));
+				TyreType tyre = TyreType.valueOf((rs.getString("tyre_type")).toUpperCase());
+				BrakeType brake = BrakeType.valueOf((rs.getString("brake_type")).toUpperCase());
 			   
 			    Wheel retrived_wheel = new Wheel(id, serialNum, brandName, cost, diameter, tyre, brake);
 			   
