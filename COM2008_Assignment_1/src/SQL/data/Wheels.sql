@@ -7,6 +7,6 @@ CREATE TABLE Wheels (
     cost DOUBLE NOT NULL,
     diameter DOUBLE NOT NULL,
     tyre_type ENUM('road','mountain','hybrid') NOT NULL,
-    brake_type ENUM('rim','disc') NOT NULL,
+    brake_type ENUM('rim','disk') NOT NULL,
     PRIMARY KEY (id)
 );
