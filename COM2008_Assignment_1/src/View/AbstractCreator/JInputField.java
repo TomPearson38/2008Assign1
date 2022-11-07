@@ -2,14 +2,14 @@ package View.AbstractCreator;
 
 import java.util.function.Function;
 
-import javax.swing.JComponent;
+import java.awt.Component;
 
-public class JInputField<T> {
+public class JInputField<T, ComponentType extends Component> {
 	
-	private JComponent Component;
-	private Function<JComponent, T> GetValueFromComponent;
+	private ComponentType Component;
+	private Function<ComponentType, T> GetValueFromComponent;
 	
-	public JInputField(JComponent component, Function<JComponent, T> _getValueFromComponent) {
+	public JInputField(ComponentType component, Function<ComponentType, T> _getValueFromComponent) {
 		super();
 		Component = component;
 		GetValueFromComponent = _getValueFromComponent;
@@ -17,5 +17,9 @@ public class JInputField<T> {
 	}
 	public T getValueFromComponent() {
 		return GetValueFromComponent.apply(Component);
+	}
+	
+	public ComponentType getComponent() {
+		return Component;
 	}
 }
