@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.swing.JFrame;
 
+import Database.EnumMappingException;
 import Database.HandlebarOperations;
 import Domain.BicycleComponent;
 import Domain.Handlebar;
@@ -24,14 +25,21 @@ public class HandlebarPicker extends AbstractPicker<Handlebar>{
     public static Handlebar chooseHandlebar(JFrame parent) {
     	HandlebarPicker PickerWindow = new HandlebarPicker(parent);
     	
-    	PickerWindow.setTitle("Wheel Picker");
+    	PickerWindow.setTitle("Handlebar Picker");
     	
     	return PickerWindow.showDialog();  	
     }
 
 	@Override
 	protected Collection<Handlebar> getAvailableObjects() {
-		return HandlebarOperations.getAllHandlebars();
+		Collection<Handlebar> allHandlebars = null;
+		try {
+			 allHandlebars = HandlebarOperations.getAllHandlebars();
+		} catch (EnumMappingException ex) {
+			
+		} finally {
+			return allHandlebars;
+		}
 	}
 
 	@Override

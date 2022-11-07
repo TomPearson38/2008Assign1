@@ -17,7 +17,7 @@ public class HandlebarOperations {
 	/*
 	 * Returns all the records in the Handlebars table as Handlebar objects
 	 */
-	public static Collection<Handlebar> getAllHandlebars() {
+	public static Collection<Handlebar> getAllHandlebars() throws EnumMappingException {
 	
 		String sql = """				
 SELECT id, serial_number, brand_name, cost, style
@@ -41,14 +41,16 @@ FROM Handlebars;
 				String style_string = rs.getString("style");
 				
 				HandlebarStyles style  = null;
-				if (style_string == "high") {
+				if (style_string.equals("high")) {
 					style = HandlebarStyles.HIGH;
 				}
-				else if (style_string == "dropped") {
+				else if (style_string.equals("dropped")) {
 					style = HandlebarStyles.DROPPED;
 				}
-				else if (style_string == "straight") {
+				else if (style_string.equals("straight")) {
 					style = HandlebarStyles.STRAIGHT;
+				} else {
+					throw new EnumMappingException("HandlebarStyle " + style_string + " had no valid domain enum");
 				}
 							   
 				Handlebar retrieved_Handlebar = new Handlebar(id, brand_name, serial_number, cost, style);
