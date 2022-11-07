@@ -5,20 +5,31 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
+import java.text.NumberFormat;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 
+import Database.HandlebarOperations;
 import Domain.Bicycle;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
 
 public class HandlebarCreator extends JDialog {
+	
+	private JIntegerField serialNumberField;
+	private JTextField brandNameField;
+	private JIntegerField costField;
+	private JComboBox<HandlebarStyles> stylesList;
 
 	public HandlebarCreator(Frame owner) {
 		super(owner);
@@ -29,7 +40,8 @@ public class HandlebarCreator extends JDialog {
 		//Serial Number GUI Input Fields:
 		JLabel serialNumberLabel = new JLabel("Serial Number: ");
 		
-		JTextField serialNumberField = new JTextField();
+		
+		JIntegerField serialNumberField = new JIntegerField();
 		serialNumberField.setPreferredSize(new Dimension(200, 20));
 		
 		
@@ -43,9 +55,10 @@ public class HandlebarCreator extends JDialog {
 		
 		
 		//Cost GUI Input Fields:
-		JLabel costLabel = new JLabel("Brand Name: ");
+		JLabel costLabel = new JLabel("Cost: ");
 		
-		JTextField costField = new JTextField();
+		JIntegerField costField = new JIntegerField();
+		
 		costField.setPreferredSize(new Dimension(200, 20));
 		
 		
@@ -55,7 +68,7 @@ public class HandlebarCreator extends JDialog {
 		
 		String [] styles = new String [] {"high", "straight", "dropped"};
 		
-		JComboBox<HandlebarStyles> styleList = new JComboBox<HandlebarStyles>(HandlebarStyles);
+		JComboBox<HandlebarStyles> stylesList = new JComboBox<HandlebarStyles>(HandlebarStyles.values());
 		
 
 		
@@ -73,11 +86,22 @@ public class HandlebarCreator extends JDialog {
 		pane.add(costLabel);
 		pane.add(costField);
 		pane.add(stylesLabel);
-		pane.add(stylesField);
+		pane.add(stylesList);
+		
+		JButton confirmHandlebarAttributes = new JButton("Confirm");
+		confirmHandlebarAttributes.addActionListener(e -> createNewHandlebar());
 
 		
 		//TODO:
 		//ADD OK BUTTON THAT CALLS THE createHandlebar() DATABASE METHOD AFTER VALIDATING INPUT
+	}
+	
+	public void createNewHandlebar() {
+		String brandName = brandNameField.getText();
+		Integer serialNumber = serialNumberField.getInt();
+		Double cost = Double.parseDouble(costField.getText());
+		HandlebarStyles style = (HandlebarStyles)stylesList.getSelectedItem();
+		Handlebar newHandlebar = HandlebarOperations.createHandlebar(brandName, serialNumber, cost, style);
 	}
 	
 	public static Handlebar addHandlebar(Frame owner) {
@@ -92,4 +116,61 @@ public class HandlebarCreator extends JDialog {
         
         return null;
     }
+	
+	class JIntegerField extends JFormattedTextField{
+		
+		private NumberFormatter getIntegerFormatter() {
+			NumberFormat format = NumberFormat.getIntegerInstance();
+			format.setGroupingUsed(false);
+			
+			NumberFormatter numberFormatter = new NumberFormatter(format);
+			numberFormatter.setValueClass(Long.class);
+			numberFormatter.setAllowsInvalid(false);
+			return numberFormatter;
+		}
+		
+		private DefaultFormatterFactory getFactory() {
+			return new DefaultFormatterFactory(getIntegerFormatter());
+		}
+
+		public JIntegerField() {
+			super();
+			this.setFormatterFactory(getFactory());
+			
+		}
+		
+		public int getInt() {
+			return Integer.parseInt(this.getText());
+		}
+		
+	}
+	
+	
+    class JDoubleField extends JFormattedTextField{
+		
+		private NumberFormatter getDoubleFormatter() {
+			NumberFormat format = NumberFormat.getNumberInstance();
+			format.setGroupingUsed(false);
+			
+			NumberFormatter numberFormatter = new NumberFormatter(format);
+			numberFormatter.setValueClass(Long.class);
+			numberFormatter.setAllowsInvalid(false);
+			return numberFormatter;
+		}
+		
+		private DefaultFormatterFactory getFactory() {
+			return new DefaultFormatterFactory(getDoubleFormatter());
+		}
+
+		public JDoubleField() {
+			super();
+			this.setFormatterFactory(getFactory());
+			
+		}
+		
+		public int getInt() {
+			return Integer.parseInt(this.getText());
+		}
+		
+	}
 }
