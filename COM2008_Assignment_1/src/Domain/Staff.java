@@ -1,6 +1,6 @@
 package Domain;
 
-public class Staff {
+public class Staff implements IToUIString{
 	private String _username;
 	private String _password;
 	
@@ -18,5 +18,10 @@ public class Staff {
 			return true;
 		else 
 			return false;
+	}
+	
+	@Override
+	public String toUIString() {
+		return "<html> Username: " + _username + "</html>";
 	}
 }
