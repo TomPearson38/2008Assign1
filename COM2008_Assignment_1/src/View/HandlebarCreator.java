@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -28,8 +29,11 @@ public class HandlebarCreator extends JDialog {
 	
 	private JIntegerField serialNumberField;
 	private JTextField brandNameField;
-	private JIntegerField costField;
+	private JDoubleField costField;
 	private JComboBox<HandlebarStyles> stylesList;
+	
+	private JPanel gridPanel;
+	private JPanel bottomPanel;
 
 	public HandlebarCreator(Frame owner) {
 		super(owner);
@@ -41,7 +45,7 @@ public class HandlebarCreator extends JDialog {
 		JLabel serialNumberLabel = new JLabel("Serial Number: ");
 		
 		
-		JIntegerField serialNumberField = new JIntegerField();
+		serialNumberField = new JIntegerField();
 		serialNumberField.setPreferredSize(new Dimension(200, 20));
 		
 		
@@ -49,7 +53,7 @@ public class HandlebarCreator extends JDialog {
 		//Brand Name GUI Input Fields:
 		JLabel brandNameLabel = new JLabel("Brand Name: ");
 		
-		JTextField brandNameField = new JTextField();
+		brandNameField = new JTextField();
 		brandNameField.setPreferredSize(new Dimension(200, 20));
 		
 		
@@ -57,7 +61,7 @@ public class HandlebarCreator extends JDialog {
 		//Cost GUI Input Fields:
 		JLabel costLabel = new JLabel("Cost: ");
 		
-		JIntegerField costField = new JIntegerField();
+		costField = new JDoubleField();
 		
 		costField.setPreferredSize(new Dimension(200, 20));
 		
@@ -65,31 +69,40 @@ public class HandlebarCreator extends JDialog {
 		
 		//Style GUI Input Fields:
 		JLabel stylesLabel = new JLabel("Styles: ");
-		
-		String [] styles = new String [] {"high", "straight", "dropped"};
-		
-		JComboBox<HandlebarStyles> stylesList = new JComboBox<HandlebarStyles>(HandlebarStyles.values());
+			
+		stylesList = new JComboBox<HandlebarStyles>(HandlebarStyles.values());
 		
 
 		
 		//Set GUI Layout:
-		final Container pane = this.getContentPane();		
-		GridLayout layout = new GridLayout(0,2);
-		pane.setLayout(layout);
+		gridPanel = new JPanel();
+		bottomPanel = new JPanel();
 		
+		GridLayout layout = new GridLayout(0,2);
+		gridPanel.setLayout(layout);
+		
+		bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
 		//Add Created GUI Fields to the pane:
-		pane.add(serialNumberLabel);
-		pane.add(serialNumberField);
-		pane.add(brandNameLabel);
-		pane.add(brandNameField);
-		pane.add(costLabel);
-		pane.add(costField);
-		pane.add(stylesLabel);
-		pane.add(stylesList);
+		gridPanel.add(serialNumberLabel);
+		gridPanel.add(serialNumberField);
+		gridPanel.add(brandNameLabel);
+		gridPanel.add(brandNameField);
+		gridPanel.add(costLabel);
+		gridPanel.add(costField);
+		gridPanel.add(stylesLabel);
+		gridPanel.add(stylesList);
 		
 		JButton confirmHandlebarAttributes = new JButton("Confirm");
 		confirmHandlebarAttributes.addActionListener(e -> createNewHandlebar());
+		
+		bottomPanel.add(confirmHandlebarAttributes);
+		
+		final Container pane = this.getContentPane();	
+		pane.setLayout(new BorderLayout());
+		
+		pane.add(gridPanel, BorderLayout.CENTER);
+		pane.add(bottomPanel, BorderLayout.SOUTH);
 
 		
 		//TODO:
@@ -117,60 +130,5 @@ public class HandlebarCreator extends JDialog {
         return null;
     }
 	
-	class JIntegerField extends JFormattedTextField{
-		
-		private NumberFormatter getIntegerFormatter() {
-			NumberFormat format = NumberFormat.getIntegerInstance();
-			format.setGroupingUsed(false);
-			
-			NumberFormatter numberFormatter = new NumberFormatter(format);
-			numberFormatter.setValueClass(Long.class);
-			numberFormatter.setAllowsInvalid(false);
-			return numberFormatter;
-		}
-		
-		private DefaultFormatterFactory getFactory() {
-			return new DefaultFormatterFactory(getIntegerFormatter());
-		}
 
-		public JIntegerField() {
-			super();
-			this.setFormatterFactory(getFactory());
-			
-		}
-		
-		public int getInt() {
-			return Integer.parseInt(this.getText());
-		}
-		
-	}
-	
-	
-    class JDoubleField extends JFormattedTextField{
-		
-		private NumberFormatter getDoubleFormatter() {
-			NumberFormat format = NumberFormat.getNumberInstance();
-			format.setGroupingUsed(false);
-			
-			NumberFormatter numberFormatter = new NumberFormatter(format);
-			numberFormatter.setValueClass(Long.class);
-			numberFormatter.setAllowsInvalid(false);
-			return numberFormatter;
-		}
-		
-		private DefaultFormatterFactory getFactory() {
-			return new DefaultFormatterFactory(getDoubleFormatter());
-		}
-
-		public JDoubleField() {
-			super();
-			this.setFormatterFactory(getFactory());
-			
-		}
-		
-		public int getInt() {
-			return Integer.parseInt(this.getText());
-		}
-		
-	}
 }

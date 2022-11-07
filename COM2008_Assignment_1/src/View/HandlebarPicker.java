@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.swing.JFrame;
 
+import Database.EnumMappingException;
 import Database.HandlebarOperations;
 import Domain.BicycleComponent;
 import Domain.Handlebar;
@@ -31,7 +32,14 @@ public class HandlebarPicker extends AbstractPicker<Handlebar>{
 
 	@Override
 	protected Collection<Handlebar> getAvailableObjects() {
-		return HandlebarOperations.getAllHandlebars();
+		Collection<Handlebar> allHandlebars = null;
+		try {
+			 allHandlebars = HandlebarOperations.getAllHandlebars();
+		} catch (EnumMappingException ex) {
+			
+		} finally {
+			return allHandlebars;
+		}
 	}
 
 	@Override
