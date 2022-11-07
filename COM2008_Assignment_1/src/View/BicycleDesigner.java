@@ -109,7 +109,6 @@ public class BicycleDesigner extends JDialog {
 		chooseFrameButton.addActionListener(e -> setCurrentFrameset(FramesetPicker.chooseFrameset(_parent)));
 		chooseWheelsButton.addActionListener(e -> setCurrentWheels(WheelPicker.chooseWheels(_parent)));
 		chooseHandlebarsButton.addActionListener(e -> setCurrentHandlebars(HandlebarPicker.chooseHandlebar(_parent)));
-
 		
 		
 		componentsPanel.setLayout(new FlowLayout());

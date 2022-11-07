@@ -11,6 +11,7 @@ import java.util.Collection;
 import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
+import Domain.TyreType;
 
 public class HandlebarOperations {
 	
@@ -40,6 +41,7 @@ FROM Handlebars;
 				double cost = rs.getDouble("cost");
 				String style_string = rs.getString("style");
 				
+
 				HandlebarStyles style  = null;
 				if (style_string.equals("high")) {
 					style = HandlebarStyles.HIGH;
@@ -52,6 +54,7 @@ FROM Handlebars;
 				} else {
 					throw new EnumMappingException("HandlebarStyle " + style_string + " had no valid domain enum");
 				}
+
 							   
 				Handlebar retrieved_Handlebar = new Handlebar(id, brand_name, serial_number, cost, style);
 			   
