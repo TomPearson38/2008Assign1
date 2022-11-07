@@ -24,7 +24,7 @@ public class HandlebarPicker extends AbstractPicker<Handlebar>{
     public static Handlebar chooseHandlebar(JFrame parent) {
     	HandlebarPicker PickerWindow = new HandlebarPicker(parent);
     	
-    	PickerWindow.setTitle("Wheel Picker");
+    	PickerWindow.setTitle("Handlebar Picker");
     	
     	return PickerWindow.showDialog();  	
     }

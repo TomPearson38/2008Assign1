@@ -62,6 +62,16 @@ public class BicycleDesigner extends JDialog {
 	
 	private Handlebar _currentHandlebars;
 	
+	public void setCurrentHandlebars(Handlebar value) {
+		_currentHandlebars = value;
+		
+		if (_currentHandlebars != null) {
+			chooseHandlebarsButton.setText(value.toUIString());
+		} else {
+			chooseHandlebarsButton.setText("Handlebars");
+		}
+	}
+	
 	public BicycleDesigner(JFrame parent) {
 		super(parent);
 		_parent = parent;
@@ -98,7 +108,7 @@ public class BicycleDesigner extends JDialog {
 		
 		chooseFrameButton.addActionListener(e -> setCurrentFrameset(FramesetPicker.chooseFrameset(_parent)));
 		chooseWheelsButton.addActionListener(e -> setCurrentWheels(WheelPicker.chooseWheels(_parent)));
-
+		chooseHandlebarsButton.addActionListener(e -> setCurrentHandlebars(HandlebarPicker.chooseHandlebar(_parent)));
 		
 		
 		componentsPanel.setLayout(new FlowLayout());

@@ -11,6 +11,7 @@ import java.util.Collection;
 import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
+import Domain.TyreType;
 
 public class HandlebarOperations {
 	
@@ -40,16 +41,7 @@ FROM Handlebars;
 				double cost = rs.getDouble("cost");
 				String style_string = rs.getString("style");
 				
-				HandlebarStyles style  = null;
-				if (style_string == "high") {
-					style = HandlebarStyles.HIGH;
-				}
-				else if (style_string == "dropped") {
-					style = HandlebarStyles.DROPPED;
-				}
-				else if (style_string == "straight") {
-					style = HandlebarStyles.STRAIGHT;
-				}
+				HandlebarStyles style  = HandlebarStyles.valueOf((rs.getString("style")).toUpperCase());
 							   
 				Handlebar retrieved_Handlebar = new Handlebar(id, brand_name, serial_number, cost, style);
 			   
