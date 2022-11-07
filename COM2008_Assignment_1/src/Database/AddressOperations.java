@@ -1,46 +1,40 @@
 package Database;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import Domain.BrakeType;
-import Domain.Staff;
-import Domain.TyreType;
-import Domain.Wheel;
+import Domain.Address;
 
-
-public class StaffOperations {
-	/*
-	 * Returns all the records in the Wheels table as Wheel objects
-	 */
-	public static Collection<Staff> getAllStaff() {
-	
+public class AddressOperations {
+	public static Collection<Address> getAllAddresses() {
+		
 		String sql = """				
 SELECT *
-FROM Staff;
+FROM Addresses;
 """;
 		
 		
-		Collection<Staff> Staff;
+		Collection<Address> Addresses;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
 			Statement statement = mySQLConnection.createStatement();
 			
 			ResultSet rs = statement.executeQuery(sql);
 			
-			Staff = new ArrayList<Staff>();
+			Addresses = new ArrayList<Address>();
 			
 			while (rs.next()) {
-				String username = rs.getString("username");
-				String password = rs.getString("password");
-	
-			    Staff retreived_staff = new Staff(username, password);
+				int id = rs.getInt("id");
+				String houseNumName = rs.getString("house_num_name");
+				String streetName = rs.getString("street_name");
+				String postCode = rs.getString("post_code");
 			   
-			    Staff.add(retreived_staff);			   
+			    Address retrived_address = new Address(id, houseNumName, streetName, postCode);
+			   
+			    Addresses.add(retrived_address);			   
 			                    
 			}
 			
@@ -51,7 +45,7 @@ FROM Staff;
 			return null;
 		}
 		
-		return Staff;
+		return Addresses;
 		
-}
+	}
 }

@@ -1,13 +1,12 @@
 package Domain;
 
-public class Address {
-	private int _id;
+public class Address extends DataRecord implements IDataRecord, IToUIString{
 	private String _houseNumName;
 	private String _streetName;
 	private String _postCode;
 	
 	public Address(int id, String houseNumName, String streetName, String postCode) {
-		_id = id;
+		super(id);
 		_houseNumName = houseNumName;
 		_streetName = streetName;
 		_postCode = postCode;
@@ -36,5 +35,14 @@ public class Address {
 	
 	public void set_postCode(String newPost) {
 		_postCode = newPost;
+	}
+	
+	public String toString() {
+		return "" + get_houseNumName() + ", " + get_streetName() + ", " + get_postCode();
+	}
+
+	@Override
+	public String toUIString() {
+		return "<html>House Number/Name" + get_houseNumName() + "<br>Street Name: " + get_streetName() + "<br>Postcode: " + get_postCode() + "</html>";
 	}
 }

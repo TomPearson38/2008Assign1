@@ -15,12 +15,12 @@ INSERT INTO Gearsets(name) VALUES ("10 Speed");
 
 INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1100001, "Dannies", 19.99, 3);
 INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1100002, "Dannies", 99.99, 3);
-INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1100003, "Forwards", 199.99, 3);
-INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1200001, "TallNMighty", 59.99, 3);
-INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1200002, "TallNMighty", 99.99, 3);
-INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1200003, "Giants", 119.99, 3);
-INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1300001, "LowRiderz", 99.99, 3);
-INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1300002, "Dannies", 19.99, 3);
+INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1100003, "Forwards", 199.99, 2);
+INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1200001, "TallNMighty", 59.99, 1);
+INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1200002, "TallNMighty", 99.99, 1);
+INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1200003, "Giants", 119.99, 1);
+INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1300001, "LowRiderz", 99.99, 2);
+INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1300002, "Dannies", 19.99, 1);
 INSERT INTO Handlebars(serial_number, brand_name, cost, style) VALUES (1300003, "LowRiderz", 119.99, 3);
 
 INSERT INTO Wheels(serial_number, brand_name, cost, diameter, tyre_type, brake_type) VALUES (2110001, "Dannies", 59.99, 650.0, 1, 1);
