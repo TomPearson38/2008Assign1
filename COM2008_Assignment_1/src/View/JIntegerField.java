@@ -8,8 +8,13 @@ public class JIntegerField extends JRegexField {
 		return "^\\d+$";
 	}
 	
-	public int getInt() {
-		return Integer.parseInt(this.getText());
+	public Integer getInt() {
+		String fieldText = this.getText();
+		if (fieldText.isEmpty()) {
+			return null;
+		}
+		
+		return Integer.parseInt(fieldText);
 	}
 
 }

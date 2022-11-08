@@ -8,8 +8,13 @@ public class JDoubleField extends JRegexField {
 		return "[0-9]*\\.?[0-9]*";
 	}
 	
-	public double getDouble() {
-		return Integer.parseInt(this.getText());
+	public Double getDouble() {
+		String fieldText = this.getText();
+		if (fieldText.isEmpty()) {
+			return null;
+		}
+		
+		return (double)Integer.parseInt(fieldText);
 	}
 
 }
