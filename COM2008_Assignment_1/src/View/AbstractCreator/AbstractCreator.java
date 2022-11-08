@@ -9,6 +9,7 @@ import java.awt.Frame;
 import java.awt.GridLayout;
 import java.text.NumberFormat;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,6 +17,7 @@ import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -37,10 +39,14 @@ public abstract class AbstractCreator<T> extends JDialog {
 	
 	private JPanel gridPanel;
 	private JPanel bottomPanel;
+	
+	private Frame parent;
+	final Collection<GridRow> gridValuesToAdd = getGridValues();
 
 	public AbstractCreator(Frame owner) {
 		super(owner);
 		addComponents();
+		parent = owner;
 	}
 	
 	protected abstract Collection<GridRow> getGridValues();
@@ -59,7 +65,7 @@ public abstract class AbstractCreator<T> extends JDialog {
 		bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
 		JButton confirmAttributes = new JButton("Confirm");
-		confirmAttributes.addActionListener(e -> createNewObject());
+		confirmAttributes.addActionListener(e -> confirmButtonClicked());
 		
 		bottomPanel.add(confirmAttributes);
 		
@@ -69,18 +75,26 @@ public abstract class AbstractCreator<T> extends JDialog {
 		pane.add(gridPanel, BorderLayout.CENTER);
 		pane.add(bottomPanel, BorderLayout.SOUTH);
 		
-		final Collection<GridRow> gridValuesToAdd = getGridValues();
-		
 		gridValuesToAdd.forEach(gridRow -> {
-			gridPanel.add(new JLabel(gridRow.getLabelText()));
+			gridPanel.add(new JLabel(gridRow.getLabelText() + ": "));
 			gridPanel.add(gridRow.getInputField().getComponent());
 		});
 	}
 	
 	T result = null;
-	public void createNewObject() {
-		T objectFromDatabase = sendValueToDatabase();
+	public void confirmButtonClicked() {
 		
+		Collection<GridRow> invalidRows = gridValuesToAdd.stream().filter(row -> !row.getIsRowValid()).collect(Collectors.toList());
+		if (invalidRows.size() > 0) {
+			String [] invalidRowLabels = invalidRows.stream().map(GridRow::getLabelText).toArray(String[]::new);
+			JOptionPane.showMessageDialog(parent, "The following rows are invalid: " + String.join(", ", invalidRowLabels), "Error: Input Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		T objectFromDatabase = sendValueToDatabase();
+		if (objectFromDatabase == null) {
+			JOptionPane.showMessageDialog(parent, "Error: Invalid Input", "Input Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		result = objectFromDatabase;
 		this.setVisible(false);
 	}

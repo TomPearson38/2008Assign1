@@ -35,31 +35,34 @@ public class HandlebarCreator extends AbstractCreator<Handlebar> {
 	protected Collection<GridRow> getGridValues() {
 
 		serialNumberRow = new GridRow<Integer, JIntegerField>(
-				"Serial Number: ", 
+				"Serial Number", 
 				new JInputField<Integer, JIntegerField>(
 						new JIntegerField(), 
 						Field -> Field.getInt()
-						)
+						),
+				row -> row.getInputField().getValueFromComponent() != null
 				);
 		
 		brandNameRow = new GridRow<String, JTextField>(
-				"Brand Name: ", 
+				"Brand Name", 
 				new JInputField<String, JTextField>(
 						new JTextField(), 
 						Field -> Field.getText()
-						)
+						),
+				row -> row.getInputField().getValueFromComponent() != null && !row.getInputField().getValueFromComponent().isEmpty()
 				);
 		
 		costRow = new GridRow<Double, JDoubleField>(
-				"Cost: ", 
+				"Cost", 
 				new JInputField<Double, JDoubleField>(
 						new JDoubleField(), 
 						Field -> Field.getDouble()
-						)
+						),
+				row -> row.getInputField().getValueFromComponent() != null
 				);
 		
 		stylesRow = new GridRow<HandlebarStyles, JComboBox<HandlebarStyles>>(
-				"Styles: ", 
+				"Styles", 
 				new JInputField<HandlebarStyles, JComboBox<HandlebarStyles>>(
 						new JComboBox<HandlebarStyles>(HandlebarStyles.values()),
 						Field -> (HandlebarStyles)Field.getSelectedItem()
