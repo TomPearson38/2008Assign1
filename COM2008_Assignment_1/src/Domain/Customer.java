@@ -1,19 +1,18 @@
 package Domain;
 
-public class Customer {
-	private int _id;
+public class Customer extends DataRecord implements IDataRecord, IToUIString{
 	private String _forename;
 	private String _surname;
 	private Address _address;
 	
 	public Customer(int id, String forename, String surname, Address a) {
-		_id = id;
+		super(id);
 		_forename = forename;
 		_surname = surname;
 		_address = a;
 	}
 
-	public String get_full_Name() {
+	public String get_full_name() {
 		return _forename + " " + _surname;
 	}
 	
@@ -39,5 +38,11 @@ public class Customer {
 	
 	public void set_address(Address newAddres) {
 		_address = newAddres;
+	}
+
+	@Override
+	public String toUIString() {
+		return "<html>ID: " + get_id() + "<br>Name:" + get_full_name() 
+				+ "<br>Address:" + get_address().toUIString() + "</html>";
 	}
 }
