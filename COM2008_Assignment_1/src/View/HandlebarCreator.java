@@ -14,13 +14,16 @@ import Domain.HandlebarStyles;
 import View.AbstractCreator.AbstractCreator;
 import View.AbstractCreator.GridRow;
 import View.AbstractCreator.IGridRow;
+import View.AbstractCreator.IntegerCreatorInputField;
+import View.AbstractCreator.StringCreatorInputField;
 import View.AbstractCreator.CreatorInputField;
+import View.AbstractCreator.DoubleCreatorInputField;
 
 public class HandlebarCreator extends AbstractCreator<Handlebar> {
-	GridRow<Integer, JIntegerField> serialNumberRow;
-	GridRow<String, JTextField> brandNameRow;
-	GridRow<Double, JDoubleField> costRow;
-	GridRow<HandlebarStyles, JComboBox<HandlebarStyles>> stylesRow;
+	IGridRow<Integer, JIntegerField> serialNumberRow;
+	IGridRow<String, JTextField> brandNameRow;
+	IGridRow<Double, JDoubleField> costRow;
+	IGridRow<HandlebarStyles, JComboBox<HandlebarStyles>> stylesRow;
 	
 	public HandlebarCreator(Frame owner) {
 		super(owner);
@@ -37,28 +40,19 @@ public class HandlebarCreator extends AbstractCreator<Handlebar> {
 
 		serialNumberRow = new GridRow<Integer, JIntegerField>(
 				"Serial Number", 
-				new CreatorInputField<Integer, JIntegerField>(
-						new JIntegerField(), 
-						Field -> Field.getInt()
-						),
+				new IntegerCreatorInputField(),
 				row -> row.getFieldValue() != null
 				);
 		
 		brandNameRow = new GridRow<String, JTextField>(
 				"Brand Name", 
-				new CreatorInputField<String, JTextField>(
-						new JTextField(), 
-						Field -> Field.getText()
-						),
+				new StringCreatorInputField(),
 				row -> row.getFieldValue() != null && !row.getFieldValue().isEmpty()
 				);
 		
 		costRow = new GridRow<Double, JDoubleField>(
 				"Cost", 
-				new CreatorInputField<Double, JDoubleField>(
-						new JDoubleField(), 
-						Field -> Field.getDouble()
-						),
+				new DoubleCreatorInputField(),
 				row -> row.getFieldValue() != null
 				);
 		
