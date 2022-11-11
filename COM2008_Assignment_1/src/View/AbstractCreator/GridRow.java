@@ -9,15 +9,15 @@ import javax.swing.JComponent;
 
 public class GridRow<T, ComponentType extends Component> implements IGridRow<T, ComponentType> {
 	private String labelText;
-	private CreatorInputField<T, ComponentType> inputField;
+	private ICreatorInputField<T, ComponentType> inputField;
 	
 	private Predicate<GridRow<T, ComponentType>> isRowValid;
 	
-	public GridRow(String labelText, CreatorInputField<T, ComponentType> inputField) {
+	public GridRow(String labelText, ICreatorInputField<T, ComponentType> inputField) {
 		this(labelText, inputField, row -> true);
 	}
 	
-	public GridRow(String labelText, CreatorInputField<T, ComponentType> inputField,  Predicate<GridRow<T, ComponentType>> isRowValid) {
+	public GridRow(String labelText, ICreatorInputField<T, ComponentType> inputField,  Predicate<GridRow<T, ComponentType>> isRowValid) {
 		super();
 		this.labelText = labelText;
 		this.inputField = inputField;

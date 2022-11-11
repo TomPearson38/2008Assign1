@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 import java.awt.Component;
 
-public class CreatorInputField<T, ComponentType extends Component> {
+public class CreatorInputField<T, ComponentType extends Component> implements ICreatorInputField<T, ComponentType> {
 	
 	private ComponentType Component;
 	private Function<ComponentType, T> GetValueFromComponent;
