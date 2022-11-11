@@ -15,9 +15,12 @@ import View.AbstractCreator.AbstractCreator;
 import View.AbstractCreator.GridRow;
 import View.AbstractCreator.IGridRow;
 import View.AbstractCreator.IntegerCreatorInputField;
+import View.AbstractCreator.IntegerGridRow;
 import View.AbstractCreator.StringCreatorInputField;
+import View.AbstractCreator.StringGridRow;
 import View.AbstractCreator.CreatorInputField;
 import View.AbstractCreator.DoubleCreatorInputField;
+import View.AbstractCreator.DoubleGridRow;
 
 public class HandlebarCreator extends AbstractCreator<Handlebar> {
 	IGridRow<Integer, JIntegerField> serialNumberRow;
@@ -38,23 +41,11 @@ public class HandlebarCreator extends AbstractCreator<Handlebar> {
 	@Override
 	protected Collection<IGridRow> getGridValues() {
 
-		serialNumberRow = new GridRow<Integer, JIntegerField>(
-				"Serial Number", 
-				new IntegerCreatorInputField(),
-				row -> row.getFieldValue() != null
-				);
+		serialNumberRow = new IntegerGridRow("Serial Number");
 		
-		brandNameRow = new GridRow<String, JTextField>(
-				"Brand Name", 
-				new StringCreatorInputField(),
-				row -> row.getFieldValue() != null && !row.getFieldValue().isEmpty()
-				);
+		brandNameRow = new StringGridRow("Brand Name");
 		
-		costRow = new GridRow<Double, JDoubleField>(
-				"Cost", 
-				new DoubleCreatorInputField(),
-				row -> row.getFieldValue() != null
-				);
+		costRow = new DoubleGridRow("Cost");
 		
 		stylesRow = new GridRow<HandlebarStyles, JComboBox<HandlebarStyles>>(
 				"Styles", 
