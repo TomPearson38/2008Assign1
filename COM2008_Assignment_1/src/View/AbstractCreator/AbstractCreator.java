@@ -41,7 +41,7 @@ public abstract class AbstractCreator<T> extends JDialog {
 	private JPanel bottomPanel;
 	
 	private Frame parent;
-	final Collection<GridRow> gridValuesToAdd = getGridValues();
+	final Collection<IGridRow> gridValuesToAdd = getGridValues();
 
 	public AbstractCreator(Frame owner) {
 		super(owner);
@@ -49,7 +49,7 @@ public abstract class AbstractCreator<T> extends JDialog {
 		parent = owner;
 	}
 	
-	protected abstract Collection<GridRow> getGridValues();
+	protected abstract Collection<IGridRow> getGridValues();
 	
 	protected abstract T sendValueToDatabase();
 	
@@ -76,17 +76,17 @@ public abstract class AbstractCreator<T> extends JDialog {
 		pane.add(bottomPanel, BorderLayout.SOUTH);
 		
 		gridValuesToAdd.forEach(gridRow -> {
-			gridPanel.add(new JLabel(gridRow.getLabelText() + ": "));
-			gridPanel.add(gridRow.getInputField().getComponent());
+			gridPanel.add(new JLabel(gridRow.getRowLabel() + ": "));
+			gridPanel.add(gridRow.getGridRowComponent());
 		});
 	}
 	
 	T result = null;
 	public void confirmButtonClicked() {
 		
-		Collection<GridRow> invalidRows = gridValuesToAdd.stream().filter(row -> !row.getIsRowValid()).collect(Collectors.toList());
+		Collection<IGridRow> invalidRows = gridValuesToAdd.stream().filter(row -> !row.isRowValid()).collect(Collectors.toList());
 		if (invalidRows.size() > 0) {
-			String [] invalidRowLabels = invalidRows.stream().map(GridRow::getLabelText).toArray(String[]::new);
+			String [] invalidRowLabels = invalidRows.stream().map(IGridRow::getRowLabel).toArray(String[]::new);
 			JOptionPane.showMessageDialog(parent, "The following rows are invalid: " + String.join(", ", invalidRowLabels), "Error: Input Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}

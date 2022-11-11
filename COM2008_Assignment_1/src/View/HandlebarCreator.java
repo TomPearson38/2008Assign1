@@ -13,7 +13,8 @@ import Domain.Handlebar;
 import Domain.HandlebarStyles;
 import View.AbstractCreator.AbstractCreator;
 import View.AbstractCreator.GridRow;
-import View.AbstractCreator.JInputField;
+import View.AbstractCreator.IGridRow;
+import View.AbstractCreator.CreatorInputField;
 
 public class HandlebarCreator extends AbstractCreator<Handlebar> {
 	GridRow<Integer, JIntegerField> serialNumberRow;
@@ -32,38 +33,38 @@ public class HandlebarCreator extends AbstractCreator<Handlebar> {
 
 
 	@Override
-	protected Collection<GridRow> getGridValues() {
+	protected Collection<IGridRow> getGridValues() {
 
 		serialNumberRow = new GridRow<Integer, JIntegerField>(
 				"Serial Number", 
-				new JInputField<Integer, JIntegerField>(
+				new CreatorInputField<Integer, JIntegerField>(
 						new JIntegerField(), 
 						Field -> Field.getInt()
 						),
-				row -> row.getInputField().getValueFromComponent() != null
+				row -> row.getFieldValue() != null
 				);
 		
 		brandNameRow = new GridRow<String, JTextField>(
 				"Brand Name", 
-				new JInputField<String, JTextField>(
+				new CreatorInputField<String, JTextField>(
 						new JTextField(), 
 						Field -> Field.getText()
 						),
-				row -> row.getInputField().getValueFromComponent() != null && !row.getInputField().getValueFromComponent().isEmpty()
+				row -> row.getFieldValue() != null && !row.getFieldValue().isEmpty()
 				);
 		
 		costRow = new GridRow<Double, JDoubleField>(
 				"Cost", 
-				new JInputField<Double, JDoubleField>(
+				new CreatorInputField<Double, JDoubleField>(
 						new JDoubleField(), 
 						Field -> Field.getDouble()
 						),
-				row -> row.getInputField().getValueFromComponent() != null
+				row -> row.getFieldValue() != null
 				);
 		
 		stylesRow = new GridRow<HandlebarStyles, JComboBox<HandlebarStyles>>(
 				"Styles", 
-				new JInputField<HandlebarStyles, JComboBox<HandlebarStyles>>(
+				new CreatorInputField<HandlebarStyles, JComboBox<HandlebarStyles>>(
 						new JComboBox<HandlebarStyles>(HandlebarStyles.values()),
 						Field -> (HandlebarStyles)Field.getSelectedItem()
 						)
@@ -74,10 +75,10 @@ public class HandlebarCreator extends AbstractCreator<Handlebar> {
 	}
 	
 	protected Handlebar sendValueToDatabase() {
-		String brandName = brandNameRow.getInputField().getValueFromComponent();
-		int serialNumber = serialNumberRow.getInputField().getValueFromComponent();
-		Double cost = costRow.getInputField().getValueFromComponent();
-		HandlebarStyles style = stylesRow.getInputField().getValueFromComponent();
+		String brandName = brandNameRow.getFieldValue();
+		int serialNumber = serialNumberRow.getFieldValue();
+		Double cost = costRow.getFieldValue();
+		HandlebarStyles style = stylesRow.getFieldValue();
 		
 		Handlebar newHandlebar = HandlebarOperations.createHandlebar(brandName, serialNumber, cost, style);
 		return newHandlebar;

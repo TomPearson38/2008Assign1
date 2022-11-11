@@ -7,35 +7,41 @@ import java.util.function.Predicate;
 
 import javax.swing.JComponent;
 
-public class GridRow<T, ComponentType extends Component> {
+public class GridRow<T, ComponentType extends Component> implements IGridRow<T, ComponentType> {
 	private String labelText;
-	private JInputField<T, ComponentType> inputField;
+	private CreatorInputField<T, ComponentType> inputField;
 	
 	private Predicate<GridRow<T, ComponentType>> isRowValid;
 	
-	public GridRow(String labelText, JInputField<T, ComponentType> inputField) {
+	public GridRow(String labelText, CreatorInputField<T, ComponentType> inputField) {
 		this(labelText, inputField, row -> true);
 	}
 	
-	public GridRow(String labelText, JInputField<T, ComponentType> inputField,  Predicate<GridRow<T, ComponentType>> isRowValid) {
+	public GridRow(String labelText, CreatorInputField<T, ComponentType> inputField,  Predicate<GridRow<T, ComponentType>> isRowValid) {
 		super();
 		this.labelText = labelText;
 		this.inputField = inputField;
 		this.isRowValid = isRowValid;
 	}
 	
-	
+	@Override
+	public Boolean isRowValid() {
+		return isRowValid.test(this);
+	}
 
-	public String getLabelText() {
+	@Override
+	public String getRowLabel() {
 		return labelText;
 	}
 
-	public JInputField<T, ComponentType> getInputField() {
-		return inputField;
+	@Override
+	public T getFieldValue() {
+		return inputField.getValueFromComponent();
 	}
 
-	public Boolean getIsRowValid() {
-		return isRowValid.test(this);
+	@Override
+	public ComponentType getGridRowComponent() {
+		return inputField.getComponent();
 	}
 	
 	
