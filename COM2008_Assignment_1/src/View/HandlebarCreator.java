@@ -21,6 +21,8 @@ import View.AbstractCreator.StringGridRow;
 import View.AbstractCreator.CreatorInputField;
 import View.AbstractCreator.DoubleCreatorInputField;
 import View.AbstractCreator.DoubleGridRow;
+import View.AbstractCreator.EnumCreatorInputField;
+import View.AbstractCreator.EnumGridRow;
 
 public class HandlebarCreator extends AbstractCreator<Handlebar> {
 	IGridRow<Integer, JIntegerField> serialNumberRow;
@@ -47,13 +49,7 @@ public class HandlebarCreator extends AbstractCreator<Handlebar> {
 		
 		costRow = new DoubleGridRow("Cost");
 		
-		stylesRow = new GridRow<HandlebarStyles, JComboBox<HandlebarStyles>>(
-				"Styles", 
-				new CreatorInputField<HandlebarStyles, JComboBox<HandlebarStyles>>(
-						new JComboBox<HandlebarStyles>(HandlebarStyles.values()),
-						Field -> (HandlebarStyles)Field.getSelectedItem()
-						)
-				);
+		stylesRow = new EnumGridRow<HandlebarStyles>("Styles", HandlebarStyles.values());
 		
 		
 		return Arrays.asList(serialNumberRow, brandNameRow, costRow, stylesRow);

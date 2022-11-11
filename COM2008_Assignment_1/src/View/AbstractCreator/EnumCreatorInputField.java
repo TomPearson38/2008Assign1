@@ -1,14 +1,13 @@
 package View.AbstractCreator;
 
 import javax.swing.JComboBox;
-import javax.swing.JTextField;
 
-import Domain.HandlebarStyles;
+import View.JDoubleField;
 
 public class EnumCreatorInputField<E extends Enum<E>> extends CreatorInputField<E, JComboBox<E>> {
 
-	public EnumCreatorInputField(E _enum) {
-		super(new JComboBox<E>(_enum.values()), Field -> (E)Field.getSelectedItem());
+	public EnumCreatorInputField(E[] enumValues) {
+		super(new JComboBox<E>(enumValues), component -> (E)component.getSelectedItem());
 	}
 
 }
