@@ -1,6 +1,14 @@
 package Domain;
 
 public enum BrakeType {
-	RIM,
-	DISK
+	RIM{ 
+		public String toString() {
+			return "Rim";
+		}
+    },
+	DISK{ 
+		public String toString() {
+			return "Disk";
+		}
+    }
 }
