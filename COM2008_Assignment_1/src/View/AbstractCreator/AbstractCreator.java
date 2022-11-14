@@ -35,7 +35,6 @@ public abstract class AbstractCreator<T> extends JDialog {
 	private JIntegerField serialNumberField;
 	private JTextField brandNameField;
 	private JIntegerField costField;
-	private JComboBox<HandlebarStyles> stylesList;
 	
 	private JPanel gridPanel;
 	private JPanel bottomPanel;
