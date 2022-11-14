@@ -1,5 +1,8 @@
 package Database;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,7 +49,6 @@ FROM Staff;
 			
 			statement.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -56,13 +58,22 @@ FROM Staff;
 	}
 	
 	public static Staff attemptLogin(String attemptUsername, String attemptPassword) {
+		
+		String hashedPassword;
+		try {
+			hashedPassword = getSHA(attemptPassword);
+		} catch (NoSuchAlgorithmException e1) {
+			hashedPassword = attemptPassword;
+			e1.printStackTrace();
+		}
+		
 		String sql = """				
 SELECT username, password
 FROM Staff
-WHERE username = '""" + attemptUsername + "' AND password = '" + attemptPassword + "';";
+WHERE username = '""" + attemptUsername + "' AND password = '" + hashedPassword + "';";
 				
 		Staff selectedStaff = null;
-		
+				
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
 			Statement statement = mySQLConnection.createStatement();
 			
@@ -84,6 +95,14 @@ WHERE username = '""" + attemptUsername + "' AND password = '" + attemptPassword
 		}
 		
 		return selectedStaff;
+	}
+	
+	private static String getSHA(String unEncoded) throws NoSuchAlgorithmException{
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		byte[] hash = digest.digest(unEncoded.getBytes(StandardCharsets.UTF_8));
+		String hashedPassword = hash.toString();
+		
+		return hashedPassword;
 	}
 	
 	

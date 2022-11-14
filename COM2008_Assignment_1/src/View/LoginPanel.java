@@ -72,7 +72,7 @@ public class LoginPanel extends JDialog implements ActionListener {
 		if(command.equals("Login")) {
 			loggedInUser = StaffOperations.attemptLogin(usernameField.getText(), passwordField.getText());
 			if(loggedInUser != null) {
-				System.out.println(loggedInUser.toString());
+				System.out.println("Welcome" + loggedInUser.toString());
 			}
 			else {
 				System.out.println("INCORRECT LOGIN DETAILS");
