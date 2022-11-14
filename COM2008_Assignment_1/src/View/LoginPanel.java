@@ -7,13 +7,18 @@ import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class LoginPanel extends JDialog {
+import Database.StaffOperations;
+import Domain.Staff;
+
+public class LoginPanel extends JDialog implements ActionListener {
 
 	JTextField usernameField = new JTextField(20);
-	JTextField passwordField = new JTextField(20);
+	JPasswordField passwordField = new JPasswordField(20);
 	JButton loginButton = new JButton("Login");
 	JPanel fillerPanel = new JPanel(new GridLayout(0,2));
 	
@@ -21,7 +26,9 @@ public class LoginPanel extends JDialog {
 	JPanel passwordPanel = new JPanel(new GridLayout(1,0));
 	JPanel buttonPanel = new JPanel(new BorderLayout());
 
-
+	Staff loggedInUser = null;
+	
+	JLabel name = new JLabel();
 	
 	
 	public LoginPanel(String title) {		
@@ -53,10 +60,26 @@ public class LoginPanel extends JDialog {
 
 		contentPanel.add(fillerPanel);
 
+		loginButton.addActionListener(this);
+				
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 
 	}
+	
+	public void actionPerformed(ActionEvent event) {
+		String command = event.getActionCommand();
+		if(command.equals("Login")) {
+			loggedInUser = StaffOperations.attemptLogin(usernameField.getText(), passwordField.getText());
+			if(loggedInUser != null) {
+				System.out.println(loggedInUser.toString());
+			}
+			else {
+				System.out.println("INCORRECT LOGIN DETAILS");
+			}
+		}
+	}
+	
 	
 	public static void main(String[] args) {
 		new LoginPanel("Staff Login");

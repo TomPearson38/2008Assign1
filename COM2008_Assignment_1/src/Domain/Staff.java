@@ -24,4 +24,8 @@ public class Staff implements IToUIString{
 	public String toUIString() {
 		return "<html> Username: " + _username + "</html>";
 	}
+	
+	public String toString() {
+		return _username;
+	}
 }

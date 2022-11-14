@@ -16,7 +16,7 @@ import Domain.Wheel;
 
 public class StaffOperations {
 	/*
-	 * Returns all the records in the Wheels table as Wheel objects
+	 * Returns all the records in the Staff table as Staff objects
 	 */
 	public static Collection<Staff> getAllStaff() {
 	
@@ -53,5 +53,38 @@ FROM Staff;
 		
 		return Staff;
 		
-}
+	}
+	
+	public static Staff attemptLogin(String attemptUsername, String attemptPassword) {
+		String sql = """				
+SELECT username, password
+FROM Staff
+WHERE username = '""" + attemptUsername + "' AND password = '" + attemptPassword + "';";
+				
+		Staff selectedStaff = null;
+		
+		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
+			Statement statement = mySQLConnection.createStatement();
+			
+			ResultSet rs = statement.executeQuery(sql);
+			
+			
+			while (rs.next()) {
+				String username = rs.getString("username");
+				String password = rs.getString("password");
+				
+				selectedStaff = new Staff(username, password);	
+			}
+			
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		return selectedStaff;
+	}
+	
+	
 }
