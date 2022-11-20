@@ -51,3 +51,23 @@ INSERT INTO Frames(serial_number, brand_name, cost, size, shocks, gears_id) VALU
 INSERT INTO Frames(serial_number, brand_name, cost, size, shocks, gears_id) VALUES (312006, "Dannies", 229.99, 119.0, FALSE, (SELECT id FROM Gearsets WHERE name="10 Speed"));
 INSERT INTO Frames(serial_number, brand_name, cost, size, shocks, gears_id) VALUES (312007, "Dannies", 249.99, 129.0, FALSE, (SELECT id FROM Gearsets WHERE name="8 Speed"));
 INSERT INTO Frames(serial_number, brand_name, cost, size, shocks, gears_id) VALUES (312008, "Dannies", 299.99, 129.0, TRUE, (SELECT id FROM Gearsets WHERE name="3 Speed"));
+
+INSERT INTO Addresses(house_num_name, street_name, post_code) VALUES ('6', 'Moss Fold', 'M29 7FP');
+INSERT INTO Addresses(house_num_name, street_name, post_code) VALUES ('12', 'Street Lane', 'S10 1HS');
+INSERT INTO Addresses(house_num_name, street_name, post_code) VALUES ('76', 'West View', 'S1 9LS');
+INSERT INTO Addresses(house_num_name, street_name, post_code) VALUES ('Small Grotto', 'Country Lane', 'L21 1AP');
+INSERT INTO Addresses(house_num_name, street_name, post_code) VALUES ('Babble', 'Space Station', 'SP1 1AA');
+
+INSERT INTO Staff(username, password) VALUES ('User1', '008c70392e3abfbd0fa47bbc2ed96aa99bd49e159727fcba0f2e6abeb3a9d601'); /*Password123*/
+INSERT INTO Staff(username, password) VALUES ('LogicInReason', 'd9ba78c4143760c9a116cfbc40ac334b03fe247016793111c54623c04cfa71ac'); /*Under_Pr3ssur3*/
+INSERT INTO Staff(username, password) VALUES ('AdamFirstName', '45f5bddf86fe8f0af2af0c4ccddf1402de36071a9b094e2ef980e3cab29137bc'); /*MiddleName!!1*/
+INSERT INTO Staff(username, password) VALUES ('AlexAdmin', '46b28ac4602b66e81dc884598730b34770f2477d9ee3a72f339f3f5018212b58'); /*JavaGod1*/
+INSERT INTO Staff(username, password) VALUES ('OwenMakingAStart', 'e295f6cf317791a77d28c229298f733f20e1e414d459b6f1a1acf34ad6e075b0'); /*Slug&Lettuce4Life*/
+
+INSERT INTO Customers(forename, surname, address_id) VALUES ('Tom', 'Pearson', 1);
+INSERT INTO Customers(forename, surname, address_id) VALUES ('Owen', 'Davies', 2);
+INSERT INTO Customers(forename, surname, address_id) VALUES ('Dianne', 'Foster', 3);
+INSERT INTO Customers(forename, surname, address_id) VALUES ('Frederick', 'Coles', 4);
+INSERT INTO Customers(forename, surname, address_id) VALUES ('Derick', 'Thompson', 5);
+INSERT INTO Customers(forename, surname, address_id) VALUES ('Jenny', 'Wilkinson', 2);
+INSERT INTO Customers(forename, surname, address_id) VALUES ('Geoff', 'Pearson', 1);
