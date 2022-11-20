@@ -18,10 +18,13 @@ import Domain.Wheel;
 
 
 public class StaffOperations {
+	
+	private static ArrayList<Staff> allStaff = (ArrayList<Staff>) getAllStaff();
+	
 	/*
 	 * Returns all the records in the Staff table as Staff objects
 	 */
-	public static Collection<Staff> getAllStaff() {
+	private static Collection<Staff> getAllStaff() {
 	
 		String sql = """				
 SELECT *
@@ -58,7 +61,6 @@ FROM Staff;
 	}
 	
 	public static Staff attemptLogin(String attemptUsername, String attemptPassword) {
-		
 		String hashedPassword;
 		try {
 			hashedPassword = getSHA(attemptPassword);
@@ -67,43 +69,40 @@ FROM Staff;
 			e1.printStackTrace();
 		}
 		
-		String sql = """				
-SELECT username, password
-FROM Staff
-WHERE username = '""" + attemptUsername + "' AND password = '" + hashedPassword + "';";
-				
-		Staff selectedStaff = null;
-				
-		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
-			Statement statement = mySQLConnection.createStatement();
-			
-			ResultSet rs = statement.executeQuery(sql);
-			
-			
-			while (rs.next()) {
-				String username = rs.getString("username");
-				String password = rs.getString("password");
-				
-				selectedStaff = new Staff(username, password);	
+		Staff foundUser = null;
+		
+		for(Staff currentStaff: allStaff) {
+			if(currentStaff.validLogin(attemptUsername, hashedPassword)) {
+				foundUser = currentStaff;
+				break;
 			}
-			
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
 		}
 		
-		return selectedStaff;
+		return foundUser;
 	}
 	
+	
+	//SHA encryption code is taken from 
+	//https://www.baeldung.com/sha-256-hashing-java
+	//Referenced from their GitHub repository (https://github.com/eugenp/tutorials) which is under MIT licence
 	private static String getSHA(String unEncoded) throws NoSuchAlgorithmException{
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
 		byte[] hash = digest.digest(unEncoded.getBytes(StandardCharsets.UTF_8));
-		String hashedPassword = hash.toString();
+		String hashedPassword = bytesToHex(hash);
 		
 		return hashedPassword;
 	}
 	
+	private static String bytesToHex(byte[] hash) {
+	    StringBuilder hexString = new StringBuilder(2 * hash.length);
+	    for (int i = 0; i < hash.length; i++) {
+	        String hex = Integer.toHexString(0xff & hash[i]);
+	        if(hex.length() == 1) {
+	            hexString.append('0');
+	        }
+	        hexString.append(hex);
+	    }
+	    return hexString.toString();
+	}
 	
 }
