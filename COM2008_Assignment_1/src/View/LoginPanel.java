@@ -28,15 +28,16 @@ public class LoginPanel extends JDialog implements ActionListener {
 	
 	JLabel name = new JLabel();
 	
+	private JFrame _parent;
 	
-	public LoginPanel(String title) {		
+	private void startUp(String title) {		
 		setTitle(title);
 		
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = toolkit.getScreenSize();
 		
 		setSize(screenSize.width/4, screenSize.height/4);
-		setLocation(screenSize.width/8 * 3, screenSize.height/8 * 3);
+		setLocationRelativeTo(null); //Compact panel centring
 		
 		Container contentPanel = getContentPane();
 		fillerPanel.setLayout(new GridLayout(3,0));
@@ -78,8 +79,9 @@ public class LoginPanel extends JDialog implements ActionListener {
 		}
 	}
 	
-	
-	public static void main(String[] args) {
-		new LoginPanel("Staff Login");
+	public LoginPanel(JFrame parent) {
+		super(parent);
+		_parent = parent;
+		startUp("Staff Login");
 	}
 }

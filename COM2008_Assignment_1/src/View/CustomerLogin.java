@@ -28,12 +28,14 @@ public class CustomerLogin extends JDialog implements ActionListener {
 	JPanel addressPanel = new JPanel(new GridLayout(1,3));
 	JPanel buttonPanel = new JPanel(new BorderLayout());
 
+	private JFrame _parent;
+	
 	Customer foundCustomer = null;
 	
 	JLabel name = new JLabel();
 	
 	
-	public CustomerLogin(String title) {		
+	private void StartUp(String title) {		
 		setTitle(title);
 		
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -91,8 +93,9 @@ public class CustomerLogin extends JDialog implements ActionListener {
 		}
 	}
 	
-	
-	public static void main(String[] args) {
-		new CustomerLogin("Customer Login");
+	public CustomerLogin(JFrame parent) {
+		super(parent);
+		_parent = parent;
+		StartUp("Customer Login");
 	}
 }

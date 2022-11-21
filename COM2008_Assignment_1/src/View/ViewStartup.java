@@ -8,10 +8,13 @@ public class ViewStartup {
 	
     private static void createAndShowGUI() {
         //Create and set up the window.
-    	BicyclePicker frame = new BicyclePicker();
+    	CustomerMenu frame = new CustomerMenu("Main Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Display the window.
         frame.pack();
+        frame.setLocationRelativeTo(null); //Compact panel centring
+        frame.setSize(500, 300);
+        
         frame.setVisible(true);
     }
     
