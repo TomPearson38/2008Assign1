@@ -12,7 +12,7 @@ import Domain.Customer;
 import Domain.Address;
 
 public class CustomerOperations {
-
+	
 	/*
 	 * Returns all the records in the Customers table as Customer objects
 	 */
@@ -63,7 +63,41 @@ ON Customers.address_id = Addresses.id;
 		
 	}
 
-	public static Collection<String> getBrandsInFramesTable() {
-		return ComponentOperations.getAllBrands("Frames");
+	public static Customer findCustomer(String forename, String surname, String houseNumName, String streetName, String postCode){
+		
+		Address foundAddress = AddressOperations.findAddress(houseNumName, streetName, postCode);
+		
+		if(foundAddress == null)
+			return null;
+		
+		String sqlCustomer = """				
+SELECT id, forename, surname, address_id
+FROM Customers
+WHERE forename = '""" + forename + "' AND surname='" + surname + "' AND address_id='" + foundAddress.get_id() + "';"; 
+				
+		Customer selectedCustomer = null;
+				
+		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
+			Statement statement = mySQLConnection.createStatement();
+			
+			ResultSet rs = statement.executeQuery(sqlCustomer);
+			
+			
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String getForename = rs.getString("forename");
+				String getSurname = rs.getString("surname");
+				
+				selectedCustomer = new Customer(id, getForename, getSurname, foundAddress);	
+			}
+			
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		return selectedCustomer;
 	}
 }
