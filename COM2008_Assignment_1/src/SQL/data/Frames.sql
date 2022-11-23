@@ -8,6 +8,7 @@ CREATE TABLE Frames (
     size DOUBLE NOT NULL,
     shocks BOOLEAN NOT NULL,
     gears_id INTEGER NOT NULL,
+    stock_num INTEGER,
     PRIMARY KEY (id),
     FOREIGN KEY (gears_id) REFERENCES Gearsets(id)
 );

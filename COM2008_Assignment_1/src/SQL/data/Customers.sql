@@ -6,5 +6,5 @@ CREATE TABLE Customers (
     surname VARCHAR(20) NOT NULL,
     address_id INTEGER NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (address_id) REFERENCES addresses(id)
-)
+    FOREIGN KEY (address_id) REFERENCES Addresses(id)
+);
