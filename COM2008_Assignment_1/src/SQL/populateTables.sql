@@ -86,11 +86,11 @@ INSERT INTO Customers(forename, surname, address_id) VALUES ('Derick', 'Thompson
 INSERT INTO Customers(forename, surname, address_id) VALUES ('Jenny', 'Wilkinson', (SELECT id FROM Addresses WHERE house_num_name='6'));
 INSERT INTO Customers(forename, surname, address_id) VALUES ('Geoff', 'Pearson', (SELECT id FROM Addresses WHERE house_num_name='12'));
 
-INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name, cost) VALUES(1, 1, 1, 'Giants Road', 199.97);
-INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name, cost) VALUES(2, 2, 3, 'Giants Mountain', 329.97);
-INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name, cost) VALUES(7, 3, 5, 'Giants Hybrid', 559.97);
-INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name, cost) VALUES(9, 4, 5, 'Dannies Hybrid', 359.97);
-INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name, cost) VALUES(10, 5, 9, 'Dannies Mountain', 309.97);
+INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name) VALUES(1, 1, 1, 'Giants Road');
+INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name) VALUES(2, 2, 3, 'Giants Mountain');
+INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name) VALUES(7, 3, 5, 'Giants Hybrid');
+INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name) VALUES(9, 4, 5, 'Dannies Hybrid');
+INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name) VALUES(10, 5, 9, 'Dannies Mountain');
 
 INSERT INTO Orders(customer_id, customer_given_name, cost, order_status, bike_id, serial_number, order_date) VALUES (1, 'MyNewBike', 209.97, 1, 1, 202211231, '2022-11-23');
 INSERT INTO Orders(customer_id, customer_given_name, cost, order_status, bike_id, serial_number, order_date) VALUES (2, 'BigBike', 339.97, 2, 2, 202205102, '2022-05-10');
