@@ -1,5 +1,6 @@
 USE team028;
 
+DELETE FROM Orders;
 DELETE FROM Bicycles;
 DELETE FROM Frames;
 DELETE FROM Wheels;
@@ -66,11 +67,11 @@ INSERT INTO Frames(serial_number, brand_name, cost, size, shocks, gears_id, stoc
 INSERT INTO Frames(serial_number, brand_name, cost, size, shocks, gears_id, stock_num) VALUES (312007, "Dannies", 249.99, 129.0, FALSE, (SELECT id FROM Gearsets WHERE name="8 Speed"), 5);
 INSERT INTO Frames(serial_number, brand_name, cost, size, shocks, gears_id, stock_num) VALUES (312008, "Dannies", 299.99, 129.0, TRUE, (SELECT id FROM Gearsets WHERE name="3 Speed"), 2);
 
-INSERT INTO Addresses(house_num_name, street_name, post_code) VALUES ('6', 'Moss Fold', 'M29 7FP');
-INSERT INTO Addresses(house_num_name, street_name, post_code) VALUES ('12', 'Street Lane', 'S10 1HS');
-INSERT INTO Addresses(house_num_name, street_name, post_code) VALUES ('76', 'West View', 'S1 9LS');
-INSERT INTO Addresses(house_num_name, street_name, post_code) VALUES ('Small Grotto', 'Country Lane', 'L21 1AP');
-INSERT INTO Addresses(house_num_name, street_name, post_code) VALUES ('Babble', 'Space Station', 'SP1 1AA');
+INSERT INTO Addresses(house_num_name, street_name, city, post_code) VALUES ('6', 'Moss Fold', 'Manchester','M29 7FP');
+INSERT INTO Addresses(house_num_name, street_name, city, post_code) VALUES ('12', 'Street Lane', 'Sheffield','S10 1HS');
+INSERT INTO Addresses(house_num_name, street_name, city, post_code) VALUES ('76', 'West View', 'Sheffield','S1 9LS');
+INSERT INTO Addresses(house_num_name, street_name, city, post_code) VALUES ('Small Grotto', 'Country Lane', 'Middleton','L21 1AP');
+INSERT INTO Addresses(house_num_name, street_name, city, post_code) VALUES ('Babble', 'Space Station', 'Space','SP1 1AA');
 
 INSERT INTO Staff(username, password) VALUES ('User1', '008c70392e3abfbd0fa47bbc2ed96aa99bd49e159727fcba0f2e6abeb3a9d601'); /*Password123*/
 INSERT INTO Staff(username, password) VALUES ('LogicInReason', 'd9ba78c4143760c9a116cfbc40ac334b03fe247016793111c54623c04cfa71ac'); /*Under_Pr3ssur3*/
