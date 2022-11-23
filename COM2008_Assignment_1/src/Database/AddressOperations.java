@@ -32,9 +32,10 @@ FROM Addresses;
 				int id = rs.getInt("id");
 				String houseNumName = rs.getString("house_num_name");
 				String streetName = rs.getString("street_name");
+				String city = rs.getString("city");
 				String postCode = rs.getString("post_code");
 			   
-			    Address retrived_address = new Address(id, houseNumName, streetName, postCode);
+			    Address retrived_address = new Address(id, houseNumName, streetName, city, postCode);
 			   
 			    Addresses.add(retrived_address);			   
 			                    
@@ -51,11 +52,11 @@ FROM Addresses;
 		
 	}
 	
-	public static Address findAddress(String houseNumName, String streetName, String postCode) {		
+	public static Address findAddress(String houseNumName, String streetName, String city ,String postCode) {		
 		String sql = """				
-SELECT id, house_num_name, street_name, post_code
+SELECT id, house_num_name, street_name, city,post_code
 FROM Addresses
-WHERE house_num_name='""" + houseNumName + "' AND street_name='" + streetName + "' AND post_code='"+ postCode + "';";
+WHERE house_num_name='""" + houseNumName + "' AND street_name='" + streetName + "' AND post_code='"+ postCode + "' AND city='" + city +"';";
 		
 		System.out.println(sql);
 
@@ -71,9 +72,10 @@ WHERE house_num_name='""" + houseNumName + "' AND street_name='" + streetName + 
 				int addressID = rs.getInt("id");
 				String foundNum = rs.getString("house_num_name");
 				String foundStreet = rs.getString("street_name");
+				String foundCity = rs.getString("city");
 				String foundPostCode = rs.getString("post_code");
 
-				foundAddress = new Address(addressID, foundNum, foundStreet, foundPostCode);
+				foundAddress = new Address(addressID, foundNum, foundStreet, foundCity,foundPostCode);
 			}
 			
 			statement.close();
@@ -84,4 +86,41 @@ WHERE house_num_name='""" + houseNumName + "' AND street_name='" + streetName + 
 		
 		return foundAddress;
 	}
+
+	public static Address getAddress(int id) {
+		String sql = """				
+SELECT *
+FROM Addresses
+WHERE id='""" + id + "';";
+		
+		System.out.println(sql);
+
+		
+		Address foundAddress = null;
+		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
+			Statement statement = mySQLConnection.createStatement();
+			
+			
+			ResultSet rs = statement.executeQuery(sql);
+						
+			while (rs.next()) {
+				int addressID = rs.getInt("id");
+				String foundNum = rs.getString("house_num_name");
+				String foundStreet = rs.getString("street_name");
+				String foundCity = rs.getString("city");
+				String foundPostCode = rs.getString("post_code");
+
+				foundAddress = new Address(addressID, foundNum, foundStreet, foundCity,foundPostCode);
+			}
+			
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return foundAddress;
+	}
+	
+	
 }

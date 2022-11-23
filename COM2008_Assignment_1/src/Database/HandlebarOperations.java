@@ -8,10 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import Domain.BrakeType;
 import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
 import Domain.TyreType;
+import Domain.Wheel;
 
 public class HandlebarOperations {
 	
@@ -21,7 +23,7 @@ public class HandlebarOperations {
 	public static Collection<Handlebar> getAllHandlebars() throws EnumMappingException {
 	
 		String sql = """				
-SELECT id, serial_number, brand_name, cost, style
+SELECT id, serial_number, brand_name, cost, style, stock_num
 FROM Handlebars;
 """;
 		
@@ -54,9 +56,11 @@ FROM Handlebars;
 				} else {
 					throw new EnumMappingException("HandlebarStyle " + style_string + " had no valid domain enum");
 				}
+				
+				int stock_num = rs.getInt("stock_num");
 
 							   
-				Handlebar retrieved_Handlebar = new Handlebar(id, brand_name, serial_number, cost, style);
+				Handlebar retrieved_Handlebar = new Handlebar(id, brand_name, serial_number, cost, style, stock_num);
 			   
 				Handlebars.add(retrieved_Handlebar);			   
 			                    
@@ -73,10 +77,45 @@ FROM Handlebars;
 		
 	}
 	
-	public static Handlebar createHandlebar(String brandName, int serialNumber, double cost, HandlebarStyles style) {
+	public static Handlebar getHandlebar(int idNum) {
+		String sql = """				
+SELECT *
+FROM Handlebars
+WHERE id='"""+idNum+"';";
+		
+		
+		Handlebar currentHandleBar = null;
+		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
+			Statement statement = mySQLConnection.createStatement();
+			
+			ResultSet rs = statement.executeQuery(sql);
+						
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				int serialNum = rs.getInt("serial_number");
+				String brandName = rs.getString("brand_name");
+				double cost = rs.getDouble("cost");
+				HandlebarStyles handlebarStyle = HandlebarStyles.valueOf((rs.getString("style")).toUpperCase());
+				int stockNum = rs.getInt("stock_num");
+			   
+				currentHandleBar = new Handlebar(id, brandName, serialNum, cost, handlebarStyle, stockNum);
+			   			                    
+			}
+			
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		return currentHandleBar;	
+	}
+	
+	public static Handlebar createHandlebar(String brandName, int serialNumber, double cost, HandlebarStyles style, int stockNum) {
 		String sqlTemplate = """
-				INSERT INTO Handlebars(serial_number, brand_name, cost, style)
-				VALUES(?,?,?,?);
+				INSERT INTO Handlebars(serial_number, brand_name, cost, style, stock_num)
+				VALUES(?,?,?,?,?);
 				""";
 						
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -98,6 +137,7 @@ FROM Handlebars;
 				style_string = "straight";
 			}
 			statement.setString(4, style_string);
+			statement.setInt(5, stockNum);
 			
 			int rowAffected = statement.executeUpdate();
 			if (rowAffected == 1) {
@@ -106,7 +146,7 @@ FROM Handlebars;
 					
 					int handlebarId = rs.getInt(1);
 					
-					return new Handlebar(handlebarId, brandName, serialNumber, cost, style);
+					return new Handlebar(handlebarId, brandName, serialNumber, cost, style, stockNum);
 				}
 			}
 			

@@ -19,13 +19,13 @@ public class CustomerLogin extends JDialog implements ActionListener {
 	JTextField surenameInput = new JTextField(20);
 	JTextField houseNumNameInput = new JTextField(20);
 	JTextField streetNameInput = new JTextField(20);
+	JTextField cityInput = new JTextField(20);
 	JTextField postCodeInput = new JTextField(20);	
 	
 	JButton loginButton = new JButton("Login");
 	JPanel fillerPanel = new JPanel(new GridLayout(0,2));
 	
-	JPanel namesPanel = new JPanel(new GridLayout(1,1));
-	JPanel addressPanel = new JPanel(new GridLayout(1,3));
+	JPanel inputPanel = new JPanel(new GridLayout(3,2));
 	JPanel buttonPanel = new JPanel(new BorderLayout());
 
 	private JFrame _parent;
@@ -46,29 +46,31 @@ public class CustomerLogin extends JDialog implements ActionListener {
 		
 		
 		Container contentPanel = getContentPane();
-		fillerPanel.setLayout(new GridLayout(3,0));
+		fillerPanel.setLayout(new GridLayout(2,0));
 
-		namesPanel.add(new JLabel("Forename:"));
-		namesPanel.add(forenameInput);
-		namesPanel.add(new JLabel("Surname:"));
-		namesPanel.add(surenameInput);
+		inputPanel.add(new JLabel("Forename:"));
+		inputPanel.add(forenameInput);
+		inputPanel.add(new JLabel("Surname:"));
+		inputPanel.add(surenameInput);
 		
-		addressPanel.add(new JLabel("House Name:"));
-		addressPanel.add(houseNumNameInput);
-		addressPanel.add(new JLabel("Street Name:"));
-		addressPanel.add(streetNameInput);
-		addressPanel.add(new JLabel("Post Code:"));
-		addressPanel.add(postCodeInput);
+		inputPanel.add(new JLabel("House Name:"));
+		inputPanel.add(houseNumNameInput);
+		inputPanel.add(new JLabel("Street Name:"));
+		inputPanel.add(streetNameInput);
+		inputPanel.add(new JLabel("City:"));
+		inputPanel.add(cityInput);
+		inputPanel.add(new JLabel("Post Code:"));
+		inputPanel.add(postCodeInput);
 		
 		
 		buttonPanel.add(loginButton);
 		
-		fillerPanel.add(namesPanel);
-		fillerPanel.add(addressPanel);
+		fillerPanel.add(inputPanel);
 		fillerPanel.add(buttonPanel);		
 		
-		fillerPanel.setBorder(BorderFactory.createCompoundBorder(fillerPanel.getBorder(), BorderFactory.createEmptyBorder(10,10,10,10)));
-		buttonPanel.setBorder(BorderFactory.createCompoundBorder(buttonPanel.getBorder(), BorderFactory.createEmptyBorder(0,50,0,50)));
+		inputPanel.setBorder(BorderFactory.createCompoundBorder(inputPanel.getBorder(), BorderFactory.createEmptyBorder(0,10,0,10)));
+		fillerPanel.setBorder(BorderFactory.createCompoundBorder(fillerPanel.getBorder(), BorderFactory.createEmptyBorder(10,0,0,10)));
+		buttonPanel.setBorder(BorderFactory.createCompoundBorder(buttonPanel.getBorder(), BorderFactory.createEmptyBorder(10,50,10,50)));
 		
 		
 		contentPanel.add(fillerPanel);
@@ -83,7 +85,7 @@ public class CustomerLogin extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		String command = event.getActionCommand();
 		if(command.equals("Login")) {
-			foundCustomer = CustomerOperations.findCustomer(forenameInput.getText(), surenameInput.getText(), houseNumNameInput.getText(), streetNameInput.getText(), postCodeInput.getText());
+			foundCustomer = CustomerOperations.findCustomer(forenameInput.getText(), surenameInput.getText(), houseNumNameInput.getText(), streetNameInput.getText(), cityInput.getText(),postCodeInput.getText());
 			if(foundCustomer != null) {
 				System.out.println("Welcome" + foundCustomer.get_forename());
 			}

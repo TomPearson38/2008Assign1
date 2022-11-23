@@ -5,12 +5,12 @@ public class Wheel extends BicycleComponent implements IDataRecord, IToUIString{
 	private TyreType _tyre;
 	private BrakeType _brakes;
 	
-	public Wheel(int _id, String _brandName, int _serialNumber, double _cost) {
-		super(_id, _brandName, _serialNumber, _cost);
+	public Wheel(int _id, String _brandName, int _serialNumber, double _cost, int _stockNum) {
+		super(_id, _brandName, _serialNumber, _cost, _stockNum);
 	}
 	
-	public Wheel(int _id, int _serialNumber, String _brandName, double _cost, double diameter, TyreType tyre, BrakeType brake) {
-		super(_id, _brandName, _serialNumber, _cost);
+	public Wheel(int _id, int _serialNumber, String _brandName, double _cost, double diameter, TyreType tyre, BrakeType brake, int _stockNum) {
+		super(_id, _brandName, _serialNumber, _cost, _stockNum);
 		_diameter = diameter;
 		_tyre = tyre;
 		_brakes = brake;

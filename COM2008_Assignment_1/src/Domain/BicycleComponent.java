@@ -4,12 +4,14 @@ public abstract class BicycleComponent extends DataRecord implements IBicycleCom
 	private String _brandName;
 	private int _serialNumber;
 	private double _cost;
+	private int _stockNum;
 	
-	public BicycleComponent(int _id, String _brandName, int _serialNumber, double _cost) {
+	public BicycleComponent(int _id, String _brandName, int _serialNumber, double _cost, int _stockNum) {
 		super(_id);
 		this._brandName = _brandName;
 		this._serialNumber = _serialNumber;
 		this._cost = _cost;
+		this._stockNum = _stockNum;
 	}
 	
 	@Override
@@ -25,6 +27,11 @@ public abstract class BicycleComponent extends DataRecord implements IBicycleCom
 	@Override
 	public double Cost() {
 		return _cost;
+	}
+	
+	@Override
+	public int StockNum() {
+		return _stockNum;
 	}
 	
 }

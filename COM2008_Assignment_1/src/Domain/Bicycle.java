@@ -1,9 +1,18 @@
 package Domain;
 
 public class Bicycle {
+	private int _id;
 	private Frameset _frame;
 	private Handlebar _handlebar;
 	private Wheel _wheels;
+	private String _frameName;
+
+	public Bicycle(int _id, Frameset frame, Handlebar handBar, Wheel wheels, String frameName) {
+		_frame = frame;
+		_handlebar = handBar;
+		_wheels = wheels;
+		_frameName = frameName;
+	}
 	
 	public Frameset get_frame() {
 		return _frame;
@@ -28,6 +37,14 @@ public class Bicycle {
 	
 	public String bicycleBrand() {
 		return get_frame().BrandName() + " " + _wheels.get_tyre().toString();
+	}
+	
+	public String getFrameName() {
+		return _frameName;
+	}
+	
+	public void setFrameName(String newName) {
+		_frameName = newName;
 	}
 	
 	

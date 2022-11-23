@@ -5,12 +5,12 @@ public class Frameset extends BicycleComponent implements IDataRecord, IToUIStri
 	private boolean _shocks;
 	private Gearset _gearset;
 	
-	public Frameset(int _id, String _brandName, int _serialNumber, double _cost, double _size, Gearset _gearset) {
-		this(_id, _brandName, _serialNumber, _cost, _size, _gearset, false);
+	public Frameset(int _id, String _brandName, int _serialNumber, double _cost, double _size, Gearset _gearset, int _stockNum) {
+		this(_id, _brandName, _serialNumber, _cost, _size, _gearset, false, _stockNum);
 	}
 	
-	public Frameset(int _id, String _brandName, int _serialNumber, double _cost, double _size, Gearset _gearset, boolean _shocks) {
-		super(_id, _brandName, _serialNumber, _cost);
+	public Frameset(int _id, String _brandName, int _serialNumber, double _cost, double _size, Gearset _gearset, boolean _shocks, int _stockNum) {
+		super(_id, _brandName, _serialNumber, _cost, _stockNum);
 		this._size = _size;
 		this._shocks = _shocks;
 		this._gearset = _gearset;

@@ -43,8 +43,9 @@ FROM Wheels;
 				double diameter = rs.getDouble("diameter");
 				TyreType tyre = TyreType.valueOf((rs.getString("tyre_type")).toUpperCase());
 				BrakeType brake = BrakeType.valueOf((rs.getString("brake_type")).toUpperCase());
+				int stockNum = rs.getInt("stock_num");
 			   
-			    Wheel retrived_wheel = new Wheel(id, serialNum, brandName, cost, diameter, tyre, brake);
+			    Wheel retrived_wheel = new Wheel(id, serialNum, brandName, cost, diameter, tyre, brake, stockNum);
 			   
 			    Wheels.add(retrived_wheel);			   
 			                    
@@ -60,10 +61,49 @@ FROM Wheels;
 		return Wheels;		
 	}
 	
-	public static Wheel createWheel(String brandName, int serialNumber, double cost, double diameter, TyreType tyreType, BrakeType brakeType) {
+	public static Wheel getWheel(int idNum) {
+		String sql = """				
+SELECT *
+FROM Wheels
+WHERE id='"""+idNum+"';";
+		
+		
+		Wheel currentWheel = null;
+		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
+			Statement statement = mySQLConnection.createStatement();
+			
+			ResultSet rs = statement.executeQuery(sql);
+						
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				int serialNum = rs.getInt("serial_number");
+				String brandName = rs.getString("brand_name");
+				double cost = rs.getDouble("cost");
+				double diameter = rs.getDouble("diameter");
+				TyreType tyre = TyreType.valueOf((rs.getString("tyre_type")).toUpperCase());
+				BrakeType brake = BrakeType.valueOf((rs.getString("brake_type")).toUpperCase());
+				int stockNum = rs.getInt("stock_num");
+			   
+			    currentWheel = new Wheel(id, serialNum, brandName, cost, diameter, tyre, brake, stockNum);
+			   			                    
+			}
+			
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		return currentWheel;	
+	}
+	
+	
+	
+	public static Wheel createWheel(String brandName, int serialNumber, double cost, double diameter, TyreType tyreType, BrakeType brakeType, int stockNum) {
 		String sqlTemplate = """
-				INSERT INTO Wheels(serial_number, brand_name, cost, diameter, tyre_type, brake_type)
-				VALUES(?,?,?,?,?,?);
+				INSERT INTO Wheels(serial_number, brand_name, cost, diameter, tyre_type, brake_type, stock_num)
+				VALUES(?,?,?,?,?,?,?);
 				""";
 						
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -97,6 +137,8 @@ FROM Wheels;
 				
 			statement.setString(6, brake_string);
 			
+			statement.setInt(7,  stockNum);
+			
 			int rowAffected = statement.executeUpdate();
 			if (rowAffected == 1) {
 				ResultSet rs = statement.getGeneratedKeys();
@@ -104,7 +146,7 @@ FROM Wheels;
 					
 					int wheelId = rs.getInt(1);
 					
-					return new Wheel(wheelId, serialNumber, brandName, cost, diameter, tyreType, brakeType);
+					return new Wheel(wheelId, serialNumber, brandName, cost, diameter, tyreType, brakeType, stockNum);
 				}
 			}
 			

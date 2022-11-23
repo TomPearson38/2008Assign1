@@ -42,9 +42,10 @@ ON Customers.address_id = Addresses.id;
 			    
 			    String houseNumName = rs.getString("house_num_name");
 			    String streetName = rs.getString("street_name");
+			    String city = rs.getString("city");
 			    String postCode = rs.getString("post_code");
 			   
-			    Address retrieved_address = new Address(addressID, houseNumName, streetName, postCode);
+			    Address retrieved_address = new Address(addressID, houseNumName, streetName, city, postCode);
 			   
 			    Customer retrieved_customer = new Customer(id, forename, surname, retrieved_address);
 			   
@@ -63,9 +64,9 @@ ON Customers.address_id = Addresses.id;
 		
 	}
 
-	public static Customer findCustomer(String forename, String surname, String houseNumName, String streetName, String postCode){
+	public static Customer findCustomer(String forename, String surname, String houseNumName, String streetName ,String city, String postCode){
 		
-		Address foundAddress = AddressOperations.findAddress(houseNumName, streetName, postCode);
+		Address foundAddress = AddressOperations.findAddress(houseNumName, streetName, city, postCode);
 		
 		if(foundAddress == null)
 			return null;
@@ -89,6 +90,39 @@ WHERE forename = '""" + forename + "' AND surname='" + surname + "' AND address_
 				String getSurname = rs.getString("surname");
 				
 				selectedCustomer = new Customer(id, getForename, getSurname, foundAddress);	
+			}
+			
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		return selectedCustomer;
+	}
+	
+	public static Customer getCustomer(int id) {		
+		String sqlCustomer = """				
+SELECT *
+FROM Customers
+WHERE id='""" + id + "';";
+				
+		Customer selectedCustomer = null;
+				
+		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
+			Statement statement = mySQLConnection.createStatement();
+			
+			ResultSet rs = statement.executeQuery(sqlCustomer);
+			
+			
+			while (rs.next()) {
+				int _id = rs.getInt("id");
+				String getForename = rs.getString("forename");
+				String getSurname = rs.getString("surname");
+				Address foundAddress = AddressOperations.getAddress(rs.getInt("address_id"));
+				
+				selectedCustomer = new Customer(_id, getForename, getSurname, foundAddress);	
 			}
 			
 			statement.close();
