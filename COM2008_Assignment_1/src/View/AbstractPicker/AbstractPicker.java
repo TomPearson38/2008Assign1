@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
+import java.util.function.Function;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,16 +20,23 @@ import Domain.IToUIString;
 public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     JComboBox<Boolean> shocksComboBox;
     JButton okButton = new JButton("OK");
+    Boolean isStaffMode;
     
     
     private T _currentObject;
     private T result = null;
     
-    InfoPanel<T> rightPanel;
+    InfoPanel<T> infoPanel;
     
     PickerPanel<T> pickerPanel;
     
     FilterPanel<T> filterPanel;
+    
+    StaffPanel<T> staffPanel;
+    
+	protected abstract Boolean updateComponent(T Object);
+	
+	protected abstract Boolean deleteComponent(T Object);
     
     
     public T showDialog() {
@@ -53,15 +61,20 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     
     private void setSelectedObject(T value) {
     	_currentObject = value;
-    	rightPanel.set_currentObject(value);
+    	infoPanel.set_currentObject(value);
+    	staffPanel.set_currentObject(value);
     }
     
     public AbstractPicker(JFrame parent) {
+    	this(parent, false);
+    }
+    
+    public AbstractPicker(JFrame parent, Boolean isStaffMode) {
         super(parent, true);
         this.setPreferredSize(new Dimension(850,650));
         setResizable(true);
         
-        rightPanel = new InfoPanel<T>(getPropertyDescriptors());
+        this.isStaffMode = isStaffMode;
         
         this.addComponentsToPane();
     }
@@ -97,6 +110,17 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
         final PickerPanel<T> objectsPanel = setUpPickerPanel();
         
     	final JScrollPane scrollPane = new JScrollPane(objectsPanel);
+    	
+    	infoPanel = new InfoPanel<T>(getPropertyDescriptors());
+    	
+    	JPanel rightPanel = new JPanel(new BorderLayout());
+    	rightPanel.add(infoPanel, BorderLayout.NORTH);
+    	
+    	
+        if (isStaffMode) {
+        	final JPanel staffPanel = new StaffPanel<T>(this::updateComponent, this::deleteComponent);
+        	rightPanel.add(staffPanel, BorderLayout.SOUTH);
+    	}
     	
     	centralPanel.add(rightPanel, BorderLayout.EAST);
         centralPanel.add(scrollPane, BorderLayout.CENTER);
