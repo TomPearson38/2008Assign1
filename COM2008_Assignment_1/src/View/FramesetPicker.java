@@ -16,13 +16,15 @@ import View.AbstractPicker.PropertyDescriptor;
 
 public class FramesetPicker extends AbstractPicker<Frameset> {
 
-	public FramesetPicker(JFrame parent) {
-		super(parent);
+	public FramesetPicker(JFrame parent, Boolean isStaffMode) {
+		super(parent, isStaffMode);
 		
 	}
-	
-    public static Frameset chooseFrameset(JFrame parent) {
-    	FramesetPicker PickerWindow = new FramesetPicker(parent);
+	public static Frameset chooseFrameset(JFrame parent) {
+		return FramesetPicker.chooseFrameset(parent, false);
+	}
+    public static Frameset chooseFrameset(JFrame parent, Boolean isStaffMode) {
+    	FramesetPicker PickerWindow = new FramesetPicker(parent, isStaffMode);
     	
     	PickerWindow.setTitle("Frameset Picker");
     	
@@ -66,5 +68,12 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 				
 		return Arrays.asList(shocksFilter, sizeFilter, costFilter, brandFilter);
 	}
-
+	
+	protected Boolean updateComponent(Frameset frameSetData) {
+		return FrameOperations.updateFrameset(frameSetData);
+	}
+	
+	protected Boolean deleteComponent(Frameset frameSetToDelete) {
+		return FrameOperations.deleteFrameset(frameSetToDelete);
+	}
 }

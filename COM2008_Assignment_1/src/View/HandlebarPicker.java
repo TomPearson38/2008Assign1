@@ -6,8 +6,10 @@ import java.util.Collection;
 import javax.swing.JFrame;
 
 import Database.EnumMappingException;
+import Database.FrameOperations;
 import Database.HandlebarOperations;
 import Domain.BicycleComponent;
+import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
 import View.AbstractPicker.AbstractPicker;
@@ -64,5 +66,12 @@ public class HandlebarPicker extends AbstractPicker<Handlebar>{
 		
 		return Arrays.asList(stylesFilter, costFilter);
 	}
-
+	
+	protected Boolean updateComponent(Handlebar handlebarData) {
+		return HandlebarOperations.updateHandlebar(handlebarData);
+	}
+	
+	protected Boolean deleteComponent(Handlebar handlebarToDelete) {
+		return HandlebarOperations.deleteHandlebar(handlebarToDelete);
+	}
 }

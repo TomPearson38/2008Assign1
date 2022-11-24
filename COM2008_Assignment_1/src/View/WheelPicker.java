@@ -5,9 +5,11 @@ import java.util.Collection;
 
 import javax.swing.JFrame;
 
+import Database.HandlebarOperations;
 import Database.WheelOperations;
 import Domain.BicycleComponent;
 import Domain.BrakeType;
+import Domain.Handlebar;
 import Domain.TyreType;
 import Domain.Wheel;
 import View.AbstractPicker.AbstractPicker;
@@ -65,4 +67,11 @@ public class WheelPicker extends AbstractPicker<Wheel>{
 		return Arrays.asList(brakesFilter, tyresFilter, costFilter);
 	}
 
+	protected Boolean updateComponent(Wheel wheelData) {
+		return WheelOperations.updateWheel(wheelData);
+	}
+	
+	protected Boolean deleteComponent(Wheel wheelToDelete) {
+		return WheelOperations.deleteWheel(wheelToDelete);
+	}
 }
