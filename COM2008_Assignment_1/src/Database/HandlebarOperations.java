@@ -81,14 +81,16 @@ FROM Handlebars;
 		String sql = """				
 SELECT *
 FROM Handlebars
-WHERE id='"""+idNum+"';";
+WHERE id=?;""";
 		
 		
 		Handlebar currentHandleBar = null;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
-			Statement statement = mySQLConnection.createStatement();
+			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
 			
-			ResultSet rs = statement.executeQuery(sql);
+			statement.setInt(1, idNum);
+			
+			ResultSet rs = statement.executeQuery();
 						
 			while (rs.next()) {
 				int id = rs.getInt("id");

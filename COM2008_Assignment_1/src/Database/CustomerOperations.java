@@ -74,14 +74,17 @@ ON Customers.address_id = Addresses.id;
 		String sqlCustomer = """				
 SELECT id, forename, surname, address_id
 FROM Customers
-WHERE forename = '""" + forename + "' AND surname='" + surname + "' AND address_id='" + foundAddress.get_id() + "';"; 
+WHERE forename = ? AND surname= ? AND address_id= ?;"""; 
 				
 		Customer selectedCustomer = null;
-				
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
-			Statement statement = mySQLConnection.createStatement();
+			PreparedStatement statement = mySQLConnection.prepareStatement(sqlCustomer);
 			
-			ResultSet rs = statement.executeQuery(sqlCustomer);
+			statement.setString(1, forename);
+			statement.setString(2, surname);
+			statement.setInt(3, (foundAddress.get_id()));
+			
+			ResultSet rs = statement.executeQuery();
 			
 			
 			while (rs.next()) {
@@ -106,14 +109,16 @@ WHERE forename = '""" + forename + "' AND surname='" + surname + "' AND address_
 		String sqlCustomer = """				
 SELECT *
 FROM Customers
-WHERE id='""" + id + "';";
+WHERE id=?;
+""";
 				
 		Customer selectedCustomer = null;
-				
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
-			Statement statement = mySQLConnection.createStatement();
+			PreparedStatement statement = mySQLConnection.prepareStatement(sqlCustomer);
 			
-			ResultSet rs = statement.executeQuery(sqlCustomer);
+			statement.setInt(1, id);
+			
+			ResultSet rs = statement.executeQuery();
 			
 			
 			while (rs.next()) {

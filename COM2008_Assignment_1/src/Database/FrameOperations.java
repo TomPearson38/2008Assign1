@@ -69,17 +69,20 @@ ON Frames.gears_id = Gearsets.id;
 	}
 	
 	public static Frameset getFrameset(int idNum) {
-		String sql = """				
+		String sqlTemplate = """				
 SELECT *
 FROM Frames
-WHERE id='"""+idNum+"';";
+WHERE id= ?;
+""";
 		
 		
 		Frameset currentFrame = null;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
-			Statement statement = mySQLConnection.createStatement();
+			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
 			
-			ResultSet rs = statement.executeQuery(sql);
+			statement.setInt(1, idNum);
+			
+			ResultSet rs = statement.executeQuery();
 						
 			while (rs.next()) {
 				int id = rs.getInt("id");

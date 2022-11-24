@@ -21,7 +21,7 @@ public class BicycleOperations {
 	public static Collection<Bicycle> getAllBikes() {
 	
 		String sql = """				
-SELECT * FROM Bikes;
+SELECT * FROM Bicycles;
 """;
 		
 		
@@ -58,13 +58,18 @@ SELECT * FROM Bikes;
 	}
 	
 	public static Bicycle getBike(int id) {
-		String sql= "SELECT * FROM Bicycles WHERE id='" + id + "';";
+		String sql= """
+SELECT * FROM Bicycles 
+WHERE id=?;
+""";
 		
 		Bicycle foundBike = null;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
-			Statement statement = mySQLConnection.createStatement();
+			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
 			
-			ResultSet rs = statement.executeQuery(sql);
+			statement.setInt(1, id);
+			
+			ResultSet rs = statement.executeQuery();
 						
 			while (rs.next()) {
 				int _id = rs.getInt("id");

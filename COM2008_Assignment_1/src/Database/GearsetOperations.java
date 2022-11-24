@@ -1,6 +1,7 @@
 package Database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -55,14 +56,16 @@ FROM Gearsets;
 		String sql = """				
 SELECT id, name
 FROM Gearsets
-WHERE id='"""+_id+"';";
+WHERE id=?;""";
 		
 		
 		Gearset selectedGear = null;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
-			Statement statement = mySQLConnection.createStatement();
+			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
 			
-			ResultSet rs = statement.executeQuery(sql);
+			statement.setInt(1, _id);
+			
+			ResultSet rs = statement.executeQuery();
 						
 			while (rs.next()) {
 				int id = rs.getInt("id");

@@ -56,17 +56,19 @@ FROM Addresses;
 		String sql = """				
 SELECT id, house_num_name, street_name, city,post_code
 FROM Addresses
-WHERE house_num_name='""" + houseNumName + "' AND street_name='" + streetName + "' AND post_code='"+ postCode + "' AND city='" + city +"';";
-		
-		System.out.println(sql);
-
+WHERE house_num_name=? AND street_name=? AND city=? AND post_code= ?;
+""";
 		
 		Address foundAddress = null;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
-			Statement statement = mySQLConnection.createStatement();
+			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
 			
+			statement.setString(1, houseNumName);
+			statement.setString(2, streetName);
+			statement.setString(3, city);
+			statement.setString(4, postCode);
 			
-			ResultSet rs = statement.executeQuery(sql);
+			ResultSet rs = statement.executeQuery();
 						
 			while (rs.next()) {
 				int addressID = rs.getInt("id");
@@ -91,17 +93,16 @@ WHERE house_num_name='""" + houseNumName + "' AND street_name='" + streetName + 
 		String sql = """				
 SELECT *
 FROM Addresses
-WHERE id='""" + id + "';";
-		
-		System.out.println(sql);
-
+WHERE id=?
+""";
 		
 		Address foundAddress = null;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
-			Statement statement = mySQLConnection.createStatement();
+			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
+
+			statement.setInt(1, id);
 			
-			
-			ResultSet rs = statement.executeQuery(sql);
+			ResultSet rs = statement.executeQuery();
 						
 			while (rs.next()) {
 				int addressID = rs.getInt("id");
