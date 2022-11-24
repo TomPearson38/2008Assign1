@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import Domain.BrakeType;
+import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
 import Domain.TyreType;
@@ -97,6 +98,64 @@ WHERE id='"""+idNum+"';";
 		
 		return currentWheel;	
 	}
+	
+	/*
+	 * Updates a Wheel in the database returning whether the update was successful or not
+	 */
+	public static boolean updateWheel(Wheel wheelToUpdate) {
+		
+		String sqlTemplate = """
+UPDATE Frames
+SET serial_number = ?, brand_name = ?, cost = ?, diameter = ?, tyre_type = ?, brake_type = ?, stock_num = ?
+WHERE id = ?;
+				""";
+		
+		
+		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
+			
+			statement.setInt(1, wheelToUpdate.SerialNumber());
+			statement.setString(2, wheelToUpdate.BrandName());
+			statement.setDouble(3, wheelToUpdate.Cost());
+			statement.setDouble(4, wheelToUpdate.get_diameter());
+			statement.setString(5, wheelToUpdate.get_tyre().toString());
+			statement.setString(6, wheelToUpdate.get_brakes().toString());
+			statement.setInt(7, wheelToUpdate.get_id());
+			statement.setInt(8, wheelToUpdate.StockNum());
+			
+			int rowsAffected = statement.executeUpdate();
+			statement.close();
+			return rowsAffected > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	public static boolean deleteWheel(Wheel wheelToDelete) {
+		String sql = """
+DELETE
+FROM Wheels
+WHERE id = ?;
+				""";
+		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
+			
+			statement.setInt(1, wheelToDelete.get_id());
+			
+			int rowsAffected = statement.executeUpdate();
+			statement.close();
+			return rowsAffected > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
 	
 	
 	

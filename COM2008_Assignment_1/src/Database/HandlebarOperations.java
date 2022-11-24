@@ -112,6 +112,61 @@ WHERE id='"""+idNum+"';";
 		return currentHandleBar;	
 	}
 	
+	/*
+	 * Updates a Wheel in the database returning whether the update was successful or not
+	 */
+	public static boolean updateHandlebar(Handlebar handlebarToUpdate) {
+		
+		String sqlTemplate = """
+UPDATE Handlebars
+SET serial_number = ?, brand_name = ?, cost = ?, style = ?, stock_num = ?
+WHERE id = ?;
+				""";
+		
+		
+		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
+			
+			statement.setInt(1, handlebarToUpdate.SerialNumber());
+			statement.setString(2, handlebarToUpdate.BrandName());
+			statement.setDouble(3, handlebarToUpdate.Cost());
+			statement.setString(4, handlebarToUpdate.get_style().toString());
+			statement.setInt(7, handlebarToUpdate.get_id());
+			statement.setInt(8, handlebarToUpdate.StockNum());
+			
+			int rowsAffected = statement.executeUpdate();
+			statement.close();
+			return rowsAffected > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	public static boolean deleteHandlebar(Handlebar wheelToDelete) {
+		String sql = """
+DELETE
+FROM Handlebars
+WHERE id = ?;
+				""";
+		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
+			
+			statement.setInt(1, wheelToDelete.get_id());
+			
+			int rowsAffected = statement.executeUpdate();
+			statement.close();
+			return rowsAffected > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
 	public static Handlebar createHandlebar(String brandName, int serialNumber, double cost, HandlebarStyles style, int stockNum) {
 		String sqlTemplate = """
 				INSERT INTO Handlebars(serial_number, brand_name, cost, style, stock_num)

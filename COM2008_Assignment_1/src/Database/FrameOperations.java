@@ -140,6 +140,28 @@ WHERE id = ?;
 		}
 	}
 	
+	public static boolean deleteFrameset(Frameset framesetToDelete) {
+		String sql = """
+DELETE
+FROM Frames
+WHERE id = ?;
+				""";
+		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
+			
+			statement.setInt(1, framesetToDelete.get_id());
+			
+			int rowsAffected = statement.executeUpdate();
+			statement.close();
+			return rowsAffected > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
 	public static Frameset insertFrameset(int serialNumber, String brandName, double cost, double size, boolean shocks, Gearset gears, int stockNum) {
 		String sqlTemplate = """
 INSERT INTO Frames(serial_number, brand_name, cost, size, shocks, gears_id)
