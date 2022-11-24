@@ -29,6 +29,7 @@ public class HandlebarCreator extends AbstractCreator<Handlebar> {
 	IGridRow<String, JTextField> brandNameRow;
 	IGridRow<Double, JDoubleField> costRow;
 	IGridRow<HandlebarStyles, JComboBox<HandlebarStyles>> stylesRow;
+	IGridRow<Integer, JIntegerField> stockRow;
 	
 	public HandlebarCreator(Frame owner) {
 		super(owner);
@@ -51,8 +52,10 @@ public class HandlebarCreator extends AbstractCreator<Handlebar> {
 		
 		stylesRow = new EnumGridRow<HandlebarStyles>("Styles", HandlebarStyles.values());
 		
+		stockRow = new IntegerGridRow("Available Stock");
 		
-		return Arrays.asList(serialNumberRow, brandNameRow, costRow, stylesRow);
+		
+		return Arrays.asList(serialNumberRow, brandNameRow, costRow, stylesRow, stockRow);
 	}
 	
 	protected Handlebar sendValueToDatabase() {
@@ -60,8 +63,9 @@ public class HandlebarCreator extends AbstractCreator<Handlebar> {
 		int serialNumber = serialNumberRow.getFieldValue();
 		Double cost = costRow.getFieldValue();
 		HandlebarStyles style = stylesRow.getFieldValue();
+		int availableStock = stockRow.getFieldValue();
 		
-		Handlebar newHandlebar = HandlebarOperations.createHandlebar(brandName, serialNumber, cost, style);
+		Handlebar newHandlebar = HandlebarOperations.createHandlebar(brandName, serialNumber, cost, style, availableStock);
 		return newHandlebar;
 	}
 	

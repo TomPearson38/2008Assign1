@@ -33,6 +33,8 @@ public class WheelCreator extends AbstractCreator<Wheel> {
 	IGridRow<Double, JDoubleField> diameterRow;
 	IGridRow<TyreType, JComboBox<TyreType>> tyreTypeRow;
 	IGridRow<BrakeType, JComboBox<BrakeType>> brakeTypeRow;
+	IGridRow<Integer, JIntegerField> stockRow;
+	
 	
 	public WheelCreator(Frame owner) {
 		super(owner);
@@ -59,9 +61,11 @@ public class WheelCreator extends AbstractCreator<Wheel> {
 		
 		brakeTypeRow = new EnumGridRow<BrakeType>("Brake Type", BrakeType.values());
 		
+		stockRow = new IntegerGridRow("Available Stock");
 		
 		
-		return Arrays.asList(serialNumberRow, brandNameRow, costRow, diameterRow, tyreTypeRow, brakeTypeRow);
+		
+		return Arrays.asList(serialNumberRow, brandNameRow, costRow, diameterRow, tyreTypeRow, brakeTypeRow, stockRow);
 	}
 	
 	protected Wheel sendValueToDatabase() {
@@ -71,8 +75,9 @@ public class WheelCreator extends AbstractCreator<Wheel> {
 		Double diameter = diameterRow.getFieldValue();
 		TyreType tyreType = tyreTypeRow.getFieldValue();
 		BrakeType brakeType = brakeTypeRow.getFieldValue();
+		int availableStock = stockRow.getFieldValue();
 		
-		Wheel newWheel = WheelOperations.createWheel(brandName, serialNumber, cost, diameter, tyreType, brakeType);
+		Wheel newWheel = WheelOperations.createWheel(brandName, serialNumber, cost, diameter, tyreType, brakeType, availableStock);
 		return newWheel;
 	}
 	

@@ -35,6 +35,7 @@ public class FramesetCreator extends AbstractCreator<Frameset> {
 	IGridRow<Double, JDoubleField> sizeRow;
 	IGridRow<Boolean, JCheckBox> shocksRow;
 	IGridRow<Gearset, JComboBox<Gearset>> gearsRow;
+	IGridRow<Integer, JIntegerField> stockRow;
 	
 	public FramesetCreator(Frame owner) {
 		super(owner);
@@ -59,13 +60,15 @@ public class FramesetCreator extends AbstractCreator<Frameset> {
 		
 		shocksRow = new BooleanGridRow("Shocks");
 		
+		stockRow = new IntegerGridRow("Available Stock");
+		
 		Collection<Gearset> gears = GearsetOperations.getAllGears();
 		gearsRow = new CollectionGridRow<Gearset>("Gears", gears.toArray(new Gearset[gears.size()]));
 		
 		//gearsRow = new EnumGridRow<Gearset>("Gears", HandlebarStyles.values());
 		
 		
-		return Arrays.asList(serialNumberRow, brandNameRow, costRow, sizeRow, shocksRow);
+		return Arrays.asList(serialNumberRow, brandNameRow, costRow, sizeRow, shocksRow, stockRow);
 	}
 	
 	protected Frameset sendValueToDatabase() {
@@ -75,8 +78,9 @@ public class FramesetCreator extends AbstractCreator<Frameset> {
 		Double size = sizeRow.getFieldValue();
 		Boolean shocks = shocksRow.getFieldValue();
 		Gearset gears = gearsRow.getFieldValue();
+		int availableStock = stockRow.getFieldValue();
 		
-		Frameset newFrameset = FrameOperations.insertFrameset(serialNumber, brandName, cost, size, shocks, gears);
+		Frameset newFrameset = FrameOperations.insertFrameset(serialNumber, brandName, cost, size, shocks, gears, availableStock);
 		return newFrameset;
 	}
 	
