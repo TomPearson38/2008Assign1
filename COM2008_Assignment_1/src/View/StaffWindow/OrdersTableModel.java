@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+import Domain.Bicycle;
 import Domain.Order;
 
 class OrdersTableModel implements TableModel {
@@ -25,11 +26,15 @@ class OrdersTableModel implements TableModel {
 	
 	private List<Column<OrderModelRow, ?>> getColumns() {
 		
+		final Column<OrderModelRow, Integer> orderNumberColumn = new Column<OrderModelRow, Integer>("Order No", OrderModelRow::getOrderNumber, Integer.class);
+		
 		final Column<OrderModelRow, String> customerGivenNameColumn = new Column<OrderModelRow, String>("Given name", OrderModelRow::getCustomerGivenName, String.class);
+		
+		final Column<OrderModelRow, Bicycle> bikeColumn = new Column<OrderModelRow, Bicycle>("Bicycle", OrderModelRow::getBicycle, Bicycle.class);
 		
 		final Column<OrderModelRow, Double> costColumn = new Column<OrderModelRow, Double>("Cost", OrderModelRow::getCost, Double.class);
 		
-		return Arrays.asList(customerGivenNameColumn, costColumn);
+		return Arrays.asList(orderNumberColumn, customerGivenNameColumn, bikeColumn, costColumn);
 	}
 
 	@Override
@@ -127,6 +132,14 @@ class OrdersTableModel implements TableModel {
 		
 		public Double getCost() {
 			return backingOrder.get_cost();
+		}
+		
+		public Integer getOrderNumber() {
+			return backingOrder.get_order_number();
+		}
+		
+		public Bicycle getBicycle() {
+			return backingOrder.get_bike();
 		}
 	}
 	
