@@ -1,16 +1,10 @@
 package View.StaffWindow;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
-
-import Domain.Bicycle;
-import Domain.Order;
 
 abstract class AbstractTableModel<T> implements TableModel {
 	private List<T> orders;
