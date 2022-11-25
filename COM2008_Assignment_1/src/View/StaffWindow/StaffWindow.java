@@ -42,5 +42,4 @@ public class StaffWindow extends JDialog {
         setVisible(true);
         
     }
-	
 }
