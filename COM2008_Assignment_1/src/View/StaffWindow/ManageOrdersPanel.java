@@ -17,7 +17,6 @@ import Database.OrderOperations;
 import Domain.Order;
 
 public class ManageOrdersPanel extends JPanel {
-	private JTable ordersTable = new JTable();
 	private int previousClick = -1;
 	
 	public ManageOrdersPanel() {
@@ -27,14 +26,9 @@ public class ManageOrdersPanel extends JPanel {
 	}
 	
 	private void addComponents() {
-		final Collection<Order> allOrders = OrderOperations.getAllOrders();
 		
-		final OrderTableModel ordersTableModel = new OrderTableModel(allOrders);
-		
-		ordersTable.setModel(ordersTableModel);
-		
-		
-				
+		final OrderTable ordersTable = new OrderTable();
+
 		
 		this.add(ordersTable);
 	

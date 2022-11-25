@@ -11,16 +11,14 @@ abstract class AbstractTableModel<T> implements TableModel {
 	
 	private List<Column<T, ?>> columns;
 
-	public AbstractTableModel(List<T> objects) {
+	public AbstractTableModel(List<T> objects, List<Column<T, ?>> columns) {
 		super();
 		
 		this.objects = objects;
 		
-		columns = getColumns();
+		this.columns = columns;
 	}
 	
-	
-	protected abstract List<Column<T, ?>> getColumns();
 
 	@Override
 	public int getRowCount() {
