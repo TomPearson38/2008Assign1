@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
@@ -59,9 +61,11 @@ public class LoginPanel extends JDialog implements ActionListener {
 		buttonPanel.setBorder(BorderFactory.createCompoundBorder(buttonPanel.getBorder(), BorderFactory.createEmptyBorder(0,20,0,20)));
 
 		contentPanel.add(fillerPanel);
+		
+		passwordField.addKeyListener(keyListener);
 
 		loginButton.addActionListener(this);
-				
+						
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
 
@@ -71,15 +75,39 @@ public class LoginPanel extends JDialog implements ActionListener {
 		
 		String command = event.getActionCommand();
 		if(command.equals("Login")) {
-			loggedInUser = StaffOperations.attemptLogin(usernameField.getText(), passwordField.getText());
-			if(loggedInUser != null) {
-				System.out.println("Welcome" + loggedInUser.toString());
-				StaffWindow newStaffWindow = new StaffWindow(_parent);
-				newStaffWindow.showDialog();
+			attemptLogin();
+		}
+	}
+	
+	KeyListener keyListener = new KeyListener() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					attemptLogin();
 			}
-			else {
-				System.out.println("INCORRECT LOGIN DETAILS");
+	
+		}
+
+			@Override
+			public void keyTyped(KeyEvent e) {	
+				//Mandatory Override for key listener
 			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				//Mandatory Override for key listener
+			};
+	};
+	
+	private void attemptLogin() {
+		loggedInUser = StaffOperations.attemptLogin(usernameField.getText(), passwordField.getText());
+		if(loggedInUser != null) {
+			System.out.println("Welcome" + loggedInUser.toString());
+			StaffWindow newStaffWindow = new StaffWindow(_parent);
+			newStaffWindow.showDialog();
+		}
+		else {
+			System.out.println("INCORRECT LOGIN DETAILS");
 		}
 	}
 	
