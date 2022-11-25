@@ -7,12 +7,14 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 abstract class AbstractTableModel<T> implements TableModel {
-	private List<T> orders;
+	private List<T> objects;
 	
 	private List<Column<T, ?>> columns;
 
-	public AbstractTableModel(Collection<T> orders) {
+	public AbstractTableModel(List<T> objects) {
 		super();
+		
+		this.objects = objects;
 		
 		columns = getColumns();
 	}
@@ -22,7 +24,7 @@ abstract class AbstractTableModel<T> implements TableModel {
 
 	@Override
 	public int getRowCount() {
-		return orders.size();
+		return objects.size();
 	}
 
 	@Override
@@ -47,7 +49,7 @@ abstract class AbstractTableModel<T> implements TableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		final T row = orders.get(rowIndex);
+		final T row = objects.get(rowIndex);
 		
 		final Column<T, ?> column = columns.get(columnIndex);
 		
