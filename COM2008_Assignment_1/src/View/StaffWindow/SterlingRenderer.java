@@ -16,6 +16,16 @@ public class SterlingRenderer extends JLabel implements TableCellRenderer {
                             boolean isSelected, boolean hasFocus,
                             int row, int column) {
     	
+    	if (isSelected)
+        {
+            setBackground(table.getSelectionBackground());
+            setForeground(table.getSelectionForeground());
+        }
+        else
+        {
+            setBackground(table.getBackground());
+            setForeground(table.getForeground());
+        }
     	
     	setText("£" + value.toString());
     	
