@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
@@ -15,6 +16,8 @@ public abstract class AbstractTable<T> extends JScrollPane {
 	
 	private int previousClick = -1;
 	
+	private final static int row_height = 20;
+	
 	public AbstractTable() {
 		super();
 		
@@ -22,6 +25,8 @@ public abstract class AbstractTable<T> extends JScrollPane {
 		
 		setColumnWidth();
 		addDoubleClickListener();
+		setColumnEditors();
+		interiorTable.setRowHeight(row_height);
 		
 		this.setViewportView(interiorTable);
 	}
@@ -34,6 +39,18 @@ public abstract class AbstractTable<T> extends JScrollPane {
 			
 			column.setPreferredWidth(modelColumn.getColumnWidth());
 			
+		}
+	}
+	
+	private void setColumnEditors() {
+		final List<Column<T, ?>> columns = getColumns();
+		for (int i=0; i < columns.size(); i++) {
+			TableColumn column = interiorTable.getColumnModel().getColumn(i);
+			TableCellEditor customEditor = columns.get(i).getCustomEditor();
+			
+			if (customEditor != null) {
+				column.setCellEditor(customEditor);
+			}
 		}
 	}
 	

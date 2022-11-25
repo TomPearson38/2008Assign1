@@ -3,6 +3,7 @@ package View.StaffWindow;
 import java.lang.reflect.ParameterizedType;
 import java.util.function.Function;
 
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 /*
@@ -14,8 +15,12 @@ class Column<O, T> {
 	private Class<T> underlyingType;
 	private int columnWidth;
 	private TableCellRenderer customRenderer;
+	private TableCellEditor customEditor;
+	private boolean editable;
 	
 	public void setCustomRenderer(TableCellRenderer value) { customRenderer = value; }
+	public void setCustomEditor(TableCellEditor value) { customEditor = value; }
+	public void setEditable(boolean value) { editable = value; }
 	
 	public final static int default_width = 100;
 	
@@ -66,6 +71,14 @@ class Column<O, T> {
 	
 	public TableCellRenderer getCustomRenderer() {
 		return customRenderer;
+	}
+	
+	public boolean getEditable() {
+		return editable;
+	}
+	
+	public TableCellEditor getCustomEditor() {
+		return customEditor;
 	}
 	
 }

@@ -2,6 +2,7 @@ package View.StaffWindow;
 
 import Domain.Bicycle;
 import Domain.Order;
+import Domain.OrderStatus;
 
 public class OrderModelRow {
 	private Order backingOrder;
@@ -25,5 +26,9 @@ public class OrderModelRow {
 	
 	public Bicycle getBicycle() {
 		return backingOrder.get_bike();
+	}
+	
+	public OrderStatus getOrderStatus() {
+		return backingOrder.get_order_status();
 	}
 }

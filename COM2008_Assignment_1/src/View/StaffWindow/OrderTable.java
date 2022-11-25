@@ -5,9 +5,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
+
 import Database.OrderOperations;
 import Domain.Bicycle;
 import Domain.Order;
+import Domain.OrderStatus;
 
 public class OrderTable extends AbstractTable<OrderModelRow> {
 
@@ -23,7 +27,12 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 		final Column<OrderModelRow, Double> costColumn = new Column<OrderModelRow, Double>("Cost", OrderModelRow::getCost, Double.class);
 		costColumn.setCustomRenderer(new SterlingRenderer());
 		
-		return Arrays.asList(orderNumberColumn, customerGivenNameColumn, bikeColumn, costColumn);
+		final Column<OrderModelRow, OrderStatus> orderStatusColumn = new Column<OrderModelRow, OrderStatus>("Status", OrderModelRow::getOrderStatus, OrderStatus.class);
+		orderStatusColumn.setCustomRenderer(new EnumRenderer<OrderStatus>(OrderStatus.values()));
+		orderStatusColumn.setCustomEditor(new DefaultCellEditor(new JComboBox<OrderStatus>(OrderStatus.values())));
+		orderStatusColumn.setEditable(true);
+		
+		return Arrays.asList(orderNumberColumn, customerGivenNameColumn, bikeColumn, costColumn, orderStatusColumn);
 		
 	}
 
@@ -43,7 +52,6 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 			super(orders.stream().map(OrderModelRow::new).collect(Collectors.toList()), columns);
 			
 		}
-
-
 	}
+	
 }

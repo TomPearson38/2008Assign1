@@ -41,7 +41,8 @@ abstract class AbstractTableModel<T> implements TableModel {
 
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return false;
+		return true;
+//		return columns.get(columnIndex).getEditable();
 	}
 
 	@Override
