@@ -19,13 +19,17 @@ import View.AbstractPicker.PropertyDescriptor;
 
 public class WheelPicker extends AbstractPicker<Wheel>{
 
-	public WheelPicker(JFrame parent) {
-		super(parent);
+	public WheelPicker(JFrame parent, boolean managementMode) {
+		super(parent, managementMode);
 		
 	}
 	
-    public static Wheel chooseWheels(JFrame parent) {
-    	WheelPicker PickerWindow = new WheelPicker(parent);
+	public static Wheel chooseWheels(JFrame parent) {
+		return WheelPicker.chooseWheels(parent, false);
+	}
+	
+    public static Wheel chooseWheels(JFrame parent, boolean managementMode) {
+    	WheelPicker PickerWindow = new WheelPicker(parent, managementMode);
     	
     	PickerWindow.setTitle("Wheel Picker");
     	

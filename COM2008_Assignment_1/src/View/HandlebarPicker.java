@@ -19,13 +19,17 @@ import View.AbstractPicker.PropertyDescriptor;
 
 public class HandlebarPicker extends AbstractPicker<Handlebar>{
 
-	public HandlebarPicker(JFrame parent) {
-		super(parent);
+	public HandlebarPicker(JFrame parent, boolean managementMode) {
+		super(parent, managementMode);
 		
 	}
 	
-    public static Handlebar chooseHandlebar(JFrame parent) {
-    	HandlebarPicker PickerWindow = new HandlebarPicker(parent);
+	public static Handlebar chooseHandlebar(JFrame parent) {
+		return HandlebarPicker.chooseHandlebar(parent, false);
+	}
+	
+    public static Handlebar chooseHandlebar(JFrame parent, boolean managementMode) {
+    	HandlebarPicker PickerWindow = new HandlebarPicker(parent, managementMode);
     	
     	PickerWindow.setTitle("Handlebar Picker");
     	

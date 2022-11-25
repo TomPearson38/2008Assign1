@@ -12,6 +12,7 @@ import javax.swing.*;
 
 import Database.StaffOperations;
 import Domain.Staff;
+import View.StaffWindow.StaffWindow;
 
 public class LoginPanel extends JDialog implements ActionListener {
 
@@ -67,6 +68,7 @@ public class LoginPanel extends JDialog implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent event) {
+		
 		String command = event.getActionCommand();
 		if(command.equals("Login")) {
 			loggedInUser = StaffOperations.attemptLogin(usernameField.getText(), passwordField.getText());

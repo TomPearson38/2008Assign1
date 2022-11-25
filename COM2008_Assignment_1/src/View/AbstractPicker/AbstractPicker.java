@@ -65,9 +65,6 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     	staffPanel.set_currentObject(value);
     }
     
-    public AbstractPicker(JFrame parent) {
-    	this(parent, false);
-    }
     
     public AbstractPicker(JFrame parent, Boolean isStaffMode) {
         super(parent, true);
