@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import Domain.Gearset;
+import Domain.Handlebar;
+import Domain.HandlebarStyles;
 
 public class GearsetOperations {
 	
@@ -33,7 +35,7 @@ public class GearsetOperations {
 	public static Collection<Gearset> getAllGears() {
 	
 		String sql = 				
-"SELECT " + column_string +
+"SELECT " + column_string + " " +
 "FROM Gearsets;";
 		
 		
@@ -92,5 +94,34 @@ public class GearsetOperations {
 		}
 		
 		return selectedGear;
+	}
+	
+	public static Gearset createGearset(String name) {
+		String sqlTemplate = """
+				INSERT INTO Gearsets(name)
+				VALUES(?);
+				""";
+						
+		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+			
+			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate, Statement.RETURN_GENERATED_KEYS);
+			
+			statement.setString(1, name);
+			
+			int rowAffected = statement.executeUpdate();
+			if (rowAffected == 1) {
+				ResultSet rs = statement.getGeneratedKeys();
+				if (rs.next()) {
+					
+					int gearsetId = rs.getInt(1);
+					
+					return new Gearset(gearsetId, name);
+				}
+			}
+			
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return null;
 	}
 }

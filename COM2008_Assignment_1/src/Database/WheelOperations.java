@@ -55,7 +55,7 @@ public class WheelOperations {
 	public static Collection<Wheel> getAllWheels() {
 	
 		String sql = 				
-"SELECT id AS " + column_string + 
+"SELECT " + column_string + " " + 
 "FROM Wheels;";
 		
 		

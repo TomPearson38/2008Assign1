@@ -78,4 +78,8 @@ public class HandlebarPicker extends AbstractPicker<Handlebar>{
 	protected Boolean deleteComponent(Handlebar handlebarToDelete) {
 		return HandlebarOperations.deleteHandlebar(handlebarToDelete);
 	}
+	
+	protected Boolean checkForeignKeys(Handlebar selectedHandlebar) {
+		return true;
+	}
 }

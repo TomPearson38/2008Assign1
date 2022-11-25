@@ -68,7 +68,7 @@ public class FramesetCreator extends AbstractCreator<Frameset> {
 		//gearsRow = new EnumGridRow<Gearset>("Gears", HandlebarStyles.values());
 		
 		
-		return Arrays.asList(serialNumberRow, brandNameRow, costRow, sizeRow, shocksRow, stockRow);
+		return Arrays.asList(serialNumberRow, brandNameRow, costRow, sizeRow, shocksRow, gearsRow, stockRow);
 	}
 	
 	protected Frameset sendValueToDatabase() {
