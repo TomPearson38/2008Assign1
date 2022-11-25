@@ -9,6 +9,7 @@ import Database.EnumMappingException;
 import Database.FrameOperations;
 import Database.HandlebarOperations;
 import Domain.BicycleComponent;
+import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
 import View.AbstractPicker.AbstractPicker;
@@ -76,5 +77,9 @@ public class HandlebarPicker extends AbstractPicker<Handlebar>{
 	
 	protected Boolean deleteComponent(Handlebar handlebarToDelete) {
 		return HandlebarOperations.deleteHandlebar(handlebarToDelete);
+	}
+	
+	protected Boolean checkForeignKeys(Handlebar selectedHandlebar) {
+		return true;
 	}
 }

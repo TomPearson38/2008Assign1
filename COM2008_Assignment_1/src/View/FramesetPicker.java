@@ -76,4 +76,8 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 	protected Boolean deleteComponent(Frameset frameSetToDelete) {
 		return FrameOperations.deleteFrameset(frameSetToDelete);
 	}
+	
+	protected Boolean checkForeignKeys(Frameset selectedFrameset) {
+		return true;
+	}
 }

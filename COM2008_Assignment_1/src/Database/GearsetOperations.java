@@ -35,7 +35,7 @@ public class GearsetOperations {
 	public static Collection<Gearset> getAllGears() {
 	
 		String sql = 				
-"SELECT " + column_string +
+"SELECT " + column_string + " " +
 "FROM Gearsets;";
 		
 		

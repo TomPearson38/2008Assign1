@@ -34,9 +34,12 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     
     StaffPanel<T> staffPanel;
     
+    
 	protected abstract Boolean updateComponent(T Object);
 	
 	protected abstract Boolean deleteComponent(T Object);
+	
+	protected abstract Boolean checkForeignKeys(T Object);
     
     
     public T showDialog() {
@@ -79,7 +82,7 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     }
     
     private PickerPanel<T> setUpPickerPanel() {
-    	pickerPanel = new PickerPanel<T>(getAvailableObjects());
+    	final PickerPanel<T> pickerPanel = new PickerPanel<T>(getAvailableObjects());
     	
     	pickerPanel.addEventListener(e -> setSelectedObject(e));
     	
@@ -106,16 +109,16 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     	final JPanel centralPanel = new JPanel();
     	centralPanel.setLayout(new BorderLayout());
     	
-        final PickerPanel<T> objectsPanel = setUpPickerPanel();
+        pickerPanel = setUpPickerPanel();
         
-    	final JScrollPane scrollPane = new JScrollPane(objectsPanel);
+    	final JScrollPane scrollPane = new JScrollPane(pickerPanel);
     	
     	infoPanel = new InfoPanel<T>(getPropertyDescriptors());
     	
     	JPanel rightPanel = new JPanel(new BorderLayout());
     	rightPanel.add(infoPanel, BorderLayout.CENTER);
     	
-    	staffPanel = new StaffPanel<T>(this::updateComponent, this::deleteComponent);
+    	staffPanel = new StaffPanel<T>(this::updateComponent, this::deleteComponent, this::refreshPickerPanel);
     	
         if (isStaffMode) {
         	rightPanel.add(staffPanel, BorderLayout.SOUTH);
@@ -150,5 +153,8 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
         dialogContainer.add(pane, BorderLayout.CENTER);
     }
     
+    private void refreshPickerPanel() {
+    	pickerPanel.set_objects(getAvailableObjects());
+    }
     
 }

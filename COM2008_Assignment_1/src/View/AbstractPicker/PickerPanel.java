@@ -49,9 +49,14 @@ public class PickerPanel<T extends IToUIString> extends JPanel {
 		_objects = objects;
 		setUpPickerPanel();
 	}
-
 	
-    private void setUpPickerPanel() {
+    public void set_objects(Collection<T> _objects) {
+		this._objects = _objects;
+		removeAll();
+		setUpPickerPanel();
+	}
+
+	private void setUpPickerPanel() {
 //        framesPanel.setPreferredSize(new Dimension(560, 600));
         this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
         
