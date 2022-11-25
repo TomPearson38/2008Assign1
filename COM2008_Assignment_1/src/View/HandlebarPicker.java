@@ -9,7 +9,6 @@ import Database.EnumMappingException;
 import Database.FrameOperations;
 import Database.HandlebarOperations;
 import Domain.BicycleComponent;
-import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
 import View.AbstractPicker.AbstractPicker;
