@@ -47,8 +47,14 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
         return result;
     }
     
+    /*
+     * Gets the objects from the implementing class to choose from
+     */
     protected abstract Collection<T> getAvailableObjects();
     
+    /*
+     * Get the a list of PropertyDescriptor<T> from the implementing class to display. Each PropertyDescriptor<T> becomes a row in the right hand panel.
+     */
     protected abstract Collection<PropertyDescriptor<T>> getPropertyDescriptors();
     
     /*
@@ -59,6 +65,9 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
      */
     protected abstract Collection<Filter<? super T>> getFilters();
     
+    /*
+     * Event handler that is called whenever PickerPanel changes event
+     */
     private void setSelectedObject(T value) {
     	_currentObject = value;
     	infoPanel.set_currentObject(value);
