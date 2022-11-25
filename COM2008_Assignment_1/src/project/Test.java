@@ -11,9 +11,6 @@ import View.ViewStartup;
 
 public class Test {
 	public static void main(String[] args){
-		
-		Collection<Order> orders = OrderOperations.getAllOrders();
-//		Collection<Bicycle> bikes = BicycleOperations.getAllBikes();
 		ViewStartup.entryPoint();	
 	}
 }
