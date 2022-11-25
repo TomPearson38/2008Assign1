@@ -63,7 +63,45 @@ ON Customers.address_id = Addresses.id;
 		return Customers;
 		
 	}
-
+	
+	/*
+	 * assuming that all the ResultSet columns match these then it will parse them into an Address object
+	 */
+	public static Address parseAddressFromResultset(ResultSet rs) {
+		try {
+			int addressID = rs.getInt("address_id");
+			String houseNumName = rs.getString("house_num_name");
+		    String streetName = rs.getString("street_name");
+		    String city = rs.getString("city");
+		    String postCode = rs.getString("post_code");
+		   
+		    return new Address(addressID, houseNumName, streetName, city, postCode);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/*
+	 * assuming that all the ResultSet columns match these then it will parse them into an Customer object
+	 */
+	public static Customer parseCustomerFromResultset(ResultSet rs) {
+		try {
+			int id = rs.getInt("customer_id");
+			String forename = rs.getString("forename");
+		    String surname = rs.getString("surname");
+		    
+		    Address customersAddress = parseAddressFromResultset(rs);
+		   
+		    return  new Customer(id, forename, surname, customersAddress);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static Customer findCustomer(String forename, String surname, String houseNumName, String streetName ,String city, String postCode){
 		
 		Address foundAddress = AddressOperations.findAddress(houseNumName, streetName, city, postCode);

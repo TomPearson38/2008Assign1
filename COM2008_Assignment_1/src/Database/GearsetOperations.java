@@ -12,15 +12,29 @@ import Domain.Gearset;
 
 public class GearsetOperations {
 	
+	public final static String id = "gearset_id";
+	public final static String name = "gearset_name";
+	
+	public final static String column_string = 
+			"Gearsets.id AS " + id + 
+			", Gearsets.name AS " + name;
+	
+	
+	public static Gearset parseGearsFromResultset(ResultSet rs) throws SQLException {
+		int gearset_id = rs.getInt(id);
+	    String gearset_name = rs.getString(name);
+	   
+	    return new Gearset(gearset_id, gearset_name);
+	}
+	
 	/*
 	 * Returns all the records in the Gearsets table as Gearset objects
 	 */
 	public static Collection<Gearset> getAllGears() {
 	
-		String sql = """				
-SELECT id, name
-FROM Gearsets;
-""";
+		String sql = 				
+"SELECT " + column_string +
+"FROM Gearsets;";
 		
 		
 		Collection<Gearset> Gearsets;
@@ -32,10 +46,8 @@ FROM Gearsets;
 			Gearsets = new ArrayList<Gearset>();
 			
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
 			   
-			    Gearset retrieved_gearset = new Gearset(id, name);
+			    Gearset retrieved_gearset = parseGearsFromResultset(rs);
 			   
 			    Gearsets.add(retrieved_gearset);			   
 			                    
@@ -53,10 +65,10 @@ FROM Gearsets;
 	}
 	
 	public static Gearset getGear(int _id) {
-		String sql = """				
-SELECT id, name
-FROM Gearsets
-WHERE id=?;""";
+		String sql = 			
+"SELECT " + column_string + 
+"FROM Gearsets" + 
+"WHERE id=?;";
 		
 		
 		Gearset selectedGear = null;
@@ -68,10 +80,8 @@ WHERE id=?;""";
 			ResultSet rs = statement.executeQuery();
 						
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
 			   
-				selectedGear = new Gearset(id, name);			                    
+				selectedGear = parseGearsFromResultset(rs);			                    
 			}
 			
 			statement.close();

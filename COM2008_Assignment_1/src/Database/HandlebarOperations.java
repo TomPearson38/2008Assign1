@@ -17,15 +17,43 @@ import Domain.Wheel;
 
 public class HandlebarOperations {
 	
+	public final static String id = "handlebar_id";
+	public final static String serial_number = "handlebar_serial_number";
+	public final static String brand_name = "handlebar_brand_name";
+	public final static String cost = "handlebar_cost";
+	public final static String style = "style";
+	public final static String stock = "handlebar_stock";
+	
+	public final static String column_string = 
+			"Handlebars.id AS " + id + 
+			", Handlebars.serial_number AS " + serial_number + 
+			", Handlebars.brand_name AS " + brand_name + 
+			", Handlebars.cost AS " + cost +
+			", Handlebars.style AS " + style +
+			", Handlebars.stock_num AS " + stock;
+	
+	public static Handlebar parseHandlebarFromResultset(ResultSet rs) throws SQLException, EnumMappingException {
+		int id = rs.getInt(HandlebarOperations.id);
+		int serial_number = rs.getInt(HandlebarOperations.serial_number);
+		String brand_name = rs.getString(HandlebarOperations.brand_name);
+		double cost = rs.getDouble(HandlebarOperations.cost);
+		
+		String style_string = rs.getString(HandlebarOperations.style);
+		HandlebarStyles handlebarStyle = HandlebarStyles.valueOf(style_string.toUpperCase());
+		
+		int stockNum = rs.getInt(HandlebarOperations.stock);
+	   
+		return new Handlebar(id, brand_name, serial_number, cost, handlebarStyle, stockNum);
+	}
+	
 	/*
 	 * Returns all the records in the Handlebars table as Handlebar objects
 	 */
 	public static Collection<Handlebar> getAllHandlebars() throws EnumMappingException {
 	
-		String sql = """				
-SELECT id, serial_number, brand_name, cost, style, stock_num
-FROM Handlebars;
-""";
+		String sql = 				
+"SELECT " + column_string + " " +
+"FROM Handlebars;";
 		
 		
 		Collection<Handlebar> Handlebars;
@@ -36,31 +64,8 @@ FROM Handlebars;
 			
 			Handlebars = new ArrayList<Handlebar>();
 			
-			while (rs.next()) {
-				int id = rs.getInt("id");
-				int serial_number = rs.getInt("serial_number");
-				String brand_name = rs.getString("brand_name");
-				double cost = rs.getDouble("cost");
-				String style_string = rs.getString("style");
-				
-
-				HandlebarStyles style  = null;
-				if (style_string.equals("high")) {
-					style = HandlebarStyles.HIGH;
-				}
-				else if (style_string.equals("dropped")) {
-					style = HandlebarStyles.DROPPED;
-				}
-				else if (style_string.equals("straight")) {
-					style = HandlebarStyles.STRAIGHT;
-				} else {
-					throw new EnumMappingException("HandlebarStyle " + style_string + " had no valid domain enum");
-				}
-				
-				int stock_num = rs.getInt("stock_num");
-
-							   
-				Handlebar retrieved_Handlebar = new Handlebar(id, brand_name, serial_number, cost, style, stock_num);
+			while (rs.next()) {	   
+				Handlebar retrieved_Handlebar = parseHandlebarFromResultset(rs);
 			   
 				Handlebars.add(retrieved_Handlebar);			   
 			                    
@@ -78,10 +83,10 @@ FROM Handlebars;
 	}
 	
 	public static Handlebar getHandlebar(int idNum) {
-		String sql = """				
-SELECT *
-FROM Handlebars
-WHERE id=?;""";
+		String sql = 				
+"SELECT " + column_string + " " +
+"FROM Handlebars " +
+"WHERE id=?;";
 		
 		
 		Handlebar currentHandleBar = null;
@@ -92,23 +97,17 @@ WHERE id=?;""";
 			
 			ResultSet rs = statement.executeQuery();
 						
-			while (rs.next()) {
-				int id = rs.getInt("id");
-				int serialNum = rs.getInt("serial_number");
-				String brandName = rs.getString("brand_name");
-				double cost = rs.getDouble("cost");
-				HandlebarStyles handlebarStyle = HandlebarStyles.valueOf((rs.getString("style")).toUpperCase());
-				int stockNum = rs.getInt("stock_num");
-			   
-				currentHandleBar = new Handlebar(id, brandName, serialNum, cost, handlebarStyle, stockNum);
+			while (rs.next()) {			   
+				currentHandleBar = parseHandlebarFromResultset(rs);
 			   			                    
 			}
 			
 			statement.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
+		} catch (EnumMappingException e) {
+			e.printStackTrace();
 		}
 		
 		return currentHandleBar;	

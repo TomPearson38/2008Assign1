@@ -10,22 +10,40 @@ import java.util.Collection;
 
 import Domain.Frameset;
 import Domain.Gearset;
-import Domain.Handlebar;
-import Domain.HandlebarStyles;
 
 public class FrameOperations {
-
+	
+	/*
+	 * The aliased names are stored as constants so the aliases are the same in the queries and the ResultSet parsers
+	 */
+	public final static String id = "frame_id";
+	public final static String serial_number = "frame_serial_number";
+	public final static String brand_name = "frame_brand_name";
+	public final static String cost = "frame_cost";
+	public final static String size = "frame_size";
+	public final static String shocks = "shocks";
+	public final static String stock_number = "frame_stock";
+	
+	public final static String column_string = 
+			"Frames.id AS " + id + 
+			", Frames.serial_number AS " + serial_number + 
+			", Frames.brand_name AS " + brand_name + 
+			", Frames.cost AS " + cost +
+			", Frames.size AS " + size +
+			", Frames.shocks AS " + shocks +
+			", Frames.stock_num AS " + stock_number;
+	
 	/*
 	 * Returns all the records in the Framesets table as Frameset objects
 	 */
 	public static Collection<Frameset> getAllFrames() {
 	
-		String sql = """				
-SELECT Frames.id, Frames.serial_number, Frames.brand_name, Frames.cost, Frames.size, Frames.shocks, Gearsets.id as gearset_id, Gearsets.name AS gearset_name, Frames.stock_num
-FROM Frames
-LEFT JOIN Gearsets
-ON Frames.gears_id = Gearsets.id;
-""";
+		String sql = 			
+"SELECT " + FrameOperations.column_string + ", " +  GearsetOperations.column_string + " " +
+"FROM Frames " +
+"LEFT JOIN Gearsets " +
+"ON Frames.gears_id = Gearsets.id;";
+
 		
 		
 		Collection<Frameset> Framesets;
@@ -37,21 +55,8 @@ ON Frames.gears_id = Gearsets.id;
 			Framesets = new ArrayList<Frameset>();
 			
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				int serial_number = rs.getInt("serial_number");
-			    String brand_name = rs.getString("brand_name");
-			    double cost = rs.getDouble("cost");
-			    double size = rs.getDouble("size");
-			    boolean shocks = rs.getBoolean("shocks");
-			   
-			    int gearset_id = rs.getInt("gearset_id");
-			    String gearset_name = rs.getString("gearset_name");
-			   
-			    Gearset retrieved_gearset = new Gearset(gearset_id, gearset_name);
-			    
-			    int stock_num = rs.getInt("stock_num");
-			   
-			    Frameset retrieved_frameset = new Frameset(id, brand_name, serial_number, cost, size, retrieved_gearset, shocks, stock_num);
+				
+			    Frameset retrieved_frameset = parseFramesetFromResultSet(rs);
 			   
 			    Framesets.add(retrieved_frameset);			   
 			                    
@@ -67,6 +72,23 @@ ON Frames.gears_id = Gearsets.id;
 		return Framesets;
 		
 	}
+	
+	public static Frameset parseFramesetFromResultSet(ResultSet rs) throws SQLException {
+		int id = rs.getInt(FrameOperations.id);
+		int serial_number = rs.getInt(FrameOperations.serial_number);
+	    String brand_name = rs.getString(FrameOperations.brand_name);
+	    double cost = rs.getDouble(FrameOperations.cost);
+	    double size = rs.getDouble(FrameOperations.size);
+	    boolean shocks = rs.getBoolean(FrameOperations.shocks);
+	    int stock_num = rs.getInt(FrameOperations.stock_number);
+	   
+	    Gearset retrieved_gearset = GearsetOperations.parseGearsFromResultset(rs);
+	    
+	    
+	   
+	    return new Frameset(id, brand_name, serial_number, cost, size, retrieved_gearset, shocks, stock_num);
+	}
+	
 	
 	public static Frameset getFrameset(int idNum) {
 		String sqlTemplate = """				

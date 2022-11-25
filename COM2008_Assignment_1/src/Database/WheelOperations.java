@@ -16,16 +16,47 @@ import Domain.TyreType;
 import Domain.Wheel;
 
 public class WheelOperations {
+	
+	public final static String id = "wheel_id";
+	public final static String serial_number = "wheel_serial_number";
+	public final static String brand_name = "wheel_brand_name";
+	public final static String cost = "wheel_cost";
+	public final static String diameter = "diameter";
+	public final static String tyre_type = "tyre_type";
+	public final static String brake = "brake_type";
+	public final static String stock_num = "wheel_stock_num";
+	
+	public final static String column_string = 
+			"Wheels.id AS " + id + 
+			", Wheels.serial_number AS " + serial_number + 
+			", Wheels.brand_name AS " + brand_name + 
+			", Wheels.cost AS " + cost + 
+			", diameter AS " + diameter + 
+			", tyre_type AS " + tyre_type + 
+			", brake_type AS " + brake + 
+			", Wheels.stock_num AS " + stock_num;
+	
+	public static Wheel parseWheelFromResultset(ResultSet rs) throws SQLException {
+		int id = rs.getInt(WheelOperations.id);
+		int serialNum = rs.getInt(WheelOperations.serial_number);
+		String brandName = rs.getString(WheelOperations.brand_name);
+		double cost = rs.getDouble(WheelOperations.cost);
+		double diameter = rs.getDouble(WheelOperations.diameter);
+		TyreType tyre = TyreType.valueOf((rs.getString(WheelOperations.tyre_type)).toUpperCase());
+		BrakeType brake = BrakeType.valueOf((rs.getString(WheelOperations.brake)).toUpperCase());
+		int stockNum = rs.getInt(WheelOperations.stock_num);
+	   
+	   return new Wheel(id, serialNum, brandName, cost, diameter, tyre, brake, stockNum);
+	}
 
 	/*
 	 * Returns all the records in the Wheels table as Wheel objects
 	 */
 	public static Collection<Wheel> getAllWheels() {
 	
-		String sql = """				
-SELECT *
-FROM Wheels;
-""";
+		String sql = 				
+"SELECT id AS " + column_string + 
+"FROM Wheels;";
 		
 		
 		Collection<Wheel> Wheels;
@@ -37,16 +68,7 @@ FROM Wheels;
 			Wheels = new ArrayList<Wheel>();
 			
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				int serialNum = rs.getInt("serial_number");
-				String brandName = rs.getString("brand_name");
-				double cost = rs.getDouble("cost");
-				double diameter = rs.getDouble("diameter");
-				TyreType tyre = TyreType.valueOf((rs.getString("tyre_type")).toUpperCase());
-				BrakeType brake = BrakeType.valueOf((rs.getString("brake_type")).toUpperCase());
-				int stockNum = rs.getInt("stock_num");
-			   
-			    Wheel retrived_wheel = new Wheel(id, serialNum, brandName, cost, diameter, tyre, brake, stockNum);
+			    Wheel retrived_wheel = parseWheelFromResultset(rs);
 			   
 			    Wheels.add(retrived_wheel);			   
 			                    
@@ -63,10 +85,10 @@ FROM Wheels;
 	}
 	
 	public static Wheel getWheel(int idNum) {
-		String sql = """				
-SELECT *
-FROM Wheels
-WHERE id=?;""";
+		String sql = 				
+"SELECT "  + column_string + 
+"FROM Wheels" + 
+"WHERE id=?;";
 		
 		
 		Wheel currentWheel = null;
@@ -78,16 +100,9 @@ WHERE id=?;""";
 			ResultSet rs = statement.executeQuery();
 						
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				int serialNum = rs.getInt("serial_number");
-				String brandName = rs.getString("brand_name");
-				double cost = rs.getDouble("cost");
-				double diameter = rs.getDouble("diameter");
-				TyreType tyre = TyreType.valueOf((rs.getString("tyre_type")).toUpperCase());
-				BrakeType brake = BrakeType.valueOf((rs.getString("brake_type")).toUpperCase());
-				int stockNum = rs.getInt("stock_num");
+				
 			   
-			    currentWheel = new Wheel(id, serialNum, brandName, cost, diameter, tyre, brake, stockNum);
+			    currentWheel = parseWheelFromResultset(rs);
 			   			                    
 			}
 			
