@@ -19,16 +19,61 @@ import Domain.TyreType;
 import Domain.Wheel;
 
 public class OrderOperations {
+	public final static String order_number = "order_number";
+	public final static String customer_id = "customer_id";
+	public final static String given_name = "given_name";
+	public final static String cost = "original_cost";
+	public final static String order_status = "order_status";
+	public final static String bike_id = "bike_id";
+	public final static String serial_number = "order_serial_number";
+	public final static String order_date = "order_date";
+	
+	public final static String column_string = 
+			"Orders.order_number AS " + order_number + 
+			", Orders.customer_id AS " + customer_id + 
+			", Orders.customer_given_name AS " + given_name + 
+			", Orders.cost AS " + cost +
+			", Orders.order_status AS " + order_status +
+			", Orders.bike_id AS " + bike_id + 
+			", Orders.serial_number AS " + serial_number +
+			", Orders.order_date AS " + order_date;
+													
+	public static Order parseOrderFromResultSet(ResultSet rs) throws SQLException, EnumMappingException {
+		int orderNum = rs.getInt(OrderOperations.order_number);
+		
+	    String customerGivenName = rs.getString(OrderOperations.given_name);
+	    double cost = rs.getDouble(OrderOperations.cost);
+	    OrderStatus os = OrderStatus.valueOf((rs.getString(OrderOperations.order_status)).toUpperCase());
+	    int serial_number = rs.getInt(OrderOperations.serial_number);
+	    String date = rs.getString(OrderOperations.order_date);
+	    
+
+	    Customer retrieved_customer = CustomerOperations.parseCustomerFromResultset(rs);
+	    
+	    Bicycle retrieved_bike = BicycleOperations.parseBicycleFromResultset(rs);
+
+	    return new Order(orderNum, retrieved_customer, customerGivenName, cost, os, retrieved_bike, serial_number, date);
+	}
 	public static Collection<Order> getAllOrders() {
 		
-		String sql = """				
-SELECT Orders.order_number, Orders.customer_given_name, Orders.cost, Orders.order_status, Orders.serial_number, Orders.order_date, Customers.id AS customer_id, Customers.forename, Customers.surname, Customers.address_id, Addresses.house_num_name AS houseNumName, Addresses.street_name AS streetName, Addresses.post_code, Bicycles.id AS bicycle_id, Bicycles.frameset_id FROM Orders;
-LEFT JOIN Customers
-ON Orders.customer_id = Customers.id
-LEFT JOIN Bicycles
-ON Orders.bike_id = Bicycles.id
-""";
-		
+		String sql = 				
+"SELECT " + OrderOperations.column_string + ", " + CustomerOperations.column_string + ", " + AddressOperations.column_string + ", " + BicycleOperations.column_string + ", " + FrameOperations.column_string + ", " + GearsetOperations.column_string + ", " +  HandlebarOperations.column_string + ", " + WheelOperations.column_string + " " + 
+"FROM Orders " +
+"LEFT JOIN Customers " +
+"ON Orders.customer_id = Customers.id " +
+"LEFT JOIN Addresses " +
+"ON Customers.address_id = Addresses.id " +
+"LEFT JOIN Bicycles " +
+"ON Orders.bike_id = Bicycles.id " + 
+"LEFT JOIN Frames " +
+"ON Bicycles.frameset_id = Frames.id " +
+"LEFT JOIN Gearsets " +
+"ON Frames.gears_id = Gearsets.id " + 
+"LEFT JOIN Handlebars " +
+"ON Bicycles.handlebar_id = Handlebars.id " +
+"LEFT JOIN Wheels " +
+"ON Bicycles.wheels_id = Wheels.id;";
+		System.out.println(sql);
 		
 		Collection<Order> Orders;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -39,35 +84,15 @@ ON Orders.bike_id = Bicycles.id
 			Orders = new ArrayList<Order>();
 			
 			while (rs.next()) {
-				int orderNum = rs.getInt("order_number");
-				int customer_id = rs.getInt("customer_id");
 				
-			    String customerGivenName = rs.getString("customer_given_name");
-			    double cost = rs.getDouble("cost");
-			    OrderStatus os = OrderStatus.valueOf((rs.getString("order_status")).toUpperCase());
-			    Bicycle bike = BicycleOperations.getBike(rs.getInt("bike_id"));
-			    int serial_number = rs.getInt("serial_number");
-			    String date = rs.getString("order_date");
-			    
-
-			    Customer retrieved_customer = CustomerOperations.parseCustomerFromResultset(rs);
-			    
-			    int _id = rs.getInt("id");
-				Frameset frame = FrameOperations.getFrameset(rs.getInt("frameset_id"));
-				Handlebar hb = HandlebarOperations.getHandlebar(rs.getInt("handlebar_id"));
-				Wheel wheels = WheelOperations.getWheel(rs.getInt("wheels_id"));
-				String frameName = rs.getString("frame_name");
-			   
-//				foundBike = new Bicycle(_id, frame, hb, wheels, frameName);
-
-			    Order retrieved_order = new Order(orderNum, retrieved_customer, customerGivenName, cost, os, bike, serial_number, date);
+				Order retrieved_order = parseOrderFromResultSet(rs);
 			   
 			    Orders.add(retrieved_order);			   
 			                    
 			}
 			
 			statement.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;

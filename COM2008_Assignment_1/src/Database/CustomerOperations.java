@@ -13,6 +13,17 @@ import Domain.Address;
 
 public class CustomerOperations {
 	
+	public final static String id = "customer_id";
+	public final static String forename = "forename";
+	public final static String surname = "surname";
+	public final static String address_id = "address_id";
+	
+	public final static String column_string = 
+			"Customers.id AS " + id + 
+			", Customers.forename AS " + forename + 
+			", Customers.surname AS " + surname + 
+			", Customers.address_id AS " + address_id;
+	
 	/*
 	 * Returns all the records in the Customers table as Customer objects
 	 */
@@ -35,10 +46,10 @@ ON Customers.address_id = Addresses.id;
 			Customers = new ArrayList<Customer>();
 			
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String forename = rs.getString("forename");
-			    String surname = rs.getString("surname");
-			    int addressID = rs.getInt("address_id");
+				int id = rs.getInt(CustomerOperations.id);
+				String forename = rs.getString(CustomerOperations.forename);
+			    String surname = rs.getString(CustomerOperations.surname);
+			    int addressID = rs.getInt(CustomerOperations.address_id);
 			    
 			    String houseNumName = rs.getString("house_num_name");
 			    String streetName = rs.getString("street_name");

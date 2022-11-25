@@ -12,12 +12,35 @@ import Domain.Address;
 import Domain.Staff;
 
 public class AddressOperations {
+	
+	public final static String id = "handlebar_id";
+	public final static String house_num_name = "house_num_name";
+	public final static String street_name = "street_name";
+	public final static String post_code = "post_code";
+	public final static String city = "city";
+	
+	public final static String column_string = 
+			"Addresses.id AS " + id + 
+			", Addresses.house_num_name AS " + house_num_name + 
+			", Addresses.street_name AS " + street_name + 
+			", Addresses.post_code AS " + post_code +
+			", Addresses.city AS " + city;
+	
+	public static Address parseAddressFromResultSet(ResultSet rs) throws SQLException {
+		int id = rs.getInt(AddressOperations.id);
+		String houseNumName = rs.getString(AddressOperations.house_num_name);
+		String streetName = rs.getString(AddressOperations.street_name);
+		String city = rs.getString(AddressOperations.city);
+		String postCode = rs.getString(AddressOperations.post_code);
+	   
+	    return new Address(id, houseNumName, streetName, city, postCode);
+	}
 	public static Collection<Address> getAllAddresses() {
 		
-		String sql = """				
-SELECT *
-FROM Addresses;
-""";
+		String sql = 				
+"SELECT " + column_string +
+"FROM Addresses;"
+;
 		
 		
 		Collection<Address> Addresses;
@@ -29,13 +52,8 @@ FROM Addresses;
 			Addresses = new ArrayList<Address>();
 			
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String houseNumName = rs.getString("house_num_name");
-				String streetName = rs.getString("street_name");
-				String city = rs.getString("city");
-				String postCode = rs.getString("post_code");
 			   
-			    Address retrived_address = new Address(id, houseNumName, streetName, city, postCode);
+			    Address retrived_address = parseAddressFromResultSet(rs);
 			   
 			    Addresses.add(retrived_address);			   
 			                    
