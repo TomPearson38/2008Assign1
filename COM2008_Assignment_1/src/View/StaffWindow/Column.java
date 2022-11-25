@@ -10,7 +10,7 @@ class Column<O, T> {
 	private String name;
 	private Function<O, T> getValueFromObject;
 	private Class<T> underlyingType;
-	private Integer columnWidth;
+	private int columnWidth;
 	
 	public final static int default_width = 100;
 	
@@ -19,15 +19,15 @@ class Column<O, T> {
 	}
 	
 	public Column(String name, Function<O, T> getValueFromObject, Class<T> type) {
-		this(name, getValueFromObject, null, type);
+		this(name, getValueFromObject, default_width, type);
 	}
 	
-	public Column(String name, Function<O, T> getValueFromObject, Integer columnWidth) {
+	public Column(String name, Function<O, T> getValueFromObject, int columnWidth) {
 		this(name, getValueFromObject, columnWidth, null);	//have to put null here as can't call instance methods (getClass()) in an intra-constructor call
 	}
 	
 	@SuppressWarnings("unchecked")	//only a failover in the event that a type isn't provided
-	public Column(String name, Function<O, T> getValueFromObject, Integer columnWidth, Class<T> type) {
+	public Column(String name, Function<O, T> getValueFromObject, int columnWidth, Class<T> type) {
 		super();
 		this.name = name;
 		this.getValueFromObject = getValueFromObject;
@@ -54,7 +54,7 @@ class Column<O, T> {
 		return underlyingType;
 	}
 	
-	public Integer getColumnWidth() {
+	public int getColumnWidth() {
 		return columnWidth;
 	}
 	
