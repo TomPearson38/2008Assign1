@@ -39,6 +39,11 @@ public class Bicycle {
 		return get_frame().BrandName() + " " + _wheels.get_tyre().toString();
 	}
 	
+	@Override
+	public String toString() {
+		return get_frame().BrandName();
+	}
+
 	public String getFrameName() {
 		return _frameName;
 	}
