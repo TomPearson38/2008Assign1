@@ -3,6 +3,8 @@ package View.StaffWindow;
 import java.lang.reflect.ParameterizedType;
 import java.util.function.Function;
 
+import javax.swing.table.TableCellRenderer;
+
 /*
  * Column represents a column in the TableModel where O is the type of the underlying object and T the type of the return object
  */
@@ -11,6 +13,9 @@ class Column<O, T> {
 	private Function<O, T> getValueFromObject;
 	private Class<T> underlyingType;
 	private int columnWidth;
+	private TableCellRenderer customRenderer;
+	
+	public void setCustomRenderer(TableCellRenderer value) { customRenderer = value; }
 	
 	public final static int default_width = 100;
 	
@@ -42,6 +47,7 @@ class Column<O, T> {
 		
 	}
 	
+	
 	public String getName() {
 		return name;
 	}
@@ -56,6 +62,10 @@ class Column<O, T> {
 	
 	public int getColumnWidth() {
 		return columnWidth;
+	}
+	
+	public TableCellRenderer getCustomRenderer() {
+		return customRenderer;
 	}
 	
 }

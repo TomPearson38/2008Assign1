@@ -17,7 +17,7 @@ import Database.OrderOperations;
 import Domain.Order;
 
 public class ManageOrdersPanel extends JPanel {
-	private int previousClick = -1;
+	
 	
 	public ManageOrdersPanel() {
 		super();
@@ -33,21 +33,7 @@ public class ManageOrdersPanel extends JPanel {
 		this.add(ordersTable);
 	
 	
-		ordersTable.addMouseListener(new MouseAdapter() {
-		    public void mousePressed(MouseEvent mouseEvent) {
-		        JTable table =(JTable) mouseEvent.getSource();
-		        Point point = mouseEvent.getPoint();
-		        int row = table.rowAtPoint(point);
-		        if(previousClick == row) {
-			        System.out.println(row);
-			        previousClick = -1;
-		        }
-		        else {
-		        	previousClick = row;
-		        }
-		        
-		    }
-		});
+		
 	
 	}
 		

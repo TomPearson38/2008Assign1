@@ -21,6 +21,7 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 		final Column<OrderModelRow, Bicycle> bikeColumn = new Column<OrderModelRow, Bicycle>("Bicycle", OrderModelRow::getBicycle, Bicycle.class);
 		
 		final Column<OrderModelRow, Double> costColumn = new Column<OrderModelRow, Double>("Cost", OrderModelRow::getCost, Double.class);
+		costColumn.setCustomRenderer(new SterlingRenderer());
 		
 		return Arrays.asList(orderNumberColumn, customerGivenNameColumn, bikeColumn, costColumn);
 		
