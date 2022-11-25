@@ -9,6 +9,7 @@ import Database.HandlebarOperations;
 import Database.WheelOperations;
 import Domain.BicycleComponent;
 import Domain.BrakeType;
+import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.TyreType;
 import Domain.Wheel;
@@ -77,5 +78,11 @@ public class WheelPicker extends AbstractPicker<Wheel>{
 	
 	protected Boolean deleteComponent(Wheel wheelToDelete) {
 		return WheelOperations.deleteWheel(wheelToDelete);
+	}
+	
+	protected Boolean checkForeignKeys(Wheel selectedWheel) {
+		//Call a wheel operations method that gets all bicyles from database where wheelid is same as selected wheel's id
+		//If one found, return false to prevent deleteing a wheel in use.
+		return true;
 	}
 }

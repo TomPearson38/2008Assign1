@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -23,25 +24,32 @@ class StaffPanel<T> extends JPanel {
 	JButton editButton;
 	JButton deleteButton;
 	
-	public StaffPanel(Function<T, Boolean> updateComponent, Function<T, Boolean> deleteComponent) {
+	Runnable refreshPicker;
+	
+	public StaffPanel(Function<T, Boolean> updateComponent, Function<T, Boolean> deleteComponent, Runnable refreshPicker) {
 		super();
 		this.setLayout(staffPanelLayout);
 		
 		this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
 		
 		editButton = new JButton("Edit");
-		editButton.addActionListener(e -> updateComponent.apply(_currentObject)); //TODO call functions that have been passed in
+		editButton.addActionListener(e -> {
+			updateComponent.apply(_currentObject); 
+			refreshPicker.run();
+		});
 		
 		deleteButton = new JButton("Delete");
-		deleteButton.addActionListener(e -> deleteComponent.apply(_currentObject));
+		deleteButton.addActionListener(e -> {
+			deleteComponent.apply(_currentObject);
+		    refreshPicker.run();
+		});
 		
 		editButton.setEnabled(false);
 		deleteButton.setEnabled(false);
 		
 		this.add(editButton);
 		this.add(deleteButton);
-		
-		
+		this.refreshPicker = refreshPicker;
 	}
 
 	public void set_currentObject(T _currentObject) {

@@ -28,7 +28,7 @@ public class ManageOrdersPanel extends JPanel {
 	private void addComponents() {
 		final Collection<Order> allOrders = OrderOperations.getAllOrders();
 		
-		final OrdersTableModel ordersTableModel = new OrdersTableModel(allOrders);
+		final AbstractTableModel ordersTableModel = new AbstractTableModel(allOrders);
 		
 		ordersTable.setModel(ordersTableModel);
 		
