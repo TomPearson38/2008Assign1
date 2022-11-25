@@ -62,7 +62,9 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     private void setSelectedObject(T value) {
     	_currentObject = value;
     	infoPanel.set_currentObject(value);
-    	staffPanel.set_currentObject(value);
+    	if (isStaffMode) {
+    		staffPanel.set_currentObject(value);
+    	}
     }
     
     
@@ -111,11 +113,11 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     	infoPanel = new InfoPanel<T>(getPropertyDescriptors());
     	
     	JPanel rightPanel = new JPanel(new BorderLayout());
-    	rightPanel.add(infoPanel, BorderLayout.NORTH);
+    	rightPanel.add(infoPanel, BorderLayout.CENTER);
     	
+    	staffPanel = new StaffPanel<T>(this::updateComponent, this::deleteComponent);
     	
         if (isStaffMode) {
-        	final JPanel staffPanel = new StaffPanel<T>(this::updateComponent, this::deleteComponent);
         	rightPanel.add(staffPanel, BorderLayout.SOUTH);
     	}
     	
