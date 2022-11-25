@@ -11,6 +11,7 @@ import javax.swing.table.TableModel;
 
 import Domain.Bicycle;
 import Domain.Order;
+import Domain.OrderStatus;
 
 class OrdersTableModel implements TableModel {
 	private List<OrderModelRow> orders;
@@ -34,7 +35,9 @@ class OrdersTableModel implements TableModel {
 		
 		final Column<OrderModelRow, Double> costColumn = new Column<OrderModelRow, Double>("Cost", OrderModelRow::getCost, Double.class);
 		
-		return Arrays.asList(orderNumberColumn, customerGivenNameColumn, bikeColumn, costColumn);
+		final Column<OrderModelRow, OrderStatus> orderStatus = new Column<OrderModelRow, OrderStatus>("Order Status", OrderModelRow::getOrderStatus, OrderStatus.class);
+		
+		return Arrays.asList(orderNumberColumn, customerGivenNameColumn, bikeColumn, costColumn, orderStatus);
 	}
 
 	@Override
@@ -140,6 +143,10 @@ class OrdersTableModel implements TableModel {
 		
 		public Bicycle getBicycle() {
 			return backingOrder.get_bike();
+		}
+		
+		public OrderStatus getOrderStatus() {
+			return backingOrder.get_order_status();
 		}
 	}
 	
