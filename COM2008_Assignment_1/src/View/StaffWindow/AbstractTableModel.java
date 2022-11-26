@@ -18,6 +18,10 @@ abstract class AbstractTableModel<T> implements TableModel {
 		this.columns = columns;
 	}
 	
+	public T getRowObjectFromIndex(int rowIndex) {
+		return objects.get(rowIndex);
+	}
+	
 
 	@Override
 	public int getRowCount() {

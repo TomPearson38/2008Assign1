@@ -35,6 +35,7 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 		return Arrays.asList(orderNumberColumn, customerGivenNameColumn, bikeColumn, costColumn, orderStatusColumn);
 		
 	}
+	
 
 	@Override
 	protected AbstractTableModel<OrderModelRow> getTableModel() {

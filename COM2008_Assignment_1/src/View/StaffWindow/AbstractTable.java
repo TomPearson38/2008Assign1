@@ -13,6 +13,7 @@ import javax.swing.table.TableColumn;
 
 public abstract class AbstractTable<T> extends JScrollPane {
 	private InternalTable interiorTable = new InternalTable();
+	private AbstractTableModel<T> tableModel = getTableModel();
 	
 	private int previousClick = -1;
 	
@@ -21,7 +22,7 @@ public abstract class AbstractTable<T> extends JScrollPane {
 	public AbstractTable() {
 		super();
 		
-		interiorTable.setModel(getTableModel());
+		interiorTable.setModel(tableModel);
 		
 		setColumnWidth();
 		addDoubleClickListener();
@@ -30,6 +31,7 @@ public abstract class AbstractTable<T> extends JScrollPane {
 		
 		this.setViewportView(interiorTable);
 	}
+	
 	
 	private void setColumnWidth() {
 		final List<Column<T, ?>> columns = getColumns();
@@ -75,6 +77,11 @@ public abstract class AbstractTable<T> extends JScrollPane {
 	protected abstract List<Column<T, ?>> getColumns();
 	
 	protected abstract AbstractTableModel<T> getTableModel();
+	
+	public T getSelectedRow() {
+		int rowIndex = interiorTable.getSelectedRow();
+		return tableModel.getRowObjectFromIndex(rowIndex);
+	}
 	
 	private class InternalTable extends JTable {
 		@Override
