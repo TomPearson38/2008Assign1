@@ -1,10 +1,14 @@
 package View.StaffWindow;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import Database.OrderOperations;
@@ -23,6 +27,15 @@ public class OrdersSaveButton extends JButton implements EditedObjectsChangedLis
 		this.setEnabled(false);
 		
 		this.addActionListener(this);
+		
+		final String saveIconLocation = "../../Resources/save_very_small.png";
+		Image img;
+		try {
+			img = ImageIO.read(getClass().getResource(saveIconLocation));
+			this.setIcon(new ImageIcon(img));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
