@@ -15,6 +15,8 @@ import javax.swing.table.TableColumn;
 
 import Domain.Bicycle;
 import Domain.Order;
+import View.StaffWindow.ExpandedBikeView;
+import View.StaffWindow.OrderModelRow;
 
 public abstract class AbstractTable<T> extends JScrollPane implements EditedObjectsChangedListener<T> {
 	private InternalTable interiorTable = new InternalTable();
@@ -65,16 +67,16 @@ public abstract class AbstractTable<T> extends JScrollPane implements EditedObje
 		}
 	}
 	
-	private void addDoubleClickListener() {
+	protected void addDoubleClickListener() {
 		interiorTable.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
 		        JTable table =(JTable) mouseEvent.getSource();
 		        Point point = mouseEvent.getPoint();
 		        int row = table.rowAtPoint(point);
 		        if(previousClick == row) {
-		        	System.out.println(tableModel.getRowObjectFromIndex(row));
-		        	ExpandedBikeView ex = new ExpandedBikeView((OrderModelRow)tableModel.getRowObjectFromIndex(row));
-		        	System.out.println("Test");
+		        	if(tableModel.getRowObjectFromIndex(row).getClass() == OrderModelRow.class) {	
+		        		ExpandedBikeView ex = new ExpandedBikeView((OrderModelRow)tableModel.getRowObjectFromIndex(row));
+		        	}
 		        	previousClick = -1;
 		        }
 		        else {

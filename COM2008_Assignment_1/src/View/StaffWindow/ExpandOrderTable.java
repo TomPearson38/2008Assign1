@@ -8,12 +8,14 @@ import java.util.stream.Collectors;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
+import javax.swing.table.AbstractTableModel;
 
 import Database.OrderOperations;
 import Domain.Bicycle;
 import Domain.BicycleComponent;
 import Domain.Order;
 import Domain.OrderStatus;
+import View.Table.*;
 
 public class ExpandOrderTable extends AbstractTable<PartsModelRow> {	
 	@Override
@@ -34,7 +36,7 @@ public class ExpandOrderTable extends AbstractTable<PartsModelRow> {
 	}
 	
 	@Override
-	protected AbstractTableModel<PartsModelRow> getTableModel() {
+	protected GenericAbstractTableModel<PartsModelRow> getTableModel() {
 		
 		final Collection<BicycleComponent> allComponents = new ArrayList<BicycleComponent>();
 		allComponents.add(ExpandedBikeView.getBike().get_frame());
@@ -47,11 +49,10 @@ public class ExpandOrderTable extends AbstractTable<PartsModelRow> {
 	}
 	
 	
-	public class ExpandTableModel extends AbstractTableModel<PartsModelRow> {
+	public class ExpandTableModel extends GenericAbstractTableModel<PartsModelRow> {
 		public ExpandTableModel(Collection<BicycleComponent> parts, List<Column<PartsModelRow, ?>> columns) {
 			super(parts.stream().map(PartsModelRow::new).collect(Collectors.toList()), columns);
 			
 		}
-	}
-	
+	}	
 }

@@ -137,7 +137,7 @@ public class OrderOperations {
 		default:
 			return null;
 		}
-		
+	}
 	public static Order getOrder(int idNum) {
 		String sql = 				
 "SELECT " + OrderOperations.column_string + ", " + CustomerOperations.column_string + ", " + AddressOperations.column_string + ", " + BicycleOperations.column_string + ", " + FrameOperations.column_string + ", " + GearsetOperations.column_string + ", " +  HandlebarOperations.column_string + ", " + WheelOperations.column_string + " " + 
@@ -179,7 +179,7 @@ public class OrderOperations {
 
 		return currentOrder;	
 	}
-}
+
 	
 
 	public static boolean updateOrder(Order orderToUpdate) {

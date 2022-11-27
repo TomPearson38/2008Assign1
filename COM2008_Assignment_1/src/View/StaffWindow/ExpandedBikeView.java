@@ -8,15 +8,16 @@ import javax.swing.JPanel;
 import Database.OrderOperations;
 import Domain.Bicycle;
 import Domain.Order;
+import View.StaffWindow.*;
 
 public class ExpandedBikeView extends JDialog{
 	private static Order currentOrder;
 	private OrderModelRow _row;
 	
 	
-	public ExpandedBikeView(OrderModelRow row) {
-		_row = row;
-		currentOrder = OrderOperations.getOrder(row.getOrderNumber());
+	public ExpandedBikeView(OrderModelRow orderModelRow) {
+		_row = orderModelRow;
+		currentOrder = OrderOperations.getOrder(orderModelRow.getOrderNumber());
         setLocationRelativeTo(null); //Compact panel centring
         setSize(500, 300);
 		addComponents();
