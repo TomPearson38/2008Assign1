@@ -35,11 +35,13 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
 	private JButton confirmButton;
 	
 	JPanel tablePanel = new JPanel(new BorderLayout());
-	JPanel infoPanel = new JPanel(new GridLayout(2,4));
+	JPanel infoPanel = new JPanel(new GridLayout(3,4));
 	JLabel orderNumLabel;
 	JLabel orderStatusLabel;
 	JLabel customerNameLabel;
 	JLabel costLabel;
+	JLabel orderDate;
+	JLabel bikeName;
 	
 	
 	
@@ -55,6 +57,8 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
 		setLocationRelativeTo(null); //Compact panel centring
     	setLayout(new GridBagLayout());
     	
+    	orderDate = new JLabel(currentOrder.get_date());
+    	bikeName = new JLabel(currentOrder.get_bike().getFrameName());
     	orderNumLabel = new JLabel(orderModelRow.getOrderNumber().toString());
     	orderStatusLabel = new JLabel(orderModelRow.getOrderStatus().toString());
     	customerNameLabel = new JLabel(currentOrder.get_customer().get_full_name());
@@ -93,6 +97,12 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
 		else {
 			infoPanel.add(orderStatusLabel);
 		}
+		
+		infoPanel.add(new JLabel("Order Date:"));
+		infoPanel.add(orderDate);
+		
+		infoPanel.add(new JLabel("Frame Name:"));
+		infoPanel.add(bikeName);
 		
 		infoPanel.add(new JLabel("Customer Name:"));
 		infoPanel.add(customerNameLabel);
