@@ -115,4 +115,37 @@ public class BicycleOperations {
 		
 		return foundBike;
 	}
+	
+	public static Bicycle addBicycle(Frameset frame, Handlebar handlebar, Wheel wheels, String name) {
+		String sqlTemplate = """
+				INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name)
+				VALUES(?,?,?,?);
+				""";
+						
+						try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+							
+							PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate, Statement.RETURN_GENERATED_KEYS);
+							
+							statement.setInt(1, frame.get_id());
+							statement.setInt(2, handlebar.get_id());
+							statement.setInt(3, wheels.get_id());
+							statement.setString(4, name);
+							
+							int rowAffected = statement.executeUpdate();
+							if (rowAffected == 1) {
+								ResultSet rs = statement.getGeneratedKeys();
+								if (rs.next()) {
+									
+									int bicycleId = rs.getInt(1);
+									
+									return new Bicycle(bicycleId, frame, handlebar, wheels, name);
+								}
+							}
+							
+						} catch (SQLException ex) {
+							ex.printStackTrace();
+						}
+						
+						return null;
+	}
 }

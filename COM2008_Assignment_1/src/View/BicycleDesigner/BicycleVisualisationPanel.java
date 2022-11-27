@@ -8,7 +8,7 @@ import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 
-import View.ResourceSingleton;
+import Resources.ResourceSingleton;
 
 public class BicycleVisualisationPanel extends JPanel {
 	private FramesetSprite framesetSprite = null;

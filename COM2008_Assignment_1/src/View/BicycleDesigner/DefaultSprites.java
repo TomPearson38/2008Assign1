@@ -2,7 +2,7 @@ package View.BicycleDesigner;
 
 import java.awt.Point;
 
-import View.ResourceSingleton;
+import Resources.ResourceSingleton;
 
 public class DefaultSprites {
 	public static FramesetSprite getDefaultFramesetSprite() {

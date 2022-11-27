@@ -1,5 +1,6 @@
 package View.AbstractPicker;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,11 +11,14 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import Domain.IToUIString;
+import Resources.ResourceSingleton;
 
 public class PickerPanel<T extends IToUIString> extends JPanel {
 	
@@ -44,10 +48,17 @@ public class PickerPanel<T extends IToUIString> extends JPanel {
 		_changeListeners.forEach(s -> s.PickerPanelChanged(newObject));
 	}
 
-	public PickerPanel(Collection<T> objects) {
+	public PickerPanel() {
 		super();
-		_objects = objects;
-		setUpPickerPanel();
+//		setUpPickerPanel();
+	}
+	
+	public void setLoadingMode() {
+		removeAll();
+		ImageIcon loadingIcon = new ImageIcon(ResourceSingleton.getLoadingImage());
+		JLabel label = new JLabel(loadingIcon);
+		this.setLayout(new BorderLayout());
+		this.add(label, BorderLayout.CENTER);
 	}
 	
     public void set_objects(Collection<T> _objects) {

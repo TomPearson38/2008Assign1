@@ -3,6 +3,7 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -12,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Resources.ResourceSingleton;
 import View.BicycleDesigner.BicycleDesignerPanel;
 
 public class CustomerMenu extends JFrame {
@@ -25,8 +27,6 @@ public class CustomerMenu extends JFrame {
 	private void addComponents() {
 		this.setTitle("Bicycle Designer");
 		final Container contentPanel = this.getContentPane();
-//		setSize(100, 100);
-//		contentPanel.setMinimumSize(new Dimension(100, 100));
 		contentPanel.setLayout(new BorderLayout());
 		
 		final JPanel topPanel = new JPanel();
@@ -61,6 +61,7 @@ public class CustomerMenu extends JFrame {
 		
 		final JButton saveDesignButton = new JButton("Save Design");
 		saveDesignButton.setIcon(new ImageIcon(ResourceSingleton.getSaveIcon()));
+		saveDesignButton.addActionListener(this::saveButtonClicked);
 		
 		rightContainerPanel.add(saveDesignButton, BorderLayout.SOUTH);
 		rightContainerPanel.add(customerButtonsPanel, BorderLayout.CENTER);
@@ -69,5 +70,9 @@ public class CustomerMenu extends JFrame {
 		contentPanel.add(topPanel, BorderLayout.NORTH);
 		contentPanel.add(mainPanel, BorderLayout.WEST);
 		contentPanel.add(rightContainerPanel, BorderLayout.CENTER);
+	}
+	
+	private void saveButtonClicked(ActionEvent e) {
+		
 	}
 }

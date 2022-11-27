@@ -13,7 +13,7 @@ import javax.swing.JButton;
 
 import Database.OrderOperations;
 import Domain.Order;
-import View.ResourceSingleton;
+import Resources.ResourceSingleton;
 import View.Table.EditedObjectsChangedListener;
 
 public class OrdersSaveButton extends JButton implements EditedObjectsChangedListener<OrderModelRow>, ActionListener {
