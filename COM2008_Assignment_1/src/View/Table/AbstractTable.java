@@ -13,6 +13,12 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import Domain.Bicycle;
+import Domain.Order;
+import View.PreviousCustomerOrdersTable.PastOrderTableModel;
+import View.StaffWindow.ExpandedBikeView;
+import View.StaffWindow.OrderModelRow;
+
 public abstract class AbstractTable<T> extends JScrollPane implements EditedObjectsChangedListener<T> {
 	private InternalTable interiorTable = new InternalTable();
 	private GenericAbstractTableModel<T> tableModel = getTableModel();
@@ -62,15 +68,20 @@ public abstract class AbstractTable<T> extends JScrollPane implements EditedObje
 		}
 	}
 	
-	private void addDoubleClickListener() {
+	protected void addDoubleClickListener() {
 		interiorTable.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
 		        JTable table =(JTable) mouseEvent.getSource();
 		        Point point = mouseEvent.getPoint();
 		        int row = table.rowAtPoint(point);
 		        if(previousClick == row) {
-			        System.out.println(row);
-			        previousClick = -1;
+		        	if(tableModel.getClass() == (PastOrderTableModel.class)) {
+		        		ExpandedBikeView ex = new ExpandedBikeView((OrderModelRow)tableModel.getRowObjectFromIndex(row), false);
+		        	}
+		        	else if(tableModel.getRowObjectFromIndex(row).getClass() == OrderModelRow.class) {	
+		        		ExpandedBikeView ex = new ExpandedBikeView((OrderModelRow)tableModel.getRowObjectFromIndex(row), true);
+		        	}
+		        	previousClick = -1;
 		        }
 		        else {
 		        	previousClick = row;

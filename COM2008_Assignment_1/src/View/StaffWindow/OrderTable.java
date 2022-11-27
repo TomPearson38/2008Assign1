@@ -48,7 +48,7 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 	protected GenericAbstractTableModel<OrderModelRow> getTableModel() {
 		
 		final Collection<Order> allOrders = OrderOperations.getAllOrders();
-		
+				
 		return new OrderTableModel(allOrders, getColumns());
 	}
 	
