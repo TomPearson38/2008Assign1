@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import View.BicycleDesigner.BicycleDesignerPanel;
 
@@ -41,9 +42,10 @@ public class CustomerMenu extends JFrame {
 
 		final JPanel rightContainerPanel = new JPanel(new BorderLayout());
 		
-		final JPanel rightPanel = new JPanel();
-		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-		rightPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+		final JPanel customerButtonsPanel = new JPanel();
+		customerButtonsPanel.setBorder(new EmptyBorder(40, 0, 0, 0));
+		customerButtonsPanel.setLayout(new BoxLayout(customerButtonsPanel, BoxLayout.Y_AXIS));
+		customerButtonsPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		
 		
 		final JButton viewOrderButton = new JButton("<html> View Orders </html>");
@@ -54,14 +56,14 @@ public class CustomerMenu extends JFrame {
 		chooseTemplateButton.setPreferredSize(new Dimension(100, 100));
 		
 		
-		rightPanel.add(chooseTemplateButton);
-		rightPanel.add(viewOrderButton);
+		customerButtonsPanel.add(chooseTemplateButton);
+		customerButtonsPanel.add(viewOrderButton);
 		
 		final JButton saveDesignButton = new JButton("Save Design");
 		saveDesignButton.setIcon(new ImageIcon(ResourceSingleton.getSaveIcon()));
 		
 		rightContainerPanel.add(saveDesignButton, BorderLayout.SOUTH);
-		rightContainerPanel.add(rightPanel, BorderLayout.CENTER);
+		rightContainerPanel.add(customerButtonsPanel, BorderLayout.CENTER);
 		
 		
 		contentPanel.add(topPanel, BorderLayout.NORTH);
