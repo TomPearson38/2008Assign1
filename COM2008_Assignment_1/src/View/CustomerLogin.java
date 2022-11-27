@@ -124,10 +124,10 @@ public class CustomerLogin extends JDialog implements ActionListener {
 		if(command.equals("Login")) {
 			foundCustomer = CustomerOperations.findCustomer(forenameInput.getText(), surenameInput.getText(), houseNumNameInput.getText(), streetNameInput.getText(), cityInput.getText(),postCodeInput.getText());
 			if(foundCustomer != null) {
-				System.out.println("Welcome" + foundCustomer.get_forename());
+				PreviousCustomerOrders po = new PreviousCustomerOrders(foundCustomer);
 			}
 			else {
-				System.out.println("INCORRECT LOGIN DETAILS");
+				JOptionPane.showMessageDialog(null, "Incorrect Customer Details.\nPlease try again.");
 			}
 		}
 		else if(command.equals("Lookup Order Number")) {

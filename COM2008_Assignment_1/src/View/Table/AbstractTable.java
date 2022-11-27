@@ -15,6 +15,7 @@ import javax.swing.table.TableColumn;
 
 import Domain.Bicycle;
 import Domain.Order;
+import View.PreviousCustomerOrdersTable.PastOrderTableModel;
 import View.StaffWindow.ExpandedBikeView;
 import View.StaffWindow.OrderModelRow;
 
@@ -74,7 +75,10 @@ public abstract class AbstractTable<T> extends JScrollPane implements EditedObje
 		        Point point = mouseEvent.getPoint();
 		        int row = table.rowAtPoint(point);
 		        if(previousClick == row) {
-		        	if(tableModel.getRowObjectFromIndex(row).getClass() == OrderModelRow.class) {	
+		        	if(tableModel.getClass() == (PastOrderTableModel.class)) {
+		        		ExpandedBikeView ex = new ExpandedBikeView((OrderModelRow)tableModel.getRowObjectFromIndex(row), false);
+		        	}
+		        	else if(tableModel.getRowObjectFromIndex(row).getClass() == OrderModelRow.class) {	
 		        		ExpandedBikeView ex = new ExpandedBikeView((OrderModelRow)tableModel.getRowObjectFromIndex(row), true);
 		        	}
 		        	previousClick = -1;

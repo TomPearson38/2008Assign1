@@ -226,4 +226,53 @@ WHERE order_number = ?;
 			}
 		}
 	}
+	
+
+	public static Collection<Order> getOrdersForCustomer(int get_id) {
+		String sql = 				
+"SELECT " + OrderOperations.column_string + ", " + CustomerOperations.column_string + ", " + AddressOperations.column_string + ", " + BicycleOperations.column_string + ", " + FrameOperations.column_string + ", " + GearsetOperations.column_string + ", " +  HandlebarOperations.column_string + ", " + WheelOperations.column_string + " " + 
+"FROM Orders " +
+"LEFT JOIN Customers " +
+"ON Orders.customer_id = Customers.id " +
+"LEFT JOIN Addresses " +
+"ON Customers.address_id = Addresses.id " +
+"LEFT JOIN Bicycles " +
+"ON Orders.bike_id = Bicycles.id " + 
+"LEFT JOIN Frames " +
+"ON Bicycles.frameset_id = Frames.id " +
+"LEFT JOIN Gearsets " +
+"ON Frames.gears_id = Gearsets.id " + 
+"LEFT JOIN Handlebars " +
+"ON Bicycles.handlebar_id = Handlebars.id " +
+"LEFT JOIN Wheels " +
+"ON Bicycles.wheels_id = Wheels.id WHERE Customers.id = ?;";
+		System.out.println(sql);
+		
+		Collection<Order> Orders;
+		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
+			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
+			statement.setInt(1, get_id);
+			
+			ResultSet rs = statement.executeQuery();
+			
+			Orders = new ArrayList<Order>();
+			
+			while (rs.next()) {
+				
+				Order retrieved_order = parseOrderFromResultSet(rs);
+			   
+			    Orders.add(retrieved_order);			   
+			                    
+			}
+			
+			statement.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		return Orders;
+		
+	}
 }

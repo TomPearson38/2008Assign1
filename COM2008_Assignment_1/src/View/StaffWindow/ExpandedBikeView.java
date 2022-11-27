@@ -50,9 +50,6 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
 		_staffMember = staffMember;
 		currentOrder = OrderOperations.getOrder(_row.getOrderNumber());
 		currentBike = currentOrder.get_bike();
-		System.out.println(_row.getOrderNumber());
-		System.out.println(currentOrder.get_customer());
-		System.out.println(currentOrder.get_serial_number());
 
 		setLocationRelativeTo(null); //Compact panel centring
     	setLayout(new GridBagLayout());
