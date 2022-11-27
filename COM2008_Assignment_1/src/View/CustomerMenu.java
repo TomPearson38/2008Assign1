@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
-import View.BicycleDesigner.BicycleDesigner;
+import View.BicycleDesigner.BicycleDesignerDialog;
 
 
 public class CustomerMenu extends JFrame {
@@ -51,7 +51,7 @@ public class CustomerMenu extends JFrame {
 		c.ipady = 50;
 		c.gridx = 0;
 		c.gridy = 1;
-		buildBikeButton.addActionListener(e ->  BicycleDesigner.designBicycle(this));
+		buildBikeButton.addActionListener(e ->  BicycleDesignerDialog.designBicycle(this));
 		contentPanel.add(buildBikeButton,c);
 		
 		viewOrderButton = new JButton("View Orders");
