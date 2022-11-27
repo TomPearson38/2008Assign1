@@ -24,10 +24,10 @@ public class ConnectionManager {
     
     public static Connection getConnection() {
     	try {
-    	if (_conn == null || _conn.isClosed()) {
-				_conn = createConnection();
-    		}
-    	}
+	    	if (_conn == null || _conn.isClosed()) {
+					_conn = createConnection();
+	    		}
+	    	}
     	 catch (SQLException ex) {
  			System.out.println(ex.getMessage());
  		}

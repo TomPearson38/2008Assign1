@@ -108,13 +108,15 @@ public class OrderOperations {
 			Connection connection = ConnectionManager.getConnection();
 			
 			connection.setAutoCommit(false);
+			
 			for (Order order : ordersToUpdate) {
-				updateOrder(order);
+				updateOrder(order, false);
 			}
 			
 			connection.commit();
 			
 			connection.setAutoCommit(true);
+			connection.close();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -137,14 +139,17 @@ public class OrderOperations {
 	}
 	
 	public static boolean updateOrder(Order orderToUpdate) {
+		return updateOrder(orderToUpdate, true);
+	}
+	public static boolean updateOrder(Order orderToUpdate, boolean autoClose) {
 		
 		String sqlTemplate = """
 UPDATE Orders
 SET order_number = ?, customer_id = ?, customer_given_name = ?, cost = ?, order_status = ?, bike_id = ?, serial_number = ?, order_date = ?
 WHERE order_number = ?;
 				""";
-		
-		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+		Connection mySQLConnection = ConnectionManager.getConnection();
+		try {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
 			
 			statement.setInt(1, orderToUpdate.get_order_number());
@@ -165,6 +170,15 @@ WHERE order_number = ?;
 			e.printStackTrace();
 			
 			return false;
+		} finally {
+			if (autoClose) {
+				try {
+					mySQLConnection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }
