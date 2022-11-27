@@ -135,7 +135,7 @@ public class CustomerLogin extends JDialog implements ActionListener {
 			try {
 				foundOrder = OrderOperations.getOrder(Integer.parseInt(orderNumberInput.getText()));
 				if(foundOrder != null) {
-					ExpandedBikeView ex = new ExpandedBikeView(new OrderModelRow(foundOrder), false);
+					ExpandedBikeView ex = new ExpandedBikeView(new OrderModelRow(foundOrder), false, null);
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Incorrect Order Number.\nPlease try again.");

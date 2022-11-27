@@ -23,7 +23,9 @@ import Domain.Bicycle;
 import Domain.Order;
 import Domain.OrderStatus;
 import View.StaffWindow.*;
+import View.StaffWindow.OrderTable.OrderTableModel;
 import View.Table.Column;
+import View.Table.EditedObjectsChangedListener;
 import View.Table.EnumRenderer;
 
 public class ExpandedBikeView extends JDialog implements ActionListener{
@@ -43,9 +45,12 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
 	JLabel orderDate;
 	JLabel bikeName;
 	
+	OrderTableModel _loadedOrderTable;
 	
 	
-	public ExpandedBikeView(OrderModelRow orderModelRow, boolean staffMember) {
+	
+	public ExpandedBikeView(OrderModelRow orderModelRow, boolean staffMember, OrderTableModel loadedOrderTableModel) {
+		_loadedOrderTable = loadedOrderTableModel;
 		_row = orderModelRow;
 		_staffMember = staffMember;
 		currentOrder = OrderOperations.getOrder(_row.getOrderNumber());
@@ -123,7 +128,7 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
 		contentPanel.add(tablePanel, c);
 		
 		if(_staffMember) {
-			confirmButton = new JButton("Save Changes");
+			confirmButton = new JButton("Submit Changes");
 			confirmButton.addActionListener(this);
 			c.gridy = 2;
 			contentPanel.add(confirmButton, c);
@@ -138,6 +143,8 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if((OrderStatus)orderStatusCombo.getSelectedItem() != _row.getOrderStatus()) {
 			_row.setOrderStatus((OrderStatus) orderStatusCombo.getSelectedItem());
+			_loadedOrderTable.addToChanged(_row);
+			_loadedOrderTable.fireTableDataChanged();
 			System.out.println("Success");
 			this.dispose();
 		}

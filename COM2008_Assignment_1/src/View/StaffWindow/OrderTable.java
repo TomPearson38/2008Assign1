@@ -15,12 +15,15 @@ import Domain.OrderStatus;
 import View.Table.AbstractTable;
 import View.Table.Column;
 import View.Table.ComboBoxEditor;
+import View.Table.EditedObjectsChangedListener;
 import View.Table.EnumRenderer;
 import View.Table.GenericAbstractTableModel;
 import View.Table.SterlingRenderer;
 
 public class OrderTable extends AbstractTable<OrderModelRow> {
-
+	private OrderTableModel loadedOrderTableModel;
+	
+	
 	@Override
 	protected  List<Column<OrderModelRow, ?>> getColumns() {
 		
@@ -48,13 +51,16 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 	protected GenericAbstractTableModel<OrderModelRow> getTableModel() {
 		
 		final Collection<Order> allOrders = OrderOperations.getAllOrders();
-				
-		return new OrderTableModel(allOrders, getColumns());
+		
+		loadedOrderTableModel = new OrderTableModel(allOrders, getColumns());
+		
+		return loadedOrderTableModel;
 	}
 	
 	@Override
 	protected void doubleClicked(OrderModelRow row) {
-		ExpandedBikeView ex = new ExpandedBikeView(row, true);
+		ExpandedBikeView ex = new ExpandedBikeView(row, true, loadedOrderTableModel);
+		
 	}
 	
 	
@@ -63,7 +69,6 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 		
 		public OrderTableModel(Collection<Order> orders, List<Column<OrderModelRow, ?>> columns) {
 			super(orders.stream().map(OrderModelRow::new).collect(Collectors.toList()), columns);
-			
 		}
 	}
 	
