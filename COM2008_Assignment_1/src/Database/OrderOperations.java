@@ -2,6 +2,7 @@ package Database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -103,6 +104,40 @@ public class OrderOperations {
 		
 	}
 	
+	public static void updateOrders(Collection<Order> ordersToUpdate) {
+		try {
+			Connection connection = ConnectionManager.getConnection();
+			
+			connection.setAutoCommit(false);
+			
+			for (Order order : ordersToUpdate) {
+				updateOrder(order, false);
+			}
+			
+			connection.commit();
+			
+			connection.setAutoCommit(true);
+			connection.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private static String mapOrderStatusToDBEnum(OrderStatus status) {
+		switch (status) {
+		case PENDING:
+			return "pending";
+		case CONFIRMED:
+			return "confirmed";
+		case FULFILLED:
+			return "fulfilled";
+		default:
+			return null;
+		}
+		
 	public static Order getOrder(int idNum) {
 		String sql = 				
 "SELECT " + OrderOperations.column_string + ", " + CustomerOperations.column_string + ", " + AddressOperations.column_string + ", " + BicycleOperations.column_string + ", " + FrameOperations.column_string + ", " + GearsetOperations.column_string + ", " +  HandlebarOperations.column_string + ", " + WheelOperations.column_string + " " + 
@@ -143,5 +178,51 @@ public class OrderOperations {
 		}
 
 		return currentOrder;	
+	}
+}
+	
+
+	public static boolean updateOrder(Order orderToUpdate) {
+		return updateOrder(orderToUpdate, true);
+	}
+	public static boolean updateOrder(Order orderToUpdate, boolean autoClose) {
+		
+		String sqlTemplate = """
+UPDATE Orders
+SET order_number = ?, customer_id = ?, customer_given_name = ?, cost = ?, order_status = ?, bike_id = ?, serial_number = ?, order_date = ?
+WHERE order_number = ?;
+				""";
+		Connection mySQLConnection = ConnectionManager.getConnection();
+		try {
+			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
+			
+			statement.setInt(1, orderToUpdate.get_order_number());
+			statement.setInt(2, orderToUpdate.get_customer().get_id());
+			statement.setString(3, orderToUpdate.get_customer_given_name());
+			statement.setDouble(4, orderToUpdate.get_cost());
+			statement.setString(5, mapOrderStatusToDBEnum(orderToUpdate.get_order_status()));
+			statement.setInt(6, orderToUpdate.get_bike().get_id());
+			statement.setInt(7, orderToUpdate.get_serial_number());
+			statement.setString(8, orderToUpdate.get_date());
+			statement.setInt(9, orderToUpdate.get_order_number());
+			
+			int rowsAffected = statement.executeUpdate();
+			statement.close();
+			return rowsAffected > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return false;
+		} finally {
+			if (autoClose) {
+				try {
+					mySQLConnection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }

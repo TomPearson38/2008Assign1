@@ -12,6 +12,12 @@ import Database.OrderOperations;
 import Domain.Bicycle;
 import Domain.Order;
 import Domain.OrderStatus;
+import View.Table.AbstractTable;
+import View.Table.Column;
+import View.Table.ComboBoxEditor;
+import View.Table.EnumRenderer;
+import View.Table.GenericAbstractTableModel;
+import View.Table.SterlingRenderer;
 
 public class OrderTable extends AbstractTable<OrderModelRow> {
 
@@ -29,8 +35,9 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 		
 		final Column<OrderModelRow, OrderStatus> orderStatusColumn = new Column<OrderModelRow, OrderStatus>("Status", OrderModelRow::getOrderStatus, OrderStatus.class);
 		orderStatusColumn.setCustomRenderer(new EnumRenderer<OrderStatus>(OrderStatus.values()));
-		orderStatusColumn.setCustomEditor(new DefaultCellEditor(new JComboBox<OrderStatus>(OrderStatus.values())));
+		orderStatusColumn.setCustomEditor(new ComboBoxEditor<OrderStatus>(OrderStatus.values()));
 		orderStatusColumn.setEditable(true);
+		orderStatusColumn.setValueSetter(OrderModelRow::setOrderStatus);
 		
 		return Arrays.asList(orderNumberColumn, customerGivenNameColumn, bikeColumn, costColumn, orderStatusColumn);
 		
@@ -38,7 +45,7 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 	
 
 	@Override
-	protected AbstractTableModel<OrderModelRow> getTableModel() {
+	protected GenericAbstractTableModel<OrderModelRow> getTableModel() {
 		
 		final Collection<Order> allOrders = OrderOperations.getAllOrders();
 				
@@ -46,7 +53,7 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 	}
 	
 	
-	public class OrderTableModel extends AbstractTableModel<OrderModelRow> {
+	public class OrderTableModel extends GenericAbstractTableModel<OrderModelRow> {
 		
 		
 		public OrderTableModel(Collection<Order> orders, List<Column<OrderModelRow, ?>> columns) {

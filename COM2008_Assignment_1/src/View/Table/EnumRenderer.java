@@ -1,14 +1,17 @@
-package View.StaffWindow;
+package View.Table;
 
 import java.awt.Component;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-public class SterlingRenderer extends JLabel implements TableCellRenderer {
-	public SterlingRenderer() {
+public class EnumRenderer<E extends Enum<E>> extends JComboBox<E> implements TableCellRenderer {
+	public EnumRenderer(E[] values) {
+		super(values);
         setOpaque(true); //MUST do this for background to show up.
+        
     }
 
     public Component getTableCellRendererComponent(
@@ -26,8 +29,7 @@ public class SterlingRenderer extends JLabel implements TableCellRenderer {
             setBackground(table.getBackground());
             setForeground(table.getForeground());
         }
-    	
-    	setText("£" + value.toString());
+    	this.setSelectedItem(value);
     	
         return this;
     }
