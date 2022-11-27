@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import Domain.Bicycle;
 import Domain.Order;
 import Domain.OrderStatus;
+import View.StaffWindow.ExpandedBikeView;
 import View.StaffWindow.OrderModelRow;
 import View.Table.AbstractTable;
 import View.Table.Column;
@@ -40,6 +41,11 @@ public class PreviousCustomerOrdersTable extends AbstractTable<OrderModelRow>{
 		final Collection<Order> allOrders = PreviousCustomerOrders.getCustomerOrders();
 				
 		return new PastOrderTableModel(allOrders, getColumns());
+	}
+	
+	@Override
+	protected void doubleClicked(OrderModelRow row) {
+		ExpandedBikeView ex = new ExpandedBikeView(row, true);
 	}
 	
 	

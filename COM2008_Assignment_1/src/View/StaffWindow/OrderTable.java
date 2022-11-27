@@ -52,6 +52,11 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 		return new OrderTableModel(allOrders, getColumns());
 	}
 	
+	@Override
+	protected void doubleClicked(OrderModelRow row) {
+		ExpandedBikeView ex = new ExpandedBikeView(row, false);
+	}
+	
 	
 	public class OrderTableModel extends GenericAbstractTableModel<OrderModelRow> {
 		

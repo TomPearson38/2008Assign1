@@ -68,6 +68,9 @@ public abstract class AbstractTable<T> extends JScrollPane implements EditedObje
 		}
 	}
 	
+	protected void doubleClicked(T objectClicked) {
+		//do nothing, this is an optional method which can be overriden by subclasses
+	}
 	protected void addDoubleClickListener() {
 		interiorTable.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
@@ -75,12 +78,7 @@ public abstract class AbstractTable<T> extends JScrollPane implements EditedObje
 		        Point point = mouseEvent.getPoint();
 		        int row = table.rowAtPoint(point);
 		        if(previousClick == row) {
-		        	if(tableModel.getClass() == (PastOrderTableModel.class)) {
-		        		ExpandedBikeView ex = new ExpandedBikeView((OrderModelRow)tableModel.getRowObjectFromIndex(row), false);
-		        	}
-		        	else if(tableModel.getRowObjectFromIndex(row).getClass() == OrderModelRow.class) {	
-		        		ExpandedBikeView ex = new ExpandedBikeView((OrderModelRow)tableModel.getRowObjectFromIndex(row), true);
-		        	}
+		        	doubleClicked(tableModel.getRowObjectFromIndex(row));
 		        	previousClick = -1;
 		        }
 		        else {
