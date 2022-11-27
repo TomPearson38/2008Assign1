@@ -143,7 +143,7 @@ public class OrderOperations {
 "SELECT " + OrderOperations.column_string + ", " + CustomerOperations.column_string + ", " + AddressOperations.column_string + ", " + BicycleOperations.column_string + ", " + FrameOperations.column_string + ", " + GearsetOperations.column_string + ", " +  HandlebarOperations.column_string + ", " + WheelOperations.column_string + " " + 
 "FROM Orders " +
 "LEFT JOIN Customers " +
-"ON Orders.customer_id = Customers.id  AND Orders.order_number=? " +
+"ON Orders.customer_id = Customers.id " +
 "LEFT JOIN Addresses " +
 "ON Customers.address_id = Addresses.id " +
 "LEFT JOIN Bicycles " +
@@ -155,7 +155,7 @@ public class OrderOperations {
 "LEFT JOIN Handlebars " +
 "ON Bicycles.handlebar_id = Handlebars.id " +
 "LEFT JOIN Wheels " +
-"ON Bicycles.wheels_id = Wheels.id;";
+"ON Bicycles.wheels_id = Wheels.id WHERE Orders.order_number=?;";
 
 
 		Order currentOrder = null;
@@ -168,6 +168,7 @@ public class OrderOperations {
 
 			while (rs.next()) {
 				currentOrder = parseOrderFromResultSet(rs);
+				System.out.println(currentOrder);
 			}
 
 			statement.close();

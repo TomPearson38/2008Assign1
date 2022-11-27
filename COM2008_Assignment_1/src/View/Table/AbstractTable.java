@@ -75,7 +75,7 @@ public abstract class AbstractTable<T> extends JScrollPane implements EditedObje
 		        int row = table.rowAtPoint(point);
 		        if(previousClick == row) {
 		        	if(tableModel.getRowObjectFromIndex(row).getClass() == OrderModelRow.class) {	
-		        		ExpandedBikeView ex = new ExpandedBikeView((OrderModelRow)tableModel.getRowObjectFromIndex(row));
+		        		ExpandedBikeView ex = new ExpandedBikeView((OrderModelRow)tableModel.getRowObjectFromIndex(row), true);
 		        	}
 		        	previousClick = -1;
 		        }
