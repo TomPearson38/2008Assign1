@@ -7,8 +7,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ComboBoxEditor;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,13 +21,18 @@ import Database.CustomerOperations;
 import Database.OrderOperations;
 import Domain.Bicycle;
 import Domain.Order;
+import Domain.OrderStatus;
 import View.StaffWindow.*;
+import View.Table.Column;
+import View.Table.EnumRenderer;
 
-public class ExpandedBikeView extends JDialog{
+public class ExpandedBikeView extends JDialog implements ActionListener{
 	private Order currentOrder;
 	private static Bicycle currentBike;
 	private OrderModelRow _row;
-	private ComboBoxEditor orderStatus;
+	private JComboBox orderStatusCombo;
+	private boolean _staffMember;
+	private JButton confirmButton;
 	
 	JPanel tablePanel = new JPanel(new BorderLayout());
 	JPanel infoPanel = new JPanel(new GridLayout(2,4));
@@ -36,6 +45,7 @@ public class ExpandedBikeView extends JDialog{
 	
 	public ExpandedBikeView(OrderModelRow orderModelRow, boolean staffMember) {
 		_row = orderModelRow;
+		_staffMember = staffMember;
 		currentOrder = OrderOperations.getOrder(_row.getOrderNumber());
 		currentBike = currentOrder.get_bike();
 		System.out.println(_row.getOrderNumber());
@@ -75,7 +85,14 @@ public class ExpandedBikeView extends JDialog{
 		infoPanel.add(orderNumLabel);
 		
 		infoPanel.add(new JLabel("Order Status:"));
-		infoPanel.add(orderStatusLabel);
+		if(_staffMember) {
+			orderStatusCombo = new JComboBox(OrderStatus.values());
+			orderStatusCombo.setSelectedItem(currentOrder.get_order_status());			
+			infoPanel.add(orderStatusCombo);
+		}
+		else {
+			infoPanel.add(orderStatusLabel);
+		}
 		
 		infoPanel.add(new JLabel("Customer Name:"));
 		infoPanel.add(customerNameLabel);
@@ -97,10 +114,26 @@ public class ExpandedBikeView extends JDialog{
 		c.gridy = 1;
 
 		contentPanel.add(tablePanel, c);
+		
+		if(_staffMember) {
+			confirmButton = new JButton("Save Changes");
+			confirmButton.addActionListener(this);
+			c.gridy = 2;
+			contentPanel.add(confirmButton, c);
+		}
 	}
 	
 	public static Bicycle getBike() {
 		return currentBike;
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if((OrderStatus)orderStatusCombo.getSelectedItem() != _row.getOrderStatus()) {
+			_row.setOrderStatus((OrderStatus) orderStatusCombo.getSelectedItem());
+			System.out.println("Success");
+			this.dispose();
+		}
+	}
+	
 }
