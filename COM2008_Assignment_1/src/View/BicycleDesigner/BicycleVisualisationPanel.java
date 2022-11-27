@@ -54,6 +54,8 @@ public class BicycleVisualisationPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
+        paintBlueprintBackground(g);
+        
         //Frame
         FramesetSprite frameToDraw = DefaultSprites.getDefaultFramesetSprite();
         if (framesetSprite != null) {
@@ -140,5 +142,12 @@ public class BicycleVisualisationPanel extends JPanel {
         
     }
 	
+	private void paintBlueprintBackground(Graphics g) {
+		final Image blueprintImage = ResourceSingleton.getBlueprintImage();
+		final Rectangle sizeOfCanvas = g.getClipBounds();
+		final Image scaledBlueprintImage = blueprintImage.getScaledInstance(sizeOfCanvas.width, sizeOfCanvas.height, Image.SCALE_DEFAULT);
+		
+		g.drawImage(scaledBlueprintImage, 0, 0, this);
+	}
 	
 }

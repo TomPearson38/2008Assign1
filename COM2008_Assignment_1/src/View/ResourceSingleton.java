@@ -11,6 +11,7 @@ public class ResourceSingleton {
 	static final String defaultWheelImageLocation = resourcesFolderLocation + "default_wheel.png";
 	static final String defaultHandlebarsImageLocation = resourcesFolderLocation + "default_handlebar.png";
 	static final String defaultFrameImageLocation = resourcesFolderLocation + "default_frame.png";
+	static final String blueprintImageLocation = resourcesFolderLocation + "blueprint.jpg";
 	
 	private static Image parseImageFromFile(String fileLocation) {
 		Image img = null;
@@ -37,5 +38,9 @@ public class ResourceSingleton {
 
 	public static Image getDefaultFrameImage() {
 		return parseImageFromFile(defaultFrameImageLocation);
+	}
+	
+	public static Image getBlueprintImage() {
+		return parseImageFromFile(blueprintImageLocation);
 	}
 }
