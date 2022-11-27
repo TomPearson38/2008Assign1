@@ -1,40 +1,20 @@
 package View.Table;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.AbstractCellEditor;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
-public class ComboBoxEditor<T> extends AbstractCellEditor implements TableCellEditor, ActionListener {
-//	Color currentColor;
-//	JButton button;
-//	JColorChooser colorChooser;
-//	protected static final String EDIT = "edit";
+public class ComboBoxEditor<T> extends AbstractCellEditor implements TableCellEditor {
+
 	
 	JComboBox<T> dropdown;
 
 	public ComboBoxEditor(T[] values) {
 		dropdown = new JComboBox<T>(values);
-		
-//		button = new JButton();
-//		button.setActionCommand(EDIT);
-		dropdown.addActionListener(this);
-//		button.setBorderPainted(false);
-		
-		//Set up the dialog that the button brings up.
-//		colorChooser = new JColorChooser();
-	}
-		
-	public void actionPerformed(ActionEvent e) {
-//		this.stopCellEditing();
+
 	}
 	
 	public boolean stopCellEditing() {
@@ -56,7 +36,6 @@ public class ComboBoxEditor<T> extends AbstractCellEditor implements TableCellEd
 	                        int row,
 	                        int column) 
 	{
-//		currentColor = (Color)value;
 		return dropdown;
 	}
 }
