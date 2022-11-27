@@ -54,7 +54,7 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 	
 	@Override
 	protected void doubleClicked(OrderModelRow row) {
-		ExpandedBikeView ex = new ExpandedBikeView(row, false);
+		ExpandedBikeView ex = new ExpandedBikeView(row, true);
 	}
 	
 	
