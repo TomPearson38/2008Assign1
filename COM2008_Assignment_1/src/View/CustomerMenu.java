@@ -1,74 +1,71 @@
 package View;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Dimension;
 
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-import View.BicycleDesigner.BicycleDesignerDialog;
-
+import View.BicycleDesigner.BicycleDesignerPanel;
 
 public class CustomerMenu extends JFrame {
 	
-	JButton loginButton; 
-	JButton buildBikeButton;
-	JButton viewOrderButton;
-	JButton chooseTemplateButton;
-	
-	public CustomerMenu(String title) {
-		super(title);
-		final Container contentPanel = this.getContentPane();
+	public CustomerMenu() {
+		super();
 		
-		contentPanel.setSize(500, 300);
-		
-		contentPanel.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		
-		loginButton = new JButton("Employee Login");
-		c.weightx = 1.0;
-		c.weighty = 0;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.insets = new Insets(0,10,0,10);
-		c.anchor = GridBagConstraints.FIRST_LINE_END;
-		c.gridx = 2;
-		c.ipadx = 0;
-		c.ipady = 0;
-		c.gridy = 0;
-		loginButton.addActionListener(e -> new LoginPanel(this));
-		contentPanel.add(loginButton,c);
-		
-		buildBikeButton = new JButton("Build Bike");
-		c.anchor = GridBagConstraints.CENTER;
-		c.weighty = 1;
-		c.ipadx = 40;
-		c.ipady = 50;
-		c.gridx = 0;
-		c.gridy = 1;
-		buildBikeButton.addActionListener(e ->  BicycleDesignerDialog.designBicycle(this));
-		contentPanel.add(buildBikeButton,c);
-		
-		viewOrderButton = new JButton("View Orders");
-		c.ipadx = 0;
-		c.gridx = 1;
-		c.gridy = 1;
-		viewOrderButton.addActionListener(e -> new CustomerLogin(this));
-		contentPanel.add(viewOrderButton,c);
-		
-		chooseTemplateButton = new JButton("Choose Template");
-		c.gridx = 2;
-		c.gridy = 1;
-		//chooseTemplateButton.addActionListener(e -> new TemplatesPanel(this));
-		contentPanel.add(chooseTemplateButton,c);
-		
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setVisible(true);
+		addComponents();
 	}
 	
+	private void addComponents() {
+		this.setTitle("Bicycle Designer");
+		final Container contentPanel = this.getContentPane();
+//		setSize(100, 100);
+//		contentPanel.setMinimumSize(new Dimension(100, 100));
+		contentPanel.setLayout(new BorderLayout());
+		
+		final JPanel topPanel = new JPanel();
+		topPanel.setLayout(new BorderLayout());
+		final JButton loginButton  = new JButton("Employee Login");
+		loginButton.addActionListener(e -> new LoginPanel(this));
+		
+		topPanel.add(loginButton, BorderLayout.EAST);
+		
+		
+		final BicycleDesignerPanel mainPanel = new BicycleDesignerPanel(this);
+		
+
+		final JPanel rightContainerPanel = new JPanel(new BorderLayout());
+		
+		final JPanel rightPanel = new JPanel();
+		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+		rightPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+		
+		
+		final JButton viewOrderButton = new JButton("<html> View Orders </html>");
+		viewOrderButton.setPreferredSize(new Dimension(100, 100));
+		viewOrderButton.addActionListener(e -> new CustomerLogin(this));
+		
+		final JButton chooseTemplateButton = new JButton("<html> Choose Template </html>");
+		chooseTemplateButton.setPreferredSize(new Dimension(100, 100));
+		
+		
+		rightPanel.add(chooseTemplateButton);
+		rightPanel.add(viewOrderButton);
+		
+		final JButton saveDesignButton = new JButton("Save Design");
+		saveDesignButton.setIcon(new ImageIcon(ResourceSingleton.getSaveIcon()));
+		
+		rightContainerPanel.add(saveDesignButton, BorderLayout.SOUTH);
+		rightContainerPanel.add(rightPanel, BorderLayout.CENTER);
+		
+		
+		contentPanel.add(topPanel, BorderLayout.NORTH);
+		contentPanel.add(mainPanel, BorderLayout.WEST);
+		contentPanel.add(rightContainerPanel, BorderLayout.CENTER);
+	}
 }

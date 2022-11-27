@@ -33,7 +33,6 @@ public class BicycleDesignerPanel extends JPanel {
 	
 	private BicycleVisualisationPanel centralPanel = new BicycleVisualisationPanel();
 	
-	private JPanel optionsPanel = new JPanel();
 	
 	private JFrame _parent;
 	
@@ -85,12 +84,7 @@ public class BicycleDesignerPanel extends JPanel {
 		}
 	}
 	
-	
-	
-    
-    
-    
-	
+
 	private void addControls() {
 		this.setPreferredSize(new Dimension(500,400));
 		this.setLayout(new BorderLayout());
@@ -118,12 +112,8 @@ public class BicycleDesignerPanel extends JPanel {
 		topPanel.add(namePanel, BorderLayout.NORTH);
 		topPanel.add(componentsPanel, BorderLayout.CENTER);
 		
-		topPanel.setBackground(Color.red);
-		optionsPanel.setBackground(Color.green);
-		
 		this.add(topPanel, BorderLayout.NORTH);
 		this.add(centralPanel, BorderLayout.CENTER);
-		this.add(optionsPanel, BorderLayout.SOUTH);
 		
 	}
 }
