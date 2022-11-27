@@ -7,7 +7,8 @@ public class Bicycle {
 	private Wheel _wheels;
 	private String _frameName;
 
-	public Bicycle(int _id, Frameset frame, Handlebar handBar, Wheel wheels, String frameName) {
+	public Bicycle(int id, Frameset frame, Handlebar handBar, Wheel wheels, String frameName) {
+		_id = id;
 		_frame = frame;
 		_handlebar = handBar;
 		_wheels = wheels;
