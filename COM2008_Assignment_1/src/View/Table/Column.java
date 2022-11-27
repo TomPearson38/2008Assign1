@@ -1,4 +1,4 @@
-package View.StaffWindow;
+package View.Table;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.function.Consumer;
@@ -10,7 +10,7 @@ import javax.swing.table.TableCellRenderer;
 /*
  * Column represents a column in the TableModel where O is the type of the underlying object and T the type of the return object
  */
-class Column<O, T> {
+public class Column<O, T> {
 	private String name;
 	private Function<O, T> getValueFromObject;
 	private Class<T> underlyingType;
@@ -98,8 +98,13 @@ class Column<O, T> {
 	//(you can get the Class<?> as it's stored in each Column<O,T> but it can't be used as doing Class<T>.cast(object) returns an Object not T
 	//If you have a better solution please replace
 	public void setValueAsObject(O object, Object value) {
-		T castValue = (T)underlyingType.cast(value);
+		T castValue = castObjectToType(value);
 		rowValueSetter.setValueOnObject(object, castValue);
+	}
+	
+	//As the Column object is the only one that know the correct type of the values in the respective column and JTable's events don't it will handle casting to the correct type
+	public T castObjectToType(Object value) {
+		return (T) underlyingType.cast(value);
 	}
 	
 }

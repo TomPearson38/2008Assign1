@@ -1,4 +1,4 @@
-package View.StaffWindow;
+package View.Table;
 
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -11,13 +11,10 @@ public class AbstractTableModelListener<T> implements TableModelListener {
         int columnIndex = e.getColumn();
         
         GenericAbstractTableModel<T> model = (GenericAbstractTableModel<T>)e.getSource();
-        T row = model.getRowObjectFromIndex(rowIndex);
-        Column<T, ?> column = model.getColumn(columnIndex);
         
-        Class<?> typeOfData = column.getClass();
         Object data = model.getValueAt(rowIndex, columnIndex);
         
-        column.setValueAsObject(row, data);
+        model.addObjectToChanged(data);
 
         
 		

@@ -12,6 +12,12 @@ import Database.OrderOperations;
 import Domain.Bicycle;
 import Domain.Order;
 import Domain.OrderStatus;
+import View.Table.AbstractTable;
+import View.Table.Column;
+import View.Table.ComboBoxEditor;
+import View.Table.EnumRenderer;
+import View.Table.GenericAbstractTableModel;
+import View.Table.SterlingRenderer;
 
 public class OrderTable extends AbstractTable<OrderModelRow> {
 

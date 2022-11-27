@@ -1,15 +1,28 @@
-package View.StaffWindow;
+package View.Table;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
-abstract class GenericAbstractTableModel<T> extends AbstractTableModel {
+public abstract class GenericAbstractTableModel<T> extends AbstractTableModel {
 	private List<T> objects;
 	
 	private List<Column<T, ?>> columns;
+	
+	private Set<T> changedObjects = new HashSet<T>();
+	
+	/*
+	 * External listeners to be informed if the list of objects that have been edited by the user have changed
+	 */
+	private Collection<EditedObjectsChangedListener<T>> editedObjectsChangedListeners = new ArrayList<EditedObjectsChangedListener<T>>();
+	
+	
 
 	public GenericAbstractTableModel(List<T> objects, List<Column<T, ?>> columns) {
 		super();
@@ -17,6 +30,8 @@ abstract class GenericAbstractTableModel<T> extends AbstractTableModel {
 		this.objects = objects;
 		
 		this.columns = columns;
+		
+		addTableModelListener(new AbstractTableModelListener<T>());
 	}
 	
 	public T getRowObjectFromIndex(int rowIndex) {
@@ -26,6 +41,22 @@ abstract class GenericAbstractTableModel<T> extends AbstractTableModel {
 	public Column<T, ?> getColumn(int columnIndex) {
 		return columns.get(columnIndex);
 	}
+	
+	@SuppressWarnings("unchecked")	//row objects will always be of type T
+	public void addObjectToChanged(Object row) {
+		T changedObject = (T)row;
+		
+		if (!changedObjects.contains(changedObject)) {
+			changedObjects.add((T)row);
+			editedObjectsChangedListeners.forEach(l -> l.editedObjectsChanged(this, changedObjects));
+		}
+	}
+	
+	public Collection<T> getEditedObjects() {
+		return changedObjects;
+	}
+	public void addEditedObjectsChangedListener(EditedObjectsChangedListener<T> newListener) { editedObjectsChangedListeners.add(newListener); }
+	public void removeEditedObjectsChangedListener(EditedObjectsChangedListener<T> listenerToRemove) { editedObjectsChangedListeners.remove(listenerToRemove); }
 	
 
 	@Override
@@ -69,18 +100,6 @@ abstract class GenericAbstractTableModel<T> extends AbstractTableModel {
 		
 		column.setValueAsObject(row, aValue);
 		fireTableCellUpdated(rowIndex, columnIndex);
-	}
-
-	@Override
-	public void addTableModelListener(TableModelListener l) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeTableModelListener(TableModelListener l) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 

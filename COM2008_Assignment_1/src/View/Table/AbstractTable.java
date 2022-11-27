@@ -1,8 +1,10 @@
-package View.StaffWindow;
+package View.Table;
 
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.swing.JScrollPane;
@@ -11,7 +13,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-public abstract class AbstractTable<T> extends JScrollPane {
+public abstract class AbstractTable<T> extends JScrollPane implements EditedObjectsChangedListener<T> {
 	private InternalTable interiorTable = new InternalTable();
 	private GenericAbstractTableModel<T> tableModel = getTableModel();
 	
@@ -19,10 +21,13 @@ public abstract class AbstractTable<T> extends JScrollPane {
 	
 	private final static int row_height = 20;
 	
+	private Collection<EditedObjectsChangedListener<T>> editedObjectsChangedListeners = new ArrayList<EditedObjectsChangedListener<T>>();
+	
 	public AbstractTable() {
 		super();
 		
 		interiorTable.setModel(tableModel);
+		
 		
 		setColumnWidth();
 		addDoubleClickListener();
@@ -81,6 +86,18 @@ public abstract class AbstractTable<T> extends JScrollPane {
 	public T getSelectedRow() {
 		int rowIndex = interiorTable.getSelectedRow();
 		return tableModel.getRowObjectFromIndex(rowIndex);
+	}
+	
+	public Collection<T> getEditedObjects() {
+		return tableModel.getEditedObjects();
+	}
+	public void addEditedObjectsChangedListener(EditedObjectsChangedListener<T> newListener) { editedObjectsChangedListeners.add(newListener); }
+	public void removeEditedObjectsChangedListener(EditedObjectsChangedListener<T> listenerToRemove) { editedObjectsChangedListeners.remove(listenerToRemove); }
+	/*
+	 * down-propagate event from model to external listeners
+	 */
+	public void editedObjectsChanged(Object source, Collection<T> editedObjects) {
+		editedObjectsChangedListeners.forEach(l -> l.editedObjectsChanged(source, editedObjects));
 	}
 	
 	private class InternalTable extends JTable {
