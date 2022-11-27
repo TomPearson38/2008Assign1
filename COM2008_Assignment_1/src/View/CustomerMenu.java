@@ -13,10 +13,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Database.BicycleOperations;
 import Resources.ResourceSingleton;
 import View.BicycleDesigner.BicycleDesignerPanel;
 
 public class CustomerMenu extends JFrame {
+	BicycleDesignerPanel mainPanel;
 	
 	public CustomerMenu() {
 		super();
@@ -37,8 +39,8 @@ public class CustomerMenu extends JFrame {
 		topPanel.add(loginButton, BorderLayout.EAST);
 		
 		
-		final BicycleDesignerPanel mainPanel = new BicycleDesignerPanel(this);
-		
+		mainPanel = new BicycleDesignerPanel(this);
+
 
 		final JPanel rightContainerPanel = new JPanel(new BorderLayout());
 		
@@ -61,6 +63,8 @@ public class CustomerMenu extends JFrame {
 		
 		final JButton saveDesignButton = new JButton("Save Design");
 		saveDesignButton.setIcon(new ImageIcon(ResourceSingleton.getSaveIcon()));
+		saveDesignButton.setEnabled(false);
+		mainPanel.addDesignValidityListener(saveDesignButton::setEnabled);
 		saveDesignButton.addActionListener(this::saveButtonClicked);
 		
 		rightContainerPanel.add(saveDesignButton, BorderLayout.SOUTH);
@@ -73,6 +77,6 @@ public class CustomerMenu extends JFrame {
 	}
 	
 	private void saveButtonClicked(ActionEvent e) {
-		
+		BicycleOperations.addBicycle(mainPanel.get_currentFrameset(), mainPanel.get_currentHandlebars(), mainPanel.get_currentWheels(), mainPanel.getName());
 	}
 }

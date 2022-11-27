@@ -5,12 +5,17 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import Domain.Bicycle;
 import Domain.Frameset;
@@ -33,7 +38,35 @@ public class BicycleDesignerPanel extends JPanel {
 	
 	private BicycleVisualisationPanel centralPanel = new BicycleVisualisationPanel();
 	
+	private Frameset _currentFrameset;
+	private Wheel _currentWheels;
+	private Handlebar _currentHandlebars;
 	
+	
+	public Frameset get_currentFrameset() {
+		return _currentFrameset;
+	}
+	public Wheel get_currentWheels() {
+		return _currentWheels;
+	}
+	public Handlebar get_currentHandlebars() {
+		return _currentHandlebars;
+	}
+	public String getName() {
+		return nameField.getText();
+	}
+	
+	public boolean isDesignValid() {
+		return _currentFrameset != null && _currentWheels != null && _currentHandlebars != null && nameField.getText().length() != 0;
+	}
+	public Collection<Consumer<Boolean>> designValidityListeners = new ArrayList<Consumer<Boolean>>();
+	public void addDesignValidityListener(Consumer<Boolean> listener) { designValidityListeners.add(listener); }
+	public void removeDesignValidityListener(Consumer<Boolean> listener) { designValidityListeners.remove(listener); }
+	private void broadcastDesignValidityChange() {
+		final boolean designValidity = isDesignValid();
+		designValidityListeners.forEach(x -> x.accept(designValidity));
+	}
+
 	private JFrame _parent;
 	
 	public BicycleDesignerPanel(JFrame _parent) {
@@ -42,7 +75,7 @@ public class BicycleDesignerPanel extends JPanel {
 		addControls();
 	}
 	
-	private Frameset _currentFrameset;
+	
 	
 	public void setCurrentFrameset(Frameset value) {
 		_currentFrameset = value;
@@ -54,9 +87,10 @@ public class BicycleDesignerPanel extends JPanel {
 			chooseFrameButton.setText("Frame");
 			centralPanel.setFramesetSprite(null);
 		}
+		broadcastDesignValidityChange();
 	}
 		
-	private Wheel _currentWheels;
+	
 	
 	public void setCurrentWheels(Wheel value) {
 		_currentWheels = value;
@@ -68,9 +102,10 @@ public class BicycleDesignerPanel extends JPanel {
 			chooseWheelsButton.setText("Wheels");
 			centralPanel.setWheelSprite(null);
 		}
+		broadcastDesignValidityChange();
 	}
 	
-	private Handlebar _currentHandlebars;
+	
 	
 	public void setCurrentHandlebars(Handlebar value) {
 		_currentHandlebars = value;
@@ -82,6 +117,7 @@ public class BicycleDesignerPanel extends JPanel {
 			chooseHandlebarsButton.setText("Handlebars");
 			centralPanel.setHandlebarSprite(null);
 		}
+		broadcastDesignValidityChange();
 	}
 	
 
@@ -92,6 +128,17 @@ public class BicycleDesignerPanel extends JPanel {
 		JPanel namePanel = new JPanel(new BorderLayout());
 		namePanel.add(nameFieldLabel, BorderLayout.WEST);
 		namePanel.add(nameField, BorderLayout.CENTER);
+		nameField.getDocument().addDocumentListener(new DocumentListener() {
+			  public void changedUpdate(DocumentEvent e) {
+				  broadcastDesignValidityChange();
+			  }
+			  public void removeUpdate(DocumentEvent e) {
+				  broadcastDesignValidityChange();
+			  }
+			  public void insertUpdate(DocumentEvent e) {
+				  broadcastDesignValidityChange();
+			  }
+			});
 
 		
 		chooseFrameButton.addActionListener(e -> setCurrentFrameset(FramesetPicker.chooseFrameset(_parent)));
