@@ -1,20 +1,7 @@
 package View.StaffWindow;
 
-import java.util.Collection;
-
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.table.TableColumn;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.Component;
-import java.awt.Point;
-
-import Database.OrderOperations;
-import Domain.Order;
+import java.awt.BorderLayout;
 
 public class ManageOrdersPanel extends JPanel {
 	
@@ -26,13 +13,18 @@ public class ManageOrdersPanel extends JPanel {
 	}
 	
 	private void addComponents() {
+		this.setLayout(new BorderLayout());
+		
+		final SaveButton saveButton = new SaveButton();
+		
+		this.add(saveButton, BorderLayout.SOUTH);
 		
 		final OrderTable ordersTable = new OrderTable();
+		ordersTable.addEditedObjectsChangedListener(saveButton);
 
+		this.add(ordersTable, BorderLayout.CENTER);
 		
-		this.add(ordersTable);
-	
-	
+		
 		
 	
 	}

@@ -27,6 +27,7 @@ public abstract class AbstractTable<T> extends JScrollPane implements EditedObje
 		super();
 		
 		interiorTable.setModel(tableModel);
+		tableModel.addEditedObjectsChangedListener(this);
 		
 		
 		setColumnWidth();
