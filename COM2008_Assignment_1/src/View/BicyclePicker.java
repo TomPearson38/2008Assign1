@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import Domain.Bicycle;
+import View.BicycleDesigner.BicycleDesigner;
 
 public class BicyclePicker extends JFrame {
 	

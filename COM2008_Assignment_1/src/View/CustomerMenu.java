@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
+import View.BicycleDesigner.BicycleDesigner;
+
 
 public class CustomerMenu extends JFrame {
 	

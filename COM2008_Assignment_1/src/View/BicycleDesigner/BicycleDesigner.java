@@ -1,4 +1,4 @@
-package View;
+package View.BicycleDesigner;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,6 +17,9 @@ import Domain.Bicycle;
 import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.Wheel;
+import View.FramesetPicker;
+import View.HandlebarPicker;
+import View.WheelPicker;
 
 public class BicycleDesigner extends JDialog {
 	
@@ -30,7 +33,7 @@ public class BicycleDesigner extends JDialog {
 	
 	private JPanel topPanel = new JPanel();
 	
-	private JPanel centralPanel = new JPanel();
+	private BicycleVisualisationPanel centralPanel = new BicycleVisualisationPanel();
 	
 	private JPanel optionsPanel = new JPanel();
 	
@@ -43,8 +46,10 @@ public class BicycleDesigner extends JDialog {
 		
 		if (_currentFrameset != null) {
 			chooseFrameButton.setText(value.toUIString());
+			centralPanel.setFramesetSprite(DefaultSprites.getDefaultFramesetSprite());
 		} else {
 			chooseFrameButton.setText("Frame");
+			centralPanel.setFramesetSprite(null);
 		}
 	}
 		
@@ -55,8 +60,10 @@ public class BicycleDesigner extends JDialog {
 		
 		if (_currentWheels != null) {
 			chooseWheelsButton.setText(value.toUIString());
+			centralPanel.setWheelSprite(DefaultSprites.getDefaultWheelSprite());
 		} else {
 			chooseWheelsButton.setText("Wheels");
+			centralPanel.setWheelSprite(null);
 		}
 	}
 	
@@ -67,8 +74,10 @@ public class BicycleDesigner extends JDialog {
 		
 		if (_currentHandlebars != null) {
 			chooseHandlebarsButton.setText(value.toUIString());
+			centralPanel.setHandlebarSprite(DefaultSprites.getDefaultHandlebarSprite());
 		} else {
 			chooseHandlebarsButton.setText("Handlebars");
+			centralPanel.setHandlebarSprite(null);
 		}
 	}
 	
@@ -125,7 +134,6 @@ public class BicycleDesigner extends JDialog {
 		topPanel.add(componentsPanel, BorderLayout.CENTER);
 		
 		topPanel.setBackground(Color.red);
-		centralPanel.setBackground(Color.blue);
 		optionsPanel.setBackground(Color.green);
 		
 		pane.add(topPanel, BorderLayout.NORTH);
