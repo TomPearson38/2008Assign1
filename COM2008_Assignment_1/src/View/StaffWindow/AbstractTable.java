@@ -11,6 +11,9 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import Domain.Bicycle;
+import Domain.Order;
+
 public abstract class AbstractTable<T> extends JScrollPane {
 	private InternalTable interiorTable = new InternalTable();
 	private AbstractTableModel<T> tableModel = getTableModel();
@@ -63,8 +66,10 @@ public abstract class AbstractTable<T> extends JScrollPane {
 		        Point point = mouseEvent.getPoint();
 		        int row = table.rowAtPoint(point);
 		        if(previousClick == row) {
-			        System.out.println(row);
-			        previousClick = -1;
+		        	System.out.println(tableModel.getRowObjectFromIndex(row));
+		        	ExpandedBikeView ex = new ExpandedBikeView((OrderModelRow)tableModel.getRowObjectFromIndex(row));
+		        	System.out.println("Test");
+		        	previousClick = -1;
 		        }
 		        else {
 		        	previousClick = row;

@@ -1,6 +1,7 @@
 package Database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -100,5 +101,47 @@ public class OrderOperations {
 		
 		return Orders;
 		
+	}
+	
+	public static Order getOrder(int idNum) {
+		String sql = 				
+"SELECT " + OrderOperations.column_string + ", " + CustomerOperations.column_string + ", " + AddressOperations.column_string + ", " + BicycleOperations.column_string + ", " + FrameOperations.column_string + ", " + GearsetOperations.column_string + ", " +  HandlebarOperations.column_string + ", " + WheelOperations.column_string + " " + 
+"FROM Orders " +
+"LEFT JOIN Customers " +
+"ON Orders.customer_id = Customers.id  AND Orders.order_number=? " +
+"LEFT JOIN Addresses " +
+"ON Customers.address_id = Addresses.id " +
+"LEFT JOIN Bicycles " +
+"ON Orders.bike_id = Bicycles.id " + 
+"LEFT JOIN Frames " +
+"ON Bicycles.frameset_id = Frames.id " +
+"LEFT JOIN Gearsets " +
+"ON Frames.gears_id = Gearsets.id " + 
+"LEFT JOIN Handlebars " +
+"ON Bicycles.handlebar_id = Handlebars.id " +
+"LEFT JOIN Wheels " +
+"ON Bicycles.wheels_id = Wheels.id;";
+
+
+		Order currentOrder = null;
+		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
+			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
+			statement.setInt(1, idNum);
+			System.out.println(statement.toString());
+
+			ResultSet rs = statement.executeQuery();
+
+			while (rs.next()) {
+				currentOrder = parseOrderFromResultSet(rs);
+			}
+
+			statement.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+
+		return currentOrder;	
 	}
 }
