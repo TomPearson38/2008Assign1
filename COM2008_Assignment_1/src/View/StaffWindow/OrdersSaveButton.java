@@ -13,6 +13,7 @@ import javax.swing.JButton;
 
 import Database.OrderOperations;
 import Domain.Order;
+import View.ResourceSingleton;
 import View.Table.EditedObjectsChangedListener;
 
 public class OrdersSaveButton extends JButton implements EditedObjectsChangedListener<OrderModelRow>, ActionListener {
@@ -28,14 +29,7 @@ public class OrdersSaveButton extends JButton implements EditedObjectsChangedLis
 		
 		this.addActionListener(this);
 		
-		final String saveIconLocation = "../../Resources/save_very_small.png";
-		Image img;
-		try {
-			img = ImageIO.read(getClass().getResource(saveIconLocation));
-			this.setIcon(new ImageIcon(img));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.setIcon(new ImageIcon(ResourceSingleton.getSaveIcon()));
 		
 	}
 
