@@ -42,15 +42,15 @@ public abstract class GenericAbstractTableModel<T> extends AbstractTableModel {
 		return columns.get(columnIndex);
 	}
 	
-	@SuppressWarnings("unchecked")	//row objects will always be of type T
-	public void addObjectToChanged(Object row) {
-		T changedObject = (T)row;
+	public void addToChanged(T row) {
+		T changedObject = row;
 		
 		if (!changedObjects.contains(changedObject)) {
-			changedObjects.add((T)row);
+			changedObjects.add(row);
 			editedObjectsChangedListeners.forEach(l -> l.editedObjectsChanged(this, changedObjects));
 		}
 	}
+	
 	
 	public Collection<T> getEditedObjects() {
 		return changedObjects;

@@ -15,7 +15,7 @@ public class ManageOrdersPanel extends JPanel {
 	private void addComponents() {
 		this.setLayout(new BorderLayout());
 		
-		final SaveButton saveButton = new SaveButton();
+		final OrdersSaveButton saveButton = new OrdersSaveButton();
 		
 		this.add(saveButton, BorderLayout.SOUTH);
 		

@@ -12,9 +12,9 @@ public class AbstractTableModelListener<T> implements TableModelListener {
         
         GenericAbstractTableModel<T> model = (GenericAbstractTableModel<T>)e.getSource();
         
-        Object data = model.getValueAt(rowIndex, columnIndex);
+        T data = model.getRowObjectFromIndex(rowIndex);
         
-        model.addObjectToChanged(data);
+        model.addToChanged(data);
 
         
 		

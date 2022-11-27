@@ -11,6 +11,13 @@ public class OrderModelRow {
 		super();
 		this.backingOrder = backingOrder;
 	}
+	
+	/*
+	 * Only to be used when finished with the OrderModelRow, if you need information from the backing object during day-to-day usage, add a getter
+	 */
+	public Order getBackingOrder() {
+		return backingOrder;
+	}
 
 	public String getCustomerGivenName() {
 		return backingOrder.get_customer_given_name();

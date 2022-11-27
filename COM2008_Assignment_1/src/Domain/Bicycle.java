@@ -14,6 +14,10 @@ public class Bicycle {
 		_frameName = frameName;
 	}
 	
+	public int get_id() {
+		return _id;
+	}
+	
 	public Frameset get_frame() {
 		return _frame;
 	}
