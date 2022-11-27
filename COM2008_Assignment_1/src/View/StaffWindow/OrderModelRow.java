@@ -31,4 +31,7 @@ public class OrderModelRow {
 	public OrderStatus getOrderStatus() {
 		return backingOrder.get_order_status();
 	}
+	public void setOrderStatus(OrderStatus value) {
+		backingOrder.set_order_status(value);
+	}
 }

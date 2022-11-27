@@ -3,14 +3,15 @@ package View.StaffWindow;
 import java.util.List;
 
 import javax.swing.event.TableModelListener;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
-abstract class AbstractTableModel<T> implements TableModel {
+abstract class GenericAbstractTableModel<T> extends AbstractTableModel {
 	private List<T> objects;
 	
 	private List<Column<T, ?>> columns;
 
-	public AbstractTableModel(List<T> objects, List<Column<T, ?>> columns) {
+	public GenericAbstractTableModel(List<T> objects, List<Column<T, ?>> columns) {
 		super();
 		
 		this.objects = objects;
@@ -20,6 +21,10 @@ abstract class AbstractTableModel<T> implements TableModel {
 	
 	public T getRowObjectFromIndex(int rowIndex) {
 		return objects.get(rowIndex);
+	}
+	
+	public Column<T, ?> getColumn(int columnIndex) {
+		return columns.get(columnIndex);
 	}
 	
 
@@ -45,8 +50,7 @@ abstract class AbstractTableModel<T> implements TableModel {
 
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return true;
-//		return columns.get(columnIndex).getEditable();
+		return columns.get(columnIndex).getEditable();
 	}
 
 	@Override
@@ -60,8 +64,11 @@ abstract class AbstractTableModel<T> implements TableModel {
 
 	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
+		T row = objects.get(rowIndex);
+		Column<T, ?> column = columns.get(columnIndex);
 		
+		column.setValueAsObject(row, aValue);
+		fireTableCellUpdated(rowIndex, columnIndex);
 	}
 
 	@Override

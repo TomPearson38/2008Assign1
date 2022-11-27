@@ -13,7 +13,7 @@ import javax.swing.table.TableColumn;
 
 public abstract class AbstractTable<T> extends JScrollPane {
 	private InternalTable interiorTable = new InternalTable();
-	private AbstractTableModel<T> tableModel = getTableModel();
+	private GenericAbstractTableModel<T> tableModel = getTableModel();
 	
 	private int previousClick = -1;
 	
@@ -76,7 +76,7 @@ public abstract class AbstractTable<T> extends JScrollPane {
 
 	protected abstract List<Column<T, ?>> getColumns();
 	
-	protected abstract AbstractTableModel<T> getTableModel();
+	protected abstract GenericAbstractTableModel<T> getTableModel();
 	
 	public T getSelectedRow() {
 		int rowIndex = interiorTable.getSelectedRow();

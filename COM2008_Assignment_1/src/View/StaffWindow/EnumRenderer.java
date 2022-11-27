@@ -29,6 +29,7 @@ public class EnumRenderer<E extends Enum<E>> extends JComboBox<E> implements Tab
             setBackground(table.getBackground());
             setForeground(table.getForeground());
         }
+    	this.setSelectedItem(value);
     	
         return this;
     }

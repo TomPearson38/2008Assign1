@@ -1,6 +1,7 @@
 package View.StaffWindow;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.swing.table.TableCellEditor;
@@ -17,10 +18,12 @@ class Column<O, T> {
 	private TableCellRenderer customRenderer;
 	private TableCellEditor customEditor;
 	private boolean editable;
+	private ValueSetter<O, T> rowValueSetter;
 	
 	public void setCustomRenderer(TableCellRenderer value) { customRenderer = value; }
 	public void setCustomEditor(TableCellEditor value) { customEditor = value; }
 	public void setEditable(boolean value) { editable = value; }
+	public void setValueSetter(ValueSetter<O, T> value) { rowValueSetter = value; }
 	
 	public final static int default_width = 100;
 	
@@ -36,8 +39,12 @@ class Column<O, T> {
 		this(name, getValueFromObject, columnWidth, null);	//have to put null here as can't call instance methods (getClass()) in an intra-constructor call
 	}
 	
-	@SuppressWarnings("unchecked")	//only a failover in the event that a type isn't provided
 	public Column(String name, Function<O, T> getValueFromObject, int columnWidth, Class<T> type) {
+		this(name, getValueFromObject, columnWidth, type, null);
+	}
+	
+	@SuppressWarnings("unchecked")	//only a failover in the event that a type isn't provided
+	public Column(String name, Function<O, T> getValueFromObject, int columnWidth, Class<T> type, ValueSetter<O, T> setValueOnObject) {
 		super();
 		this.name = name;
 		this.getValueFromObject = getValueFromObject;
@@ -49,6 +56,8 @@ class Column<O, T> {
 			this.underlyingType = (Class<T>) ((ParameterizedType) getClass()
 	                .getGenericSuperclass()).getActualTypeArguments()[0];
 		}
+		
+		this.rowValueSetter = setValueOnObject;
 		
 	}
 	
@@ -79,6 +88,18 @@ class Column<O, T> {
 	
 	public TableCellEditor getCustomEditor() {
 		return customEditor;
+	}
+	
+	public void setValue(O object, T value) {
+		rowValueSetter.setValueOnObject(object, value);
+	}
+	
+	//I couldn't think of another way to handle getting the data from a JTable on change (which ONLY returns as Object) to safely type into T as the AbstractModelListener doesn't know the type of every column
+	//(you can get the Class<?> as it's stored in each Column<O,T> but it can't be used as doing Class<T>.cast(object) returns an Object not T
+	//If you have a better solution please replace
+	public void setValueAsObject(O object, Object value) {
+		T castValue = (T)underlyingType.cast(value);
+		rowValueSetter.setValueOnObject(object, castValue);
 	}
 	
 }

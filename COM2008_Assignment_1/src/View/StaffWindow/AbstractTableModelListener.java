@@ -3,16 +3,21 @@ package View.StaffWindow;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-public class AbstractTableModelListener implements TableModelListener {
+public class AbstractTableModelListener<T> implements TableModelListener {
 
 	@Override
 	public void tableChanged(TableModelEvent e) {
-		int row = e.getFirstRow();
-        int column = e.getColumn();
-        AbstractTableModel model = (AbstractTableModel)e.getSource();
+		int rowIndex = e.getFirstRow();
+        int columnIndex = e.getColumn();
         
-        String columnName = model.getColumnName(column);
-        Object data = model.getValueAt(row, column);
+        GenericAbstractTableModel<T> model = (GenericAbstractTableModel<T>)e.getSource();
+        T row = model.getRowObjectFromIndex(rowIndex);
+        Column<T, ?> column = model.getColumn(columnIndex);
+        
+        Class<?> typeOfData = column.getClass();
+        Object data = model.getValueAt(rowIndex, columnIndex);
+        
+        column.setValueAsObject(row, data);
 
         
 		
