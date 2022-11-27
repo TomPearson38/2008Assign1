@@ -14,7 +14,6 @@ public class ComboBoxEditor<T> extends AbstractCellEditor implements TableCellEd
 
 	public ComboBoxEditor(T[] values) {
 		dropdown = new JComboBox<T>(values);
-
 	}
 	
 	public boolean stopCellEditing() {
@@ -36,6 +35,7 @@ public class ComboBoxEditor<T> extends AbstractCellEditor implements TableCellEd
 	                        int row,
 	                        int column) 
 	{
+		dropdown.setSelectedItem(value);
 		return dropdown;
 	}
 }
