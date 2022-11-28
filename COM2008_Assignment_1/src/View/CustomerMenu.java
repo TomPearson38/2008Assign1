@@ -3,6 +3,8 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BoxLayout;
@@ -43,6 +45,8 @@ public class CustomerMenu extends JFrame {
 
 
 		final JPanel rightContainerPanel = new JPanel(new BorderLayout());
+		final JPanel bottomRightContainerPanel = new JPanel(new GridLayout(2,0));
+		
 		
 		final JPanel customerButtonsPanel = new JPanel();
 		customerButtonsPanel.setBorder(new EmptyBorder(40, 0, 0, 0));
@@ -67,7 +71,19 @@ public class CustomerMenu extends JFrame {
 		mainPanel.addDesignValidityListener(saveDesignButton::setEnabled);
 		saveDesignButton.addActionListener(this::saveButtonClicked);
 		
-		rightContainerPanel.add(saveDesignButton, BorderLayout.SOUTH);
+		final JButton submitOrderButton = new JButton("Order Design");
+		Image shoppingImage = ResourceSingleton.getShoppingImage();
+		submitOrderButton.setIcon(new ImageIcon(shoppingImage.getScaledInstance(32, 32, DO_NOTHING_ON_CLOSE)));
+		submitOrderButton.setEnabled(false);
+		mainPanel.addDesignValidityListener(submitOrderButton::setEnabled);
+		submitOrderButton.addActionListener(this::orderButtonClicked);
+		
+		
+		
+		bottomRightContainerPanel.add(saveDesignButton);
+		bottomRightContainerPanel.add(submitOrderButton);
+		
+		rightContainerPanel.add(bottomRightContainerPanel, BorderLayout.SOUTH);
 		rightContainerPanel.add(customerButtonsPanel, BorderLayout.CENTER);
 		
 		
@@ -78,5 +94,9 @@ public class CustomerMenu extends JFrame {
 	
 	private void saveButtonClicked(ActionEvent e) {
 		BicycleOperations.addBicycle(mainPanel.get_currentFrameset(), mainPanel.get_currentHandlebars(), mainPanel.get_currentWheels(), mainPanel.getName());
+	}
+	
+	private void orderButtonClicked(ActionEvent e) {
+		System.out.println("ORDER");
 	}
 }

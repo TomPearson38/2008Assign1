@@ -154,6 +154,38 @@ WHERE forename = ? AND surname= ? AND address_id= ?;""";
 		return selectedCustomer;
 	}
 	
+	public static Customer createCustomer(String forename, String surname, Address address) {
+		String sqlTemplate = """
+				INSERT INTO Customers(forename, surname, address_id)
+				VALUES(?,?,?);
+				""";
+						
+						try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+							
+							PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate, Statement.RETURN_GENERATED_KEYS);
+							
+							statement.setString(1, forename);
+							statement.setString(2, surname);
+							statement.setInt(3, address.get_id());
+							
+							int rowAffected = statement.executeUpdate();
+							if (rowAffected == 1) {
+								ResultSet rs = statement.getGeneratedKeys();
+								if (rs.next()) {
+									
+									int customerID = rs.getInt(1);
+									
+									return new Customer(customerID, forename, surname, address);
+								}
+							}
+							
+						} catch (SQLException ex) {
+							ex.printStackTrace();
+						}
+						
+						return null;
+	}
+	
 	public static Customer getCustomer(int id) {		
 		String sqlCustomer = """				
 SELECT *
@@ -188,4 +220,18 @@ WHERE id=?;
 		
 		return selectedCustomer;
 	}
+	
+	public Customer customerCreatingOrder(String _forename, String _surname, String _houseNumName, String _streetName, String _city, String _postCode) {
+		Customer desiredCustomer = CustomerOperations.findCustomer(_forename, _surname, _houseNumName, _streetName, _city, _postCode);
+		if(desiredCustomer == null) {
+			Address foundAddress = AddressOperations.findAddress(_houseNumName, _streetName, _city, _postCode);
+			if(foundAddress == null)
+				foundAddress = AddressOperations.createAddress(_houseNumName, _streetName, _city, _postCode);
+			desiredCustomer = createCustomer(_forename, _surname, foundAddress);
+		}
+
+		return desiredCustomer;
+	}
+	
+	
 }
