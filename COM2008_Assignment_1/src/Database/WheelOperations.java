@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import Domain.Bicycle;
 import Domain.BrakeType;
 import Domain.Frameset;
 import Domain.Handlebar;
@@ -82,6 +83,40 @@ public class WheelOperations {
 		}
 		
 		return Wheels;		
+	}
+	
+	public boolean checkForeignKeyUsage(int wheel_id){
+		String sql = 
+"SELECT COUNT(*) "+
+"FROM Bicycles " +
+"WHERE wheel_id=?;";
+		
+		Collection<Bicycle> bicyclesWithSelectedWheel;
+		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
+			Statement statement = mySQLConnection.createStatement();
+			
+			ResultSet rs = statement.executeQuery(sql);
+			
+			bicyclesWithSelectedWheel = new ArrayList<Bicycle>();
+			
+			while (rs.next()) {
+			    Bicycle retrived_Bicycle = BicycleOperations.parseBicycleFromResultset(rs);
+			   
+			    bicyclesWithSelectedWheel.add(retrived_Bicycle);			   
+			                    
+			}
+			
+			statement.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		if (bicyclesWithSelectedWheel.size() == 0){
+			return true;
+		}
+		return false;
+		
 	}
 	
 	public static Wheel getWheel(int idNum) {
