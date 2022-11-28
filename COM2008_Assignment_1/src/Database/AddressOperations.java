@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import Domain.Address;
+import Domain.Frameset;
 import Domain.Staff;
 
 public class AddressOperations {
@@ -35,6 +36,7 @@ public class AddressOperations {
 	   
 	    return new Address(id, houseNumName, streetName, city, postCode);
 	}
+	
 	public static Collection<Address> getAllAddresses() {
 		
 		String sql = 				
@@ -141,5 +143,36 @@ WHERE id=?
 		return foundAddress;
 	}
 	
-	
+	public static Address createAddress(String houseNumName, String streetName, String city, String postCode) {
+		String sqlTemplate = """
+				INSERT INTO Addresses(houseNumName, streetName, city, postCode)
+				VALUES(?,?,?,?);
+				""";
+						
+						try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+							
+							PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate, Statement.RETURN_GENERATED_KEYS);
+							
+							statement.setString(1, houseNumName);
+							statement.setString(2, streetName);
+							statement.setString(3, city);
+							statement.setString(4, postCode);
+							
+							int rowAffected = statement.executeUpdate();
+							if (rowAffected == 1) {
+								ResultSet rs = statement.getGeneratedKeys();
+								if (rs.next()) {
+									
+									int addressId = rs.getInt(1);
+									
+									return new Address(addressId, houseNumName, streetName, city, postCode);
+								}
+							}
+							
+						} catch (SQLException ex) {
+							ex.printStackTrace();
+						}
+						
+						return null;
+	}
 }
