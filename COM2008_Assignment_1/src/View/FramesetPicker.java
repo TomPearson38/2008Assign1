@@ -1,5 +1,6 @@
 package View;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -73,11 +74,7 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 		return FrameOperations.updateFrameset(frameSetData);
 	}
 	
-	protected Boolean deleteComponent(Frameset frameSetToDelete) {
+	protected Boolean deleteComponent(Frameset frameSetToDelete) throws SQLIntegrityConstraintViolationException  {
 		return FrameOperations.deleteFrameset(frameSetToDelete);
-	}
-	
-	protected Boolean checkForeignKeys(Frameset selectedFrameset) {
-		return true;
 	}
 }

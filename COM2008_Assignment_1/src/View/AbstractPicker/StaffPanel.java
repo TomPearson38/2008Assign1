@@ -2,6 +2,7 @@ package View.AbstractPicker;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Consumer;
@@ -10,6 +11,7 @@ import java.util.function.Supplier;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
@@ -26,7 +28,7 @@ class StaffPanel<T> extends JPanel {
 	
 	Runnable refreshPicker;
 	
-	public StaffPanel(Function<T, Boolean> updateComponent, Function<T, Boolean> deleteComponent, Runnable refreshPicker) {
+	public StaffPanel(AttemptDatabaseOperation<T> updateComponent, AttemptDatabaseOperation<T> deleteComponent, Runnable refreshPicker) {
 		super();
 		this.setLayout(staffPanelLayout);
 		
@@ -34,14 +36,27 @@ class StaffPanel<T> extends JPanel {
 		
 		editButton = new JButton("Edit");
 		editButton.addActionListener(e -> {
-			updateComponent.apply(_currentObject); 
-			refreshPicker.run();
+			try {
+				updateComponent.apply(_currentObject);
+				refreshPicker.run();
+			} catch (SQLIntegrityConstraintViolationException e1) {
+				// TODO Display error message for foregin key constrain 
+				
+				e1.printStackTrace();
+			} 
 		});
 		
 		deleteButton = new JButton("Delete");
 		deleteButton.addActionListener(e -> {
-			deleteComponent.apply(_currentObject);
-		    refreshPicker.run();
+			try {
+				deleteComponent.apply(_currentObject);
+				refreshPicker.run();
+			} catch (SQLIntegrityConstraintViolationException e1) {
+				// Display error message for foreign key violation
+				JOptionPane.showMessageDialog(this, "Component In Use!",
+			               "Error!", JOptionPane.ERROR_MESSAGE);
+				//e1.printStackTrace();
+			}
 		});
 		
 		editButton.setEnabled(false);
@@ -59,4 +74,8 @@ class StaffPanel<T> extends JPanel {
 		editButton.setEnabled(true);
 		deleteButton.setEnabled(true);
 	}	
+	
+	public interface AttemptDatabaseOperation<T>{
+		public boolean apply(T Object) throws SQLIntegrityConstraintViolationException;
+	}
 }

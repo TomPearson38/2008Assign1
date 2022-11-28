@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -38,9 +39,8 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     
 	protected abstract Boolean updateComponent(T Object);
 	
-	protected abstract Boolean deleteComponent(T Object);
+	protected abstract Boolean deleteComponent(T Object) throws SQLIntegrityConstraintViolationException;
 	
-	protected abstract Boolean checkForeignKeys(T Object);
     
     
     public T showDialog() {

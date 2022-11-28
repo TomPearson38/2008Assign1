@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -165,7 +166,7 @@ WHERE id = ?;
 		}
 	}
 	
-	public static boolean deleteFrameset(Frameset framesetToDelete) {
+	public static boolean deleteFrameset(Frameset framesetToDelete) throws SQLIntegrityConstraintViolationException  {
 		String sql = """
 DELETE
 FROM Frames
@@ -179,7 +180,10 @@ WHERE id = ?;
 			int rowsAffected = statement.executeUpdate();
 			statement.close();
 			return rowsAffected > 0;
-		} catch (SQLException e) {
+		} 
+		catch(SQLIntegrityConstraintViolationException e) {
+			throw e;
+		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			

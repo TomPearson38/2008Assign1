@@ -1,5 +1,6 @@
 package View;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -75,11 +76,8 @@ public class HandlebarPicker extends AbstractPicker<Handlebar>{
 		return HandlebarOperations.updateHandlebar(handlebarData);
 	}
 	
-	protected Boolean deleteComponent(Handlebar handlebarToDelete) {
+	protected Boolean deleteComponent(Handlebar handlebarToDelete) throws SQLIntegrityConstraintViolationException  {
 		return HandlebarOperations.deleteHandlebar(handlebarToDelete);
 	}
 	
-	protected Boolean checkForeignKeys(Handlebar selectedHandlebar) {
-		return true;
-	}
 }
