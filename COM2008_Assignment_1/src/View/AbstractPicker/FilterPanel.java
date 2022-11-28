@@ -28,15 +28,18 @@ class FilterPanel<T> extends JPanel {
 		_changeListeners.forEach(x -> x.FilterValuesChanged(newFilters));
 	}
 	
+	public void setFilters(Collection<Filter<? super T>> filters) {
+		_filters = filters;
+		setUpFilterPanel();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public Collection<Predicate<T>> getActiveFilters() {
 		return dropdowns.stream().<FilterValue<T>>map(d -> (FilterValue<T>)d.getSelectedItem()).<Predicate<T>>map(FilterValue::getPredicate).collect(Collectors.toList());
 	}
 	
-	public FilterPanel(Collection<Filter<? super T>> filters) {
+	public FilterPanel() {
 		super();
-		_filters = filters;
-		setUpFilterPanel();
 	}
 	
     private void setUpFilterPanel() {

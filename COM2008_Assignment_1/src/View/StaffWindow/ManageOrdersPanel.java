@@ -1,15 +1,10 @@
 package View.StaffWindow;
 
-import java.util.Collection;
-
 import javax.swing.JPanel;
-import javax.swing.JTable;
-
-import Database.OrderOperations;
-import Domain.Order;
+import java.awt.BorderLayout;
 
 public class ManageOrdersPanel extends JPanel {
-	private JTable ordersTable = new JTable();
+	
 	
 	public ManageOrdersPanel() {
 		super();
@@ -18,13 +13,24 @@ public class ManageOrdersPanel extends JPanel {
 	}
 	
 	private void addComponents() {
-		final Collection<Order> allOrders = OrderOperations.getAllOrders();
+		this.setLayout(new BorderLayout());
 		
-		final OrdersTableModel ordersTableModel = new OrdersTableModel(allOrders);
+		final JPanel bottomPanel = new JPanel(new BorderLayout());
+		final OrdersSaveButton saveButton = new OrdersSaveButton();
+
+		bottomPanel.add(saveButton, BorderLayout.EAST);
 		
-		ordersTable.setModel(ordersTableModel);
+		this.add(bottomPanel, BorderLayout.SOUTH);
 		
-		this.add(ordersTable);
+		final OrderTable ordersTable = new OrderTable();
+		ordersTable.addEditedObjectsChangedListener(saveButton);
+
+		this.add(ordersTable, BorderLayout.CENTER);
+		
+		
+		
+	
 	}
+		
 	
 }

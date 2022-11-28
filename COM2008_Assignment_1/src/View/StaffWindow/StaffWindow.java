@@ -26,9 +26,10 @@ public class StaffWindow extends JDialog {
 	
 	private void addComponents() {
 		
+		tabPane.addTab("Orders", ordersPanel);
+		
 		tabPane.addTab("Manage stock", stockPanel);
 		
-		tabPane.addTab("Orders", ordersPanel);
 		
 		final Container dialogContentPane = this.getContentPane();
 		

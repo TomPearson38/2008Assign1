@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import Domain.Bicycle;
+import View.BicycleDesigner.BicycleDesignerDialog;
 
 public class BicyclePicker extends JFrame {
 	
@@ -20,7 +21,7 @@ public class BicyclePicker extends JFrame {
 		final Container pane = this.getContentPane();
 		pane.setLayout(new FlowLayout());
 		
-		designNewBicycleButton.addActionListener(e -> BicycleDesigner.designBicycle(this));
+		designNewBicycleButton.addActionListener(e -> BicycleDesignerDialog.designBicycle(this));
 		pane.add(designNewBicycleButton);
 		
 		designNewHandlebarButton.addActionListener(e -> HandlebarCreator.addHandlebar(this));

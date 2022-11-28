@@ -9,7 +9,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-
+/*
+ * Displays information about an object T in a vertical layout with rows
+ * @param <T> the type of the object
+ */
 class InfoPanel<T> extends JPanel {
 	private T _currentObject;
 	
@@ -17,6 +20,9 @@ class InfoPanel<T> extends JPanel {
 	
 	private Collection<LabelAndValue<T>> LabelsAndValues = new ArrayList<LabelAndValue<T>>();
 	
+	/*
+	 * @param descriptors the descriptors for the object, each descriptor correspons to a row
+	 */
 	public InfoPanel(Collection<PropertyDescriptor<T>> descriptors) {
 		super();
 		this.setLayout(infoPanelLayout);

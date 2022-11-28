@@ -8,12 +8,11 @@ public class ViewStartup {
 	
     private static void createAndShowGUI() {
         //Create and set up the window.
-    	CustomerMenu frame = new CustomerMenu("Main Menu");
+    	CustomerMenu frame = new CustomerMenu();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Display the window.
         frame.pack();
         frame.setLocationRelativeTo(null); //Compact panel centring
-        frame.setSize(500, 300);
         
         frame.setVisible(true);
     }

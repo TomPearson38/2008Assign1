@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,6 +15,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingWorker;
 
 import Domain.IToUIString;
 
@@ -21,7 +23,6 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     JComboBox<Boolean> shocksComboBox;
     JButton okButton = new JButton("OK");
     Boolean isStaffMode;
-    
     
     private T _currentObject;
     private T result = null;
@@ -50,8 +51,14 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
         return result;
     }
     
+    /*
+     * Gets the objects from the implementing class to choose from
+     */
     protected abstract Collection<T> getAvailableObjects();
     
+    /*
+     * Get the a list of PropertyDescriptor<T> from the implementing class to display. Each PropertyDescriptor<T> becomes a row in the right hand panel.
+     */
     protected abstract Collection<PropertyDescriptor<T>> getPropertyDescriptors();
     
     /*
@@ -62,6 +69,9 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
      */
     protected abstract Collection<Filter<? super T>> getFilters();
     
+    /*
+     * Event handler that is called whenever PickerPanel changes event
+     */
     private void setSelectedObject(T value) {
     	_currentObject = value;
     	infoPanel.set_currentObject(value);
@@ -82,7 +92,12 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     }
     
     private PickerPanel<T> setUpPickerPanel() {
-    	final PickerPanel<T> pickerPanel = new PickerPanel<T>(getAvailableObjects());
+    	final PickerPanel<T> pickerPanel = new PickerPanel<T>();
+    	pickerPanel.setLoadingMode();
+    	
+    	AvailableObjectsLoader<T> loader = new AvailableObjectsLoader<T>(this::getAvailableObjects);
+    	loader.addCompletedListener(pickerPanel::set_objects);
+    	loader.execute();
     	
     	pickerPanel.addEventListener(e -> setSelectedObject(e));
     	
@@ -90,7 +105,9 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     }
     
     private FilterPanel<T> setUpFilterPanel() {    	
-    	filterPanel = new FilterPanel<T>(getFilters());
+    	filterPanel = new FilterPanel<T>();
+    	AvailableObjectsLoader<Filter<? super T>> loader = new AvailableObjectsLoader<Filter<? super T>>(this::getFilters);
+    	loader.addCompletedListener(filterPanel::setFilters);
     	
     	filterPanel.addEventListener(newFilters -> pickerPanel.applyFilters(newFilters));
 
@@ -156,5 +173,6 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     private void refreshPickerPanel() {
     	pickerPanel.set_objects(getAvailableObjects());
     }
+    
     
 }
