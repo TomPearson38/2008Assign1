@@ -157,7 +157,7 @@ public class WheelOperations {
 	 */
 	public static boolean updateWheel(Wheel wheelToUpdate) {
 		
-		String sqlTemplate = "UPDATE Frames SET serial_number = ?, brand_name = ?, cost = ?, diameter = ?, tyre_type = ?, brake_type = ?, stock_num = ? WHERE id = ?;";
+		String sqlTemplate = "UPDATE Wheels SET serial_number = ?, brand_name = ?, cost = ?, diameter = ?, tyre_type = ?, brake_type = ?, stock_num = ? WHERE id = ?;";
 		
 		
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -169,8 +169,8 @@ public class WheelOperations {
 			statement.setDouble(4, wheelToUpdate.get_diameter());
 			statement.setString(5, wheelToUpdate.get_tyre().toString());
 			statement.setString(6, wheelToUpdate.get_brakes().toString());
-			statement.setInt(7, wheelToUpdate.get_id());
-			statement.setInt(8, wheelToUpdate.StockNum());
+			statement.setInt(7, wheelToUpdate.StockNum());
+			statement.setInt(8, wheelToUpdate.get_id());
 			
 			int rowsAffected = statement.executeUpdate();
 			statement.close();

@@ -115,7 +115,7 @@ public class HandlebarOperations {
 	}
 	
 	/*
-	 * Updates a Wheel in the database returning whether the update was successful or not
+	 * Updates a handlebar in the database returning whether the update was successful or not
 	 */
 	public static boolean updateHandlebar(Handlebar handlebarToUpdate) {
 		
@@ -129,8 +129,9 @@ public class HandlebarOperations {
 			statement.setString(2, handlebarToUpdate.BrandName());
 			statement.setDouble(3, handlebarToUpdate.Cost());
 			statement.setString(4, handlebarToUpdate.get_style().toString());
-			statement.setInt(7, handlebarToUpdate.get_id());
-			statement.setInt(8, handlebarToUpdate.StockNum());
+			statement.setInt(5, handlebarToUpdate.StockNum());
+			statement.setInt(6, handlebarToUpdate.get_id());
+
 			
 			int rowsAffected = statement.executeUpdate();
 			statement.close();

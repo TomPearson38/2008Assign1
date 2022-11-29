@@ -144,8 +144,8 @@ public class FrameOperations {
 			statement.setBoolean(4, FramesetToUpdate.get_shocks());
 			statement.setDouble(5, FramesetToUpdate.get_size());
 			statement.setInt(6, FramesetToUpdate.get_gearset().get_id());
-			statement.setInt(7, FramesetToUpdate.get_id());
-			statement.setInt(8, FramesetToUpdate.StockNum());
+			statement.setInt(7, FramesetToUpdate.StockNum());
+			statement.setInt(8, FramesetToUpdate.get_id());
 			
 			int rowsAffected = statement.executeUpdate();
 			statement.close();
@@ -215,4 +215,10 @@ public class FrameOperations {
 	public static Collection<String> getBrandsInFramesTable() {
 		return ComponentOperations.getAllBrands("Frames");
 	}
+	
+	public static void decreaseStock(int id, int newStock) {
+		
+	}
+	
+	
 }
