@@ -12,12 +12,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Database.BicycleOperations;
 import Domain.Bicycle;
 import Domain.Customer;
+import Domain.Frameset;
+import Domain.Handlebar;
+import Domain.Wheel;
 import Resources.ResourceSingleton;
 import View.BicycleDesigner.BicycleDesignerPanel;
 
@@ -81,8 +85,6 @@ public class CustomerMenu extends JFrame {
 		mainPanel.addDesignValidityListener(submitOrderButton::setEnabled);
 		submitOrderButton.addActionListener(this::orderButtonClicked);
 		
-		
-		
 		bottomRightContainerPanel.add(saveDesignButton);
 		bottomRightContainerPanel.add(submitOrderButton);
 		
@@ -101,7 +103,36 @@ public class CustomerMenu extends JFrame {
 	
 	private void orderButtonClicked(ActionEvent e) {
 		Bicycle newBike = BicycleOperations.addBicycle(mainPanel.get_currentFrameset(), mainPanel.get_currentHandlebars(), mainPanel.get_currentWheels(), mainPanel.getName());
-		CreateCustomerDetails cd = new CreateCustomerDetails(this, newBike);
+		
+		boolean checkStock = stockChecker(newBike);
+		
+		if(checkStock) {
+			CreateCustomerDetails cd = new CreateCustomerDetails(this, newBike);
+		}
+	}
+	
+	private boolean stockChecker(Bicycle proposedBike) {
+		Frameset fr = proposedBike.get_frame();
+		Wheel wh = proposedBike.get_Wheels();
+		Handlebar hb = proposedBike.get_handlebar();
+		
+		if(fr.StockNum() >= 1 && wh.StockNum() >= 2 && hb.StockNum() >= 1)
+			return true;
+		else {
+			String stock = "Unfortunately the listed parts are out of stock:";
+			
+			if(fr.StockNum() < 1)
+				stock = stock + "\n-" + fr.BrandName() + " Frame";
+			if(wh.StockNum() < 1)
+				stock = stock + "\n-" + wh.BrandName() + " Wheels";
+			if(hb.StockNum() < 1)
+				stock = stock + "\n-" + hb.BrandName() + " Handlebars";
+			
+			JOptionPane.showMessageDialog(this, stock, "Inane error", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
 		
 	}
+	
+	
 }
