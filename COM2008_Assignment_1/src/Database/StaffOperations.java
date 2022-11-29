@@ -26,10 +26,7 @@ public class StaffOperations {
 	 */
 	private static Collection<Staff> getAllStaff() {
 	
-		String sql = """				
-SELECT *
-FROM Staff;
-""";
+		String sql = "SELECT * FROM Staff;";
 		
 		
 		Collection<Staff> Staff;

@@ -157,11 +157,7 @@ public class WheelOperations {
 	 */
 	public static boolean updateWheel(Wheel wheelToUpdate) {
 		
-		String sqlTemplate = """
-UPDATE Frames
-SET serial_number = ?, brand_name = ?, cost = ?, diameter = ?, tyre_type = ?, brake_type = ?, stock_num = ?
-WHERE id = ?;
-				""";
+		String sqlTemplate = "UPDATE Frames SET serial_number = ?, brand_name = ?, cost = ?, diameter = ?, tyre_type = ?, brake_type = ?, stock_num = ? WHERE id = ?;";
 		
 		
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -188,11 +184,7 @@ WHERE id = ?;
 	}
 	
 	public static boolean deleteWheel(Wheel wheelToDelete) throws SQLIntegrityConstraintViolationException {
-		String sql = """
-DELETE
-FROM Wheels
-WHERE id = ?;
-				""";
+		String sql = "DELETE FROM Wheels WHERE id = ?;";
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
 			
@@ -217,10 +209,7 @@ WHERE id = ?;
 	
 	
 	public static Wheel createWheel(String brandName, int serialNumber, double cost, double diameter, TyreType tyreType, BrakeType brakeType, int stockNum) {
-		String sqlTemplate = """
-				INSERT INTO Wheels(serial_number, brand_name, cost, diameter, tyre_type, brake_type, stock_num)
-				VALUES(?,?,?,?,?,?,?);
-				""";
+		String sqlTemplate = "INSERT INTO Wheels(serial_number, brand_name, cost, diameter, tyre_type, brake_type, stock_num) VALUES(?,?,?,?,?,?,?);";
 						
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			

@@ -119,11 +119,7 @@ public class HandlebarOperations {
 	 */
 	public static boolean updateHandlebar(Handlebar handlebarToUpdate) {
 		
-		String sqlTemplate = """
-UPDATE Handlebars
-SET serial_number = ?, brand_name = ?, cost = ?, style = ?, stock_num = ?
-WHERE id = ?;
-				""";
+		String sqlTemplate = "UPDATE Handlebars SET serial_number = ?, brand_name = ?, cost = ?, style = ?, stock_num = ? WHERE id = ?;";
 		
 		
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -148,11 +144,7 @@ WHERE id = ?;
 	}
 	
 	public static boolean deleteHandlebar(Handlebar wheelToDelete) throws SQLIntegrityConstraintViolationException  {
-		String sql = """
-DELETE
-FROM Handlebars
-WHERE id = ?;
-				""";
+		String sql = "DELETE FROM Handlebars WHERE id = ?;";
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
 			
@@ -174,10 +166,7 @@ WHERE id = ?;
 	}
 	
 	public static Handlebar createHandlebar(String brandName, int serialNumber, double cost, HandlebarStyles style, int stockNum) {
-		String sqlTemplate = """
-				INSERT INTO Handlebars(serial_number, brand_name, cost, style, stock_num)
-				VALUES(?,?,?,?,?);
-				""";
+		String sqlTemplate = "INSERT INTO Handlebars(serial_number, brand_name, cost, style, stock_num) VALUES(?,?,?,?,?);";
 						
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			

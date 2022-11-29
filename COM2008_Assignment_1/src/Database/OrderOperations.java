@@ -188,11 +188,7 @@ public class OrderOperations {
 	}
 	public static boolean updateOrder(Order orderToUpdate, boolean autoClose) {
 		
-		String sqlTemplate = """
-UPDATE Orders
-SET order_number = ?, customer_id = ?, customer_given_name = ?, cost = ?, order_status = ?, bike_id = ?, serial_number = ?, order_date = ?
-WHERE order_number = ?;
-				""";
+		String sqlTemplate = "UPDATE Orders SET order_number = ?, customer_id = ?, customer_given_name = ?, cost = ?, order_status = ?, bike_id = ?, serial_number = ?, order_date = ? WHERE order_number = ?;";
 		Connection mySQLConnection = ConnectionManager.getConnection();
 		try {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
