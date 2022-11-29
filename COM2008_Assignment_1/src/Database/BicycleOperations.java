@@ -117,10 +117,7 @@ public class BicycleOperations {
 	}
 	
 	public static Bicycle addBicycle(Frameset frame, Handlebar handlebar, Wheel wheels, String name) {
-		String sqlTemplate = """
-				INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name)
-				VALUES(?,?,?,?);
-				""";
+		String sqlTemplate = "INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name) VALUES(?,?,?,?);";
 						
 						try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 							

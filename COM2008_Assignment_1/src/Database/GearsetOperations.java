@@ -97,10 +97,7 @@ public class GearsetOperations {
 	}
 	
 	public static Gearset createGearset(String name) {
-		String sqlTemplate = """
-				INSERT INTO Gearsets(name)
-				VALUES(?);
-				""";
+		String sqlTemplate = "INSERT INTO Gearsets(name) VALUES(?);";
 						
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			

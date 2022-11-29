@@ -92,11 +92,7 @@ public class FrameOperations {
 	
 	
 	public static Frameset getFrameset(int idNum) {
-		String sqlTemplate = """				
-SELECT *
-FROM Frames
-WHERE id= ?;
-""";
+		String sqlTemplate = "SELECT * FROM Frames WHERE id= ?;";
 		
 		
 		Frameset currentFrame = null;
@@ -137,11 +133,7 @@ WHERE id= ?;
 	 */
 	public static boolean updateFrameset(Frameset FramesetToUpdate) {
 		
-		String sqlTemplate = """
-UPDATE Frames
-SET serial_number = ?, brand_name = ?, cost = ?, shocks = ?, size = ?, gears_id = ?, stock_num = ?
-WHERE id = ?;
-				""";
+		String sqlTemplate = "UPDATE Frames SET serial_number = ?, brand_name = ?, cost = ?, shocks = ?, size = ?, gears_id = ?, stock_num = ? WHERE id = ?;";
 		
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
@@ -167,11 +159,7 @@ WHERE id = ?;
 	}
 	
 	public static boolean deleteFrameset(Frameset framesetToDelete) throws SQLIntegrityConstraintViolationException  {
-		String sql = """
-DELETE
-FROM Frames
-WHERE id = ?;
-				""";
+		String sql = "DELETE FROM Frames WHERE id = ?;";
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
 			
@@ -192,10 +180,7 @@ WHERE id = ?;
 	}
 	
 	public static Frameset insertFrameset(int serialNumber, String brandName, double cost, double size, boolean shocks, Gearset gears, int stockNum) {
-		String sqlTemplate = """
-INSERT INTO Frames(serial_number, brand_name, cost, size, shocks, gears_id, stock_num)
-VALUES(?,?,?,?,?,?,?);
-""";
+		String sqlTemplate = "INSERT INTO Frames(serial_number, brand_name, cost, size, shocks, gears_id, stock_num) VALUES(?,?,?,?,?,?,?);";
 		
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			
