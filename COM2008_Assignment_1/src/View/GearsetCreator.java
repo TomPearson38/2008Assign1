@@ -39,7 +39,7 @@ public class GearsetCreator extends AbstractCreator<Gearset> {
 	@Override
 	protected Collection<IGridRow> getGridValues() {
 
-		nameRow = new StringGridRow("Serial Number");
+		nameRow = new StringGridRow("Name");
 		
 		
 		return Arrays.asList(nameRow);

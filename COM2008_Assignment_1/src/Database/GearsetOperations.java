@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -123,5 +124,53 @@ public class GearsetOperations {
 			ex.printStackTrace();
 		}
 		return null;
+	}
+
+	public static boolean updateGearset(Gearset gearsetToUpdate) {
+	    String sqlTemplate = 
+	            "UPDATE Gears " +
+	            "SET name = ? " +
+	            "WHERE id = ?;";
+	                    
+	                    
+	                    try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+	                        PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
+	                        
+	                        statement.setString(1, gearsetToUpdate.get_name());
+	                        statement.setInt(2, gearsetToUpdate.get_id());
+	                        
+	                        int rowsAffected = statement.executeUpdate();
+	                        statement.close();
+	                        return rowsAffected > 0;
+	                    } catch (SQLException e) {
+	                        e.printStackTrace();
+	                        
+	                        return false;
+	                    }
+	}
+	
+	public static boolean deleteGearset(Gearset gearsetToDelete) throws SQLIntegrityConstraintViolationException {
+	       String sql = 
+	               "DELETE " +
+	               "FROM Gearsets " +
+	               "WHERE id = ?;";
+	                       try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+	                           PreparedStatement statement = mySQLConnection.prepareStatement(sql);
+	                           
+	                           statement.setInt(1, gearsetToDelete.get_id());
+	                           
+	                           int rowsAffected = statement.executeUpdate();
+	                           statement.close();
+	                           return rowsAffected > 0;
+	                       }
+	                       catch(SQLIntegrityConstraintViolationException e) {
+	                           throw e;
+	                       }
+	                       catch (SQLException e) {
+	                           // TODO Auto-generated catch block
+	                           e.printStackTrace();
+	                           
+	                           return false;
+	                       }
 	}
 }

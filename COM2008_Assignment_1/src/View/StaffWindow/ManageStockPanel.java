@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 
 import View.FramesetCreator;
 import View.FramesetPicker;
+import View.GearPicker;
+import View.GearsetCreator;
 import View.HandlebarCreator;
 import View.HandlebarPicker;
 import View.WheelCreator;
@@ -61,6 +63,14 @@ public class ManageStockPanel extends JPanel {
 		this.add(handlebarBox);
 		
 		
+		final JButton manageGearsButton = new JButton("Manage Gears");
+		manageGearsButton.addActionListener(e -> GearPicker.chooseGearset(owner, true));
+        
+        final JButton addGearButton = new JButton("Add Gear");
+        addGearButton.addActionListener(e -> GearsetCreator.addGearset(owner));
+        
+        final JPanel gearsBox = new ManagementBox("Gears", manageGearsButton, addGearButton);
+        this.add(gearsBox);
 		
 	}
 	
