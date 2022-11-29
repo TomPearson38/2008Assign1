@@ -7,6 +7,7 @@ import Database.HandlebarOperations;
 import Database.OrderOperations;
 import Domain.Bicycle;
 import Domain.Order;
+import View.CreateCustomerDetails;
 import View.ViewStartup;
 
 public class Test {

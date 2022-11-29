@@ -136,7 +136,7 @@ public class AddressOperations {
 	}
 	
 	public static Address createAddress(String houseNumName, String streetName, String city, String postCode) {
-		String sqlTemplate = "INSERT INTO Addresses(houseNumName, streetName, city, postCode) VALUES(?,?,?,?);";
+		String sqlTemplate = "INSERT INTO Addresses(house_num_name, street_Name, city, post_code) VALUES(?,?,?,?);";
 						
 						try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 							

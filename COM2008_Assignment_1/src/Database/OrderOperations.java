@@ -1,6 +1,7 @@
 package Database;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.util.Collection;
 
 import Domain.Address;
 import Domain.Bicycle;
+import Domain.BrakeType;
 import Domain.Customer;
 import Domain.Frameset;
 import Domain.Gearset;
@@ -270,5 +272,35 @@ public class OrderOperations {
 		
 		return Orders;
 		
+	}
+	
+	public static Order createNewOrder(Customer _customer, Bicycle assignedBike,String orderName, double cost, Date date, int serialNumber) {
+		String sqlTemplate = "INSERT INTO Orders(customer_id, customer_given_name, cost, order_status, bike_id, serial_number, order_date) VALUES(?,?,?,?,?,?,?);";
+		
+		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+			
+			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate, Statement.RETURN_GENERATED_KEYS);
+			
+			statement.setInt(1, _customer.get_id());
+			statement.setString(2, orderName);
+			statement.setDouble(3, cost);
+			statement.setString(4, "pending");
+			statement.setInt(5, assignedBike.get_id());
+			statement.setInt(6, serialNumber);
+			statement.setDate(7, date);
+			
+			statement.executeUpdate();
+			ResultSet rs = statement.getGeneratedKeys();
+			if (rs.next()) {
+				
+				int orderID = rs.getInt(1);
+				
+				return new Order(orderID, _customer, orderName, cost, OrderStatus.PENDING, assignedBike, serialNumber, date.toString());
+			}
+			
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return null;	
 	}
 }

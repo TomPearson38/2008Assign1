@@ -16,11 +16,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Database.BicycleOperations;
+import Domain.Bicycle;
+import Domain.Customer;
 import Resources.ResourceSingleton;
 import View.BicycleDesigner.BicycleDesignerPanel;
 
 public class CustomerMenu extends JFrame {
 	BicycleDesignerPanel mainPanel;
+	
 	
 	public CustomerMenu() {
 		super();
@@ -97,6 +100,8 @@ public class CustomerMenu extends JFrame {
 	}
 	
 	private void orderButtonClicked(ActionEvent e) {
-		System.out.println("ORDER");
+		Bicycle newBike = BicycleOperations.addBicycle(mainPanel.get_currentFrameset(), mainPanel.get_currentHandlebars(), mainPanel.get_currentWheels(), mainPanel.getName());
+		CreateCustomerDetails cd = new CreateCustomerDetails(this, newBike);
+		
 	}
 }

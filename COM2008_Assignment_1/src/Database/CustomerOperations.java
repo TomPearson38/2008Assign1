@@ -206,7 +206,7 @@ public class CustomerOperations {
 		return selectedCustomer;
 	}
 	
-	public Customer customerCreatingOrder(String _forename, String _surname, String _houseNumName, String _streetName, String _city, String _postCode) {
+	public static Customer customerCreatingOrder(String _forename, String _surname, String _houseNumName, String _streetName, String _city, String _postCode) {
 		Customer desiredCustomer = CustomerOperations.findCustomer(_forename, _surname, _houseNumName, _streetName, _city, _postCode);
 		if(desiredCustomer == null) {
 			Address foundAddress = AddressOperations.findAddress(_houseNumName, _streetName, _city, _postCode);
