@@ -20,10 +20,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Database.CustomerOperations;
+import Database.FrameOperations;
+import Database.HandlebarOperations;
 import Database.OrderOperations;
+import Database.WheelOperations;
 import Domain.Bicycle;
 import Domain.Customer;
+import Domain.Frameset;
+import Domain.Handlebar;
 import Domain.Order;
+import Domain.Wheel;
 import View.StaffWindow.ExpandedBikeView;
 import View.StaffWindow.OrderModelRow;
 
@@ -64,8 +70,7 @@ public class CreateCustomerDetails extends JDialog implements ActionListener{
 		contentPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();		
 		
-		//Login with Details
-
+		//Enter customer details
 		inputPanel.add(new JLabel("Forename:"));
 		inputPanel.add(forenameInput);
 		inputPanel.add(new JLabel("Surname:"));
@@ -106,23 +111,16 @@ public class CreateCustomerDetails extends JDialog implements ActionListener{
 		c.ipadx = 0;
 		fillerPanel.add(buttonPanel, c);		
 		
-		//bikeNamePanel.setBorder(BorderFactory.createCompoundBorder(inputPanel.getBorder(), BorderFactory.createEmptyBorder(50,10,50,10)));
-		//inputPanel.setBorder(BorderFactory.createCompoundBorder(inputPanel.getBorder(), BorderFactory.createEmptyBorder(0,10,0,10)));
-		//fillerPanel.setBorder(BorderFactory.createCompoundBorder(fillerPanel.getBorder(), BorderFactory.createEmptyBorder(10,0,0,10)));
-		//buttonPanel.setBorder(BorderFactory.createCompoundBorder(buttonPanel.getBorder(), BorderFactory.createEmptyBorder(10,50,10,50)));
-		
 		c.ipady = 0;
 		c.weighty = 0.65;
 		c.gridy = 1;
 		c.ipady = 50;
-
 		contentPanel.add(fillerPanel, c);
 
 		lookUpAddressButton.addActionListener(this);
 				
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setVisible(true);
-
 	}
 	
 	private double calculateCost() {
@@ -144,12 +142,24 @@ public class CreateCustomerDetails extends JDialog implements ActionListener{
 		
 		Order createdOrder = OrderOperations.createNewOrder(selectedCustomer, _bikeToOrder, nameField.getText(), cost, orderDate, serialNumber);
 		
+		//Reduces the stock number of the parts used to stop errors in database.
 		if(createdOrder != null) {
-			//TODO
-			//REDUCE STOCK NUMBER BY COUNT
+			Frameset decreasedFrame = _bikeToOrder.get_frame();
+			decreasedFrame.reduceStockNum();
+			FrameOperations.updateFrameset(decreasedFrame);
+			
+			Wheel decreasedWheels = _bikeToOrder.get_Wheels();
+			decreasedWheels.reduceStockNum();
+			WheelOperations.updateWheel(decreasedWheels);
+			
+			Handlebar decreasedHandlebars = _bikeToOrder.get_handlebar();
+			decreasedHandlebars.reduceStockNum();
+			HandlebarOperations.updateHandlebar(decreasedHandlebars);
+			
+			//Opens expanded window of new order
+			ExpandedBikeView eb = new ExpandedBikeView(new OrderModelRow(createdOrder), false, null, "Order Placed");
 		}
 		
-		ExpandedBikeView eb = new ExpandedBikeView(new OrderModelRow(createdOrder), false, null);
 		this.dispose();
 	}
 	

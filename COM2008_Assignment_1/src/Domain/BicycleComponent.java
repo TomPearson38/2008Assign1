@@ -34,4 +34,10 @@ public abstract class BicycleComponent extends DataRecord implements IBicycleCom
 		return _stockNum;
 	}
 	
+	@Override
+	public void reduceStockNum() {
+		if(_stockNum > 0)
+			_stockNum--;
+	}
+	
 }

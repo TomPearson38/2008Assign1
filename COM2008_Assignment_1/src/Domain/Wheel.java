@@ -48,4 +48,12 @@ public class Wheel extends BicycleComponent implements IDataRecord, IToUIString{
 		// TODO Auto-generated method stub
 		return "<html>" + BrandName() + "<br>" + get_diameter() + "cm" + "</html>";
 	}
+	
+	@Override
+	public void reduceStockNum() {
+		if(StockNum() > 1) {
+			super.reduceStockNum();
+			super.reduceStockNum();
+		}
+	}
 }

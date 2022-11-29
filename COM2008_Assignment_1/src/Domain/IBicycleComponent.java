@@ -5,4 +5,5 @@ public interface IBicycleComponent {
 	public int SerialNumber();
 	public double Cost();
 	public int StockNum();
+	public void reduceStockNum();
 }

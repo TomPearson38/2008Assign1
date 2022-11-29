@@ -123,12 +123,12 @@ public class CustomerMenu extends JFrame {
 			
 			if(fr.StockNum() < 1)
 				stock = stock + "\n-" + fr.BrandName() + " Frame";
-			if(wh.StockNum() < 1)
+			if(wh.StockNum() < 2)
 				stock = stock + "\n-" + wh.BrandName() + " Wheels";
 			if(hb.StockNum() < 1)
 				stock = stock + "\n-" + hb.BrandName() + " Handlebars";
 			
-			JOptionPane.showMessageDialog(this, stock, "Inane error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, stock, "Stock error", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		
