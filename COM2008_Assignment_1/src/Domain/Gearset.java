@@ -1,6 +1,6 @@
 package Domain;
 
-public class Gearset extends DataRecord {
+public class Gearset extends DataRecord implements IToUIString {
 	private String _name;
 
 	public Gearset(int _id, String _name) {
@@ -16,5 +16,11 @@ public class Gearset extends DataRecord {
 	public String toString() {
 		return _name;
 	}
+
+    @Override
+    public String toUIString() {
+        // TODO Auto-generated method stub
+        return toString();
+    }
 
 }
