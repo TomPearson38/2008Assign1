@@ -44,7 +44,7 @@ public abstract class AbstractHandlebarCreator extends AbstractCreator<Handlebar
 
 
 	@Override
-	protected Collection<IGridRow> getGridValues() {
+	protected Collection<IGridRow<?, ?>> getGridValues() {
 
 		serialNumberRow = new IntegerGridRow("Serial Number");
 		

@@ -40,7 +40,7 @@ public abstract class AbstractCreator<T> extends JDialog {
 	private JPanel bottomPanel;
 	
 	private Frame parent;
-	final Collection<IGridRow> gridValuesToAdd = getGridValues();
+	final Collection<IGridRow<?, ?>> gridValuesToAdd = getGridValues();
 
 	public AbstractCreator(Frame owner) {
 		super(owner);
@@ -48,7 +48,7 @@ public abstract class AbstractCreator<T> extends JDialog {
 		parent = owner;
 	}
 	
-	protected abstract Collection<IGridRow> getGridValues();
+	protected abstract Collection<IGridRow<?, ?>> getGridValues();
 	
 	protected abstract T sendValueToDatabase();
 	

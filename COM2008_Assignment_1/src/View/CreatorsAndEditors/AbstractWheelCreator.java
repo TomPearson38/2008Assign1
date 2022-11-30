@@ -49,7 +49,7 @@ public abstract class AbstractWheelCreator extends AbstractCreator<Wheel> {
 
 
 	@Override
-	protected Collection<IGridRow> getGridValues() {
+	protected Collection<IGridRow<?, ?>> getGridValues() {
 
 		serialNumberRow = new IntegerGridRow("Serial Number");
 		

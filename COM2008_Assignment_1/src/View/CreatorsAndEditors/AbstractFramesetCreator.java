@@ -50,7 +50,7 @@ public abstract class AbstractFramesetCreator extends AbstractCreator<Frameset> 
 
 
 	@Override
-	protected Collection<IGridRow> getGridValues() {
+	protected Collection<IGridRow<?, ?>> getGridValues() {
 
 		serialNumberRow = new IntegerGridRow("Serial Number");
 		
