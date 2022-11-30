@@ -19,6 +19,7 @@ import Domain.ICost;
 import Domain.TyreType;
 import Domain.Wheel;
 import View.AbstractPicker.AbstractPicker;
+import View.AbstractPicker.CommonDescriptors;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 import View.AbstractPicker.PropertyDescriptor;
@@ -47,17 +48,17 @@ public class BicyclePicker extends AbstractPicker<Bicycle>{
 	}
 
 	@Override
-	protected Collection<PropertyDescriptor<Bicycle>> getPropertyDescriptors() {
+	protected Collection<PropertyDescriptor<? super Bicycle>> getPropertyDescriptors() {
 		PropertyDescriptor<Bicycle> NameDescriptor = new PropertyDescriptor<Bicycle>("Name", Bicycle::getFrameName);
 		PropertyDescriptor<Bicycle> BrandNameDescriptor = new PropertyDescriptor<Bicycle>("Brand", Bicycle::bicycleBrand);
-		PropertyDescriptor<Bicycle> CostDescriptor = new PropertyDescriptor<Bicycle>("Brand", bike -> Double.toString(bike.getCost()));
+		PropertyDescriptor<ICost> CostDescriptor = CommonDescriptors.getCostDescriptor();
 		PropertyDescriptor<Bicycle> FrameBrandDescriptor = new PropertyDescriptor<Bicycle>("Frame", bike -> bike.get_frame().getBrandName());
 		PropertyDescriptor<Bicycle> ShocksDescriptor = new PropertyDescriptor<Bicycle>("Shocks", bike -> Boolean.toString(bike.get_frame().get_shocks()));
 		PropertyDescriptor<Bicycle> HandlebarStyle = new PropertyDescriptor<Bicycle>("Handlebar Style", bike -> bike.get_handlebar().get_style().toString());
 		PropertyDescriptor<Bicycle> TyreDescriptor = new PropertyDescriptor<Bicycle>("Tyres", bike -> bike.get_Wheels().get_tyre().toString());
 		PropertyDescriptor<Bicycle> BrakeDescriptor = new PropertyDescriptor<Bicycle>("Tyres", bike -> bike.get_Wheels().get_brakes().toString());
 	
-		Collection<PropertyDescriptor<Bicycle>> descriptors = Arrays.asList(NameDescriptor, BrandNameDescriptor, CostDescriptor, FrameBrandDescriptor, ShocksDescriptor, HandlebarStyle, TyreDescriptor, BrakeDescriptor);
+		Collection<PropertyDescriptor<? super Bicycle>> descriptors = Arrays.asList(NameDescriptor, BrandNameDescriptor, CostDescriptor, FrameBrandDescriptor, ShocksDescriptor, HandlebarStyle, TyreDescriptor, BrakeDescriptor);
 		
 		return descriptors;
 	}

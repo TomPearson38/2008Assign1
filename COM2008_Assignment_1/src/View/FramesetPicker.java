@@ -11,6 +11,7 @@ import Domain.BicycleComponent;
 import Domain.Frameset;
 import Domain.ICost;
 import View.AbstractPicker.AbstractPicker;
+import View.AbstractPicker.CommonDescriptors;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 import View.AbstractPicker.PropertyDescriptor;
@@ -39,15 +40,15 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 	}
 
 	@Override
-	protected Collection<PropertyDescriptor<Frameset>> getPropertyDescriptors() {
+	protected Collection<PropertyDescriptor<? super Frameset>> getPropertyDescriptors() {
 		PropertyDescriptor<Frameset> BrandNameDescriptor = new PropertyDescriptor<Frameset>("Brand Name", frame -> frame.getBrandName());
 		PropertyDescriptor<Frameset> SerialNumberDescriptor = new PropertyDescriptor<Frameset>("Serial Number", frame -> Integer.toString(frame.getSerialNumber()));
-		PropertyDescriptor<Frameset> CostDescriptor = new PropertyDescriptor<Frameset>("Cost", frame -> Double.toString(frame.getCost()));
+		PropertyDescriptor<ICost> CostDescriptor = CommonDescriptors.getCostDescriptor();
 		PropertyDescriptor<Frameset> ShocksDescriptor = new PropertyDescriptor<Frameset>("Shocks", frame -> Boolean.toString(frame.get_shocks()));
 		PropertyDescriptor<Frameset> SizeDescriptor = new PropertyDescriptor<Frameset>("Size", frame -> Double.toString(frame.get_size()));
 		
 		
-		Collection<PropertyDescriptor<Frameset>> descriptors = Arrays.asList(BrandNameDescriptor, SerialNumberDescriptor, CostDescriptor, ShocksDescriptor, SizeDescriptor);
+		Collection<PropertyDescriptor<? super Frameset>> descriptors = Arrays.asList(BrandNameDescriptor, SerialNumberDescriptor, CostDescriptor, ShocksDescriptor, SizeDescriptor);
 		
 		return descriptors;
 	}

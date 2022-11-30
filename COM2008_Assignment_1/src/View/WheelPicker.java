@@ -16,6 +16,7 @@ import Domain.ICost;
 import Domain.TyreType;
 import Domain.Wheel;
 import View.AbstractPicker.AbstractPicker;
+import View.AbstractPicker.CommonDescriptors;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 import View.AbstractPicker.PropertyDescriptor;
@@ -45,15 +46,15 @@ public class WheelPicker extends AbstractPicker<Wheel>{
 	}
 
 	@Override
-	protected Collection<PropertyDescriptor<Wheel>> getPropertyDescriptors() {
+	protected Collection<PropertyDescriptor<? super Wheel>> getPropertyDescriptors() {
 		PropertyDescriptor<Wheel> BrandNameDescriptor = new PropertyDescriptor<Wheel>("Brand Name", wheel -> wheel.getBrandName());
 		PropertyDescriptor<Wheel> SerialNumberDescriptor = new PropertyDescriptor<Wheel>("Serial Number", wheel -> Integer.toString(wheel.getSerialNumber()));
-		PropertyDescriptor<Wheel> CostDescriptor = new PropertyDescriptor<Wheel>("Cost", wheel -> Double.toString(wheel.getCost()));
+		PropertyDescriptor<ICost> CostDescriptor = CommonDescriptors.getCostDescriptor();
 		PropertyDescriptor<Wheel> DiameterDescriptor = new PropertyDescriptor<Wheel>("Diameter", wheel -> Double.toString(wheel.get_diameter()));
 		PropertyDescriptor<Wheel> TyreTypeDescriptor = new PropertyDescriptor<Wheel>("Tyre Type", wheel -> (wheel.get_tyre().toString()));
 		PropertyDescriptor<Wheel> BrakeTypeDescriptor = new PropertyDescriptor<Wheel>("Brake Type", wheel -> (wheel.get_brakes().toString()));
 		
-		Collection<PropertyDescriptor<Wheel>> descriptors = Arrays.asList(BrandNameDescriptor, SerialNumberDescriptor, CostDescriptor, DiameterDescriptor, TyreTypeDescriptor, BrakeTypeDescriptor);
+		Collection<PropertyDescriptor<? super Wheel>> descriptors = Arrays.asList(BrandNameDescriptor, SerialNumberDescriptor, CostDescriptor, DiameterDescriptor, TyreTypeDescriptor, BrakeTypeDescriptor);
 		
 		return descriptors;
 	}

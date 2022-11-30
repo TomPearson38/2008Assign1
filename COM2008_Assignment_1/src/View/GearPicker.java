@@ -42,10 +42,10 @@ public class GearPicker extends AbstractPicker<Gearset>{
 	}
 
 	@Override
-	protected Collection<PropertyDescriptor<Gearset>> getPropertyDescriptors() {
+	protected Collection<PropertyDescriptor<? super Gearset>> getPropertyDescriptors() {
 		PropertyDescriptor<Gearset> BrandNameDescriptor = new PropertyDescriptor<Gearset>("Name", gear -> gear.get_name());
 		
-		Collection<PropertyDescriptor<Gearset>> descriptors = Arrays.asList(BrandNameDescriptor);
+		Collection<PropertyDescriptor<? super Gearset>> descriptors = Arrays.asList(BrandNameDescriptor);
 		
 		return descriptors;
 	}
