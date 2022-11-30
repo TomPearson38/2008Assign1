@@ -43,6 +43,12 @@ public class GridRow<T, ComponentType extends Component> implements IGridRow<T, 
 	public ComponentType getGridRowComponent() {
 		return inputField.getComponent();
 	}
+
+	@Override
+	public void setFieldValue(T value) {
+		// TODO Auto-generated method stub
+		inputField.setValueOnComponent(value);
+	}
 	
 	
 }

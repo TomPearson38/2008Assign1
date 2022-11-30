@@ -5,7 +5,7 @@ import View.JIntegerField;
 public class IntegerCreatorInputField extends CreatorInputField<Integer, JIntegerField> {
 
 	public IntegerCreatorInputField() {
-		super(new JIntegerField(), JIntegerField::getInt);
+		super(new JIntegerField(), JIntegerField::getInt, JIntegerField::setInt);
 	}
 
 }

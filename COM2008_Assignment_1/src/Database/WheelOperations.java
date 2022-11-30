@@ -157,8 +157,7 @@ public class WheelOperations {
 	 */
 	public static boolean updateWheel(Wheel wheelToUpdate) {
 		
-		String sqlTemplate = "UPDATE Wheels SET serial_number = ?, brand_name = ?, cost = ?, diameter = ?, tyre_type = ?, brake_type = ?, stock_num = ? WHERE id = ?;";
-		
+		String sqlTemplate = "UPDATE Wheels SET serial_number = ?, brand_name = ?, cost = ?, diameter = ?, tyre_type = ?, brake_type = ?, stock_num = ? WHERE id = ?;";		
 		
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
