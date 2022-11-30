@@ -102,12 +102,15 @@ public class LoginPanel extends JDialog implements ActionListener {
 	private void attemptLogin() {
 		loggedInUser = StaffOperations.attemptLogin(usernameField.getText(), passwordField.getText());
 		if(loggedInUser != null) {
-			System.out.println("Welcome" + loggedInUser.toString());
 			StaffWindow newStaffWindow = new StaffWindow(_parent);
 			newStaffWindow.showDialog();
+			this.dispose();
 		}
 		else {
-			System.out.println("INCORRECT LOGIN DETAILS");
+			JOptionPane.showMessageDialog(this,
+				    "Invalid Login Credentials",
+				    "Incorrect Details",
+				    JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
