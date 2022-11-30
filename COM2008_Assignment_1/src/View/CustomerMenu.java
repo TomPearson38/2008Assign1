@@ -67,6 +67,15 @@ public class CustomerMenu extends JFrame {
 		
 		final JButton chooseTemplateButton = new JButton("<html> Choose Template </html>");
 		chooseTemplateButton.setPreferredSize(new Dimension(100, 100));
+		chooseTemplateButton.addActionListener(e -> {
+			final Bicycle chosenBicycle = BicyclePicker.chooseBicycle(this, false);
+			if (chosenBicycle != null) {
+				mainPanel.setCurrentFrameset(chosenBicycle.get_frame());
+				mainPanel.setCurrentHandlebars(chosenBicycle.get_handlebar());
+				mainPanel.setCurrentWheels(chosenBicycle.get_Wheels());
+				mainPanel.setName(chosenBicycle.getCustomerGivenName());
+			}
+			});
 		
 		
 		customerButtonsPanel.add(chooseTemplateButton);

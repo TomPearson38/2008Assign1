@@ -1,18 +1,18 @@
 package Domain;
 
-public class Bicycle implements IToUIString, ICost {
+public class Bicycle implements IToUIString, ICost, IBrandName {
 	private int _id;
 	private Frameset _frame;
 	private Handlebar _handlebar;
 	private Wheel _wheels;
-	private String _frameName;
+	private String _givenName;
 
-	public Bicycle(int id, Frameset frame, Handlebar handBar, Wheel wheels, String frameName) {
+	public Bicycle(int id, Frameset frame, Handlebar handBar, Wheel wheels, String givenName) {
 		_id = id;
 		_frame = frame;
 		_handlebar = handBar;
 		_wheels = wheels;
-		_frameName = frameName;
+		_givenName = givenName;
 	}
 	
 	public int get_id() {
@@ -22,15 +22,9 @@ public class Bicycle implements IToUIString, ICost {
 	public Frameset get_frame() {
 		return _frame;
 	}
-	public void set_frame(Frameset _frame) {
-		this._frame = _frame;
-	}
 	
 	public Handlebar get_handlebar() {
 		return _handlebar;
-	}
-	public void set_handlebar(Handlebar _handlebar) {
-		this._handlebar = _handlebar;
 	}
 	
 	public Wheel get_Wheels() {
@@ -42,11 +36,7 @@ public class Bicycle implements IToUIString, ICost {
 		return get_frame().getCost() + get_handlebar().getCost() + get_Wheels().getCost() + assemblyCharge;
 	}
 	
-	public void set_Wheels(Wheel _frontWheel) {
-		this._wheels = _frontWheel;
-	}
-	
-	public String bicycleBrand() {
+	public String getBrandName() {
 		return get_frame().getBrandName() + " " + _wheels.get_tyre().toString();
 	}
 	
@@ -55,17 +45,13 @@ public class Bicycle implements IToUIString, ICost {
 		return get_frame().getBrandName();
 	}
 
-	public String getFrameName() {
-		return _frameName;
-	}
-	
-	public void setFrameName(String newName) {
-		_frameName = newName;
+	public String getCustomerGivenName() {
+		return _givenName;
 	}
 
 	@Override
 	public String toUIString() {
-		return "<html> " + bicycleBrand() + "</html>";
+		return "<html> " + getCustomerGivenName() + "</html>";
 	}
 	
 	

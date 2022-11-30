@@ -77,7 +77,7 @@ public class OrderOperations {
 "ON Bicycles.handlebar_id = Handlebars.id " +
 "LEFT JOIN Wheels " +
 "ON Bicycles.wheels_id = Wheels.id;";
-		System.out.println(sql);
+
 		
 		Collection<Order> Orders;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -164,13 +164,13 @@ public class OrderOperations {
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
 			statement.setInt(1, idNum);
-			System.out.println(statement.toString());
+
 
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
 				currentOrder = parseOrderFromResultSet(rs);
-				System.out.println(currentOrder);
+
 			}
 
 			statement.close();
@@ -244,7 +244,7 @@ public class OrderOperations {
 "ON Bicycles.handlebar_id = Handlebars.id " +
 "LEFT JOIN Wheels " +
 "ON Bicycles.wheels_id = Wheels.id WHERE Customers.id = ?;";
-		System.out.println(sql);
+
 		
 		Collection<Order> Orders;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {

@@ -32,10 +32,10 @@ public class BicyclePicker extends AbstractPicker<Bicycle>{
 	}
 	
 	public static Bicycle chooseWheels(JFrame parent) {
-		return BicyclePicker.chooseWheels(parent, false);
+		return BicyclePicker.chooseBicycle(parent, false);
 	}
 	
-    public static Bicycle chooseWheels(JFrame parent, boolean managementMode) {
+    public static Bicycle chooseBicycle(JFrame parent, boolean managementMode) {
     	BicyclePicker PickerWindow = new BicyclePicker(parent, managementMode);
     	
     	PickerWindow.setTitle("Bicycle Picker");
@@ -50,8 +50,8 @@ public class BicyclePicker extends AbstractPicker<Bicycle>{
 
 	@Override
 	protected Collection<PropertyDescriptor<? super Bicycle>> getPropertyDescriptors() {
-		PropertyDescriptor<Bicycle> NameDescriptor = new PropertyDescriptor<Bicycle>("Name", Bicycle::getFrameName);
-		PropertyDescriptor<Bicycle> BrandNameDescriptor = new PropertyDescriptor<Bicycle>("Brand", Bicycle::bicycleBrand);
+		PropertyDescriptor<Bicycle> NameDescriptor = new PropertyDescriptor<Bicycle>("Name", Bicycle::getCustomerGivenName);
+		PropertyDescriptor<Bicycle> BrandNameDescriptor = new PropertyDescriptor<Bicycle>("Brand", Bicycle::getBrandName);
 		PropertyDescriptor<ICost> CostDescriptor = CommonDescriptors.getCostDescriptor();
 		PropertyDescriptor<Bicycle> FrameBrandDescriptor = new PropertyDescriptor<Bicycle>("Frame", bike -> bike.get_frame().getBrandName());
 		PropertyDescriptor<Bicycle> ShocksDescriptor = new PropertyDescriptor<Bicycle>("Shocks", bike -> Boolean.toString(bike.get_frame().get_shocks()));
@@ -80,24 +80,14 @@ public class BicyclePicker extends AbstractPicker<Bicycle>{
 		return Arrays.asList(brakesFilter, tyresFilter, costFilter);
 	}
 
-	protected Boolean updateComponent(Wheel wheelData) {
-		return WheelOperations.updateWheel(wheelData);
-	}
-	
-	protected Boolean deleteComponent(Wheel wheelToDelete) throws SQLIntegrityConstraintViolationException {
-		
-		return WheelOperations.deleteWheel(wheelToDelete);
-	}
 
 	@Override
 	protected Boolean updateComponent(Bicycle Object) {
-		// TODO Auto-generated method stub
-		return null;
+		return BicycleOperations.updateBicycle(Object);
 	}
 
 	@Override
 	protected Boolean deleteComponent(Bicycle Object) throws SQLIntegrityConstraintViolationException {
-		// TODO Auto-generated method stub
-		return null;
+		return BicycleOperations.deleteBicycle(Object);
 	}
 }

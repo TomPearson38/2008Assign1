@@ -60,7 +60,7 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
     	setLayout(new GridBagLayout());
     	
     	orderDate = new JLabel(currentOrder.get_date());
-    	bikeName = new JLabel(currentOrder.get_bike().getFrameName());
+    	bikeName = new JLabel(currentOrder.get_bike().getCustomerGivenName());
     	orderNumLabel = new JLabel(orderModelRow.getOrderNumber().toString());
     	orderStatusLabel = new JLabel(orderModelRow.getOrderStatus().toString());
     	customerNameLabel = new JLabel(currentOrder.get_customer().get_full_name());

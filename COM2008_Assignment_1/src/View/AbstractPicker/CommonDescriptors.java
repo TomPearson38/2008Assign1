@@ -1,7 +1,5 @@
 package View.AbstractPicker;
 
-import Domain.Bicycle;
-import Domain.BicycleComponent;
 import Domain.IBicycleComponent;
 import Domain.ICost;
 

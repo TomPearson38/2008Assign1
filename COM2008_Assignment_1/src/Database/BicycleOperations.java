@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,14 +17,14 @@ import Domain.Wheel;
 
 public class BicycleOperations {
 	public final static String id = "bike_id";
-	public final static String name = "frame_name";
+	public final static String name = "given_name";
 	public final static String frameset_id = "frameset_id";
 	public final static String handlebar_id = "handlebar_id";
 	public final static String wheels_id = "wheels_id";
 	
 	public final static String column_string = 
 			"Bicycles.id AS " + id + 
-			", Bicycles.frame_name AS " + name + 
+			", Bicycles.given_name AS " + name + 
 			", Bicycles.frameset_id AS " + frameset_id + 
 			", Bicycles.handlebar_id AS " + handlebar_id + 
 			", Bicycles.wheels_id AS " + wheels_id;
@@ -45,7 +46,6 @@ public class BicycleOperations {
 "LEFT JOIN Wheels " +
 "ON Bicycles.wheels_id = Wheels.id;";
 		
-		System.out.println(sql);
 		Collection<Bicycle> Bicycles;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
 			Statement statement = mySQLConnection.createStatement();
@@ -78,9 +78,9 @@ public class BicycleOperations {
 		Handlebar hb = HandlebarOperations.parseHandlebarFromResultset(rs);
 		Wheel wheels = WheelOperations.parseWheelFromResultset(rs);
 		
-		String frameName = rs.getString(name);
+		String givenName = rs.getString(name);
 	   
-		return new Bicycle(id, frame, hb, wheels, frameName);
+		return new Bicycle(id, frame, hb, wheels, givenName);
 	}
 	
 	public static Bicycle getBike(int id) {
@@ -101,9 +101,9 @@ public class BicycleOperations {
 				Frameset frame = FrameOperations.getFrameset(rs.getInt("frameset_id"));
 				Handlebar hb = HandlebarOperations.getHandlebar(rs.getInt("handlebar_id"));
 				Wheel wheels = WheelOperations.getWheel(rs.getInt("wheels_id"));
-				String frameName = rs.getString("frame_name");
+				String givenName = rs.getString("given_name");
 			   
-				foundBike = new Bicycle(_id, frame, hb, wheels, frameName);
+				foundBike = new Bicycle(_id, frame, hb, wheels, givenName);
 			}
 			
 			statement.close();
@@ -117,7 +117,7 @@ public class BicycleOperations {
 	}
 	
 	public static Bicycle addBicycle(Frameset frame, Handlebar handlebar, Wheel wheels, String name) {
-		String sqlTemplate = "INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name) VALUES(?,?,?,?);";
+		String sqlTemplate = "INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, given_name) VALUES(?,?,?,?);";
 						
 						try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 							
@@ -144,5 +144,49 @@ public class BicycleOperations {
 						}
 						
 						return null;
+	}
+	
+	public static boolean updateBicycle(Bicycle bicycleToUpdate) {
+		
+		String sqlTemplate = "UPDATE Bicycles SET frameset_id = ?, handlebar_id = ?, wheels_id = ?, given_name = ? WHERE id = ?;";
+		
+		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
+			
+			statement.setInt(1, bicycleToUpdate.get_frame().get_id());
+			statement.setInt(2, bicycleToUpdate.get_handlebar().get_id());
+			statement.setInt(3, bicycleToUpdate.get_Wheels().get_id());
+			statement.setString(4, bicycleToUpdate.getCustomerGivenName());
+			statement.setInt(5, bicycleToUpdate.get_id());
+			
+			int rowsAffected = statement.executeUpdate();
+			statement.close();
+			return rowsAffected > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	public static boolean deleteBicycle(Bicycle bicycleToDelete) throws SQLIntegrityConstraintViolationException  {
+		String sql = "DELETE FROM Bicycles WHERE id = ?;";
+		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
+			
+			statement.setInt(1, bicycleToDelete.get_id());
+			
+			int rowsAffected = statement.executeUpdate();
+			statement.close();
+			return rowsAffected > 0;
+		} 
+		catch(SQLIntegrityConstraintViolationException e) {
+			throw e;
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return false;
+		}
 	}
 }
