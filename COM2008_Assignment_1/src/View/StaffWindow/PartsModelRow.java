@@ -36,14 +36,14 @@ public class PartsModelRow {
 	}
 
 	public String get_brand() {
-		return bikePart.BrandName();
+		return bikePart.getBrandName();
 	}
 
 	public int get_partSerialNumber() {
-		return bikePart.SerialNumber();
+		return bikePart.getSerialNumber();
 	}
 
 	public double get_cost() {
-		return bikePart.Cost();
+		return bikePart.getCost();
 	}	
 }

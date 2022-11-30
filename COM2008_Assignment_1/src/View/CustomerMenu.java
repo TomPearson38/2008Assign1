@@ -116,17 +116,17 @@ public class CustomerMenu extends JFrame {
 		Wheel wh = proposedBike.get_Wheels();
 		Handlebar hb = proposedBike.get_handlebar();
 		
-		if(fr.StockNum() >= 1 && wh.StockNum() >= 2 && hb.StockNum() >= 1)
+		if(fr.getStockNum() >= 1 && wh.getStockNum() >= 2 && hb.getStockNum() >= 1)
 			return true;
 		else {
 			String stock = "Unfortunately the listed parts are out of stock:";
 			
-			if(fr.StockNum() < 1)
-				stock = stock + "\n-" + fr.BrandName() + " Frame";
-			if(wh.StockNum() < 2)
-				stock = stock + "\n-" + wh.BrandName() + " Wheels";
-			if(hb.StockNum() < 1)
-				stock = stock + "\n-" + hb.BrandName() + " Handlebars";
+			if(fr.getStockNum() < 1)
+				stock = stock + "\n-" + fr.getBrandName() + " Frame";
+			if(wh.getStockNum() < 2)
+				stock = stock + "\n-" + wh.getBrandName() + " Wheels";
+			if(hb.getStockNum() < 1)
+				stock = stock + "\n-" + hb.getBrandName() + " Handlebars";
 			
 			JOptionPane.showMessageDialog(this, stock, "Stock error", JOptionPane.ERROR_MESSAGE);
 			return false;

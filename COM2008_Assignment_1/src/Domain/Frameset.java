@@ -40,6 +40,6 @@ public class Frameset extends BicycleComponent implements IDataRecord, IToUIStri
 	@Override
 	public String toUIString() {
 		// TODO Auto-generated method stub
-		return "<html>" + BrandName() + "<br>" + get_size() + "cm" + "</html>";
+		return "<html>" + getBrandName() + "<br>" + get_size() + "cm" + "</html>";
 	}
 }

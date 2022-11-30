@@ -45,9 +45,9 @@ public class WheelPicker extends AbstractPicker<Wheel>{
 
 	@Override
 	protected Collection<PropertyDescriptor<Wheel>> getPropertyDescriptors() {
-		PropertyDescriptor<Wheel> BrandNameDescriptor = new PropertyDescriptor<Wheel>("Brand Name", wheel -> wheel.BrandName());
-		PropertyDescriptor<Wheel> SerialNumberDescriptor = new PropertyDescriptor<Wheel>("Serial Number", wheel -> Integer.toString(wheel.SerialNumber()));
-		PropertyDescriptor<Wheel> CostDescriptor = new PropertyDescriptor<Wheel>("Cost", wheel -> Double.toString(wheel.Cost()));
+		PropertyDescriptor<Wheel> BrandNameDescriptor = new PropertyDescriptor<Wheel>("Brand Name", wheel -> wheel.getBrandName());
+		PropertyDescriptor<Wheel> SerialNumberDescriptor = new PropertyDescriptor<Wheel>("Serial Number", wheel -> Integer.toString(wheel.getSerialNumber()));
+		PropertyDescriptor<Wheel> CostDescriptor = new PropertyDescriptor<Wheel>("Cost", wheel -> Double.toString(wheel.getCost()));
 		PropertyDescriptor<Wheel> DiameterDescriptor = new PropertyDescriptor<Wheel>("Diameter", wheel -> Double.toString(wheel.get_diameter()));
 		PropertyDescriptor<Wheel> TyreTypeDescriptor = new PropertyDescriptor<Wheel>("Tyre Type", wheel -> (wheel.get_tyre().toString()));
 		PropertyDescriptor<Wheel> BrakeTypeDescriptor = new PropertyDescriptor<Wheel>("Brake Type", wheel -> (wheel.get_brakes().toString()));

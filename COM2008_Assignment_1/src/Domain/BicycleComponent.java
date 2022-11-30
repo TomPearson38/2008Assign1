@@ -15,22 +15,22 @@ public abstract class BicycleComponent extends DataRecord implements IBicycleCom
 	}
 	
 	@Override
-	public String BrandName() {
+	public String getBrandName() {
 		return _brandName;
 	}
 
 	@Override
-	public int SerialNumber() {
+	public int getSerialNumber() {
 		return _serialNumber;
 	}
 	
 	@Override
-	public double Cost() {
+	public double getCost() {
 		return _cost;
 	}
 	
 	@Override
-	public int StockNum() {
+	public int getStockNum() {
 		return _stockNum;
 	}
 	

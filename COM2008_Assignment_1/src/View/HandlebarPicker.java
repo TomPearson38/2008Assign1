@@ -51,9 +51,9 @@ public class HandlebarPicker extends AbstractPicker<Handlebar>{
 
 	@Override
 	protected Collection<PropertyDescriptor<Handlebar>> getPropertyDescriptors() {
-		PropertyDescriptor<Handlebar> BrandNameDescriptor = new PropertyDescriptor<Handlebar>("Brand Name", handlebar -> handlebar.BrandName());
-		PropertyDescriptor<Handlebar> SerialNumberDescriptor = new PropertyDescriptor<Handlebar>("Serial Number", handlebar -> Integer.toString(handlebar.SerialNumber()));
-		PropertyDescriptor<Handlebar> CostDescriptor = new PropertyDescriptor<Handlebar>("Cost", handlebar -> Double.toString(handlebar.Cost()));
+		PropertyDescriptor<Handlebar> BrandNameDescriptor = new PropertyDescriptor<Handlebar>("Brand Name", handlebar -> handlebar.getBrandName());
+		PropertyDescriptor<Handlebar> SerialNumberDescriptor = new PropertyDescriptor<Handlebar>("Serial Number", handlebar -> Integer.toString(handlebar.getSerialNumber()));
+		PropertyDescriptor<Handlebar> CostDescriptor = new PropertyDescriptor<Handlebar>("Cost", handlebar -> Double.toString(handlebar.getCost()));
 		PropertyDescriptor<Handlebar> StylesDescriptor = new PropertyDescriptor<Handlebar>("Style", handlebar -> (handlebar.get_style().toString()));
 		Collection<PropertyDescriptor<Handlebar>> descriptors = Arrays.asList(BrandNameDescriptor, SerialNumberDescriptor, CostDescriptor, StylesDescriptor);
 		

@@ -39,9 +39,9 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 
 	@Override
 	protected Collection<PropertyDescriptor<Frameset>> getPropertyDescriptors() {
-		PropertyDescriptor<Frameset> BrandNameDescriptor = new PropertyDescriptor<Frameset>("Brand Name", frame -> frame.BrandName());
-		PropertyDescriptor<Frameset> SerialNumberDescriptor = new PropertyDescriptor<Frameset>("Serial Number", frame -> Integer.toString(frame.SerialNumber()));
-		PropertyDescriptor<Frameset> CostDescriptor = new PropertyDescriptor<Frameset>("Cost", frame -> Double.toString(frame.Cost()));
+		PropertyDescriptor<Frameset> BrandNameDescriptor = new PropertyDescriptor<Frameset>("Brand Name", frame -> frame.getBrandName());
+		PropertyDescriptor<Frameset> SerialNumberDescriptor = new PropertyDescriptor<Frameset>("Serial Number", frame -> Integer.toString(frame.getSerialNumber()));
+		PropertyDescriptor<Frameset> CostDescriptor = new PropertyDescriptor<Frameset>("Cost", frame -> Double.toString(frame.getCost()));
 		PropertyDescriptor<Frameset> ShocksDescriptor = new PropertyDescriptor<Frameset>("Shocks", frame -> Boolean.toString(frame.get_shocks()));
 		PropertyDescriptor<Frameset> SizeDescriptor = new PropertyDescriptor<Frameset>("Size", frame -> Double.toString(frame.get_size()));
 		

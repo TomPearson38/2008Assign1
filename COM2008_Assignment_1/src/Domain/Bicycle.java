@@ -39,7 +39,7 @@ public class Bicycle implements IToUIString {
 	
 	public Double getCost() {
 		final double assemblyCharge = 10.0;
-		return get_frame().Cost() + get_handlebar().Cost() + get_Wheels().Cost() + assemblyCharge;
+		return get_frame().getCost() + get_handlebar().getCost() + get_Wheels().getCost() + assemblyCharge;
 	}
 	
 	public void set_Wheels(Wheel _frontWheel) {
@@ -47,12 +47,12 @@ public class Bicycle implements IToUIString {
 	}
 	
 	public String bicycleBrand() {
-		return get_frame().BrandName() + " " + _wheels.get_tyre().toString();
+		return get_frame().getBrandName() + " " + _wheels.get_tyre().toString();
 	}
 	
 	@Override
 	public String toString() {
-		return get_frame().BrandName();
+		return get_frame().getBrandName();
 	}
 
 	public String getFrameName() {
