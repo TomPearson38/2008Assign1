@@ -3,7 +3,6 @@ USE team028;
 CREATE TABLE Orders (
     order_number INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
     customer_id INTEGER NOT NULL,
-    customer_given_name VARCHAR(20) NOT NULL,
     cost DOUBLE NOT NULL,
     order_status ENUM('pending','confirmed','fulfilled') NOT NULL,
     bike_id INTEGER NOT NULL,

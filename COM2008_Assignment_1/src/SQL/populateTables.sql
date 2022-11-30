@@ -88,15 +88,15 @@ INSERT INTO Customers(forename, surname, address_id) VALUES ('Derick', 'Thompson
 INSERT INTO Customers(forename, surname, address_id) VALUES ('Jenny', 'Wilkinson', (SELECT id FROM Addresses WHERE house_num_name='6'));
 INSERT INTO Customers(forename, surname, address_id) VALUES ('Geoff', 'Pearson', (SELECT id FROM Addresses WHERE house_num_name='12'));
 
-INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name) VALUES(1, 1, 1, 'Giants Road');
-INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name) VALUES(2, 2, 3, 'Giants Mountain');
-INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name) VALUES(7, 3, 5, 'Giants Hybrid');
-INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name) VALUES(9, 4, 5, 'Dannies Hybrid');
-INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, frame_name) VALUES(10, 5, 9, 'Dannies Mountain');
+INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, given_name) VALUES(1, 1, 1, 'Giants Road');
+INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, given_name) VALUES(2, 2, 3, 'Giants Mountain');
+INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, given_name) VALUES(7, 3, 5, 'Giants Hybrid');
+INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, given_name) VALUES(9, 4, 5, 'Dannies Hybrid');
+INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, given_name) VALUES(10, 5, 9, 'Dannies Mountain');
 
-INSERT INTO Orders(customer_id, customer_given_name, cost, order_status, bike_id, serial_number, order_date) VALUES (1, 'MyNewBike', 209.97, 1, 1, 202211231, '2022-11-23');
-INSERT INTO Orders(customer_id, customer_given_name, cost, order_status, bike_id, serial_number, order_date) VALUES (2, 'BigBike', 339.97, 2, 2, 202205102, '2022-05-10');
-INSERT INTO Orders(customer_id, customer_given_name, cost, order_status, bike_id, serial_number, order_date) VALUES (3, 'SmartFella', 569.97, 3, 3, 202209093, '2022-09-09');
-INSERT INTO Orders(customer_id, customer_given_name, cost, order_status, bike_id, serial_number, order_date) VALUES (4, 'NewStuff', 369.97, 3, 4, 202101014, '2021-01-01');
-INSERT INTO Orders(customer_id, customer_given_name, cost, order_status, bike_id, serial_number, order_date) VALUES (5, 'Christmas', 319.97, 3, 5, 200912255, '2009-12-25');
-INSERT INTO Orders(customer_id, customer_given_name, cost, order_status, bike_id, serial_number, order_date) VALUES (5, 'Fresh', 369.97, 2, 4, 202211296, '2022-11-29');
+INSERT INTO Orders(customer_id, cost, order_status, bike_id, serial_number, order_date) VALUES (1, 209.97, 1, 1, 202211231, '2022-11-23');
+INSERT INTO Orders(customer_id, cost, order_status, bike_id, serial_number, order_date) VALUES (2, 339.97, 2, 2, 202205102, '2022-05-10');
+INSERT INTO Orders(customer_id, cost, order_status, bike_id, serial_number, order_date) VALUES (3, 569.97, 3, 3, 202209093, '2022-09-09');
+INSERT INTO Orders(customer_id, cost, order_status, bike_id, serial_number, order_date) VALUES (4, 369.97, 3, 4, 202101014, '2021-01-01');
+INSERT INTO Orders(customer_id, cost, order_status, bike_id, serial_number, order_date) VALUES (5, 319.97, 3, 5, 200912255, '2009-12-25');
+INSERT INTO Orders(customer_id, cost, order_status, bike_id, serial_number, order_date) VALUES (5, 369.97, 2, 4, 202211296, '2022-11-29');
