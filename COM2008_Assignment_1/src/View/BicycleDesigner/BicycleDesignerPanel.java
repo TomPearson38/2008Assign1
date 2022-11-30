@@ -125,7 +125,7 @@ public class BicycleDesignerPanel extends JPanel {
 	private void setNameOfBike() {
 		//Generates name for bike
 		if(_currentFrameset != null && _currentWheels != null) {
-			nameField.setText("" + _currentFrameset.BrandName() + " " + _currentWheels.get_tyre().toString());
+			nameField.setText("" + _currentFrameset.getBrandName() + " " + _currentWheels.get_tyre().toString());
 		}
 	}
 
