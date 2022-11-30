@@ -1,11 +1,24 @@
 package Domain;
 
+/**
+ * Used to store the addresses of the customers.
+ * @author tomap
+ *
+ */
 public class Address extends DataRecord implements IDataRecord, IToUIString{
 	private String _houseNumName;
 	private String _streetName;
 	private String _city;
 	private String _postCode;
 	
+	/**
+	 * Creates a new address
+	 * @param id 
+	 * @param houseNumName
+	 * @param streetName
+	 * @param city
+	 * @param postCode
+	 */
 	public Address(int id, String houseNumName, String streetName, String city,String postCode) {
 		super(id);
 		_houseNumName = houseNumName;

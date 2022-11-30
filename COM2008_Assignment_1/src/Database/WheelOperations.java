@@ -157,23 +157,18 @@ public class WheelOperations {
 	 */
 	public static boolean updateWheel(Wheel wheelToUpdate) {
 		
-		String sqlTemplate = """
-UPDATE Wheels
-SET serial_number = ?, brand_name = ?, cost = ?, diameter = ?, tyre_type = ?, brake_type = ?, stock_num = ?
-WHERE id = ?;
-				""";
-		
+		String sqlTemplate = "UPDATE Wheels SET serial_number = ?, brand_name = ?, cost = ?, diameter = ?, tyre_type = ?, brake_type = ?, stock_num = ? WHERE id = ?;";		
 		
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
 			
-			statement.setInt(1, wheelToUpdate.SerialNumber());
-			statement.setString(2, wheelToUpdate.BrandName());
-			statement.setDouble(3, wheelToUpdate.Cost());
+			statement.setInt(1, wheelToUpdate.getSerialNumber());
+			statement.setString(2, wheelToUpdate.getBrandName());
+			statement.setDouble(3, wheelToUpdate.getCost());
 			statement.setDouble(4, wheelToUpdate.get_diameter());
 			statement.setString(5, wheelToUpdate.get_tyre().toString());
 			statement.setString(6, wheelToUpdate.get_brakes().toString());
-			statement.setInt(7, wheelToUpdate.StockNum());
+			statement.setInt(7, wheelToUpdate.getStockNum());
 			statement.setInt(8, wheelToUpdate.get_id());
 			
 			int rowsAffected = statement.executeUpdate();
@@ -188,11 +183,7 @@ WHERE id = ?;
 	}
 	
 	public static boolean deleteWheel(Wheel wheelToDelete) throws SQLIntegrityConstraintViolationException {
-		String sql = """
-DELETE
-FROM Wheels
-WHERE id = ?;
-				""";
+		String sql = "DELETE FROM Wheels WHERE id = ?;";
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
 			
@@ -217,10 +208,7 @@ WHERE id = ?;
 	
 	
 	public static Wheel createWheel(String brandName, int serialNumber, double cost, double diameter, TyreType tyreType, BrakeType brakeType, int stockNum) {
-		String sqlTemplate = """
-				INSERT INTO Wheels(serial_number, brand_name, cost, diameter, tyre_type, brake_type, stock_num)
-				VALUES(?,?,?,?,?,?,?);
-				""";
+		String sqlTemplate = "INSERT INTO Wheels(serial_number, brand_name, cost, diameter, tyre_type, brake_type, stock_num) VALUES(?,?,?,?,?,?,?);";
 						
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			

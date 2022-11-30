@@ -29,12 +29,7 @@ public class CustomerOperations {
 	 */
 	public static Collection<Customer> getAllCustomers() {
 	
-		String sql = """				
-SELECT Customers.id, Customers.forename, Customers.surname, Customers.address_id, Addresses.house_num_name as houseNumName, Addresses.street_name as streetName, Addresses.post_code as postCode
-FROM Customers
-LEFT JOIN Addresses
-ON Customers.address_id = Addresses.id;
-""";
+		String sql = "SELECT Customers.id, Customers.forename, Customers.surname, Customers.address_id, Addresses.house_num_name as houseNumName, Addresses.street_name as streetName, Addresses.post_code as postCode FROM Customers LEFT JOIN Addresses ON Customers.address_id = Addresses.id;";
 		
 		
 		Collection<Customer> Customers;
@@ -120,10 +115,7 @@ ON Customers.address_id = Addresses.id;
 		if(foundAddress == null)
 			return null;
 		
-		String sqlCustomer = """				
-SELECT id, forename, surname, address_id
-FROM Customers
-WHERE forename = ? AND surname= ? AND address_id= ?;"""; 
+		String sqlCustomer = "SELECT id, forename, surname, address_id FROM Customers WHERE forename = ? AND surname= ? AND address_id= ?;"; 
 				
 		Customer selectedCustomer = null;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -155,10 +147,7 @@ WHERE forename = ? AND surname= ? AND address_id= ?;""";
 	}
 	
 	public static Customer createCustomer(String forename, String surname, Address address) {
-		String sqlTemplate = """
-				INSERT INTO Customers(forename, surname, address_id)
-				VALUES(?,?,?);
-				""";
+		String sqlTemplate = "INSERT INTO Customers(forename, surname, address_id) VALUES(?,?,?);";
 						
 						try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 							
@@ -187,11 +176,7 @@ WHERE forename = ? AND surname= ? AND address_id= ?;""";
 	}
 	
 	public static Customer getCustomer(int id) {		
-		String sqlCustomer = """				
-SELECT *
-FROM Customers
-WHERE id=?;
-""";
+		String sqlCustomer = "SELECT * FROM Customers WHERE id=?;";
 				
 		Customer selectedCustomer = null;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -221,7 +206,7 @@ WHERE id=?;
 		return selectedCustomer;
 	}
 	
-	public Customer customerCreatingOrder(String _forename, String _surname, String _houseNumName, String _streetName, String _city, String _postCode) {
+	public static Customer customerCreatingOrder(String _forename, String _surname, String _houseNumName, String _streetName, String _city, String _postCode) {
 		Customer desiredCustomer = CustomerOperations.findCustomer(_forename, _surname, _houseNumName, _streetName, _city, _postCode);
 		if(desiredCustomer == null) {
 			Address foundAddress = AddressOperations.findAddress(_houseNumName, _streetName, _city, _postCode);

@@ -65,6 +65,8 @@ public class PickerPanel<T extends IToUIString> extends JPanel {
 		this._objects = _objects;
 		removeAll();
 		setUpPickerPanel();
+		revalidate();
+		repaint();
 	}
 
 	private void setUpPickerPanel() {

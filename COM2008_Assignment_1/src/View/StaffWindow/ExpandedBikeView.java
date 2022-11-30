@@ -49,7 +49,7 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
 	
 	
 	
-	public ExpandedBikeView(OrderModelRow orderModelRow, boolean staffMember, OrderTableModel loadedOrderTableModel) {
+	public ExpandedBikeView(OrderModelRow orderModelRow, boolean staffMember, OrderTableModel loadedOrderTableModel, String title) {
 		_loadedOrderTable = loadedOrderTableModel;
 		_row = orderModelRow;
 		_staffMember = staffMember;
@@ -60,7 +60,7 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
     	setLayout(new GridBagLayout());
     	
     	orderDate = new JLabel(currentOrder.get_date());
-    	bikeName = new JLabel(currentOrder.get_bike().getFrameName());
+    	bikeName = new JLabel(currentOrder.get_bike().getCustomerGivenName());
     	orderNumLabel = new JLabel(orderModelRow.getOrderNumber().toString());
     	orderStatusLabel = new JLabel(orderModelRow.getOrderStatus().toString());
     	customerNameLabel = new JLabel(currentOrder.get_customer().get_full_name());
@@ -68,6 +68,7 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
     	costLabel = new JLabel(orderModelRow.getCost().toString());
     	
 		addComponents();
+		setTitle(title);
 		showDialog();	
 	}
 	

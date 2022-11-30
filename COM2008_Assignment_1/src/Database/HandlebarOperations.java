@@ -115,26 +115,23 @@ public class HandlebarOperations {
 	}
 	
 	/*
-	 * Updates a Wheel in the database returning whether the update was successful or not
+	 * Updates a handlebar in the database returning whether the update was successful or not
 	 */
 	public static boolean updateHandlebar(Handlebar handlebarToUpdate) {
 		
-		String sqlTemplate = """
-UPDATE Handlebars
-SET serial_number = ?, brand_name = ?, cost = ?, style = ?, stock_num = ?
-WHERE id = ?;
-				""";
+		String sqlTemplate = "UPDATE Handlebars SET serial_number = ?, brand_name = ?, cost = ?, style = ?, stock_num = ? WHERE id = ?;";
 		
 		
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
 			
-			statement.setInt(1, handlebarToUpdate.SerialNumber());
-			statement.setString(2, handlebarToUpdate.BrandName());
-			statement.setDouble(3, handlebarToUpdate.Cost());
+			statement.setInt(1, handlebarToUpdate.getSerialNumber());
+			statement.setString(2, handlebarToUpdate.getBrandName());
+			statement.setDouble(3, handlebarToUpdate.getCost());
 			statement.setString(4, handlebarToUpdate.get_style().toString());
-			statement.setInt(7, handlebarToUpdate.get_id());
-			statement.setInt(8, handlebarToUpdate.StockNum());
+			statement.setInt(5, handlebarToUpdate.getStockNum());
+			statement.setInt(6, handlebarToUpdate.get_id());
+
 			
 			int rowsAffected = statement.executeUpdate();
 			statement.close();
@@ -148,11 +145,7 @@ WHERE id = ?;
 	}
 	
 	public static boolean deleteHandlebar(Handlebar wheelToDelete) throws SQLIntegrityConstraintViolationException  {
-		String sql = """
-DELETE
-FROM Handlebars
-WHERE id = ?;
-				""";
+		String sql = "DELETE FROM Handlebars WHERE id = ?;";
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
 			
@@ -174,10 +167,7 @@ WHERE id = ?;
 	}
 	
 	public static Handlebar createHandlebar(String brandName, int serialNumber, double cost, HandlebarStyles style, int stockNum) {
-		String sqlTemplate = """
-				INSERT INTO Handlebars(serial_number, brand_name, cost, style, stock_num)
-				VALUES(?,?,?,?,?);
-				""";
+		String sqlTemplate = "INSERT INTO Handlebars(serial_number, brand_name, cost, style, stock_num) VALUES(?,?,?,?,?);";
 						
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			

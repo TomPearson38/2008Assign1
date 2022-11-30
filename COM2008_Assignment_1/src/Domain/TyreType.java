@@ -1,5 +1,10 @@
 package Domain;
 
+/**
+ * ENUM containing all possible tyre types
+ * @author Alex Dobson
+ *
+ */
 public enum TyreType {
 	ROAD {
         public String toString() {

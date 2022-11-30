@@ -10,9 +10,9 @@ class LabelAndValue<T> extends JPanel implements InfoPanel.ObjectChangedListener
 	JLabel label;
 	JLabel content;
 	
-	Function<T, String> propertySelector;
+	Function<? super T, String> propertySelector;
 	
-	public LabelAndValue(PropertyDescriptor<T> backingInfo) {
+	public LabelAndValue(PropertyDescriptor<? super T> backingInfo) {
 		label = new JLabel(backingInfo.label + ": ");
 		content = new JLabel("");
 		propertySelector = backingInfo.propertySelector;

@@ -1,20 +1,33 @@
 package Domain;
 
+/**
+ * Contains customer order and all related information.
+ * @author tomap
+ *
+ */
 public class Order {
 	private int _order_number;
 	private Customer _customer;
-	private String _customer_given_name;
 	private double _cost;
 	private OrderStatus _order_status;
 	private Bicycle _bike;
 	private int _serial_number;
 	private String _date;
 	
-	public Order(int orderNum, Customer customer, String cust_given,
+	/**
+	 * New order is placed
+	 * @param orderNum Generated from database
+	 * @param customer Object of customer who placed the order
+	 * @param cost
+	 * @param os Current order status of the order
+	 * @param bike Bike that has been ordered
+	 * @param serNum Randomly generated order number
+	 * @param date Date of order
+	 */
+	public Order(int orderNum, Customer customer,
 			double cost, OrderStatus os, Bicycle bike, int serNum, String date) {
 		_order_number = orderNum;
 		_customer = customer;
-		_customer_given_name = cust_given;
 		_cost = cost;
 		_order_status = os;
 		_bike = bike;
@@ -34,12 +47,7 @@ public class Order {
 	public void set_customer(Customer _customer) {
 		this._customer = _customer;
 	}
-	public String get_customer_given_name() {
-		return _customer_given_name;
-	}
-	public void set_customer_given_name(String _customer_given_name) {
-		this._customer_given_name = _customer_given_name;
-	}
+
 	public double get_cost() {
 		return _cost;
 	}

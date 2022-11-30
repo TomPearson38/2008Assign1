@@ -1,5 +1,10 @@
 package Domain;
 
+/**
+ * Enum containing the different break types allowed
+ * @author Alex Dobson
+ *
+ */
 public enum BrakeType {
 	RIM{ 
 		public String toString() {

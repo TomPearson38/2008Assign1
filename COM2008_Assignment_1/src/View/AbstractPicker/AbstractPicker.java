@@ -59,7 +59,7 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     /*
      * Get the a list of PropertyDescriptor<T> from the implementing class to display. Each PropertyDescriptor<T> becomes a row in the right hand panel.
      */
-    protected abstract Collection<PropertyDescriptor<T>> getPropertyDescriptors();
+    protected abstract Collection<PropertyDescriptor<? super T>> getPropertyDescriptors();
     
     /*
      * Gets the filters that can be applied to T.

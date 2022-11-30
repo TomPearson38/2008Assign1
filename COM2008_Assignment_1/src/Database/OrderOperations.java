@@ -1,6 +1,7 @@
 package Database;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.util.Collection;
 
 import Domain.Address;
 import Domain.Bicycle;
+import Domain.BrakeType;
 import Domain.Customer;
 import Domain.Frameset;
 import Domain.Gearset;
@@ -23,7 +25,6 @@ import Domain.Wheel;
 public class OrderOperations {
 	public final static String order_number = "order_number";
 	public final static String customer_id = "customer_id";
-	public final static String given_name = "given_name";
 	public final static String cost = "original_cost";
 	public final static String order_status = "order_status";
 	public final static String bike_id = "bike_id";
@@ -33,7 +34,6 @@ public class OrderOperations {
 	public final static String column_string = 
 			"Orders.order_number AS " + order_number + 
 			", Orders.customer_id AS " + customer_id + 
-			", Orders.customer_given_name AS " + given_name + 
 			", Orders.cost AS " + cost +
 			", Orders.order_status AS " + order_status +
 			", Orders.bike_id AS " + bike_id + 
@@ -43,7 +43,6 @@ public class OrderOperations {
 	public static Order parseOrderFromResultSet(ResultSet rs) throws SQLException, EnumMappingException {
 		int orderNum = rs.getInt(OrderOperations.order_number);
 		
-	    String customerGivenName = rs.getString(OrderOperations.given_name);
 	    double cost = rs.getDouble(OrderOperations.cost);
 	    OrderStatus os = OrderStatus.valueOf((rs.getString(OrderOperations.order_status)).toUpperCase());
 	    int serial_number = rs.getInt(OrderOperations.serial_number);
@@ -54,7 +53,7 @@ public class OrderOperations {
 	    
 	    Bicycle retrieved_bike = BicycleOperations.parseBicycleFromResultset(rs);
 
-	    return new Order(orderNum, retrieved_customer, customerGivenName, cost, os, retrieved_bike, serial_number, date);
+	    return new Order(orderNum, retrieved_customer, cost, os, retrieved_bike, serial_number, date);
 	}
 	public static Collection<Order> getAllOrders() {
 		
@@ -75,7 +74,7 @@ public class OrderOperations {
 "ON Bicycles.handlebar_id = Handlebars.id " +
 "LEFT JOIN Wheels " +
 "ON Bicycles.wheels_id = Wheels.id;";
-		System.out.println(sql);
+
 		
 		Collection<Order> Orders;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -162,13 +161,13 @@ public class OrderOperations {
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
 			statement.setInt(1, idNum);
-			System.out.println(statement.toString());
+
 
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
 				currentOrder = parseOrderFromResultSet(rs);
-				System.out.println(currentOrder);
+
 			}
 
 			statement.close();
@@ -188,24 +187,19 @@ public class OrderOperations {
 	}
 	public static boolean updateOrder(Order orderToUpdate, boolean autoClose) {
 		
-		String sqlTemplate = """
-UPDATE Orders
-SET order_number = ?, customer_id = ?, customer_given_name = ?, cost = ?, order_status = ?, bike_id = ?, serial_number = ?, order_date = ?
-WHERE order_number = ?;
-				""";
+		String sqlTemplate = "UPDATE Orders SET order_number = ?, customer_id = ?, cost = ?, order_status = ?, bike_id = ?, serial_number = ?, order_date = ? WHERE order_number = ?;";
 		Connection mySQLConnection = ConnectionManager.getConnection();
 		try {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
 			
 			statement.setInt(1, orderToUpdate.get_order_number());
 			statement.setInt(2, orderToUpdate.get_customer().get_id());
-			statement.setString(3, orderToUpdate.get_customer_given_name());
-			statement.setDouble(4, orderToUpdate.get_cost());
-			statement.setString(5, mapOrderStatusToDBEnum(orderToUpdate.get_order_status()));
-			statement.setInt(6, orderToUpdate.get_bike().get_id());
-			statement.setInt(7, orderToUpdate.get_serial_number());
-			statement.setString(8, orderToUpdate.get_date());
-			statement.setInt(9, orderToUpdate.get_order_number());
+			statement.setDouble(3, orderToUpdate.get_cost());
+			statement.setString(4, mapOrderStatusToDBEnum(orderToUpdate.get_order_status()));
+			statement.setInt(5, orderToUpdate.get_bike().get_id());
+			statement.setInt(6, orderToUpdate.get_serial_number());
+			statement.setString(7, orderToUpdate.get_date());
+			statement.setInt(8, orderToUpdate.get_order_number());
 			
 			int rowsAffected = statement.executeUpdate();
 			statement.close();
@@ -246,7 +240,7 @@ WHERE order_number = ?;
 "ON Bicycles.handlebar_id = Handlebars.id " +
 "LEFT JOIN Wheels " +
 "ON Bicycles.wheels_id = Wheels.id WHERE Customers.id = ?;";
-		System.out.println(sql);
+
 		
 		Collection<Order> Orders;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -274,5 +268,34 @@ WHERE order_number = ?;
 		
 		return Orders;
 		
+	}
+	
+	public static Order createNewOrder(Customer _customer, Bicycle assignedBike, double cost, Date date, int serialNumber) {
+		String sqlTemplate = "INSERT INTO Orders(customer_id, cost, order_status, bike_id, serial_number, order_date) VALUES(?,?,?,?,?,?);";
+		
+		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+			
+			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate, Statement.RETURN_GENERATED_KEYS);
+			
+			statement.setInt(1, _customer.get_id());
+			statement.setDouble(2, cost);
+			statement.setString(3, "pending");
+			statement.setInt(4, assignedBike.get_id());
+			statement.setInt(5, serialNumber);
+			statement.setDate(6, date);
+			
+			statement.executeUpdate();
+			ResultSet rs = statement.getGeneratedKeys();
+			if (rs.next()) {
+				
+				int orderID = rs.getInt(1);
+				
+				return new Order(orderID, _customer, cost, OrderStatus.PENDING, assignedBike, serialNumber, date.toString());
+			}
+			
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return null;	
 	}
 }

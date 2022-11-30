@@ -1,5 +1,10 @@
 package Domain;
 
+/**
+ * ENUM containing possible different handlebar styles
+ * @author Alex Dobson
+ *
+ */
 public enum HandlebarStyles {
 	STRAIGHT{
         public String toString() {

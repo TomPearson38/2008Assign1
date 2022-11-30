@@ -73,11 +73,7 @@ public class AddressOperations {
 	}
 	
 	public static Address findAddress(String houseNumName, String streetName, String city ,String postCode) {		
-		String sql = """				
-SELECT id, house_num_name, street_name, city,post_code
-FROM Addresses
-WHERE house_num_name=? AND street_name=? AND city=? AND post_code= ?;
-""";
+		String sql = "SELECT id, house_num_name, street_name, city,post_code FROM Addresses WHERE house_num_name=? AND street_name=? AND city=? AND post_code= ?;";
 		
 		Address foundAddress = null;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -110,11 +106,7 @@ WHERE house_num_name=? AND street_name=? AND city=? AND post_code= ?;
 	}
 
 	public static Address getAddress(int id) {
-		String sql = """				
-SELECT *
-FROM Addresses
-WHERE id=?
-""";
+		String sql = "SELECT * FROM Addresses WHERE id=?";
 		
 		Address foundAddress = null;
 		try (Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -144,10 +136,7 @@ WHERE id=?
 	}
 	
 	public static Address createAddress(String houseNumName, String streetName, String city, String postCode) {
-		String sqlTemplate = """
-				INSERT INTO Addresses(houseNumName, streetName, city, postCode)
-				VALUES(?,?,?,?);
-				""";
+		String sqlTemplate = "INSERT INTO Addresses(house_num_name, street_Name, city, post_code) VALUES(?,?,?,?);";
 						
 						try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 							
