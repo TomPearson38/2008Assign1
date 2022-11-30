@@ -1,8 +1,14 @@
 package View;
 
+import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import Resources.ResourceSingleton;
 
 public class ViewStartup {
 	
@@ -13,7 +19,7 @@ public class ViewStartup {
         //Display the window.
         frame.pack();
         frame.setLocationRelativeTo(null); //Compact panel centring
-        
+        frame.setIconImage(ResourceSingleton.getTaskbarIcon());
         frame.setVisible(true);
     }
     

@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 public class ResourceSingleton {
 	static final String resourcesFolderLocation = "../Resources/";
+	static final String taskbarIcon = resourcesFolderLocation + "icon.png";
 	static final String saveIconLocation = resourcesFolderLocation + "save_very_small.png";
 	static final String defaultWheelImageLocation = resourcesFolderLocation + "default_wheel.png";
 	static final String defaultHandlebarsImageLocation = resourcesFolderLocation + "default_handlebar.png";
@@ -50,6 +51,10 @@ public class ResourceSingleton {
 	
 	public static Image getShoppingImage() {
 		return parseImageFromFile(shoppingCartIconLocation);
+	}
+	
+	public static Image getTaskbarIcon() {
+		return parseImageFromFile(taskbarIcon);
 	}
 	
 	public static URL getLoadingImage() {
