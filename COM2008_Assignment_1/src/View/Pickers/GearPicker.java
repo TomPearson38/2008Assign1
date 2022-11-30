@@ -1,4 +1,4 @@
-package View;
+package View.Pickers;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;

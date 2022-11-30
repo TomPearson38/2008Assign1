@@ -27,6 +27,7 @@ import Domain.Wheel;
 import Resources.ResourceSingleton;
 import View.BicycleDesigner.BicycleDesignerPanel;
 import View.BicycleDesigner.BicycleDesignerPanel.DesignNotSavedException;
+import View.Pickers.BicyclePicker;
 
 /**
  * Main menu of the application

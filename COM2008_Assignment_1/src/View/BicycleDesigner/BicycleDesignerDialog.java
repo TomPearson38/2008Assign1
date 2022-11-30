@@ -17,9 +17,9 @@ import Domain.Bicycle;
 import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.Wheel;
-import View.FramesetPicker;
-import View.HandlebarPicker;
-import View.WheelPicker;
+import View.Pickers.FramesetPicker;
+import View.Pickers.HandlebarPicker;
+import View.Pickers.WheelPicker;
 
 public class BicycleDesignerDialog extends JDialog {
 	

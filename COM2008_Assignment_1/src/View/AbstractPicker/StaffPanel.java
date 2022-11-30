@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-import View.FramesetPicker;
+import View.Pickers.FramesetPicker;
 
 
 class StaffPanel<T> extends JPanel {
