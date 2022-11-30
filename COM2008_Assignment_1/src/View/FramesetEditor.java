@@ -15,13 +15,13 @@ public class FramesetEditor extends AbstractFramesetCreator{
 				super(owner);
 				framesetID = framesetToEdit.get_id();
 				
-				brandNameRow.setFieldValue(framesetToEdit.BrandName());
-				serialNumberRow.setFieldValue(framesetToEdit.SerialNumber());
-				costRow.setFieldValue(framesetToEdit.Cost());
+				brandNameRow.setFieldValue(framesetToEdit.getBrandName());
+				serialNumberRow.setFieldValue(framesetToEdit.getSerialNumber());
+				costRow.setFieldValue(framesetToEdit.getCost());
 				sizeRow.setFieldValue(framesetToEdit.get_size());
 				shocksRow.setFieldValue(framesetToEdit.get_shocks());
 				gearsRow.setFieldValue(framesetToEdit.get_gearset());
-				stockRow.setFieldValue(framesetToEdit.StockNum());
+				stockRow.setFieldValue(framesetToEdit.getStockNum());
 				
 			}
 

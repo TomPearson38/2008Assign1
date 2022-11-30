@@ -15,11 +15,11 @@ public class HandlebarEditor extends AbstractHandlebarCreator{
 		super(owner);
 		handlebarID = handlebarToEdit.get_id();
 		
-		brandNameRow.setFieldValue(handlebarToEdit.BrandName());
-		serialNumberRow.setFieldValue(handlebarToEdit.SerialNumber());
-		costRow.setFieldValue(handlebarToEdit.Cost());
+		brandNameRow.setFieldValue(handlebarToEdit.getBrandName());
+		serialNumberRow.setFieldValue(handlebarToEdit.getSerialNumber());
+		costRow.setFieldValue(handlebarToEdit.getCost());
 		stylesRow.setFieldValue(handlebarToEdit.get_style());
-		stockRow.setFieldValue(handlebarToEdit.StockNum());
+		stockRow.setFieldValue(handlebarToEdit.getStockNum());
 		
 	}
 	

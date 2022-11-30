@@ -14,13 +14,13 @@ public class WheelEditor extends AbstractWheelCreator {
 		// TODO Auto-generated constructor stub#
 		super(owner);
 		wheelID = wheelToEdit.get_id();
-		brandNameRow.setFieldValue(wheelToEdit.BrandName());
-		serialNumberRow.setFieldValue(wheelToEdit.SerialNumber());
-		costRow.setFieldValue(wheelToEdit.Cost());
+		brandNameRow.setFieldValue(wheelToEdit.getBrandName());
+		serialNumberRow.setFieldValue(wheelToEdit.getSerialNumber());
+		costRow.setFieldValue(wheelToEdit.getCost());
 		diameterRow.setFieldValue(wheelToEdit.get_diameter());
 		tyreTypeRow.setFieldValue(wheelToEdit.get_tyre());
 		brakeTypeRow.setFieldValue(wheelToEdit.get_brakes());
-		stockRow.setFieldValue(wheelToEdit.StockNum());
+		stockRow.setFieldValue(wheelToEdit.getStockNum());
 	}
 
 	protected Wheel sendValueToDatabase() {
