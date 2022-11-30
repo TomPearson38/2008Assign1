@@ -73,7 +73,7 @@ public class CustomerMenu extends JFrame {
 				mainPanel.setCurrentFrameset(chosenBicycle.get_frame());
 				mainPanel.setCurrentHandlebars(chosenBicycle.get_handlebar());
 				mainPanel.setCurrentWheels(chosenBicycle.get_Wheels());
-				mainPanel.setName(chosenBicycle.getCustomerGivenName());
+				mainPanel.setBicycleName(chosenBicycle.getCustomerGivenName());
 			}
 			});
 		
