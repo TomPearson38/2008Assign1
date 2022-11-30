@@ -2,7 +2,7 @@ package View.AbstractCreator;
 
 import javax.swing.JComboBox;
 
-import View.JDoubleField;
+import View.UserControls.JDoubleField;
 
 public class EnumCreatorInputField<E extends Enum<E>> extends CreatorInputField<E, JComboBox<E>> {
 

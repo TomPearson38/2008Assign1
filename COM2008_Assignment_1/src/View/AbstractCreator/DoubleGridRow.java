@@ -2,7 +2,7 @@ package View.AbstractCreator;
 
 import java.util.function.Predicate;
 
-import View.JDoubleField;
+import View.UserControls.JDoubleField;
 
 public class DoubleGridRow extends GridRow<Double, JDoubleField> {
 	

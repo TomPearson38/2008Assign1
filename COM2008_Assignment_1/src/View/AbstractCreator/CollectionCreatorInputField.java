@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import javax.swing.JComboBox;
 
-import View.JDoubleField;
+import View.UserControls.JDoubleField;
 
 public class CollectionCreatorInputField<C> extends CreatorInputField<C, JComboBox<C>> {
 

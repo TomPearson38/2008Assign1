@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import javax.swing.JComboBox;
 
-import View.JDoubleField;
+import View.UserControls.JDoubleField;
 
 public class CollectionGridRow<C> extends GridRow<C, JComboBox<C>> {
 	

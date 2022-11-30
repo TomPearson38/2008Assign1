@@ -22,6 +22,8 @@ import View.AbstractCreator.IntegerCreatorInputField;
 import View.AbstractCreator.IntegerGridRow;
 import View.AbstractCreator.StringCreatorInputField;
 import View.AbstractCreator.StringGridRow;
+import View.UserControls.JDoubleField;
+import View.UserControls.JIntegerField;
 import View.AbstractCreator.CreatorInputField;
 import View.AbstractCreator.DoubleCreatorInputField;
 import View.AbstractCreator.DoubleGridRow;

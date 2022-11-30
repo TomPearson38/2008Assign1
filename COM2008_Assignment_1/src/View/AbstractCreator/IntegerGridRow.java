@@ -2,7 +2,7 @@ package View.AbstractCreator;
 
 import java.util.function.Predicate;
 
-import View.JIntegerField;
+import View.UserControls.JIntegerField;
 
 public class IntegerGridRow extends GridRow<Integer, JIntegerField> {
 	

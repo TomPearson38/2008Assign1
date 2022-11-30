@@ -1,6 +1,6 @@
 package View.AbstractCreator;
 
-import View.JIntegerField;
+import View.UserControls.JIntegerField;
 
 public class IntegerCreatorInputField extends CreatorInputField<Integer, JIntegerField> {
 

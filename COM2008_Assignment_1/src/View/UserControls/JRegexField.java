@@ -1,4 +1,4 @@
-package View;
+package View.UserControls;
 
 import java.awt.Toolkit;
 

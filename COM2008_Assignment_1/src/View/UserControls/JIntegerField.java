@@ -1,4 +1,4 @@
-package View;
+package View.UserControls;
 
 public class JIntegerField extends JRegexField {
 

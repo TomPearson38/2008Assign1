@@ -28,7 +28,7 @@ import Database.HandlebarOperations;
 import Domain.Bicycle;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
-import View.JIntegerField;
+import View.UserControls.JIntegerField;
 
 public abstract class AbstractCreator<T> extends JDialog {
 	

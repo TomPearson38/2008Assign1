@@ -1,6 +1,6 @@
 package View.AbstractCreator;
 
-import View.JDoubleField;
+import View.UserControls.JDoubleField;
 
 public class DoubleCreatorInputField extends CreatorInputField<Double, JDoubleField> {
 
