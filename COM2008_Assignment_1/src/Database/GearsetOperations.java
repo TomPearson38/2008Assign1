@@ -125,7 +125,7 @@ public class GearsetOperations {
 
 	public static boolean updateGearset(Gearset gearsetToUpdate) {
 	    String sqlTemplate = 
-	            "UPDATE Gears " +
+	            "UPDATE Gearsets " +
 	            "SET name = ? " +
 	            "WHERE id = ?;";
 	                    
