@@ -102,6 +102,7 @@ public class BicycleDesignerPanel extends JPanel {
 			chooseWheelsButton.setText("Wheels");
 			centralPanel.setWheelSprite(null);
 		}
+		setNameOfBike();
 		broadcastDesignValidityChange();
 	}
 	
@@ -117,9 +118,16 @@ public class BicycleDesignerPanel extends JPanel {
 			chooseHandlebarsButton.setText("Handlebars");
 			centralPanel.setHandlebarSprite(null);
 		}
+		setNameOfBike();
 		broadcastDesignValidityChange();
 	}
 	
+	private void setNameOfBike() {
+		//Generates name for bike
+		if(_currentFrameset != null && _currentWheels != null) {
+			nameField.setText("" + _currentFrameset.BrandName() + " " + _currentWheels.get_tyre().toString());
+		}
+	}
 
 	private void addControls() {
 		this.setPreferredSize(new Dimension(500,400));
@@ -139,7 +147,8 @@ public class BicycleDesignerPanel extends JPanel {
 				  broadcastDesignValidityChange();
 			  }
 			});
-
+		
+		nameField.setEditable(false);
 		
 		chooseFrameButton.addActionListener(e -> setCurrentFrameset(FramesetPicker.chooseFrameset(_parent)));
 		chooseWheelsButton.addActionListener(e -> setCurrentWheels(WheelPicker.chooseWheels(_parent)));
@@ -158,7 +167,7 @@ public class BicycleDesignerPanel extends JPanel {
 		topPanel.setLayout(new BorderLayout());
 		topPanel.add(namePanel, BorderLayout.NORTH);
 		topPanel.add(componentsPanel, BorderLayout.CENTER);
-		
+				
 		this.add(topPanel, BorderLayout.NORTH);
 		this.add(centralPanel, BorderLayout.CENTER);
 		
