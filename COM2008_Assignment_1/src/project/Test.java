@@ -1,5 +1,6 @@
 package project;
 
+import java.awt.Image;
 import java.util.*;
 
 import Database.BicycleOperations;
@@ -11,7 +12,7 @@ import View.CreateCustomerDetails;
 import View.ViewStartup;
 
 public class Test {
-	public static void main(String[] args){
+	public static void main(String[] args){		
 		ViewStartup.entryPoint();	
 	}
 }
