@@ -41,7 +41,7 @@ public class BicycleDesignerPanel extends JPanel {
 	private BicycleVisualisationPanel centralPanel = new BicycleVisualisationPanel();
 	
 	private Bicycle savedDesign;
-	private ActiveBicycleDesign currentDesign;
+	private ActiveBicycleDesign currentDesign = new ActiveBicycleDesign(null, null, null, "");
 	private void setCurrentDesign(ActiveBicycleDesign value) {
 		currentDesign = value;
 		
@@ -293,6 +293,12 @@ public class BicycleDesignerPanel extends JPanel {
 		
 		
 		public boolean matches(Bicycle domainObject) {
+			if (domainObject == null) {
+				return false;
+			}
+			if (frame == null || handlebars == null || wheels == null) {	//the domain object can never have null values for these so if we check them here we can call equals() on them next
+				return false;
+			}
 			return  domainObject.get_frame().equals(frame) &&
 					domainObject.get_handlebar().equals(handlebars) &&
 					domainObject.get_Wheels().equals(wheels) &&
