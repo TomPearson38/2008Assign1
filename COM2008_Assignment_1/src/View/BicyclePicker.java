@@ -73,7 +73,7 @@ public class BicyclePicker extends AbstractPicker<Bicycle>{
 		FilterValue<Bicycle> hasHybridTyres = new FilterValue<Bicycle>("Hybrid Tyres", bike -> bike.get_Wheels().get_tyre() == TyreType.HYBRID);
 		Filter<Bicycle> tyresFilter = new Filter<Bicycle>("Tyres",  Arrays.asList(hasRoadTyres, hasMountainTyres, hasHybridTyres));
 		
-		Filter<ICost> costFilter = BicycleComponentFilters.getCostFilter();
+		Filter<ICost> costFilter = CommonFilters.getCostFilter();
 		
 		return Arrays.asList(brakesFilter, tyresFilter, costFilter);
 	}

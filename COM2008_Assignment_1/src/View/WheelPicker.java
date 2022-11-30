@@ -12,6 +12,7 @@ import Domain.BicycleComponent;
 import Domain.BrakeType;
 import Domain.Frameset;
 import Domain.Handlebar;
+import Domain.ICost;
 import Domain.TyreType;
 import Domain.Wheel;
 import View.AbstractPicker.AbstractPicker;
@@ -68,7 +69,7 @@ public class WheelPicker extends AbstractPicker<Wheel>{
 		FilterValue<Wheel> hasHybridTyres = new FilterValue<Wheel>("Hybrid Tyres", wheel -> wheel.get_tyre() == TyreType.HYBRID);
 		Filter<Wheel> tyresFilter = new Filter<Wheel>("Tyres",  Arrays.asList(hasRoadTyres, hasMountainTyres, hasHybridTyres));
 		
-		Filter<BicycleComponent> costFilter = BicycleComponentFilters.getCostFilter();
+		Filter<ICost> costFilter = CommonFilters.getCostFilter();
 		
 		return Arrays.asList(brakesFilter, tyresFilter, costFilter);
 	}

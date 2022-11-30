@@ -9,7 +9,7 @@ import Domain.ICost;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 
-public class BicycleComponentFilters {
+public class CommonFilters {
 	public static Filter<ICost> getCostFilter() {
 		FilterValue<ICost> lessThan500Pounds = new FilterValue<ICost>("< £500", component -> component.getCost() < 500);
 		FilterValue<ICost> from500To1000Pounds = new FilterValue<ICost>("£500 - £1000", component -> component.getCost() > 500 && component.getCost() < 1000);

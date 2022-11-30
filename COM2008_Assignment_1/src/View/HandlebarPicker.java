@@ -13,6 +13,7 @@ import Domain.BicycleComponent;
 import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
+import Domain.ICost;
 import View.AbstractPicker.AbstractPicker;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
@@ -67,7 +68,7 @@ public class HandlebarPicker extends AbstractPicker<Handlebar>{
 		FilterValue<Handlebar> hasStraightStyle = new FilterValue<Handlebar>("Straight", handlebar -> handlebar.get_style() == HandlebarStyles.STRAIGHT);
 		Filter<Handlebar> stylesFilter = new Filter<Handlebar>("Styles",  Arrays.asList(hasHighStyle, hasDroppedStyle, hasStraightStyle));
 		
-		Filter<BicycleComponent> costFilter = BicycleComponentFilters.getCostFilter();
+		Filter<ICost> costFilter = CommonFilters.getCostFilter();
 		
 		return Arrays.asList(stylesFilter, costFilter);
 	}

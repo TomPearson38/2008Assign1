@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import Database.FrameOperations;
 import Domain.BicycleComponent;
 import Domain.Frameset;
+import Domain.ICost;
 import View.AbstractPicker.AbstractPicker;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
@@ -62,10 +63,10 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 		FilterValue<Frameset> greaterThan500 = new FilterValue<Frameset>("> 500", frame -> frame.get_size() > 500);
 		Filter<Frameset> sizeFilter = new Filter<Frameset>("Size",  Arrays.asList(smallerThan100, from100to500, greaterThan500));
 		
-		Filter<BicycleComponent> costFilter = BicycleComponentFilters.getCostFilter();
+		Filter<ICost> costFilter = CommonFilters.getCostFilter();
 		
 		Collection<String> brands = FrameOperations.getBrandsInFramesTable();
-		Filter<BicycleComponent> brandFilter = BicycleComponentFilters.getBrandFilter(brands);
+		Filter<BicycleComponent> brandFilter = CommonFilters.getBrandFilter(brands);
 				
 		return Arrays.asList(shocksFilter, sizeFilter, costFilter, brandFilter);
 	}
