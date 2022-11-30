@@ -153,7 +153,7 @@ public class BicycleOperations {
 							statement.setInt(1, request.getFrame().get_id());
 							statement.setInt(2, request.getHandlebars().get_id());
 							statement.setInt(3, request.getWheels().get_id());
-							statement.setString(4, name);
+							statement.setString(4, request.getName());
 							
 							int rowAffected = statement.executeUpdate();
 							if (rowAffected == 1) {
