@@ -116,16 +116,43 @@ public class BicycleOperations {
 		return foundBike;
 	}
 	
-	public static Bicycle addBicycle(Frameset frame, Handlebar handlebar, Wheel wheels, String name) {
+	public static class CreateBicycleRequest {
+		private Frameset frame;
+		private Handlebar handlebars;
+		private Wheel wheels;
+		private String name;
+		
+		public CreateBicycleRequest(Frameset frame, Handlebar handlebar, Wheel wheels, String name) {
+			super();
+			this.frame = frame;
+			this.handlebars = handlebar;
+			this.wheels = wheels;
+			this.name = name;
+		}
+		public Frameset getFrame() {
+			return frame;
+		}
+		public Handlebar getHandlebars() {
+			return handlebars;
+		}
+		public Wheel getWheels() {
+			return wheels;
+		}
+		public String getName() {
+			return name;
+		}
+	}
+	
+	public static Bicycle addBicycle(CreateBicycleRequest request) {
 		String sqlTemplate = "INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, given_name) VALUES(?,?,?,?);";
 						
 						try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 							
 							PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate, Statement.RETURN_GENERATED_KEYS);
 							
-							statement.setInt(1, frame.get_id());
-							statement.setInt(2, handlebar.get_id());
-							statement.setInt(3, wheels.get_id());
+							statement.setInt(1, request.getFrame().get_id());
+							statement.setInt(2, request.getHandlebars().get_id());
+							statement.setInt(3, request.getWheels().get_id());
 							statement.setString(4, name);
 							
 							int rowAffected = statement.executeUpdate();
@@ -135,7 +162,7 @@ public class BicycleOperations {
 									
 									int bicycleId = rs.getInt(1);
 									
-									return new Bicycle(bicycleId, frame, handlebar, wheels, name);
+									return new Bicycle(bicycleId, request.getFrame(), request.getHandlebars(), request.getWheels(), name);
 								}
 							}
 							

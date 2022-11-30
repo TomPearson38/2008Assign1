@@ -42,4 +42,26 @@ public class Frameset extends BicycleComponent implements IDataRecord, IToUIStri
 		// TODO Auto-generated method stub
 		return "<html>" + getBrandName() + "<br>" + get_size() + "cm" + "</html>";
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Frameset other = (Frameset) obj;
+		if (_gearset == null) {
+			if (other._gearset != null)
+				return false;
+		} else if (!_gearset.equals(other._gearset))
+			return false;
+		if (_shocks != other._shocks)
+			return false;
+		if (Double.doubleToLongBits(_size) != Double.doubleToLongBits(other._size))
+			return false;
+		return true;
+	}
+
 }

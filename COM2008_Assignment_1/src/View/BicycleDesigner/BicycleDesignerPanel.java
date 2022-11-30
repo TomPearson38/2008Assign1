@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import Database.BicycleOperations;
+import Database.BicycleOperations.CreateBicycleRequest;
 import Domain.Bicycle;
 import Domain.Frameset;
 import Domain.Handlebar;
@@ -38,27 +40,63 @@ public class BicycleDesignerPanel extends JPanel {
 	
 	private BicycleVisualisationPanel centralPanel = new BicycleVisualisationPanel();
 	
-	private Frameset _currentFrameset;
-	private Wheel _currentWheels;
-	private Handlebar _currentHandlebars;
-	
-	
-	public Frameset get_currentFrameset() {
-		return _currentFrameset;
-	}
-	public Wheel get_currentWheels() {
-		return _currentWheels;
-	}
-	public Handlebar get_currentHandlebars() {
-		return _currentHandlebars;
-	}
-	public String getName() {
-		return nameField.getText();
+	private Bicycle savedDesign;
+	private ActiveBicycleDesign currentDesign;
+	private void setCurrentDesign(ActiveBicycleDesign value) {
+		currentDesign = value;
+		
+		setCurrentFrameset(currentDesign.getFrame());
+		setCurrentHandlebars(currentDesign.getHandlebars());
+		setCurrentWheels(currentDesign.getWheels());
+		nameField.setText(currentDesign.getName());
 	}
 	
+	
+	public BicycleOperations.CreateBicycleRequest generateBicycleCreateRequest() {
+		return currentDesign.generateBicycleCreateRequest();
+	}
+	
+	public Bicycle getSavedBicycle() throws DesignNotSavedException {
+		if (!isDesignSaved()) {
+			throw new DesignNotSavedException("Design domain object cannot be accessed until the design has been saved to the database");
+		} else {
+			return savedDesign;
+		}
+	}
+	public class DesignNotSavedException extends Exception { 
+		public DesignNotSavedException(String message) { super(message); } 
+	}
+	
+	public void setDesign(Bicycle domainObjectToUse) {
+		savedDesign = domainObjectToUse;
+		setCurrentDesign(new ActiveBicycleDesign(domainObjectToUse));
+		
+		
+		broadcastDesignSavedChange();
+	}
+
 	public boolean isDesignValid() {
-		return _currentFrameset != null && _currentWheels != null && _currentHandlebars != null && nameField.getText().length() != 0;
+		return currentDesign.isDesignValid();
 	}
+	
+	/*
+	 * Has the current design been saved to the database
+	 */
+	public boolean isDesignSaved() {
+		//if the current design is the same as the original design then it hasn't been changed since the save
+		return currentDesign.matches(savedDesign);
+	}
+	public Collection<Consumer<Boolean>> designSavedListeners = new ArrayList<Consumer<Boolean>>();
+	public void addDesignSavedListener(Consumer<Boolean> listener) { designSavedListeners.add(listener); }
+	public void removeDesignSavedListener(Consumer<Boolean> listener) { designSavedListeners.remove(listener); }
+	private void broadcastDesignSavedChange() {
+		final boolean designSaved = isDesignSaved();
+		designSavedListeners.forEach(x -> x.accept(designSaved));
+	}
+	
+	
+	
+	
 	public Collection<Consumer<Boolean>> designValidityListeners = new ArrayList<Consumer<Boolean>>();
 	public void addDesignValidityListener(Consumer<Boolean> listener) { designValidityListeners.add(listener); }
 	public void removeDesignValidityListener(Consumer<Boolean> listener) { designValidityListeners.remove(listener); }
@@ -72,15 +110,15 @@ public class BicycleDesignerPanel extends JPanel {
 	public BicycleDesignerPanel(JFrame _parent) {
 		super();
 		this._parent = _parent;
+		
+		savedDesign = null;
 		addControls();
 	}
-	
-	
-	
-	public void setCurrentFrameset(Frameset value) {
-		_currentFrameset = value;
+
+	private void setCurrentFrameset(Frameset value) {
+		currentDesign.setFrame(value);
 		
-		if (_currentFrameset != null) {
+		if (value != null) {
 			chooseFrameButton.setText(value.toUIString());
 			centralPanel.setFramesetSprite(DefaultSprites.getDefaultFramesetSprite());
 		} else {
@@ -88,14 +126,15 @@ public class BicycleDesignerPanel extends JPanel {
 			centralPanel.setFramesetSprite(null);
 		}
 		broadcastDesignValidityChange();
+		broadcastDesignSavedChange();
 	}
 		
 	
 	
-	public void setCurrentWheels(Wheel value) {
-		_currentWheels = value;
+	private void setCurrentWheels(Wheel value) {
+		currentDesign.setWheels(value);
 		
-		if (_currentWheels != null) {
+		if (value != null) {
 			chooseWheelsButton.setText(value.toUIString());
 			centralPanel.setWheelSprite(DefaultSprites.getDefaultWheelSprite());
 		} else {
@@ -103,14 +142,15 @@ public class BicycleDesignerPanel extends JPanel {
 			centralPanel.setWheelSprite(null);
 		}
 		broadcastDesignValidityChange();
+		broadcastDesignSavedChange();
 	}
 	
 	
 	
-	public void setCurrentHandlebars(Handlebar value) {
-		_currentHandlebars = value;
+	private void setCurrentHandlebars(Handlebar value) {
+		currentDesign.setHandlebars(value);
 		
-		if (_currentHandlebars != null) {
+		if (value != null) {
 			chooseHandlebarsButton.setText(value.toUIString());
 			centralPanel.setHandlebarSprite(DefaultSprites.getDefaultHandlebarSprite());
 		} else {
@@ -118,6 +158,7 @@ public class BicycleDesignerPanel extends JPanel {
 			centralPanel.setHandlebarSprite(null);
 		}
 		broadcastDesignValidityChange();
+		broadcastDesignSavedChange();
 	}
 	
 	public void setBicycleName(String value) {
@@ -133,17 +174,22 @@ public class BicycleDesignerPanel extends JPanel {
 		namePanel.add(nameField, BorderLayout.CENTER);
 		nameField.getDocument().addDocumentListener(new DocumentListener() {
 			  public void changedUpdate(DocumentEvent e) {
-				  broadcastDesignValidityChange();
+				  updateViewModel(e);
 			  }
 			  public void removeUpdate(DocumentEvent e) {
-				  broadcastDesignValidityChange();
+				  updateViewModel(e);
 			  }
 			  public void insertUpdate(DocumentEvent e) {
+				  updateViewModel(e);
+			  }
+			  private void updateViewModel(DocumentEvent e) {
+				  String newText = nameField.getText();
+				  currentDesign.setName(newText);
 				  broadcastDesignValidityChange();
+				  broadcastDesignSavedChange();
 			  }
 			});
 		
-		nameField.setEditable(false);
 		
 		chooseFrameButton.addActionListener(e -> setCurrentFrameset(FramesetPicker.chooseFrameset(_parent)));
 		chooseWheelsButton.addActionListener(e -> setCurrentWheels(WheelPicker.chooseWheels(_parent)));
@@ -165,6 +211,93 @@ public class BicycleDesignerPanel extends JPanel {
 				
 		this.add(topPanel, BorderLayout.NORTH);
 		this.add(centralPanel, BorderLayout.CENTER);
+		
+	}
+	
+//	private class BicycleDesignerPanelViewModel {
+//		
+//		private Bicycle savedDesign;
+//		private ActiveBicycleDesign currentDesign;
+//		
+//		public void setSavedDesign(ActiveBicycleDesign value) {
+//			savedDesign = value;
+//		}
+//		public void setCurrentDesign(ActiveBicycleDesign value) {
+//			currentDesign = value;
+//		}
+//	}
+	
+	public class ActiveBicycleDesign {
+		private Frameset frame;
+		private Handlebar handlebars;
+		private Wheel wheels;
+		private String name;
+		
+		public ActiveBicycleDesign(Bicycle domainObject) {
+			this(domainObject.get_frame(), domainObject.get_handlebar(), domainObject.get_Wheels(), domainObject.getCustomerGivenName());
+//			id = domainObject.get_id();
+		}
+		
+		public ActiveBicycleDesign(Frameset frame, Handlebar handlebars, Wheel wheels, String name) {
+			super();
+			this.frame = frame;
+			this.handlebars = handlebars;
+			this.wheels = wheels;
+			this.name = name;
+		}
+
+//		public int getId() {
+//			return id;
+//		}
+
+		public Frameset getFrame() {
+			return frame;
+		}
+
+		public Handlebar getHandlebars() {
+			return handlebars;
+		}
+
+		public Wheel getWheels() {
+			return wheels;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setFrame(Frameset frame) {
+			this.frame = frame;
+		}
+
+		public void setHandlebars(Handlebar handlebars) {
+			this.handlebars = handlebars;
+		}
+
+		public void setWheels(Wheel wheels) {
+			this.wheels = wheels;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		
+		public boolean isDesignValid() {
+			return frame != null && handlebars != null && wheels != null && name.length() != 0;
+		}
+		
+		public CreateBicycleRequest generateBicycleCreateRequest() {
+			return new CreateBicycleRequest(frame, handlebars, wheels, name);
+		}
+		
+		
+		public boolean matches(Bicycle domainObject) {
+			return  domainObject.get_frame().equals(frame) &&
+					domainObject.get_handlebar().equals(handlebars) &&
+					domainObject.get_Wheels().equals(wheels) &&
+					domainObject.getCustomerGivenName().equals(name);
+		}
 		
 	}
 }

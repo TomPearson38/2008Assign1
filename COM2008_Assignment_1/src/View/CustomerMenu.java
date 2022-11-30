@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.util.function.Supplier;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -24,6 +25,7 @@ import Domain.Handlebar;
 import Domain.Wheel;
 import Resources.ResourceSingleton;
 import View.BicycleDesigner.BicycleDesignerPanel;
+import View.BicycleDesigner.BicycleDesignerPanel.DesignNotSavedException;
 
 public class CustomerMenu extends JFrame {
 	BicycleDesignerPanel mainPanel;
@@ -70,10 +72,7 @@ public class CustomerMenu extends JFrame {
 		chooseTemplateButton.addActionListener(e -> {
 			final Bicycle chosenBicycle = BicyclePicker.chooseBicycle(this, false);
 			if (chosenBicycle != null) {
-				mainPanel.setCurrentFrameset(chosenBicycle.get_frame());
-				mainPanel.setCurrentHandlebars(chosenBicycle.get_handlebar());
-				mainPanel.setCurrentWheels(chosenBicycle.get_Wheels());
-				mainPanel.setBicycleName(chosenBicycle.getCustomerGivenName());
+				mainPanel.setDesign(chosenBicycle);
 			}
 			});
 		
@@ -84,14 +83,17 @@ public class CustomerMenu extends JFrame {
 		final JButton saveDesignButton = new JButton("Save Design");
 		saveDesignButton.setIcon(new ImageIcon(ResourceSingleton.getSaveIcon()));
 		saveDesignButton.setEnabled(false);
-		mainPanel.addDesignValidityListener(saveDesignButton::setEnabled);
+		Supplier<Boolean> shouldSaveButtonBeEnabled = () -> {
+			return mainPanel.isDesignValid() && !mainPanel.isDesignSaved();
+		};
+		mainPanel.addDesignValidityListener(e -> saveDesignButton.setEnabled(shouldSaveButtonBeEnabled.get()));
 		saveDesignButton.addActionListener(this::saveButtonClicked);
 		
 		final JButton submitOrderButton = new JButton("Order Design");
 		Image shoppingImage = ResourceSingleton.getShoppingImage();
-		submitOrderButton.setIcon(new ImageIcon(shoppingImage.getScaledInstance(32, 32, DO_NOTHING_ON_CLOSE)));
+		submitOrderButton.setIcon(new ImageIcon(shoppingImage.getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
 		submitOrderButton.setEnabled(false);
-		mainPanel.addDesignValidityListener(submitOrderButton::setEnabled);
+		mainPanel.addDesignSavedListener(submitOrderButton::setEnabled);
 		submitOrderButton.addActionListener(this::orderButtonClicked);
 		
 		bottomRightContainerPanel.add(saveDesignButton);
@@ -107,17 +109,26 @@ public class CustomerMenu extends JFrame {
 	}
 	
 	private void saveButtonClicked(ActionEvent e) {
-		BicycleOperations.addBicycle(mainPanel.get_currentFrameset(), mainPanel.get_currentHandlebars(), mainPanel.get_currentWheels(), mainPanel.getName());
+		Bicycle newDesignSavedToDatabase = BicycleOperations.addBicycle(mainPanel.generateBicycleCreateRequest());
+		mainPanel.setDesign(newDesignSavedToDatabase);
 	}
 	
 	private void orderButtonClicked(ActionEvent e) {
-		Bicycle newBike = BicycleOperations.addBicycle(mainPanel.get_currentFrameset(), mainPanel.get_currentHandlebars(), mainPanel.get_currentWheels(), mainPanel.getName());
-		
-		boolean checkStock = stockChecker(newBike);
-		
-		if(checkStock) {
-			CreateCustomerDetails cd = new CreateCustomerDetails(this, newBike);
+		Bicycle bikeToOrder;
+		try {
+			bikeToOrder = mainPanel.getSavedBicycle();
+			
+			boolean checkStock = stockChecker(bikeToOrder);
+			
+			if(checkStock) {
+				CreateCustomerDetails cd = new CreateCustomerDetails(this, bikeToOrder);
+			}
+			
+		} catch (DesignNotSavedException ex) {
+			ex.printStackTrace();
 		}
+		
+		
 	}
 	
 	private boolean stockChecker(Bicycle proposedBike) {
