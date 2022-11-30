@@ -12,6 +12,11 @@ public class FramesetCreator extends AbstractFramesetCreator{
 		// TODO Auto-generated constructor stub
 		super(owner);
 	}
+	
+	public static Frameset addFrameset(Frame owner) {
+		FramesetCreator myWindow = new FramesetCreator(owner);
+		return myWindow.showCreatorDialog();
+	}
 
 	protected Frameset sendValueToDatabase() {
 		String brandName = brandNameRow.getFieldValue();

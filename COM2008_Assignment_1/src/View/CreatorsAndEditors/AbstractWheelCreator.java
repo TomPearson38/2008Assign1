@@ -41,11 +41,6 @@ public abstract class AbstractWheelCreator extends AbstractCreator<Wheel> {
 	public AbstractWheelCreator(Frame owner) {
 		super(owner);
 	}
-	
-	public static Wheel addWheel(Frame owner) {
-		WheelCreator myWindow = new WheelCreator(owner);
-		return myWindow.showCreatorDialog();
-	}
 
 
 	@Override

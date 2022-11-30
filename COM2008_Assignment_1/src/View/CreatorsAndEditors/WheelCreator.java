@@ -13,6 +13,11 @@ public class WheelCreator extends AbstractWheelCreator {
 		// TODO Auto-generated constructor stub#
 		super(owner);
 	}
+	
+	public static Wheel addWheel(Frame owner) {
+		WheelCreator myWindow = new WheelCreator(owner);
+		return myWindow.showCreatorDialog();
+	}
 
 	protected Wheel sendValueToDatabase() {
 		String brandName = brandNameRow.getFieldValue();

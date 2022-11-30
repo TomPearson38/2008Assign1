@@ -13,6 +13,11 @@ public class HandlebarCreator extends AbstractHandlebarCreator{
 		super(owner);
 	}
 	
+	public static Handlebar addHandlebar(Frame owner) {
+		HandlebarCreator myWindow = new HandlebarCreator(owner);
+		return myWindow.showCreatorDialog();
+	}
+	
 	protected Handlebar sendValueToDatabase() {
 		String brandName = brandNameRow.getFieldValue();
 		int serialNumber = serialNumberRow.getFieldValue();

@@ -43,10 +43,7 @@ public abstract class AbstractFramesetCreator extends AbstractCreator<Frameset> 
 		super(owner);
 	}
 	
-	public static Frameset addHFrameset(Frame owner) {
-		FramesetCreator myWindow = new FramesetCreator(owner);
-		return myWindow.showCreatorDialog();
-	}
+
 
 
 	@Override
