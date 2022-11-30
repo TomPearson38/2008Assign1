@@ -33,6 +33,11 @@ import Domain.Wheel;
 import View.StaffWindow.ExpandedBikeView;
 import View.StaffWindow.OrderModelRow;
 
+/**
+ * Form for customers to enter their details when placing an order
+ * @author tomap
+ *
+ */
 public class CreateCustomerDetails extends JDialog implements ActionListener{
 	private static final DecimalFormat df = new DecimalFormat("0.00");
 	
@@ -59,6 +64,10 @@ public class CreateCustomerDetails extends JDialog implements ActionListener{
 	private JFrame _parent;	
 	private Bicycle _bikeToOrder;
 	
+	/**
+	 * Called on start up
+	 * @param title Title of the form
+	 */
 	private void StartUp(String title) {		
 		setTitle(title);
 				
@@ -123,11 +132,18 @@ public class CreateCustomerDetails extends JDialog implements ActionListener{
 		setVisible(true);
 	}
 	
+	/**
+	 * calculates cost for the bike order
+	 * @return the cost
+	 */
 	private double calculateCost() {
 		double cost = (_bikeToOrder.get_frame().getCost()) + (_bikeToOrder.get_handlebar().getCost()) + (_bikeToOrder.get_Wheels().getCost()) + 10.0;
 		return Double.parseDouble(df.format(cost));
 	}
 	
+	/**
+	 * Called when customer has successfully entered their details
+	 */
 	public void actionPerformed(ActionEvent event) {
 		Customer selectedCustomer = CustomerOperations.findCustomer(forenameInput.getText(), surenameInput.getText(), houseNumNameInput.getText(), streetNameInput.getText(), cityInput.getText(),postCodeInput.getText());
 		if(selectedCustomer == null) {
@@ -163,6 +179,11 @@ public class CreateCustomerDetails extends JDialog implements ActionListener{
 		this.dispose();
 	}
 	
+	/**
+	 * Form is initialised
+	 * @param parent Parent frame
+	 * @param bikeToOrder Bike to be ordered
+	 */
 	public CreateCustomerDetails(JFrame parent, Bicycle bikeToOrder) {
 		super(parent);
 		_bikeToOrder = bikeToOrder;

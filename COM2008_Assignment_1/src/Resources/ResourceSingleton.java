@@ -6,6 +6,11 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Loads required resources from the saved image
+ * @author Alex Dobson
+ *
+ */
 public class ResourceSingleton {
 	static final String resourcesFolderLocation = "../Resources/";
 	static final String taskbarIcon = resourcesFolderLocation + "icon.png";
@@ -17,6 +22,11 @@ public class ResourceSingleton {
 	static final String loadingGifLocation = resourcesFolderLocation + "loading_128.gif";
 	static final String shoppingCartIconLocation = resourcesFolderLocation + "shoppingCartIcon.png";
 	
+	/**
+	 * Loads image based on supplied path
+	 * @param fileLocation Path
+	 * @return Image
+	 */
 	private static Image parseImageFromFile(String fileLocation) {
 		Image img = null;
 		try {

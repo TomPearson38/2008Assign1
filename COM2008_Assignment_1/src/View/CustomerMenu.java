@@ -28,6 +28,11 @@ import Resources.ResourceSingleton;
 import View.BicycleDesigner.BicycleDesignerPanel;
 import View.BicycleDesigner.BicycleDesignerPanel.DesignNotSavedException;
 
+/**
+ * Main menu of the application
+ * @author tomap
+ *
+ */
 public class CustomerMenu extends JFrame {
 	BicycleDesignerPanel mainPanel;
 	
@@ -39,6 +44,9 @@ public class CustomerMenu extends JFrame {
 		addComponents();
 	}
 	
+	/**
+	 * Called on start up
+	 */
 	private void addComponents() {
 		this.setTitle("Bicycle Designer");
 		final Container contentPanel = this.getContentPane();
@@ -112,11 +120,19 @@ public class CustomerMenu extends JFrame {
 		
 	}
 	
+	/**
+	 * Saves bike to database if valid
+	 * @param e
+	 */
 	private void saveButtonClicked(ActionEvent e) {
 		Bicycle newDesignSavedToDatabase = BicycleOperations.addBicycle(mainPanel.generateBicycleCreateRequest());
 		mainPanel.setDesign(newDesignSavedToDatabase);
 	}
 	
+	/**
+	 * Orders bike if valid
+	 * @param e
+	 */
 	private void orderButtonClicked(ActionEvent e) {
 		Bicycle bikeToOrder;
 		try {
@@ -135,6 +151,11 @@ public class CustomerMenu extends JFrame {
 		
 	}
 	
+	/**
+	 * Checks that all the bike parts are in stock before it orders them
+	 * @param proposedBike Bike to be ordered
+	 * @return All parts in stock
+	 */
 	private boolean stockChecker(Bicycle proposedBike) {
 		Frameset fr = proposedBike.get_frame();
 		Wheel wh = proposedBike.get_Wheels();

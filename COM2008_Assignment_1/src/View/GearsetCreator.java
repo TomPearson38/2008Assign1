@@ -23,9 +23,18 @@ import View.AbstractCreator.DoubleGridRow;
 import View.AbstractCreator.EnumCreatorInputField;
 import View.AbstractCreator.EnumGridRow;
 
+/**
+ * Used to add a new gearset
+ * @author tomap
+ *
+ */
 public class GearsetCreator extends AbstractCreator<Gearset> {
 	IGridRow<String, JTextField> nameRow;
 	
+	/**
+	 * 
+	 * @param owner
+	 */
 	public GearsetCreator(Frame owner) {
 		super(owner);
 	}

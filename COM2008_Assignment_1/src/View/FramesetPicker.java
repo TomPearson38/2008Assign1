@@ -18,16 +18,37 @@ import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 import View.AbstractPicker.PropertyDescriptor;
 
-
+/**
+ * Used for the customer to be able to pick a frame from stock
+ * @author Alex Dobson
+ *
+ */
 public class FramesetPicker extends AbstractPicker<Frameset> {
 
+	/**
+	 * Initialises the frameset picker
+	 * @param parent Parent form
+	 * @param isStaffMode if the editor fields are available
+	 */
 	public FramesetPicker(JFrame parent, Boolean isStaffMode) {
 		super(parent, isStaffMode);
 		
 	}
+	/**
+	 * Used to initialise the choseFrame when the staff mode is not provided
+	 * @param parent
+	 * @return
+	 */
 	public static Frameset chooseFrameset(JFrame parent) {
 		return FramesetPicker.chooseFrameset(parent, false);
 	}
+	
+	/**
+	 * Initialise when staff mode boolean is provided
+	 * @param parent
+	 * @param isStaffMode 
+	 * @return
+	 */
     public static Frameset chooseFrameset(JFrame parent, Boolean isStaffMode) {
     	FramesetPicker PickerWindow = new FramesetPicker(parent, isStaffMode);
     	
@@ -75,10 +96,16 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 		return Arrays.asList(shocksFilter, sizeFilter, costFilter, brandFilter);
 	}
 	
+	/**
+	 * Returns if the component update has been successful
+	 */
 	protected Boolean updateComponent(Frameset frameSetData) {
 		return FrameOperations.updateFrameset(frameSetData);
 	}
 	
+	/**
+	 * Returns if the component deletion has been successful
+	 */
 	protected Boolean deleteComponent(Frameset frameSetToDelete) throws SQLIntegrityConstraintViolationException  {
 		return FrameOperations.deleteFrameset(frameSetToDelete);
 	}
