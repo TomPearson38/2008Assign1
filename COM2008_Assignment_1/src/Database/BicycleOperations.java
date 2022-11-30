@@ -143,7 +143,7 @@ public class BicycleOperations {
 		}
 	}
 	
-	public static Bicycle addBicycle(CreateBicycleRequest request) {
+	public static Bicycle addBicycle(CreateBicycleRequest request) throws SQLException {
 		String sqlTemplate = "INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, given_name) VALUES(?,?,?,?);";
 						
 						try(Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -167,7 +167,7 @@ public class BicycleOperations {
 							}
 							
 						} catch (SQLException ex) {
-							ex.printStackTrace();
+							throw ex;//try catch is to catch non SQLException exceptions and to handle closing the connection after
 						}
 						
 						return null;
