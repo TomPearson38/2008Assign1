@@ -1,6 +1,6 @@
 package Domain;
 
-public class Bicycle {
+public class Bicycle implements IToUIString {
 	private int _id;
 	private Frameset _frame;
 	private Handlebar _handlebar;
@@ -36,6 +36,12 @@ public class Bicycle {
 	public Wheel get_Wheels() {
 		return _wheels;
 	}
+	
+	public Double getCost() {
+		final double assemblyCharge = 10.0;
+		return get_frame().Cost() + get_handlebar().Cost() + get_Wheels().Cost() + assemblyCharge;
+	}
+	
 	public void set_Wheels(Wheel _frontWheel) {
 		this._wheels = _frontWheel;
 	}
@@ -55,6 +61,11 @@ public class Bicycle {
 	
 	public void setFrameName(String newName) {
 		_frameName = newName;
+	}
+
+	@Override
+	public String toUIString() {
+		return "<html> " + bicycleBrand() + "</html>";
 	}
 	
 	
