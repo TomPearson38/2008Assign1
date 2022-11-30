@@ -1,6 +1,6 @@
 package Domain;
 
-public class Bicycle implements IToUIString {
+public class Bicycle implements IToUIString, ICost {
 	private int _id;
 	private Frameset _frame;
 	private Handlebar _handlebar;
@@ -37,7 +37,7 @@ public class Bicycle implements IToUIString {
 		return _wheels;
 	}
 	
-	public Double getCost() {
+	public double getCost() {
 		final double assemblyCharge = 10.0;
 		return get_frame().getCost() + get_handlebar().getCost() + get_Wheels().getCost() + assemblyCharge;
 	}

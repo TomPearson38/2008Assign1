@@ -5,16 +5,17 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import Domain.BicycleComponent;
+import Domain.ICost;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 
 public class BicycleComponentFilters {
-	public static Filter<BicycleComponent> getCostFilter() {
-		FilterValue<BicycleComponent> lessThan500Pounds = new FilterValue<BicycleComponent>("< £500", component -> component.getCost() < 500);
-		FilterValue<BicycleComponent> from500To1000Pounds = new FilterValue<BicycleComponent>("£500 - £1000", component -> component.getCost() > 500 && component.getCost() < 1000);
-		FilterValue<BicycleComponent> greaterThan1000Pounds = new FilterValue<BicycleComponent>("> £1000", component -> component.getCost() > 500);
+	public static Filter<ICost> getCostFilter() {
+		FilterValue<ICost> lessThan500Pounds = new FilterValue<ICost>("< £500", component -> component.getCost() < 500);
+		FilterValue<ICost> from500To1000Pounds = new FilterValue<ICost>("£500 - £1000", component -> component.getCost() > 500 && component.getCost() < 1000);
+		FilterValue<ICost> greaterThan1000Pounds = new FilterValue<ICost>("> £1000", component -> component.getCost() > 500);
 
-		Filter<BicycleComponent> costFilter = new Filter<BicycleComponent>("Cost",  Arrays.asList(lessThan500Pounds, from500To1000Pounds, greaterThan1000Pounds));
+		Filter<ICost> costFilter = new Filter<ICost>("Cost",  Arrays.asList(lessThan500Pounds, from500To1000Pounds, greaterThan1000Pounds));
 		return costFilter;
 	}
 	

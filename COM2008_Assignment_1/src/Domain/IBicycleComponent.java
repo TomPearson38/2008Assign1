@@ -1,6 +1,6 @@
 package Domain;
 
-public interface IBicycleComponent {
+public interface IBicycleComponent extends ICost {
 	public String getBrandName();
 	public int getSerialNumber();
 	public double getCost();
