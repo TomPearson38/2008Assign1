@@ -46,11 +46,12 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 		PropertyDescriptor<IBicycleComponent> BrandNameDescriptor = CommonDescriptors.getBrandNameDescriptor();
 		PropertyDescriptor<IBicycleComponent> SerialNumberDescriptor = CommonDescriptors.getSerialNumberDescriptor();
 		PropertyDescriptor<ICost> CostDescriptor = CommonDescriptors.getCostDescriptor();
+		PropertyDescriptor<IBicycleComponent> StockDescriptor = CommonDescriptors.getStockDescriptor();
 		PropertyDescriptor<Frameset> ShocksDescriptor = new PropertyDescriptor<Frameset>("Shocks", frame -> Boolean.toString(frame.get_shocks()));
 		PropertyDescriptor<Frameset> SizeDescriptor = new PropertyDescriptor<Frameset>("Size", frame -> Double.toString(frame.get_size()));
 		
 		
-		Collection<PropertyDescriptor<? super Frameset>> descriptors = Arrays.asList(BrandNameDescriptor, SerialNumberDescriptor, CostDescriptor, ShocksDescriptor, SizeDescriptor);
+		Collection<PropertyDescriptor<? super Frameset>> descriptors = Arrays.asList(BrandNameDescriptor, SerialNumberDescriptor, CostDescriptor, StockDescriptor, ShocksDescriptor, SizeDescriptor);
 		
 		return descriptors;
 	}

@@ -6,7 +6,7 @@ public class Bicycle implements IToUIString, ICost, IBrandName {
 	private Handlebar _handlebar;
 	private Wheel _wheels;
 	private String _givenName;
-
+	
 	public Bicycle(int id, Frameset frame, Handlebar handBar, Wheel wheels, String givenName) {
 		_id = id;
 		_frame = frame;

@@ -1,5 +1,6 @@
 package Domain;
 
+import java.util.Objects;
 
 public class Handlebar extends BicycleComponent implements IToUIString {
 
@@ -19,4 +20,18 @@ public class Handlebar extends BicycleComponent implements IToUIString {
 		// TODO Auto-generated method stub
 		return "<html>" + getBrandName() + "<br>" + get_style().toString() + "</html>";
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Handlebar other = (Handlebar) obj;
+		return _style == other._style;
+	}
+	
+	
 }

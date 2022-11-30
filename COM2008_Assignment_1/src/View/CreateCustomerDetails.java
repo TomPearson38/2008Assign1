@@ -49,8 +49,8 @@ public class CreateCustomerDetails extends JDialog implements ActionListener{
 	JPanel inputPanel = new JPanel(new GridLayout(3,2));
 	JPanel buttonPanel = new JPanel(new GridLayout(2,0));
 
-	JPanel bikeNamePanel = new JPanel(new GridLayout(0,2));
-	JLabel nameFieldLabel = new JLabel("Name Your Bike: ");
+//	JPanel bikeNamePanel = new JPanel(new GridLayout(0,2));
+//	JLabel nameFieldLabel = new JLabel("Name Your Bike: ");
 	JTextField nameField = new JTextField();
 	
 	JLabel costLabel;
@@ -90,14 +90,14 @@ public class CreateCustomerDetails extends JDialog implements ActionListener{
 		buttonPanel.add(costLabel);
 		buttonPanel.add(lookUpAddressButton);
 		
-		bikeNamePanel.add(nameFieldLabel);
-		bikeNamePanel.add(nameField);
+//		bikeNamePanel.add(nameFieldLabel);
+//		bikeNamePanel.add(nameField);
 		
-		c.gridy = 0;
-		c.gridx = 0;
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		fillerPanel.add(bikeNamePanel, c);
+//		c.gridy = 0;
+//		c.gridx = 0;
+//		c.weightx = 0.5;
+//		c.weighty = 0.5;
+//		fillerPanel.add(bikeNamePanel, c);
 		
 		c.gridy = 1;
 		c.gridx = 0;
@@ -140,7 +140,7 @@ public class CreateCustomerDetails extends JDialog implements ActionListener{
 
 		double cost = calculateCost();
 		
-		Order createdOrder = OrderOperations.createNewOrder(selectedCustomer, _bikeToOrder, nameField.getText(), cost, orderDate, serialNumber);
+		Order createdOrder = OrderOperations.createNewOrder(selectedCustomer, _bikeToOrder, cost, orderDate, serialNumber);
 		
 		//Reduces the stock number of the parts used to stop errors in database.
 		if(createdOrder != null) {

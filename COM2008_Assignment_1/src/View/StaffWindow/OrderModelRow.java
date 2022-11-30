@@ -20,7 +20,7 @@ public class OrderModelRow {
 	}
 
 	public String getCustomerGivenName() {
-		return backingOrder.get_customer_given_name();
+		return backingOrder.get_bike().getCustomerGivenName();
 	}
 	
 	public Double getCost() {

@@ -90,4 +90,6 @@ public class BicyclePicker extends AbstractPicker<Bicycle>{
 	protected Boolean deleteComponent(Bicycle Object) throws SQLIntegrityConstraintViolationException {
 		return BicycleOperations.deleteBicycle(Object);
 	}
+	
+
 }

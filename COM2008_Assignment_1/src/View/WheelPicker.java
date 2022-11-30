@@ -52,11 +52,13 @@ public class WheelPicker extends AbstractPicker<Wheel>{
 		PropertyDescriptor<IBicycleComponent> BrandNameDescriptor = CommonDescriptors.getBrandNameDescriptor();
 		PropertyDescriptor<IBicycleComponent> SerialNumberDescriptor = CommonDescriptors.getSerialNumberDescriptor();
 		PropertyDescriptor<ICost> CostDescriptor = CommonDescriptors.getCostDescriptor();
+		PropertyDescriptor<IBicycleComponent> StockDescriptor = CommonDescriptors.getStockDescriptor();
 		PropertyDescriptor<Wheel> DiameterDescriptor = new PropertyDescriptor<Wheel>("Diameter", wheel -> Double.toString(wheel.get_diameter()));
 		PropertyDescriptor<Wheel> TyreTypeDescriptor = new PropertyDescriptor<Wheel>("Tyre Type", wheel -> (wheel.get_tyre().toString()));
 		PropertyDescriptor<Wheel> BrakeTypeDescriptor = new PropertyDescriptor<Wheel>("Brake Type", wheel -> (wheel.get_brakes().toString()));
 		
-		Collection<PropertyDescriptor<? super Wheel>> descriptors = Arrays.asList(BrandNameDescriptor, SerialNumberDescriptor, CostDescriptor, DiameterDescriptor, TyreTypeDescriptor, BrakeTypeDescriptor);
+		
+		Collection<PropertyDescriptor<? super Wheel>> descriptors = Arrays.asList(BrandNameDescriptor, SerialNumberDescriptor, CostDescriptor, StockDescriptor, DiameterDescriptor, TyreTypeDescriptor, BrakeTypeDescriptor);
 		
 		return descriptors;
 	}

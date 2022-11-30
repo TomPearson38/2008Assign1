@@ -1,5 +1,7 @@
 package Domain;
 
+import java.util.Objects;
+
 public class Wheel extends BicycleComponent implements IDataRecord, IToUIString{
 	private double _diameter;
 	private TyreType _tyre;
@@ -56,4 +58,21 @@ public class Wheel extends BicycleComponent implements IDataRecord, IToUIString{
 			super.reduceStockNum();
 		}
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Wheel other = (Wheel) obj;
+		return _brakes == other._brakes
+				&& Double.doubleToLongBits(_diameter) == Double.doubleToLongBits(other._diameter)
+				&& _tyre == other._tyre;
+	}
+	
+	
 }
