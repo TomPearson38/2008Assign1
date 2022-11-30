@@ -1,4 +1,4 @@
-package View;
+package View.AbstractPicker;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 
 import Domain.BicycleComponent;
 import Domain.ICost;
-import View.AbstractPicker.Filter;
-import View.AbstractPicker.FilterValue;
 
 public class CommonFilters {
 	public static Filter<ICost> getCostFilter() {

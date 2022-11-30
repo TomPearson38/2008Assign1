@@ -9,9 +9,11 @@ import javax.swing.JFrame;
 import Database.FrameOperations;
 import Domain.BicycleComponent;
 import Domain.Frameset;
+import Domain.IBicycleComponent;
 import Domain.ICost;
 import View.AbstractPicker.AbstractPicker;
 import View.AbstractPicker.CommonDescriptors;
+import View.AbstractPicker.CommonFilters;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 import View.AbstractPicker.PropertyDescriptor;
@@ -41,8 +43,8 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 
 	@Override
 	protected Collection<PropertyDescriptor<? super Frameset>> getPropertyDescriptors() {
-		PropertyDescriptor<Frameset> BrandNameDescriptor = new PropertyDescriptor<Frameset>("Brand Name", frame -> frame.getBrandName());
-		PropertyDescriptor<Frameset> SerialNumberDescriptor = new PropertyDescriptor<Frameset>("Serial Number", frame -> Integer.toString(frame.getSerialNumber()));
+		PropertyDescriptor<IBicycleComponent> BrandNameDescriptor = CommonDescriptors.getBrandNameDescriptor();
+		PropertyDescriptor<IBicycleComponent> SerialNumberDescriptor = CommonDescriptors.getSerialNumberDescriptor();
 		PropertyDescriptor<ICost> CostDescriptor = CommonDescriptors.getCostDescriptor();
 		PropertyDescriptor<Frameset> ShocksDescriptor = new PropertyDescriptor<Frameset>("Shocks", frame -> Boolean.toString(frame.get_shocks()));
 		PropertyDescriptor<Frameset> SizeDescriptor = new PropertyDescriptor<Frameset>("Size", frame -> Double.toString(frame.get_size()));

@@ -20,6 +20,7 @@ import Domain.TyreType;
 import Domain.Wheel;
 import View.AbstractPicker.AbstractPicker;
 import View.AbstractPicker.CommonDescriptors;
+import View.AbstractPicker.CommonFilters;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 import View.AbstractPicker.PropertyDescriptor;

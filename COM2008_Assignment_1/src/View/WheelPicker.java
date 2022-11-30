@@ -12,11 +12,13 @@ import Domain.BicycleComponent;
 import Domain.BrakeType;
 import Domain.Frameset;
 import Domain.Handlebar;
+import Domain.IBicycleComponent;
 import Domain.ICost;
 import Domain.TyreType;
 import Domain.Wheel;
 import View.AbstractPicker.AbstractPicker;
 import View.AbstractPicker.CommonDescriptors;
+import View.AbstractPicker.CommonFilters;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 import View.AbstractPicker.PropertyDescriptor;
@@ -47,8 +49,8 @@ public class WheelPicker extends AbstractPicker<Wheel>{
 
 	@Override
 	protected Collection<PropertyDescriptor<? super Wheel>> getPropertyDescriptors() {
-		PropertyDescriptor<Wheel> BrandNameDescriptor = new PropertyDescriptor<Wheel>("Brand Name", wheel -> wheel.getBrandName());
-		PropertyDescriptor<Wheel> SerialNumberDescriptor = new PropertyDescriptor<Wheel>("Serial Number", wheel -> Integer.toString(wheel.getSerialNumber()));
+		PropertyDescriptor<IBicycleComponent> BrandNameDescriptor = CommonDescriptors.getBrandNameDescriptor();
+		PropertyDescriptor<IBicycleComponent> SerialNumberDescriptor = CommonDescriptors.getSerialNumberDescriptor();
 		PropertyDescriptor<ICost> CostDescriptor = CommonDescriptors.getCostDescriptor();
 		PropertyDescriptor<Wheel> DiameterDescriptor = new PropertyDescriptor<Wheel>("Diameter", wheel -> Double.toString(wheel.get_diameter()));
 		PropertyDescriptor<Wheel> TyreTypeDescriptor = new PropertyDescriptor<Wheel>("Tyre Type", wheel -> (wheel.get_tyre().toString()));

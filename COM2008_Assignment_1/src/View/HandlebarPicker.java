@@ -13,9 +13,11 @@ import Domain.BicycleComponent;
 import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
+import Domain.IBicycleComponent;
 import Domain.ICost;
 import View.AbstractPicker.AbstractPicker;
 import View.AbstractPicker.CommonDescriptors;
+import View.AbstractPicker.CommonFilters;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 import View.AbstractPicker.PropertyDescriptor;
@@ -53,8 +55,8 @@ public class HandlebarPicker extends AbstractPicker<Handlebar>{
 
 	@Override
 	protected Collection<PropertyDescriptor<? super Handlebar>> getPropertyDescriptors() {
-		PropertyDescriptor<Handlebar> BrandNameDescriptor = new PropertyDescriptor<Handlebar>("Brand Name", handlebar -> handlebar.getBrandName());
-		PropertyDescriptor<Handlebar> SerialNumberDescriptor = new PropertyDescriptor<Handlebar>("Serial Number", handlebar -> Integer.toString(handlebar.getSerialNumber()));
+		PropertyDescriptor<IBicycleComponent> BrandNameDescriptor = CommonDescriptors.getBrandNameDescriptor();
+		PropertyDescriptor<IBicycleComponent> SerialNumberDescriptor = CommonDescriptors.getSerialNumberDescriptor();
 		PropertyDescriptor<ICost> CostDescriptor = CommonDescriptors.getCostDescriptor();
 		PropertyDescriptor<Handlebar> StylesDescriptor = new PropertyDescriptor<Handlebar>("Style", handlebar -> (handlebar.get_style().toString()));
 		Collection<PropertyDescriptor<? super Handlebar>> descriptors = Arrays.asList(BrandNameDescriptor, SerialNumberDescriptor, CostDescriptor, StylesDescriptor);
