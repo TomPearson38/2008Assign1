@@ -1,4 +1,4 @@
-package View;
+package View.CreatorsAndEditors;
 
 import java.awt.Frame;
 

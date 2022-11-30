@@ -9,16 +9,16 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import View.AbstractFramesetCreator;
 import View.FramesetPicker;
-import View.AbstractHandlebarCreator;
 import View.GearPicker;
 import View.GearsetCreator;
-import View.HandlebarCreator;
 import View.HandlebarPicker;
-import View.AbstractWheelCreator;
 import View.BicyclePicker;
 import View.WheelPicker;
+import View.CreatorsAndEditors.AbstractFramesetCreator;
+import View.CreatorsAndEditors.AbstractHandlebarCreator;
+import View.CreatorsAndEditors.AbstractWheelCreator;
+import View.CreatorsAndEditors.HandlebarCreator;
 
 public class ManageStockPanel extends JPanel {	
 	private JFrame owner;
