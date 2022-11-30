@@ -80,7 +80,7 @@ public class CustomerMenu extends JFrame {
 		customerButtonsPanel.add(chooseTemplateButton);
 		customerButtonsPanel.add(viewOrderButton);
 		
-		final JButton saveDesignButton = new JButton("Save Design");
+		final JButton saveDesignButton = new JButton("Save New Design");
 		saveDesignButton.setIcon(new ImageIcon(ResourceSingleton.getSaveIcon()));
 		saveDesignButton.setEnabled(false);
 		Supplier<Boolean> shouldSaveButtonBeEnabled = () -> {
