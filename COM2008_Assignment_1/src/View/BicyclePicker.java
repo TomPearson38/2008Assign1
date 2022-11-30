@@ -24,10 +24,10 @@ public class BicyclePicker extends JFrame {
 		designNewBicycleButton.addActionListener(e -> BicycleDesignerDialog.designBicycle(this));
 		pane.add(designNewBicycleButton);
 		
-		designNewHandlebarButton.addActionListener(e -> HandlebarCreator.addHandlebar(this));
+		designNewHandlebarButton.addActionListener(e -> AbstractHandlebarCreator.addHandlebar(this));
 		pane.add(designNewHandlebarButton);
 		
-		designNewWheelButton.addActionListener(e -> WheelCreator.addWheel(this));
+		designNewWheelButton.addActionListener(e -> AbstractWheelCreator.addWheel(this));
 		pane.add(designNewWheelButton);
 	}
 }

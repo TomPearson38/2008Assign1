@@ -16,5 +16,9 @@ public class JIntegerField extends JRegexField {
 		
 		return Integer.parseInt(fieldText);
 	}
+	
+	public void setInt(int value) {
+		this.setText(Integer.toString(value));
+	}
 
 }

@@ -40,7 +40,7 @@ class StaffPanel<T> extends JPanel {
 				updateComponent.apply(_currentObject);
 				refreshPicker.run();
 			} catch (SQLIntegrityConstraintViolationException e1) {
-				// TODO Display error message for foregin key constrain 
+				// TODO Display error message for foreign key constrain 
 				
 				e1.printStackTrace();
 			} 

@@ -16,5 +16,9 @@ public class JDoubleField extends JRegexField {
 		
 		return (double)Integer.parseInt(fieldText);
 	}
+	
+	public void setDouble(Double value) {
+		this.setText(value.toString());
+	}
 
 }
