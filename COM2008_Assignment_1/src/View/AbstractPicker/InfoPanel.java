@@ -18,12 +18,12 @@ class InfoPanel<T> extends JPanel {
 	
 	private BoxLayout infoPanelLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
 	
-	private Collection<LabelAndValue<T>> LabelsAndValues = new ArrayList<LabelAndValue<T>>();
+	private Collection<LabelAndValue<? super T>> LabelsAndValues = new ArrayList<LabelAndValue<? super T>>();
 	
 	/*
 	 * @param descriptors the descriptors for the object, each descriptor correspons to a row
 	 */
-	public InfoPanel(Collection<PropertyDescriptor<T>> descriptors) {
+	public InfoPanel(Collection<PropertyDescriptor<? super T>> descriptors) {
 		super();
 		this.setLayout(infoPanelLayout);
 		
@@ -31,8 +31,8 @@ class InfoPanel<T> extends JPanel {
 		
 		this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
 		
-		for (PropertyDescriptor<T> d : descriptors) {
-			LabelAndValue<T> newDescriptorLabelAndValue = new LabelAndValue<T>(d);
+		for (PropertyDescriptor<? super T> d : descriptors) {
+			LabelAndValue<? super T> newDescriptorLabelAndValue = new LabelAndValue<T>(d);
 			LabelsAndValues.add(newDescriptorLabelAndValue);
 			this.add(newDescriptorLabelAndValue);
 		}
@@ -48,7 +48,7 @@ class InfoPanel<T> extends JPanel {
 	public void set_currentObject(T value) {
 		_currentObject = value;
 		
-		for (LabelAndValue<T> l : LabelsAndValues) {
+		for (LabelAndValue<? super T> l : LabelsAndValues) {
 			l.objectChanged(value);
 		}
 	}

@@ -9,7 +9,11 @@ import javax.swing.JFrame;
 import Database.FrameOperations;
 import Domain.BicycleComponent;
 import Domain.Frameset;
+import Domain.IBicycleComponent;
+import Domain.ICost;
 import View.AbstractPicker.AbstractPicker;
+import View.AbstractPicker.CommonDescriptors;
+import View.AbstractPicker.CommonFilters;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 import View.AbstractPicker.PropertyDescriptor;
@@ -38,15 +42,15 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 	}
 
 	@Override
-	protected Collection<PropertyDescriptor<Frameset>> getPropertyDescriptors() {
-		PropertyDescriptor<Frameset> BrandNameDescriptor = new PropertyDescriptor<Frameset>("Brand Name", frame -> frame.BrandName());
-		PropertyDescriptor<Frameset> SerialNumberDescriptor = new PropertyDescriptor<Frameset>("Serial Number", frame -> Integer.toString(frame.SerialNumber()));
-		PropertyDescriptor<Frameset> CostDescriptor = new PropertyDescriptor<Frameset>("Cost", frame -> Double.toString(frame.Cost()));
+	protected Collection<PropertyDescriptor<? super Frameset>> getPropertyDescriptors() {
+		PropertyDescriptor<IBicycleComponent> BrandNameDescriptor = CommonDescriptors.getBrandNameDescriptor();
+		PropertyDescriptor<IBicycleComponent> SerialNumberDescriptor = CommonDescriptors.getSerialNumberDescriptor();
+		PropertyDescriptor<ICost> CostDescriptor = CommonDescriptors.getCostDescriptor();
 		PropertyDescriptor<Frameset> ShocksDescriptor = new PropertyDescriptor<Frameset>("Shocks", frame -> Boolean.toString(frame.get_shocks()));
 		PropertyDescriptor<Frameset> SizeDescriptor = new PropertyDescriptor<Frameset>("Size", frame -> Double.toString(frame.get_size()));
 		
 		
-		Collection<PropertyDescriptor<Frameset>> descriptors = Arrays.asList(BrandNameDescriptor, SerialNumberDescriptor, CostDescriptor, ShocksDescriptor, SizeDescriptor);
+		Collection<PropertyDescriptor<? super Frameset>> descriptors = Arrays.asList(BrandNameDescriptor, SerialNumberDescriptor, CostDescriptor, ShocksDescriptor, SizeDescriptor);
 		
 		return descriptors;
 	}
@@ -62,10 +66,10 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 		FilterValue<Frameset> greaterThan500 = new FilterValue<Frameset>("> 500", frame -> frame.get_size() > 500);
 		Filter<Frameset> sizeFilter = new Filter<Frameset>("Size",  Arrays.asList(smallerThan100, from100to500, greaterThan500));
 		
-		Filter<BicycleComponent> costFilter = BicycleComponentFilters.getCostFilter();
+		Filter<ICost> costFilter = CommonFilters.getCostFilter();
 		
 		Collection<String> brands = FrameOperations.getBrandsInFramesTable();
-		Filter<BicycleComponent> brandFilter = BicycleComponentFilters.getBrandFilter(brands);
+		Filter<BicycleComponent> brandFilter = CommonFilters.getBrandFilter(brands);
 				
 		return Arrays.asList(shocksFilter, sizeFilter, costFilter, brandFilter);
 	}

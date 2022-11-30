@@ -163,13 +163,13 @@ public class WheelOperations {
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
 			
-			statement.setInt(1, wheelToUpdate.SerialNumber());
-			statement.setString(2, wheelToUpdate.BrandName());
-			statement.setDouble(3, wheelToUpdate.Cost());
+			statement.setInt(1, wheelToUpdate.getSerialNumber());
+			statement.setString(2, wheelToUpdate.getBrandName());
+			statement.setDouble(3, wheelToUpdate.getCost());
 			statement.setDouble(4, wheelToUpdate.get_diameter());
 			statement.setString(5, wheelToUpdate.get_tyre().toString());
 			statement.setString(6, wheelToUpdate.get_brakes().toString());
-			statement.setInt(7, wheelToUpdate.StockNum());
+			statement.setInt(7, wheelToUpdate.getStockNum());
 			statement.setInt(8, wheelToUpdate.get_id());
 			
 			int rowsAffected = statement.executeUpdate();

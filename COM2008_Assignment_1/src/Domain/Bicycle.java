@@ -1,6 +1,6 @@
 package Domain;
 
-public class Bicycle {
+public class Bicycle implements IToUIString, ICost {
 	private int _id;
 	private Frameset _frame;
 	private Handlebar _handlebar;
@@ -36,17 +36,23 @@ public class Bicycle {
 	public Wheel get_Wheels() {
 		return _wheels;
 	}
+	
+	public double getCost() {
+		final double assemblyCharge = 10.0;
+		return get_frame().getCost() + get_handlebar().getCost() + get_Wheels().getCost() + assemblyCharge;
+	}
+	
 	public void set_Wheels(Wheel _frontWheel) {
 		this._wheels = _frontWheel;
 	}
 	
 	public String bicycleBrand() {
-		return get_frame().BrandName() + " " + _wheels.get_tyre().toString();
+		return get_frame().getBrandName() + " " + _wheels.get_tyre().toString();
 	}
 	
 	@Override
 	public String toString() {
-		return get_frame().BrandName();
+		return get_frame().getBrandName();
 	}
 
 	public String getFrameName() {
@@ -55,6 +61,11 @@ public class Bicycle {
 	
 	public void setFrameName(String newName) {
 		_frameName = newName;
+	}
+
+	@Override
+	public String toUIString() {
+		return "<html> " + bicycleBrand() + "</html>";
 	}
 	
 	

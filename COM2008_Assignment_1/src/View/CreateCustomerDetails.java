@@ -124,7 +124,7 @@ public class CreateCustomerDetails extends JDialog implements ActionListener{
 	}
 	
 	private double calculateCost() {
-		double cost = (_bikeToOrder.get_frame().Cost()) + (_bikeToOrder.get_handlebar().Cost()) + (_bikeToOrder.get_Wheels().Cost()) + 10.0;
+		double cost = (_bikeToOrder.get_frame().getCost()) + (_bikeToOrder.get_handlebar().getCost()) + (_bikeToOrder.get_Wheels().getCost()) + 10.0;
 		return Double.parseDouble(df.format(cost));
 	}
 	

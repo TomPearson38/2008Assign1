@@ -138,13 +138,13 @@ public class FrameOperations {
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
 			
-			statement.setInt(1, FramesetToUpdate.SerialNumber());
-			statement.setString(2, FramesetToUpdate.BrandName());
-			statement.setDouble(3, FramesetToUpdate.Cost());
+			statement.setInt(1, FramesetToUpdate.getSerialNumber());
+			statement.setString(2, FramesetToUpdate.getBrandName());
+			statement.setDouble(3, FramesetToUpdate.getCost());
 			statement.setBoolean(4, FramesetToUpdate.get_shocks());
 			statement.setDouble(5, FramesetToUpdate.get_size());
 			statement.setInt(6, FramesetToUpdate.get_gearset().get_id());
-			statement.setInt(7, FramesetToUpdate.StockNum());
+			statement.setInt(7, FramesetToUpdate.getStockNum());
 			statement.setInt(8, FramesetToUpdate.get_id());
 			
 			int rowsAffected = statement.executeUpdate();
