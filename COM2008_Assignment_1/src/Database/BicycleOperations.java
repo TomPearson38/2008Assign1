@@ -162,7 +162,7 @@ public class BicycleOperations {
 									
 									int bicycleId = rs.getInt(1);
 									
-									return new Bicycle(bicycleId, request.getFrame(), request.getHandlebars(), request.getWheels(), name);
+									return new Bicycle(bicycleId, request.getFrame(), request.getHandlebars(), request.getWheels(), request.getName());
 								}
 							}
 							
