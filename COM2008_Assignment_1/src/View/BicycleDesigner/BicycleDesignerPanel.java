@@ -44,6 +44,11 @@ public class BicycleDesignerPanel extends JPanel {
 	private BicycleVisualisationPanel centralPanel = new BicycleVisualisationPanel();
 	
 	private Bicycle savedDesign;
+	private void setSavedDesign(Bicycle value) {
+		savedDesign = value;
+		
+		broadcastisNewDesignChange();
+	}
 	private ActiveBicycleDesign currentDesign = new ActiveBicycleDesign(null, null, null, "");
 	private void setCurrentDesign(ActiveBicycleDesign value) {
 		currentDesign = value;
@@ -71,7 +76,7 @@ public class BicycleDesignerPanel extends JPanel {
 	}
 	
 	public void setDesign(Bicycle domainObjectToUse) {
-		savedDesign = domainObjectToUse;
+		setSavedDesign(domainObjectToUse);
 		setCurrentDesign(new ActiveBicycleDesign(domainObjectToUse));
 		
 		
@@ -80,6 +85,21 @@ public class BicycleDesignerPanel extends JPanel {
 
 	public boolean isNewDesign() {
 		return savedDesign == null;
+	}
+	public Collection<Consumer<Boolean>> isDesignNewListeners = new ArrayList<Consumer<Boolean>>();
+	public void addIsNewDesignListener(Consumer<Boolean> listener) { isDesignNewListeners.add(listener); }
+	public void removeIsNewDesignListener(Consumer<Boolean> listener) { isDesignNewListeners.remove(listener); }
+	private void broadcastisNewDesignChange() {
+		final boolean isNewDesign = isNewDesign();
+		isDesignNewListeners.forEach(x -> x.accept(isNewDesign));
+	}
+	
+	public Bicycle getUpdatedVersionOfOriginalDomainObject() {
+		if (!isNewDesign()) {
+			return currentDesign.transformDomainObject(savedDesign);
+		} else {
+			return null;
+		}
 	}
 	
 	/*
@@ -116,7 +136,7 @@ public class BicycleDesignerPanel extends JPanel {
 		super();
 		this._parent = _parent;
 		
-		savedDesign = null;
+		setSavedDesign(null);
 		addControls();
 	}
 
@@ -282,6 +302,11 @@ public class BicycleDesignerPanel extends JPanel {
 		
 		public CreateBicycleRequest generateBicycleCreateRequest() {
 			return new CreateBicycleRequest(frame, handlebars, wheels, name);
+		}
+		
+		public Bicycle transformDomainObject(Bicycle domainObject) {
+			Bicycle newDomainObject = new Bicycle(domainObject.get_id(), frame, handlebars, wheels, name);
+			return newDomainObject;
 		}
 		
 		

@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 import java.util.function.Supplier;
 
 import javax.swing.BoxLayout;
@@ -88,6 +89,13 @@ public class CustomerMenu extends JFrame {
 		customerButtonsPanel.add(viewOrderButton);
 		
 		final JButton saveDesignButton = new JButton("Save New Design");
+		mainPanel.addIsNewDesignListener(isNewDesign -> {
+			if (isNewDesign) {
+				saveDesignButton.setText("Save New Design");
+			} else if (!isNewDesign) {
+				saveDesignButton.setText("Update Design");
+			}
+		});
 		saveDesignButton.setIcon(new ImageIcon(ResourceSingleton.getSaveIcon()));
 		saveDesignButton.setEnabled(false);
 		Supplier<Boolean> shouldSaveButtonBeEnabled = () -> {
@@ -126,8 +134,28 @@ public class CustomerMenu extends JFrame {
 	 * @param e
 	 */
 	private void saveButtonClicked(ActionEvent e) {
-		Bicycle newDesignSavedToDatabase = BicycleOperations.addBicycle(mainPanel.generateBicycleCreateRequest());
-		mainPanel.setDesign(newDesignSavedToDatabase);
+		if (mainPanel.isNewDesign()) {
+			//add to DB
+			try {
+				Bicycle newDesignSavedToDatabase = BicycleOperations.addBicycle(mainPanel.generateBicycleCreateRequest());
+				mainPanel.setDesign(newDesignSavedToDatabase);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Couldn't save to database", "Error!", JOptionPane.ERROR_MESSAGE);
+			}
+			
+		} else {
+			//update existing record in DB
+			final Bicycle bicycleToUpdate = mainPanel.getUpdatedVersionOfOriginalDomainObject();
+			boolean updateSucceeded = BicycleOperations.updateBicycle(bicycleToUpdate);
+			if (updateSucceeded) {
+				mainPanel.setDesign(bicycleToUpdate);
+			} else {
+				JOptionPane.showMessageDialog(this, "Couldn't update design in database", "Error!", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		
+		
 	}
 	
 	/**
