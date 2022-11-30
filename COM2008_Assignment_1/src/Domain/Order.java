@@ -1,5 +1,10 @@
 package Domain;
 
+/**
+ * Contains customer order and all related information.
+ * @author tomap
+ *
+ */
 public class Order {
 	private int _order_number;
 	private Customer _customer;
@@ -9,6 +14,16 @@ public class Order {
 	private int _serial_number;
 	private String _date;
 	
+	/**
+	 * New order is placed
+	 * @param orderNum Generated from database
+	 * @param customer Object of customer who placed the order
+	 * @param cost
+	 * @param os Current order status of the order
+	 * @param bike Bike that has been ordered
+	 * @param serNum Randomly generated order number
+	 * @param date Date of order
+	 */
 	public Order(int orderNum, Customer customer,
 			double cost, OrderStatus os, Bicycle bike, int serNum, String date) {
 		_order_number = orderNum;

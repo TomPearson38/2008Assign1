@@ -11,7 +11,7 @@ import Domain.Order;
 import View.CreateCustomerDetails;
 import View.ViewStartup;
 
-public class Test {
+public class StartProject {
 	public static void main(String[] args){		
 		ViewStartup.entryPoint();	
 	}
