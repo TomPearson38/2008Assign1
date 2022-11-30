@@ -1,5 +1,10 @@
 package Domain;
 
+/**
+ * ENUM containing the possible different order status
+ * @author tomap
+ *
+ */
 public enum OrderStatus {
 	PENDING{
         public String toString() {

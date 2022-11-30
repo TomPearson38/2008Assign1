@@ -1,5 +1,11 @@
 package Domain;
 
+/**
+ * Parent class to most of data in database as the standard primary
+ * key is _id
+ * @author Alex Dobson
+ *
+ */
 public abstract class DataRecord implements IDataRecord {
 	private int _id;
 

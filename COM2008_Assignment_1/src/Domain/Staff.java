@@ -1,9 +1,20 @@
 package Domain;
 
+/**
+ * Staff are allowed to make changes to the orders and view all orders
+ * They are also required to login to make any changes to the databases and orders
+ * @author tomap
+ *
+ */
 public class Staff implements IToUIString{
 	private String _username;
 	private String _password;
 	
+	/**
+	 * New staff member is initialised
+	 * @param username 
+	 * @param password
+	 */
 	public Staff(String username, String password) {
 		_username = username;
 		_password = password;
@@ -27,6 +38,12 @@ public class Staff implements IToUIString{
 			return false;
 	}
 	
+	/**
+	 * Validates if login details presented match current object
+	 * @param testUsername 
+	 * @param testPassword
+	 * @return Valid
+	 */
 	public boolean validLogin(String testUsername, String testPassword) {
 		return (username_valid(testUsername) && password_valid(testPassword));
 	}

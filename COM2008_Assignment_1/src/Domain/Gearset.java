@@ -1,8 +1,18 @@
 package Domain;
 
+/**
+ * Gearset object. Contains name of gears and their ID number
+ * @author Alex Dobson
+ *
+ */
 public class Gearset extends DataRecord implements IToUIString {
 	private String _name;
 
+	/**
+	 * Create new gearset object
+	 * @param _id
+	 * @param _name
+	 */
 	public Gearset(int _id, String _name) {
 		super(_id);
 		this._name = _name;

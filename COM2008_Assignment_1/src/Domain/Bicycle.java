@@ -1,5 +1,10 @@
 package Domain;
 
+/**
+ * Assembled individual parts into a bicycle which can be ordered by a customer. 
+ * @author Alex Dobson
+ *
+ */
 public class Bicycle implements IToUIString, ICost, IBrandName {
 	private int _id;
 	private Frameset _frame;
@@ -7,6 +12,14 @@ public class Bicycle implements IToUIString, ICost, IBrandName {
 	private Wheel _wheels;
 	private String _givenName;
 	
+	/**
+	 * New Bike to be assembled
+	 * @param id
+	 * @param frame
+	 * @param handBar
+	 * @param wheels
+	 * @param givenName
+	 */
 	public Bicycle(int id, Frameset frame, Handlebar handBar, Wheel wheels, String givenName) {
 		_id = id;
 		_frame = frame;
