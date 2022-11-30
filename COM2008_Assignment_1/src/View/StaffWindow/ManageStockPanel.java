@@ -17,6 +17,7 @@ import View.GearsetCreator;
 import View.HandlebarCreator;
 import View.HandlebarPicker;
 import View.AbstractWheelCreator;
+import View.BicyclePicker;
 import View.WheelPicker;
 
 public class ManageStockPanel extends JPanel {	
@@ -72,14 +73,42 @@ public class ManageStockPanel extends JPanel {
         
         final JPanel gearsBox = new ManagementBox("Gears", manageGearsButton, addGearButton);
         this.add(gearsBox);
+        
+        
+        final JButton manageDesignsButton = new JButton("Manage Designs");
+        manageDesignsButton.addActionListener(e -> BicyclePicker.chooseBicycle(owner, true));
+		
+        final JPanel designsBox = new ManagementOnlyBox("Designs", manageDesignsButton);
+        
+        
+        this.add(designsBox);
 		
 	}
 	
-	private class ManagementBox extends JPanel {
-		private JButton manageStockButton;
+	private class ManagementBox extends ManagementOnlyBox {
 		private JButton addNewButton;
 		
 		public ManagementBox(String title, JButton manageStockButton, JButton addNewButton) {
+			super(title, manageStockButton);
+			
+			this.setBorder(BorderFactory.createTitledBorder(title));
+			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+			this.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+			
+			this.addNewButton = addNewButton;
+			
+			addComponents();
+		}
+		
+		private void addComponents() {
+			this.add(addNewButton);
+		}
+	}
+	
+	private class ManagementOnlyBox extends JPanel {
+		private JButton manageStockButton;
+		
+		public ManagementOnlyBox(String title, JButton manageStockButton) {
 			super();
 			
 			this.setBorder(BorderFactory.createTitledBorder(title));
@@ -87,14 +116,12 @@ public class ManageStockPanel extends JPanel {
 			this.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 			
 			this.manageStockButton = manageStockButton;
-			this.addNewButton = addNewButton;
 			
 			addComponents();
 		}
 		
 		private void addComponents() {
 			this.add(manageStockButton);
-			this.add(addNewButton);
 		}
 	}
 

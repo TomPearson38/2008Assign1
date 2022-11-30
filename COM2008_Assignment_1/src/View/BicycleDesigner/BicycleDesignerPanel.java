@@ -75,8 +75,8 @@ public class BicycleDesignerPanel extends JPanel {
 		broadcastDesignSavedChange();
 	}
 
-	public boolean isDesignValid() {
-		return currentDesign.isDesignValid();
+	public boolean isNewDesign() {
+		return savedDesign == null;
 	}
 	
 	/*
@@ -96,7 +96,9 @@ public class BicycleDesignerPanel extends JPanel {
 	
 	
 	
-	
+	public boolean isDesignValid() {
+		return currentDesign.isDesignValid();
+	}
 	public Collection<Consumer<Boolean>> designValidityListeners = new ArrayList<Consumer<Boolean>>();
 	public void addDesignValidityListener(Consumer<Boolean> listener) { designValidityListeners.add(listener); }
 	public void removeDesignValidityListener(Consumer<Boolean> listener) { designValidityListeners.remove(listener); }
