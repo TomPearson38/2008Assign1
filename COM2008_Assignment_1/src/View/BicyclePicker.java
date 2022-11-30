@@ -25,16 +25,37 @@ import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 import View.AbstractPicker.PropertyDescriptor;
 
+/**
+ * Picker panel to chose the individual bike parts
+ * @author Alex Dobson
+ *
+ */
 public class BicyclePicker extends AbstractPicker<Bicycle>{
 
+	/**
+	 * Customer bike picker view
+	 * @param parent Parent frame
+	 * @param managementMode If edit and delete fields are visible
+	 */
 	public BicyclePicker(JFrame parent, boolean managementMode) {
 		super(parent, managementMode);
 	}
 	
+	/**
+	 * Standard wheels picker view for customers
+	 * @param parent Parent frame
+	 * @return chosen bike
+	 */
 	public static Bicycle chooseWheels(JFrame parent) {
 		return BicyclePicker.chooseBicycle(parent, false);
 	}
 	
+	/**
+	 * Creates picker window
+	 * @param parent Parent frame
+	 * @param managementMode If edit fields are available
+	 * @return chosen bike
+	 */
     public static Bicycle chooseBicycle(JFrame parent, boolean managementMode) {
     	BicyclePicker PickerWindow = new BicyclePicker(parent, managementMode);
     	

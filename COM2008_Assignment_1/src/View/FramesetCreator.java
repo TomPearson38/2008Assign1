@@ -28,6 +28,11 @@ import View.AbstractCreator.DoubleGridRow;
 import View.AbstractCreator.EnumCreatorInputField;
 import View.AbstractCreator.EnumGridRow;
 
+/**
+ * Creates a new frameset
+ * @author Adam Jenkins
+ *
+ */
 public class FramesetCreator extends AbstractCreator<Frameset> {
 	IGridRow<Integer, JIntegerField> serialNumberRow;
 	IGridRow<String, JTextField> brandNameRow;
@@ -37,10 +42,19 @@ public class FramesetCreator extends AbstractCreator<Frameset> {
 	IGridRow<Gearset, JComboBox<Gearset>> gearsRow;
 	IGridRow<Integer, JIntegerField> stockRow;
 	
+	/**
+	 * Initialised
+	 * @param owner
+	 */
 	public FramesetCreator(Frame owner) {
 		super(owner);
 	}
 	
+	/**
+	 * When called this window is initialised
+	 * @param owner Frame owner
+	 * @return A new frameset
+	 */
 	public static Frameset addHFrameset(Frame owner) {
 		FramesetCreator myWindow = new FramesetCreator(owner);
 		return myWindow.showCreatorDialog();
@@ -71,6 +85,9 @@ public class FramesetCreator extends AbstractCreator<Frameset> {
 		return Arrays.asList(serialNumberRow, brandNameRow, costRow, sizeRow, shocksRow, gearsRow, stockRow);
 	}
 	
+	/**
+	 * Sends value to the database
+	 */
 	protected Frameset sendValueToDatabase() {
 		String brandName = brandNameRow.getFieldValue();
 		int serialNumber = serialNumberRow.getFieldValue();

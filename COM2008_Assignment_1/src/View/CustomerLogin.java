@@ -20,6 +20,12 @@ import Domain.Order;
 import View.StaffWindow.ExpandedBikeView;
 import View.StaffWindow.OrderModelRow;
 
+/**
+ * Called when a user has requested to view orders in order to
+ * identify which customer has requested details
+ * @author tomap
+ *
+ */
 public class CustomerLogin extends JDialog implements ActionListener {
 	JTextField forenameInput = new JTextField(20);
 	JTextField surenameInput = new JTextField(20);
@@ -44,7 +50,10 @@ public class CustomerLogin extends JDialog implements ActionListener {
 	
 	JLabel name = new JLabel();
 	
-	
+	/**
+	 * Initialises the form
+	 * @param title Form title
+	 */
 	private void StartUp(String title) {		
 		setTitle(title);
 		
@@ -119,6 +128,10 @@ public class CustomerLogin extends JDialog implements ActionListener {
 
 	}
 	
+	/**
+	 * Called when an action is performed on the page such as a user
+	 * logging in with their details or supplying an order number
+	 */
 	public void actionPerformed(ActionEvent event) {
 		String command = event.getActionCommand();
 		if(command.equals("Login")) {
@@ -147,6 +160,10 @@ public class CustomerLogin extends JDialog implements ActionListener {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param parent
+	 */
 	public CustomerLogin(JFrame parent) {
 		super(parent);
 		_parent = parent;

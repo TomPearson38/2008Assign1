@@ -15,8 +15,18 @@ import View.AbstractPicker.AbstractPicker;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.PropertyDescriptor;
 
+/**
+ * Used to edit the gears
+ * @author Alex Dobson
+ *
+ */
 public class GearPicker extends AbstractPicker<Gearset>{
 
+	/**
+	 * Allows the user staff to edit gears
+	 * @param parent Parent form
+	 * @param managementMode If the edit buttons are present
+	 */
 	public GearPicker(JFrame parent, boolean managementMode) {
 		super(parent, managementMode);
 		
