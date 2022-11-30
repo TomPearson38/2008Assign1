@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -28,6 +29,7 @@ import View.BicycleDesigner.BicycleDesignerPanel;
 public class CustomerMenu extends JFrame {
 	BicycleDesignerPanel mainPanel;
 	
+	private JPanel rightSide = new JPanel(new BorderLayout());
 	
 	public CustomerMenu() {
 		super();
@@ -40,20 +42,16 @@ public class CustomerMenu extends JFrame {
 		final Container contentPanel = this.getContentPane();
 		contentPanel.setLayout(new BorderLayout());
 		
-		final JPanel topPanel = new JPanel();
-		topPanel.setLayout(new BorderLayout());
+		//final JPanel topPanel = new JPanel();
+		//rightSide.setLayout(new BorderLayout());
 		final JButton loginButton  = new JButton("Employee Login");
-		loginButton.addActionListener(e -> new LoginPanel(this));
-		
-		topPanel.add(loginButton, BorderLayout.EAST);
-		
+		loginButton.addActionListener(e -> new LoginPanel(this));		
 		
 		mainPanel = new BicycleDesignerPanel(this);
 
 
 		final JPanel rightContainerPanel = new JPanel(new BorderLayout());
 		final JPanel bottomRightContainerPanel = new JPanel(new GridLayout(2,0));
-		
 		
 		final JPanel customerButtonsPanel = new JPanel();
 		customerButtonsPanel.setBorder(new EmptyBorder(40, 0, 0, 0));
@@ -100,10 +98,16 @@ public class CustomerMenu extends JFrame {
 		rightContainerPanel.add(bottomRightContainerPanel, BorderLayout.SOUTH);
 		rightContainerPanel.add(customerButtonsPanel, BorderLayout.CENTER);
 		
-		
-		contentPanel.add(topPanel, BorderLayout.NORTH);
+		//rightSide.add(topPanel, BorderLayout.NORTH);
+		rightSide.add(loginButton, BorderLayout.NORTH);
+
+		rightSide.add(rightContainerPanel, BorderLayout.CENTER);
+			
+		//contentPanel.add(topPanel, BorderLayout.NORTH);
 		contentPanel.add(mainPanel, BorderLayout.WEST);
-		contentPanel.add(rightContainerPanel, BorderLayout.CENTER);
+		//contentPanel.add(rightContainerPanel, BorderLayout.CENTER);
+		contentPanel.add(rightSide, BorderLayout.EAST);
+		
 	}
 	
 	private void saveButtonClicked(ActionEvent e) {
