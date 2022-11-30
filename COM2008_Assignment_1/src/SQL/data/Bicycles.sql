@@ -5,7 +5,7 @@ CREATE TABLE Bicycles (
     frameset_id INTEGER,
     handlebar_id INTEGER,
     wheels_id INTEGER,
-    frame_name VARCHAR(30),
+    given_name VARCHAR(40),
     PRIMARY KEY (id),
     FOREIGN KEY (frameset_id) REFERENCES Frames(id),
     FOREIGN KEY (handlebar_id) REFERENCES Handlebars(id),
