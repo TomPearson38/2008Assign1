@@ -214,18 +214,7 @@ public class BicycleDesignerPanel extends JPanel {
 		
 	}
 	
-//	private class BicycleDesignerPanelViewModel {
-//		
-//		private Bicycle savedDesign;
-//		private ActiveBicycleDesign currentDesign;
-//		
-//		public void setSavedDesign(ActiveBicycleDesign value) {
-//			savedDesign = value;
-//		}
-//		public void setCurrentDesign(ActiveBicycleDesign value) {
-//			currentDesign = value;
-//		}
-//	}
+
 	
 	public class ActiveBicycleDesign {
 		private Frameset frame;
@@ -235,7 +224,6 @@ public class BicycleDesignerPanel extends JPanel {
 		
 		public ActiveBicycleDesign(Bicycle domainObject) {
 			this(domainObject.get_frame(), domainObject.get_handlebar(), domainObject.get_Wheels(), domainObject.getCustomerGivenName());
-//			id = domainObject.get_id();
 		}
 		
 		public ActiveBicycleDesign(Frameset frame, Handlebar handlebars, Wheel wheels, String name) {
@@ -246,9 +234,6 @@ public class BicycleDesignerPanel extends JPanel {
 			this.name = name;
 		}
 
-//		public int getId() {
-//			return id;
-//		}
 
 		public Frameset getFrame() {
 			return frame;
