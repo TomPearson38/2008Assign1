@@ -17,6 +17,9 @@ import Domain.Order;
 import Domain.OrderStatus;
 import View.Table.*;
 
+/*
+ * Table implementation for displaying all the BicycleComponent parts in use in a Bicycle
+ */
 public class ExpandOrderTable extends AbstractTable<PartsModelRow> {	
 	@Override
 	protected  List<Column<PartsModelRow, ?>> getColumns() {

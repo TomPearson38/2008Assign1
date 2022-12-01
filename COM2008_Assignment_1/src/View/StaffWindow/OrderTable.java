@@ -20,6 +20,9 @@ import View.Table.EnumRenderer;
 import View.Table.GenericAbstractTableModel;
 import View.Table.SterlingRenderer;
 
+/*
+ * Represents a Table that contains information about all the orders in the database
+ */
 public class OrderTable extends AbstractTable<OrderModelRow> {
 	private OrderTableModel loadedOrderTableModel;
 	
@@ -57,6 +60,9 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 		return loadedOrderTableModel;
 	}
 	
+	/*
+	 * Create a pop up when a row is double clicked to show more information about that row
+	 */
 	@Override
 	protected void doubleClicked(OrderModelRow row) {
 		ExpandedBikeView ex = new ExpandedBikeView(row, true, loadedOrderTableModel, "Edit Order");
@@ -68,6 +74,7 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 		
 		
 		public OrderTableModel(Collection<Order> orders, List<Column<OrderModelRow, ?>> columns) {
+			//Maps a list of domain objects (<Order>) into their ViewModel objects (<OrderModelRow>)
 			super(orders.stream().map(OrderModelRow::new).collect(Collectors.toList()), columns);
 		}
 	}

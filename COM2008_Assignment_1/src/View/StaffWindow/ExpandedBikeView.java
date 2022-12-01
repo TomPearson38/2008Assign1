@@ -30,6 +30,9 @@ import View.Table.Column;
 import View.Table.EditedObjectsChangedListener;
 import View.Table.EnumRenderer;
 
+/*
+ * Pop up window to display information on the current order that can't be displayed in the table
+ */
 public class ExpandedBikeView extends JDialog implements ActionListener{
 	private Order currentOrder;
 	private static Bicycle currentBike;

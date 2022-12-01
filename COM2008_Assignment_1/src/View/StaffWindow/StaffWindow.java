@@ -5,6 +5,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
+/*
+ * Modal dialog accessible that allows access to staff functions through the normal UI
+ */
 public class StaffWindow extends JDialog {
 	
 	ManageStockPanel stockPanel;

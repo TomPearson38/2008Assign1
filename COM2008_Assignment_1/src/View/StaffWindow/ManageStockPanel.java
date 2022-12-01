@@ -24,6 +24,9 @@ import View.Pickers.GearPicker;
 import View.Pickers.HandlebarPicker;
 import View.Pickers.WheelPicker;
 
+/*
+ * Panel for managing stock, contains several controls for managing various bicycle component and others from a staff perspective
+ */
 public class ManageStockPanel extends JPanel {	
 	private JDialog owner;
 	
