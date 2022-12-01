@@ -6,7 +6,17 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+/**
+ * TableCellRenderer implementation for rendering an enum in a combobox
+ * @author Alex Dobson
+ *
+ * @param <E> the type of the Enum<E> to use
+ */
 public class EnumRenderer<E extends Enum<E>> extends JComboBox<E> implements TableCellRenderer {
+    
+    /**
+     * @param values the values of the enum to display in the Combobox (can be fetched with Enum<E>.values, but only at compile time)
+     */
 	public EnumRenderer(E[] values) {
 		super(values);
         setOpaque(true); //MUST do this for background to show up.

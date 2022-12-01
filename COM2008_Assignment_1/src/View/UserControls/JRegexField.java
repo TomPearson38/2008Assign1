@@ -8,6 +8,11 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
+/**
+ * JTextField that applies a regex filter to its contents
+ * @author Alex Dobson
+ *
+ */
 public abstract class JRegexField extends JTextField {
 	
 	public abstract String getRegex();

@@ -2,20 +2,19 @@ package View.AbstractPicker;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dialog;
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
 import Domain.IToUIString;
 
 public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
@@ -49,17 +48,17 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
         return result;
     }
     
-    /*
+    /**
      * Gets the objects from the implementing class to choose from
      */
     protected abstract Collection<T> getAvailableObjects();
     
-    /*
+    /**
      * Get the a list of PropertyDescriptor<T> from the implementing class to display. Each PropertyDescriptor<T> becomes a row in the right hand panel.
      */
     protected abstract Collection<PropertyDescriptor<? super T>> getPropertyDescriptors();
     
-    /*
+    /**
      * Gets the filters that can be applied to T.
      * each Filter<T> becomes a JComboBox dropdown in the filter panel at the top
      * Filter objects may be of T, or any parent class of type T
@@ -67,8 +66,9 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
      */
     protected abstract Collection<Filter<? super T>> getFilters();
     
-    /*
+    /**
      * Event handler that is called whenever PickerPanel changes event
+     * @param value the object to set 
      */
     private void setSelectedObject(T value) {
     	_currentObject = value;

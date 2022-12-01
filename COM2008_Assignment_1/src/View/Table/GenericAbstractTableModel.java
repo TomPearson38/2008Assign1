@@ -8,6 +8,12 @@ import java.util.Set;
 
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * Reusable table model for representing a list of types T with the columns controlled by Column objects
+ * @author Alex Dobson
+ *
+ * @param <T>
+ */
 public abstract class GenericAbstractTableModel<T> extends AbstractTableModel {
 	private List<T> objects;
 	
@@ -15,7 +21,7 @@ public abstract class GenericAbstractTableModel<T> extends AbstractTableModel {
 	
 	private Set<T> changedObjects = new HashSet<T>();
 	
-	/*
+	/**
 	 * External listeners to be informed if the list of objects that have been edited by the user have changed
 	 */
 	private Collection<EditedObjectsChangedListener<T>> editedObjectsChangedListeners = new ArrayList<EditedObjectsChangedListener<T>>();

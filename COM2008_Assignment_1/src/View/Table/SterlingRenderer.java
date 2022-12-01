@@ -6,6 +6,11 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+/**
+ * TableCellRenderer implementation for rendering British currency
+ * @author Alex Dobson
+ *
+ */
 public class SterlingRenderer extends JLabel implements TableCellRenderer {
 	public SterlingRenderer() {
         setOpaque(true); //MUST do this for background to show up.
