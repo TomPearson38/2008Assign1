@@ -1,13 +1,9 @@
 package View.Pickers;
 
-import java.awt.Dialog;
 import java.awt.Window;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 
 import Database.WheelOperations;
 import Domain.BrakeType;
