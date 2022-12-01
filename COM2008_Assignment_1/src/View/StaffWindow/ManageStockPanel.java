@@ -6,6 +6,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -14,6 +15,7 @@ import View.CreatorsAndEditors.AbstractHandlebarCreator;
 import View.CreatorsAndEditors.AbstractWheelCreator;
 import View.CreatorsAndEditors.FramesetCreator;
 import View.CreatorsAndEditors.GearsetCreator;
+import View.CreatorsAndEditors.AbstractGearsetCreator;
 import View.CreatorsAndEditors.HandlebarCreator;
 import View.CreatorsAndEditors.WheelCreator;
 import View.Pickers.BicyclePicker;
@@ -23,9 +25,9 @@ import View.Pickers.HandlebarPicker;
 import View.Pickers.WheelPicker;
 
 public class ManageStockPanel extends JPanel {	
-	private JFrame owner;
+	private JDialog owner;
 	
-	public ManageStockPanel(JFrame owner) {
+	public ManageStockPanel(JDialog owner) {
 		super();
 		this.owner = owner;
 		

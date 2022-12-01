@@ -1,17 +1,15 @@
 package View.Pickers;
 
+import java.awt.Dialog;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 
-import Database.HandlebarOperations;
 import Database.WheelOperations;
-import Domain.BicycleComponent;
 import Domain.BrakeType;
-import Domain.Frameset;
-import Domain.Handlebar;
 import Domain.IBicycleComponent;
 import Domain.ICost;
 import Domain.TyreType;
@@ -22,24 +20,33 @@ import View.AbstractPicker.CommonFilters;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 import View.AbstractPicker.PropertyDescriptor;
+import View.CreatorsAndEditors.WheelEditor;
 
 public class WheelPicker extends AbstractPicker<Wheel>{
 
-	public WheelPicker(JFrame parent, boolean managementMode) {
-		super(parent, managementMode);
-		
+	public WheelPicker(JFrame parent, boolean isStaffMode) {
+		super(parent, isStaffMode);
 	}
-	
-	public static Wheel chooseWheels(JFrame parent) {
-		return WheelPicker.chooseWheels(parent, false);
+	public WheelPicker(Dialog owner, Boolean isStaffMode) {
+		super(owner, isStaffMode);
 	}
+
 	
+	public static Wheel chooseWheels(JFrame parent) { return WheelPicker.chooseWheels(parent, false); }
     public static Wheel chooseWheels(JFrame parent, boolean managementMode) {
     	WheelPicker PickerWindow = new WheelPicker(parent, managementMode);
+    	return configureAndShowPicker(PickerWindow); 	
+    }
+    
+	public static Wheel chooseWheels(JDialog parent) { return WheelPicker.chooseWheels(parent, false); }
+    public static Wheel chooseWheels(JDialog parent, boolean managementMode) {
+    	WheelPicker PickerWindow = new WheelPicker(parent, managementMode);
+    	return configureAndShowPicker(PickerWindow);
+    }
+    private static Wheel configureAndShowPicker(WheelPicker pickerWindow) {
+    	pickerWindow.setTitle("Wheel Picker");
     	
-    	PickerWindow.setTitle("Wheel Picker");
-    	
-    	return PickerWindow.showDialog();  	
+    	return pickerWindow.showDialog(); 
     }
 
 	@Override
@@ -86,5 +93,10 @@ public class WheelPicker extends AbstractPicker<Wheel>{
 	protected Boolean deleteComponent(Wheel wheelToDelete) throws SQLIntegrityConstraintViolationException {
 		
 		return WheelOperations.deleteWheel(wheelToDelete);
+	}
+
+	@Override
+	protected Wheel editObject(Wheel currentObject) {
+		return WheelEditor.openEditor(this, currentObject);
 	}
 }

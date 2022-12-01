@@ -2,6 +2,7 @@ package View.AbstractPicker;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,7 +29,7 @@ class StaffPanel<T> extends JPanel {
 	
 	Runnable refreshPicker;
 	
-	public StaffPanel(AttemptDatabaseUpdate<T> updateComponent, AttemptDatabaseDelete<T> deleteComponent, Runnable refreshPicker) {
+	public StaffPanel(EditorOpener<T> editor, AttemptDatabaseDelete<T> deleteComponent, Runnable refreshPicker) {
 		super();
 		this.setLayout(staffPanelLayout);
 		
@@ -36,7 +37,8 @@ class StaffPanel<T> extends JPanel {
 		
 		editButton = new JButton("Edit");
 		editButton.addActionListener(e -> {
-			updateComponent.update(_currentObject);
+			editor.editObject(_currentObject);
+			
 			refreshPicker.run();
 		});
 		
@@ -73,6 +75,9 @@ class StaffPanel<T> extends JPanel {
 		public boolean delete(T Object) throws SQLIntegrityConstraintViolationException;
 	}
 	public interface AttemptDatabaseUpdate<T> {
-		public boolean update(T Object);
+		public boolean update(T Object) throws SQLException;
+	}
+	public interface EditorOpener<T> {
+		public T editObject(T object);
 	}
 }

@@ -1,16 +1,15 @@
 package View.Pickers;
 
+import java.awt.Dialog;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import Database.EnumMappingException;
-import Database.FrameOperations;
 import Database.HandlebarOperations;
-import Domain.BicycleComponent;
-import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
 import Domain.IBicycleComponent;
@@ -21,24 +20,36 @@ import View.AbstractPicker.CommonFilters;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 import View.AbstractPicker.PropertyDescriptor;
+import View.CreatorsAndEditors.HandlebarEditor;
 
 public class HandlebarPicker extends AbstractPicker<Handlebar>{
 
-	public HandlebarPicker(JFrame parent, boolean managementMode) {
-		super(parent, managementMode);
-		
+
+	public HandlebarPicker(JFrame parent, boolean isStaffMode) {
+		super(parent, isStaffMode);
 	}
 	
-	public static Handlebar chooseHandlebar(JFrame parent) {
-		return HandlebarPicker.chooseHandlebar(parent, false);
+	public HandlebarPicker(Dialog owner, Boolean isStaffMode) {
+		super(owner, isStaffMode);
 	}
 	
+	public static Handlebar chooseHandlebar(JDialog parent) { return HandlebarPicker.chooseHandlebar(parent, false); }
+    public static Handlebar chooseHandlebar(JDialog parent, boolean managementMode) {
+    	HandlebarPicker pickerWindow = new HandlebarPicker(parent, managementMode);
+    	
+    	return configureAndShowPicker(pickerWindow);  	
+    }
+    
+	public static Handlebar chooseHandlebar(JFrame parent) { return HandlebarPicker.chooseHandlebar(parent, false); }
     public static Handlebar chooseHandlebar(JFrame parent, boolean managementMode) {
-    	HandlebarPicker PickerWindow = new HandlebarPicker(parent, managementMode);
+    	HandlebarPicker pickerWindow = new HandlebarPicker(parent, managementMode);
     	
-    	PickerWindow.setTitle("Handlebar Picker");
+    	return configureAndShowPicker(pickerWindow);  	
+    }
+    private static Handlebar configureAndShowPicker(HandlebarPicker pickerWindow) {
+    	pickerWindow.setTitle("Handlebar Picker");
     	
-    	return PickerWindow.showDialog();  	
+    	return pickerWindow.showDialog(); 
     }
 
 	@Override
@@ -83,6 +94,11 @@ public class HandlebarPicker extends AbstractPicker<Handlebar>{
 	
 	protected Boolean deleteComponent(Handlebar handlebarToDelete) throws SQLIntegrityConstraintViolationException  {
 		return HandlebarOperations.deleteHandlebar(handlebarToDelete);
+	}
+
+	@Override
+	protected Handlebar editObject(Handlebar currentObject) {
+		return HandlebarEditor.openEditor(this, currentObject);
 	}
 	
 }

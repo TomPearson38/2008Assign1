@@ -2,9 +2,11 @@ package View.AbstractPicker;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 import java.util.function.Function;
@@ -19,6 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingWorker;
 
 import Domain.IToUIString;
+import Domain.Wheel;
+import View.Pickers.WheelPicker;
 
 public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     JComboBox<Boolean> shocksComboBox;
@@ -37,11 +41,11 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     StaffPanel<T> staffPanel;
     
     
-	protected abstract Boolean updateComponent(T Object);
+	
+	protected abstract T editObject(T currentObject);
 	
 	protected abstract Boolean deleteComponent(T Object) throws SQLIntegrityConstraintViolationException;
 	
-    
     
     public T showDialog() {
         pack();
@@ -81,13 +85,15 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     }
     
     
-    public AbstractPicker(JFrame parent, Boolean isStaffMode) {
-        super(parent, true);
-        this.setPreferredSize(new Dimension(850,650));
-        setResizable(true);
-        
+    public AbstractPicker(Dialog owner, Boolean isStaffMode) {
+		super(owner, true);
+		this.isStaffMode = isStaffMode;
+		this.addComponentsToPane();
+	}
+
+	public AbstractPicker(JFrame owner, Boolean isStaffMode) {
+        super(owner, true);
         this.isStaffMode = isStaffMode;
-        
         this.addComponentsToPane();
     }
     
@@ -116,6 +122,9 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
      
     
     private void addComponentsToPane() {
+    	
+    	this.setPreferredSize(new Dimension(850,650));
+        setResizable(true);
            	
     	final Container pane = new JPanel();
     	pane.setLayout(new BorderLayout());
@@ -135,7 +144,7 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     	JPanel rightPanel = new JPanel(new BorderLayout());
     	rightPanel.add(infoPanel, BorderLayout.CENTER);
     	
-    	staffPanel = new StaffPanel<T>(this::updateComponent, this::deleteComponent, this::refreshPickerPanel);
+    	staffPanel = new StaffPanel<T>(this::editObject, this::deleteComponent, this::refreshPickerPanel);
     	
         if (isStaffMode) {
         	rightPanel.add(staffPanel, BorderLayout.SOUTH);

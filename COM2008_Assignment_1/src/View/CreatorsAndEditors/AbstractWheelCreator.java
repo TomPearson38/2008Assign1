@@ -1,6 +1,7 @@
 package View.CreatorsAndEditors;
 
 import java.awt.Component;
+import java.awt.Dialog;
 import java.awt.Frame;
 import java.util.Arrays;
 import java.util.Collection;
@@ -39,6 +40,11 @@ public abstract class AbstractWheelCreator extends AbstractCreator<Wheel> {
 	
 	
 	public AbstractWheelCreator(Frame owner) {
+		super(owner);
+	}
+
+
+	public AbstractWheelCreator(Dialog owner) {
 		super(owner);
 	}
 

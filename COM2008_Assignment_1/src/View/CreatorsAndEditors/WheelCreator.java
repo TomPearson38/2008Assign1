@@ -1,5 +1,6 @@
 package View.CreatorsAndEditors;
 
+import java.awt.Dialog;
 import java.awt.Frame;
 
 import Database.WheelOperations;
@@ -9,12 +10,12 @@ import Domain.Wheel;
 
 public class WheelCreator extends AbstractWheelCreator {
 
-	public WheelCreator(Frame owner) {
+	public WheelCreator(Dialog owner) {
 		// TODO Auto-generated constructor stub#
 		super(owner);
 	}
 	
-	public static Wheel addWheel(Frame owner) {
+	public static Wheel addWheel(Dialog owner) {
 		WheelCreator myWindow = new WheelCreator(owner);
 		return myWindow.showCreatorDialog();
 	}

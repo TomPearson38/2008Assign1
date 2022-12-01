@@ -1,6 +1,7 @@
 package View.CreatorsAndEditors;
 
 import java.awt.Component;
+import java.awt.Dialog;
 import java.awt.Frame;
 import java.util.Arrays;
 import java.util.Collection;
@@ -39,12 +40,13 @@ public abstract class AbstractFramesetCreator extends AbstractCreator<Frameset> 
 	IGridRow<Gearset, JComboBox<Gearset>> gearsRow;
 	IGridRow<Integer, JIntegerField> stockRow;
 	
+	public AbstractFramesetCreator(Dialog owner) {
+		super(owner);
+	}
+
 	public AbstractFramesetCreator(Frame owner) {
 		super(owner);
 	}
-	
-
-
 
 	@Override
 	protected Collection<IGridRow<?, ?>> getGridValues() {

@@ -97,7 +97,7 @@ public class GearsetOperations {
 		return selectedGear;
 	}
 	
-	public static Gearset createGearset(String name) {
+	public static Gearset createGearset(String name) throws SQLException {
 		String sqlTemplate = "INSERT INTO Gearsets(name) VALUES(?);";
 						
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -118,12 +118,28 @@ public class GearsetOperations {
 			}
 			
 		} catch (SQLException ex) {
-			ex.printStackTrace();
+			throw ex;
 		}
 		return null;
 	}
-
-	public static boolean updateGearset(Gearset gearsetToUpdate) {
+	
+	public static class GearsetUpdateRequest {
+		private int id;
+		private String name;
+		public GearsetUpdateRequest(int id, String name) {
+			super();
+			this.id = id;
+			this.name = name;
+		}
+		public int getId() {
+			return id;
+		}
+		public String getName() {
+			return name;
+		}
+		
+	}
+	public static Gearset updateGearset(GearsetUpdateRequest request) throws SQLException {
 	    String sqlTemplate = 
 	            "UPDATE Gearsets " +
 	            "SET name = ? " +
@@ -133,16 +149,19 @@ public class GearsetOperations {
 	                    try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 	                        PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
 	                        
-	                        statement.setString(1, gearsetToUpdate.get_name());
-	                        statement.setInt(2, gearsetToUpdate.get_id());
+	                        statement.setString(1, request.getName());
+	                        statement.setInt(2, request.getId());
 	                        
 	                        int rowsAffected = statement.executeUpdate();
 	                        statement.close();
-	                        return rowsAffected > 0;
-	                    } catch (SQLException e) {
-	                        e.printStackTrace();
 	                        
-	                        return false;
+	                        if (rowsAffected > 0) {
+	                        	return new Gearset(request.getId(), request.getName());
+	                        } else {
+	                        	return null;
+	                        }
+	                    } catch (SQLException ex) {
+	                        throw ex;
 	                    }
 	}
 	

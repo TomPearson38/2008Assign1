@@ -1,23 +1,16 @@
 package View.Pickers;
 
+import java.awt.Dialog;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.function.Function;
-
 import javax.swing.JFrame;
 
 import Database.BicycleOperations;
-import Database.HandlebarOperations;
-import Database.WheelOperations;
 import Domain.Bicycle;
-import Domain.BicycleComponent;
 import Domain.BrakeType;
-import Domain.Frameset;
-import Domain.Handlebar;
 import Domain.ICost;
 import Domain.TyreType;
-import Domain.Wheel;
 import View.AbstractPicker.AbstractPicker;
 import View.AbstractPicker.CommonDescriptors;
 import View.AbstractPicker.CommonFilters;
@@ -37,9 +30,19 @@ public class BicyclePicker extends AbstractPicker<Bicycle>{
 	 * @param parent Parent frame
 	 * @param managementMode If edit and delete fields are visible
 	 */
-	public BicyclePicker(JFrame parent, boolean managementMode) {
-		super(parent, managementMode);
+	public BicyclePicker(JFrame parent, boolean isStaffMode) {
+		super(parent, isStaffMode);
 	}
+	public BicyclePicker(Dialog owner, Boolean isStaffMode) {
+		super(owner, isStaffMode);
+	}
+
+	
+	public static Bicycle chooseBicycle(Dialog parent, boolean managementMode) {
+    	BicyclePicker PickerWindow = new BicyclePicker(parent, managementMode);
+    	
+    	return configureAndShowPicker(PickerWindow);  	
+    }
 	
 	/**
 	 * Standard wheels picker view for customers
@@ -59,9 +62,12 @@ public class BicyclePicker extends AbstractPicker<Bicycle>{
     public static Bicycle chooseBicycle(JFrame parent, boolean managementMode) {
     	BicyclePicker PickerWindow = new BicyclePicker(parent, managementMode);
     	
-    	PickerWindow.setTitle("Bicycle Picker");
+    	return configureAndShowPicker(PickerWindow);  	
+    }
+    private static Bicycle configureAndShowPicker(BicyclePicker pickerWindow) {
+    	pickerWindow.setTitle("Bicycle Picker");
     	
-    	return PickerWindow.showDialog();  	
+    	return pickerWindow.showDialog(); 
     }
 
 	@Override
@@ -102,14 +108,19 @@ public class BicyclePicker extends AbstractPicker<Bicycle>{
 	}
 
 
-	@Override
-	protected Boolean updateComponent(Bicycle Object) {
-		return BicycleOperations.updateBicycle(Object);
-	}
+//	@Override
+//	protected Boolean updateComponent(Bicycle Object) {
+//		return BicycleOperations.updateBicycle(Object);
+//	}
 
 	@Override
 	protected Boolean deleteComponent(Bicycle Object) throws SQLIntegrityConstraintViolationException {
 		return BicycleOperations.deleteBicycle(Object);
+	}
+
+	@Override
+	protected Bicycle editObject(Bicycle currentObject) {
+		return null;
 	}
 	
 
