@@ -20,8 +20,9 @@ import Domain.Order;
 import Domain.OrderStatus;
 import View.StaffWindow.OrderTable.OrderTableModel;
 
-/*
+/**
  * Pop up window to display information on the current order that can't be displayed in the table
+ * @author Alex Dobson
  */
 public class ExpandedBikeView extends JDialog implements ActionListener{
 	private Order currentOrder;
@@ -78,7 +79,7 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
     }
 	
 	private void addComponents() {
-		ExpandOrderTable bikeTable = new ExpandOrderTable();
+		BicycleComponentTable bikeTable = new BicycleComponentTable();
 		bikeTable.setPreferredSize(new Dimension(480, 83));
 		tablePanel.add(bikeTable);
 

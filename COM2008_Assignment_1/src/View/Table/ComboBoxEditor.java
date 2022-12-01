@@ -7,9 +7,14 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
+/**
+ * TableCellEditor implementation for editing arrays, enums and other such collection values
+ * @author Alex Dobson
+ *
+ * @param <T> The type of the object in the collection
+ */
 public class ComboBoxEditor<T> extends AbstractCellEditor implements TableCellEditor {
 
-	
 	JComboBox<T> dropdown;
 
 	public ComboBoxEditor(T[] values) {

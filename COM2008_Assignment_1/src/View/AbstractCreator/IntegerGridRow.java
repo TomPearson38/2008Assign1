@@ -4,6 +4,11 @@ import java.util.function.Predicate;
 
 import View.UserControls.JIntegerField;
 
+/**
+ * GridRow extension for handling integers with JIntegerField
+ * @author Alex Dobson
+ *
+ */
 public class IntegerGridRow extends GridRow<Integer, JIntegerField> {
 	
 	public IntegerGridRow(String labelText) {
