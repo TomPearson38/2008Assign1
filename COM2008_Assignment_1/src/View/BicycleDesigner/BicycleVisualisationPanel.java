@@ -77,7 +77,7 @@ public class BicycleVisualisationPanel extends JPanel {
         
         
         //Wheels
-        WheelSprite wheelToDraw = DefaultSprites.getDefaultWheelSprite();
+        WheelSprite wheelToDraw = DefaultSprites.getRoadWheelSprite();
         if (wheelSprite != null) {
         	wheelToDraw = wheelSprite;
         }
@@ -87,7 +87,7 @@ public class BicycleVisualisationPanel extends JPanel {
         Point originalRearHub = frameToDraw.getRearWheelHubLocation();
         Point scaledRearHub = new Point((int)(originalRearHub.x * frameScaleFactorHorizontal), (int)(originalRearHub.y * frameScaleFactorVertical));
         
-        final double wheelCanvasAreaPercent = 0.45;
+        final double wheelCanvasAreaPercent = 0.4;
         
         final Rectangle sizeOfCanvasForWheel = new Rectangle((int)(sizeOfCanvas.height * wheelCanvasAreaPercent), (int)(sizeOfCanvas.height * wheelCanvasAreaPercent));//height twice because wheel clip should be a square not a rectangle
         final Image resizedWheelImage = wheelToDraw.getWheelImage().getScaledInstance(sizeOfCanvasForWheel.width, sizeOfCanvasForWheel.height, Image.SCALE_DEFAULT);
@@ -114,7 +114,7 @@ public class BicycleVisualisationPanel extends JPanel {
         
         
         //Handlebars
-        HandlebarSprite handlebarsToDraw = DefaultSprites.getDefaultHandlebarSprite();
+        HandlebarSprite handlebarsToDraw = DefaultSprites.getDefaultHandlebarsSprite();
         if (handlebarSprite != null) {
         	handlebarsToDraw = handlebarSprite;
         }
