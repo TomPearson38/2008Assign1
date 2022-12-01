@@ -1,6 +1,7 @@
 package View.Pickers;
 
 import java.awt.Dialog;
+import java.awt.Window;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,22 +25,15 @@ import View.CreatorsAndEditors.WheelEditor;
 
 public class WheelPicker extends AbstractPicker<Wheel>{
 
-	public WheelPicker(JFrame parent, boolean isStaffMode) {
-		super(parent, isStaffMode);
-	}
-	public WheelPicker(Dialog owner, Boolean isStaffMode) {
+
+	public WheelPicker(Window owner, Boolean isStaffMode) {
 		super(owner, isStaffMode);
 	}
 
-	
-	public static Wheel chooseWheels(JFrame parent) { return WheelPicker.chooseWheels(parent, false); }
-    public static Wheel chooseWheels(JFrame parent, boolean managementMode) {
-    	WheelPicker PickerWindow = new WheelPicker(parent, managementMode);
-    	return configureAndShowPicker(PickerWindow); 	
-    }
+
     
-	public static Wheel chooseWheels(JDialog parent) { return WheelPicker.chooseWheels(parent, false); }
-    public static Wheel chooseWheels(JDialog parent, boolean managementMode) {
+	public static Wheel chooseWheels(Window parent) { return WheelPicker.chooseWheels(parent, false); }
+    public static Wheel chooseWheels(Window parent, boolean managementMode) {
     	WheelPicker PickerWindow = new WheelPicker(parent, managementMode);
     	return configureAndShowPicker(PickerWindow);
     }

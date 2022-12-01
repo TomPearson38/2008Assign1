@@ -1,6 +1,7 @@
 package View.CreatorsAndEditors;
 
-import java.awt.Dialog;
+import java.awt.Window;
+
 import Database.HandlebarOperations;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
@@ -9,8 +10,7 @@ public class HandlebarEditor extends AbstractHandlebarCreator {
 	
 	int handlebarID;
 
-	public HandlebarEditor(Dialog owner, Handlebar handlebarToEdit) {
-		// TODO Auto-generated constructor stub
+	public HandlebarEditor(Window owner, Handlebar handlebarToEdit) {
 		super(owner);
 		handlebarID = handlebarToEdit.get_id();
 		
@@ -34,7 +34,7 @@ public class HandlebarEditor extends AbstractHandlebarCreator {
 		return handlebarToUpdate;
 	}
 
-	public static Handlebar openEditor(Dialog owner, Handlebar handlebarToEdit) {
+	public static Handlebar openEditor(Window owner, Handlebar handlebarToEdit) {
 		HandlebarEditor newEditorWindow = new HandlebarEditor(owner, handlebarToEdit);
 		return newEditorWindow.showCreatorDialog();
 	}

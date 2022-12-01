@@ -1,6 +1,7 @@
 package View.Pickers;
 
 import java.awt.Dialog;
+import java.awt.Window;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,26 +31,18 @@ public class BicyclePicker extends AbstractPicker<Bicycle>{
 	 * @param parent Parent frame
 	 * @param managementMode If edit and delete fields are visible
 	 */
-	public BicyclePicker(JFrame parent, boolean isStaffMode) {
+	public BicyclePicker(Window parent, boolean isStaffMode) {
 		super(parent, isStaffMode);
 	}
-	public BicyclePicker(Dialog owner, Boolean isStaffMode) {
-		super(owner, isStaffMode);
-	}
 
-	
-	public static Bicycle chooseBicycle(Dialog parent, boolean managementMode) {
-    	BicyclePicker PickerWindow = new BicyclePicker(parent, managementMode);
-    	
-    	return configureAndShowPicker(PickerWindow);  	
-    }
+
 	
 	/**
 	 * Standard wheels picker view for customers
 	 * @param parent Parent frame
 	 * @return chosen bike
 	 */
-	public static Bicycle chooseWheels(JFrame parent) {
+	public static Bicycle chooseWheels(Window parent) {
 		return BicyclePicker.chooseBicycle(parent, false);
 	}
 	
@@ -59,7 +52,7 @@ public class BicyclePicker extends AbstractPicker<Bicycle>{
 	 * @param managementMode If edit fields are available
 	 * @return chosen bike
 	 */
-    public static Bicycle chooseBicycle(JFrame parent, boolean managementMode) {
+    public static Bicycle chooseBicycle(Window parent, boolean managementMode) {
     	BicyclePicker PickerWindow = new BicyclePicker(parent, managementMode);
     	
     	return configureAndShowPicker(PickerWindow);  	

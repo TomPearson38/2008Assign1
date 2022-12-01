@@ -1,6 +1,6 @@
 package View.CreatorsAndEditors;
 
-import java.awt.Dialog;
+import java.awt.Window;
 
 import Database.HandlebarOperations;
 import Domain.Handlebar;
@@ -8,12 +8,11 @@ import Domain.HandlebarStyles;
 
 public class HandlebarCreator extends AbstractHandlebarCreator{
 
-	public HandlebarCreator(Dialog owner) {
-		// TODO Auto-generated constructor stub
+	public HandlebarCreator(Window owner) {
 		super(owner);
 	}
 	
-	public static Handlebar addHandlebar(Dialog owner) {
+	public static Handlebar addHandlebar(Window owner) {
 		HandlebarCreator myWindow = new HandlebarCreator(owner);
 		return myWindow.showCreatorDialog();
 	}

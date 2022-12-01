@@ -1,6 +1,7 @@
 package View.Pickers;
 
 import java.awt.Dialog;
+import java.awt.Window;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,39 +31,32 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 
 	/**
 	 * Initialises the frameset picker
-	 * @param parent Parent form
+	 * @param owner Owner form
 	 * @param isStaffMode if the editor fields are available
 	 */
-	public FramesetPicker(JFrame parent, Boolean isStaffMode) {
-		super(parent, isStaffMode);
-	}
-	public FramesetPicker(Dialog owner, Boolean isStaffMode) {
+
+	public FramesetPicker(Window owner, Boolean isStaffMode) {
 		super(owner, isStaffMode);
 	}
 	
-	public static Frameset chooseFrameset(JDialog parent, Boolean isStaffMode) {
-    	FramesetPicker PickerWindow = new FramesetPicker(parent, isStaffMode);
-
-    	return configureAndShowPicker(PickerWindow);  	
-    }
 	
 	/**
 	 * Used to initialise the choseFrame when the staff mode is not provided
-	 * @param parent
+	 * @param owner
 	 * @return
 	 */
-	public static Frameset chooseFrameset(JFrame parent) {
-		return FramesetPicker.chooseFrameset(parent, false);
+	public static Frameset chooseFrameset(Window owner) {
+		return FramesetPicker.chooseFrameset(owner, false);
 	}
 	
 	/**
 	 * Initialise when staff mode boolean is provided
-	 * @param parent
+	 * @param owner
 	 * @param isStaffMode 
 	 * @return
 	 */
-    public static Frameset chooseFrameset(JFrame parent, Boolean isStaffMode) {
-    	FramesetPicker PickerWindow = new FramesetPicker(parent, isStaffMode);
+    public static Frameset chooseFrameset(Window owner, Boolean isStaffMode) {
+    	FramesetPicker PickerWindow = new FramesetPicker(owner, isStaffMode);
 
     	return configureAndShowPicker(PickerWindow);  	
     }

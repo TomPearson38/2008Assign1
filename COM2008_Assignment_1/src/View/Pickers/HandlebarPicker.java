@@ -1,6 +1,7 @@
 package View.Pickers;
 
 import java.awt.Dialog;
+import java.awt.Window;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,23 +26,12 @@ import View.CreatorsAndEditors.HandlebarEditor;
 public class HandlebarPicker extends AbstractPicker<Handlebar>{
 
 
-	public HandlebarPicker(JFrame parent, boolean isStaffMode) {
+	public HandlebarPicker(Window parent, boolean isStaffMode) {
 		super(parent, isStaffMode);
 	}
 	
-	public HandlebarPicker(Dialog owner, Boolean isStaffMode) {
-		super(owner, isStaffMode);
-	}
-	
-	public static Handlebar chooseHandlebar(JDialog parent) { return HandlebarPicker.chooseHandlebar(parent, false); }
-    public static Handlebar chooseHandlebar(JDialog parent, boolean managementMode) {
-    	HandlebarPicker pickerWindow = new HandlebarPicker(parent, managementMode);
-    	
-    	return configureAndShowPicker(pickerWindow);  	
-    }
-    
-	public static Handlebar chooseHandlebar(JFrame parent) { return HandlebarPicker.chooseHandlebar(parent, false); }
-    public static Handlebar chooseHandlebar(JFrame parent, boolean managementMode) {
+	public static Handlebar chooseHandlebar(Window parent) { return HandlebarPicker.chooseHandlebar(parent, false); }
+    public static Handlebar chooseHandlebar(Window parent, boolean managementMode) {
     	HandlebarPicker pickerWindow = new HandlebarPicker(parent, managementMode);
     	
     	return configureAndShowPicker(pickerWindow);  	

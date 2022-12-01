@@ -6,6 +6,7 @@ import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -22,13 +23,9 @@ public abstract class AbstractCreator<T> extends JDialog {
 	
 	final Collection<IGridRow<?, ?>> gridValuesToAdd = getGridValues();
 	
-	public AbstractCreator(Dialog owner) {
-		super(owner, true);
-		addComponents();
-	}
 	
-	public AbstractCreator(Frame owner) {
-		super(owner, true);
+	public AbstractCreator(Window owner) {
+		super(owner, ModalityType.APPLICATION_MODAL);
 		addComponents();
 	}
 	

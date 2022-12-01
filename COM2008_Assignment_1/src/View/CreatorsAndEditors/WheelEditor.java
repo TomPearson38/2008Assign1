@@ -1,6 +1,7 @@
 package View.CreatorsAndEditors;
 
-import java.awt.Dialog;
+import java.awt.Window;
+
 import Database.WheelOperations;
 import Domain.BrakeType;
 import Domain.TyreType;
@@ -9,8 +10,7 @@ import Domain.Wheel;
 public class WheelEditor extends AbstractWheelCreator {
 	int wheelID;
 
-	public WheelEditor(Dialog owner, Wheel wheelToEdit) {
-		// TODO Auto-generated constructor stub#
+	public WheelEditor(Window owner, Wheel wheelToEdit) {
 		super(owner);
 		wheelID = wheelToEdit.get_id();
 		brandNameRow.setFieldValue(wheelToEdit.getBrandName());
@@ -36,7 +36,7 @@ public class WheelEditor extends AbstractWheelCreator {
 		return newWheel;
 	}
 	
-	public static Wheel openEditor(Dialog owner, Wheel object) {
+	public static Wheel openEditor(Window owner, Wheel object) {
 		WheelEditor newEditorWindow = new WheelEditor(owner, object);
 		return newEditorWindow.showCreatorDialog();
 	}

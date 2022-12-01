@@ -1,6 +1,6 @@
 package View.CreatorsAndEditors;
 
-import java.awt.Dialog;
+import java.awt.Window;
 
 import Database.FrameOperations;
 import Domain.Frameset;
@@ -8,11 +8,11 @@ import Domain.Gearset;
 
 public class FramesetCreator extends AbstractFramesetCreator{
 
-	public FramesetCreator(Dialog owner) {
+	public FramesetCreator(Window owner) {
 		super(owner);
 	}
 	
-	public static Frameset addFrameset(Dialog owner) {
+	public static Frameset addFrameset(Window owner) {
 		FramesetCreator myWindow = new FramesetCreator(owner);
 		return myWindow.showCreatorDialog();
 	}

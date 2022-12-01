@@ -1,6 +1,7 @@
 package View.CreatorsAndEditors;
 
-import java.awt.Dialog;
+import java.awt.Window;
+
 import Database.FrameOperations;
 import Domain.Frameset;
 import Domain.Gearset;
@@ -9,8 +10,7 @@ public class FramesetEditor extends AbstractFramesetCreator {
 	
 	int framesetID;
 
-	public FramesetEditor(Dialog owner, Frameset framesetToEdit) {
-		// TODO Auto-generated constructor stub
+	public FramesetEditor(Window owner, Frameset framesetToEdit) {
 		super(owner);
 		framesetID = framesetToEdit.get_id();
 		
@@ -38,7 +38,7 @@ public class FramesetEditor extends AbstractFramesetCreator {
 		return framesetToUpdate;
 	}
 	
-	public static Frameset openEditor(Dialog owner, Frameset object) {
+	public static Frameset openEditor(Window owner, Frameset object) {
 		FramesetEditor newEditorWindow = new FramesetEditor(owner, object);
 		return newEditorWindow.showCreatorDialog();
 	}

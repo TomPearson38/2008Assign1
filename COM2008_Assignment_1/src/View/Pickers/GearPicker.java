@@ -1,6 +1,7 @@
 package View.Pickers;
 
 import java.awt.Dialog;
+import java.awt.Window;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,26 +29,19 @@ public class GearPicker extends AbstractPicker<Gearset>{
 	 * @param parent Parent form
 	 * @param managementMode If the edit buttons are present
 	 */
-	public GearPicker(JFrame parent, boolean isStaffMode) {
+	public GearPicker(Window parent, boolean isStaffMode) {
 		super(parent, isStaffMode);
 	}
-	public GearPicker(Dialog owner, Boolean isStaffMode) {
-		super(owner, isStaffMode);
-	}
 
-	public static Gearset chooseGearset(JDialog parent) { return GearPicker.chooseGearset(parent, false); }
-    public static Gearset chooseGearset(JDialog parent, boolean managementMode) {
+
+	public static Gearset chooseGearset(Window parent) { return GearPicker.chooseGearset(parent, false); }
+    public static Gearset chooseGearset(Window parent, boolean managementMode) {
     	GearPicker PickerWindow = new GearPicker(parent, managementMode);
     	
     	return configureAndShowPicker(PickerWindow);  	
     }
     
-	public static Gearset chooseGearset(JFrame parent) { return GearPicker.chooseGearset(parent, false); }
-    public static Gearset chooseGearset(JFrame parent, boolean managementMode) {
-    	GearPicker PickerWindow = new GearPicker(parent, managementMode);
-    	
-    	return configureAndShowPicker(PickerWindow);  	
-    }
+
     private static Gearset configureAndShowPicker(GearPicker pickerWindow) {
     	pickerWindow.setTitle("Gear Picker");
     	

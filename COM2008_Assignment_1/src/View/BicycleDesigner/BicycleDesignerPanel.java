@@ -131,7 +131,7 @@ public class BicycleDesignerPanel extends JPanel {
 		super();
 		this._parent = _parent;
 		
-		setSavedDesign(null);
+		
 		addControls();
 	}
 
@@ -188,6 +188,8 @@ public class BicycleDesignerPanel extends JPanel {
 	private void addControls() {
 		this.setPreferredSize(new Dimension(500,400));
 		this.setLayout(new BorderLayout());
+		
+		setSavedDesign(null);
 		
 		JPanel namePanel = new JPanel(new BorderLayout());
 		namePanel.add(nameFieldLabel, BorderLayout.WEST);

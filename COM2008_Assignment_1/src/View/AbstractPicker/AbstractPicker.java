@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dialog;
 import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -76,18 +78,12 @@ public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     	}
     }
     
-    
-    public AbstractPicker(Dialog owner, Boolean isStaffMode) {
-		super(owner, true);
+    public AbstractPicker(Window owner, Boolean isStaffMode) {
+		super(owner, ModalityType.APPLICATION_MODAL);
 		this.isStaffMode = isStaffMode;
 		this.addComponentsToPane();
 	}
-
-	public AbstractPicker(JFrame owner, Boolean isStaffMode) {
-        super(owner, true);
-        this.isStaffMode = isStaffMode;
-        this.addComponentsToPane();
-    }
+    
     
     private PickerPanel<T> setUpPickerPanel() {
     	final PickerPanel<T> pickerPanel = new PickerPanel<T>();

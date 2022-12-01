@@ -10,13 +10,20 @@ public class BicycleDesignerDialog extends JDialog {
 	
 	private Bicycle result;
 	
+	BicycleDesignerPanel designer;
+	
 	private JFrame _parent;
 	
-	public BicycleDesignerDialog(JFrame parent) {
-		super(parent);
-		_parent = parent;
+//	public BicycleDesignerDialog(JDialog owner) {
+//		super(owner);
+//		designer = new BicycleDesignerPanel(owner);
+//		addControls();
+//	}
+	
+	public BicycleDesignerDialog(JFrame owner) {
+		super(owner);
+		designer = new BicycleDesignerPanel(owner);
 		addControls();
-		
 	}
 	
 	public Bicycle showDesignerDialog() {
@@ -37,9 +44,6 @@ public class BicycleDesignerDialog extends JDialog {
 	
 	private void addControls() {
 		final Container pane = this.getContentPane();
-		this.setPreferredSize(new Dimension(500,400));
-		
-		final BicycleDesignerPanel designer = new BicycleDesignerPanel(_parent);
 		
 		pane.add(designer);
 	}

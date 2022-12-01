@@ -1,7 +1,6 @@
 package View.CreatorsAndEditors;
 
-import java.awt.Dialog;
-import java.awt.Frame;
+import java.awt.Window;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -12,13 +11,13 @@ import Domain.BrakeType;
 import Domain.TyreType;
 import Domain.Wheel;
 import View.AbstractCreator.AbstractCreator;
+import View.AbstractCreator.DoubleGridRow;
+import View.AbstractCreator.EnumGridRow;
 import View.AbstractCreator.IGridRow;
 import View.AbstractCreator.IntegerGridRow;
 import View.AbstractCreator.StringGridRow;
 import View.UserControls.JDoubleField;
 import View.UserControls.JIntegerField;
-import View.AbstractCreator.DoubleGridRow;
-import View.AbstractCreator.EnumGridRow;
 
 public abstract class AbstractWheelCreator extends AbstractCreator<Wheel> {
 	IGridRow<Integer, JIntegerField> serialNumberRow;
@@ -30,14 +29,10 @@ public abstract class AbstractWheelCreator extends AbstractCreator<Wheel> {
 	IGridRow<Integer, JIntegerField> stockRow;
 	
 	
-	public AbstractWheelCreator(Frame owner) {
+	public AbstractWheelCreator(Window owner) {
 		super(owner);
 	}
 
-
-	public AbstractWheelCreator(Dialog owner) {
-		super(owner);
-	}
 
 
 	@Override

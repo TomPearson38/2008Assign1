@@ -1,7 +1,6 @@
 package View.CreatorsAndEditors;
 
-import java.awt.Dialog;
-import java.awt.Frame;
+import java.awt.Window;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -11,13 +10,13 @@ import javax.swing.JTextField;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
 import View.AbstractCreator.AbstractCreator;
+import View.AbstractCreator.DoubleGridRow;
+import View.AbstractCreator.EnumGridRow;
 import View.AbstractCreator.IGridRow;
 import View.AbstractCreator.IntegerGridRow;
 import View.AbstractCreator.StringGridRow;
 import View.UserControls.JDoubleField;
 import View.UserControls.JIntegerField;
-import View.AbstractCreator.DoubleGridRow;
-import View.AbstractCreator.EnumGridRow;
 
 public abstract class AbstractHandlebarCreator extends AbstractCreator<Handlebar> {
 	IGridRow<Integer, JIntegerField> serialNumberRow;
@@ -26,11 +25,7 @@ public abstract class AbstractHandlebarCreator extends AbstractCreator<Handlebar
 	IGridRow<HandlebarStyles, JComboBox<HandlebarStyles>> stylesRow;
 	IGridRow<Integer, JIntegerField> stockRow;
 	
-	public AbstractHandlebarCreator(Frame owner) {
-		super(owner);
-	}
-
-	public AbstractHandlebarCreator(Dialog owner) {
+	public AbstractHandlebarCreator(Window owner) {
 		super(owner);
 	}
 

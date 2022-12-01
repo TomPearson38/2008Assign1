@@ -1,6 +1,6 @@
 package View.CreatorsAndEditors;
 
-import java.awt.Dialog;
+import java.awt.Window;
 import java.sql.SQLException;
 
 import Database.GearsetOperations;
@@ -10,7 +10,7 @@ import Domain.Gearset;
 public class GearsetEditor extends AbstractGearsetCreator {
 	private int id;
 
-	public GearsetEditor(Dialog owner, Gearset gearsetToEdit) {
+	public GearsetEditor(Window owner, Gearset gearsetToEdit) {
 		super(owner);
 		this.id = gearsetToEdit.get_id();
 	}
@@ -23,7 +23,7 @@ public class GearsetEditor extends AbstractGearsetCreator {
 		return GearsetOperations.updateGearset(request);
 	}
 	
-	public static Gearset openEditor(Dialog owner, Gearset object) {
+	public static Gearset openEditor(Window owner, Gearset object) {
 		GearsetEditor newEditorWindow = new GearsetEditor(owner, object);
 		return newEditorWindow.showCreatorDialog();
 	}
