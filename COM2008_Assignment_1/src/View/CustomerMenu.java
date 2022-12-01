@@ -26,6 +26,7 @@ import Domain.Wheel;
 import Resources.ResourceSingleton;
 import View.BicycleDesigner.BicycleDesignerPanel;
 import View.BicycleDesigner.BicycleDesignerPanel.DesignNotSavedException;
+import View.BicycleDesigner.SaveBicycleDesignButton;
 import View.Pickers.BicyclePicker;
 
 /**
@@ -86,27 +87,13 @@ public class CustomerMenu extends JFrame {
 		customerButtonsPanel.add(chooseTemplateButton);
 		customerButtonsPanel.add(viewOrderButton);
 		
-		final JButton saveDesignButton = new JButton("Save New Design");
-		mainPanel.addIsNewDesignListener(isNewDesign -> {
-			if (isNewDesign) {
-				saveDesignButton.setText("Save New Design");
-			} else if (!isNewDesign) {
-				saveDesignButton.setText("Update Design");
-			}
-		});
-		saveDesignButton.setIcon(new ImageIcon(ResourceSingleton.getSaveIcon()));
-		saveDesignButton.setEnabled(false);
-		Supplier<Boolean> shouldSaveButtonBeEnabled = () -> {
-			return mainPanel.isDesignValid() && !mainPanel.isDesignSaved();
-		};
-		mainPanel.addDesignValidityListener(e -> saveDesignButton.setEnabled(shouldSaveButtonBeEnabled.get()));
-		saveDesignButton.addActionListener(this::saveButtonClicked);
+		final JButton saveDesignButton = new SaveBicycleDesignButton("Save New Design", mainPanel);
 		
 		final JButton submitOrderButton = new JButton("Order Design");
 		Image shoppingImage = ResourceSingleton.getShoppingImage();
 		submitOrderButton.setIcon(new ImageIcon(shoppingImage.getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
 		submitOrderButton.setEnabled(false);
-		mainPanel.addDesignSavedListener(submitOrderButton::setEnabled);
+		
 		submitOrderButton.addActionListener(this::orderButtonClicked);
 		
 		bottomRightContainerPanel.add(saveDesignButton);
@@ -127,34 +114,6 @@ public class CustomerMenu extends JFrame {
 		
 	}
 	
-	/**
-	 * Saves bike to database if valid
-	 * @param e
-	 */
-	private void saveButtonClicked(ActionEvent e) {
-		if (mainPanel.isNewDesign()) {
-			//add to DB
-			try {
-				Bicycle newDesignSavedToDatabase = BicycleOperations.addBicycle(mainPanel.generateBicycleCreateRequest());
-				mainPanel.setDesign(newDesignSavedToDatabase);
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-				JOptionPane.showMessageDialog(this, "Couldn't save to database", "Error!", JOptionPane.ERROR_MESSAGE);
-			}
-			
-		} else {
-			//update existing record in DB
-			final Bicycle bicycleToUpdate = mainPanel.getUpdatedVersionOfOriginalDomainObject();
-			boolean updateSucceeded = BicycleOperations.updateBicycle(bicycleToUpdate);
-			if (updateSucceeded) {
-				mainPanel.setDesign(bicycleToUpdate);
-			} else {
-				JOptionPane.showMessageDialog(this, "Couldn't update design in database", "Error!", JOptionPane.ERROR_MESSAGE);
-			}
-		}
-		
-		
-	}
 	
 	/**
 	 * Orders bike if valid

@@ -18,6 +18,7 @@ import View.AbstractPicker.CommonFilters;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 import View.AbstractPicker.PropertyDescriptor;
+import View.BicycleDesigner.BicycleDesignerDialog;
 
 /**
  * Picker panel to chose the individual bike parts
@@ -101,11 +102,6 @@ public class BicyclePicker extends AbstractPicker<Bicycle>{
 	}
 
 
-//	@Override
-//	protected Boolean updateComponent(Bicycle Object) {
-//		return BicycleOperations.updateBicycle(Object);
-//	}
-
 	@Override
 	protected Boolean deleteComponent(Bicycle Object) throws SQLIntegrityConstraintViolationException {
 		return BicycleOperations.deleteBicycle(Object);
@@ -113,7 +109,7 @@ public class BicyclePicker extends AbstractPicker<Bicycle>{
 
 	@Override
 	protected Bicycle editObject(Bicycle currentObject) {
-		return null;
+		return BicycleDesignerDialog.editBicycle(this, currentObject);
 	}
 	
 

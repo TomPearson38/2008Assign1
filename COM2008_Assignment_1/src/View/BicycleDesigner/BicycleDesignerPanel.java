@@ -3,6 +3,7 @@ package View.BicycleDesigner;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Window;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Consumer;
@@ -23,11 +24,12 @@ import Domain.Wheel;
 import View.Pickers.FramesetPicker;
 import View.Pickers.HandlebarPicker;
 import View.Pickers.WheelPicker;
-import View.UserControls.LimitedJTextField;
+import View.UserControls.JLimitedTextField;
 
 public class BicycleDesignerPanel extends JPanel {
 	private JLabel nameFieldLabel = new JLabel("Name: ");
-	private JTextField nameField = new JTextField();
+	final static int nameFieldLimit = 40;
+	private JLimitedTextField nameField = new JLimitedTextField(nameFieldLimit);
 
 	private JPanel componentsPanel = new JPanel();
 	private JButton chooseFrameButton = new JButton("Frame");
@@ -125,11 +127,11 @@ public class BicycleDesignerPanel extends JPanel {
 		designValidityListeners.forEach(x -> x.accept(designValidity));
 	}
 
-	private JFrame _parent;
+	private Window _owner;
 	
-	public BicycleDesignerPanel(JFrame _parent) {
+	public BicycleDesignerPanel(Window owner) {
 		super();
-		this._parent = _parent;
+		this._owner = owner;
 		
 		
 		addControls();
@@ -213,9 +215,9 @@ public class BicycleDesignerPanel extends JPanel {
 			});
 		
 		
-		chooseFrameButton.addActionListener(e -> setCurrentFrameset(FramesetPicker.chooseFrameset(_parent)));
-		chooseWheelsButton.addActionListener(e -> setCurrentWheels(WheelPicker.chooseWheels(_parent)));
-		chooseHandlebarsButton.addActionListener(e -> setCurrentHandlebars(HandlebarPicker.chooseHandlebar(_parent)));
+		chooseFrameButton.addActionListener(e -> setCurrentFrameset(FramesetPicker.chooseFrameset(_owner)));
+		chooseWheelsButton.addActionListener(e -> setCurrentWheels(WheelPicker.chooseWheels(_owner)));
+		chooseHandlebarsButton.addActionListener(e -> setCurrentHandlebars(HandlebarPicker.chooseHandlebar(_owner)));
 		
 		
 		componentsPanel.setLayout(new FlowLayout());
@@ -231,8 +233,6 @@ public class BicycleDesignerPanel extends JPanel {
 		topPanel.add(namePanel, BorderLayout.NORTH);
 		topPanel.add(componentsPanel, BorderLayout.CENTER);
 		
-		//Limits the length name attribute to 40
-		nameField.setDocument(new LimitedJTextField(40));
 				
 		this.add(topPanel, BorderLayout.NORTH);
 		this.add(centralPanel, BorderLayout.CENTER);
