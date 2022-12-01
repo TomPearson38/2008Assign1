@@ -199,8 +199,9 @@ public class HandlebarOperations {
 	 * @param style
 	 * @param stockNum
 	 * @return Handlebar created from information
+	 * @throws SQLIntegrityConstraintViolationException 
 	 */
-	public static Handlebar createHandlebar(String brandName, int serialNumber, double cost, HandlebarStyles style, int stockNum) {
+	public static Handlebar createHandlebar(String brandName, int serialNumber, double cost, HandlebarStyles style, int stockNum) throws SQLIntegrityConstraintViolationException {
 		String sqlTemplate = "INSERT INTO Handlebars(serial_number, brand_name, cost, style, stock_num) VALUES(?,?,?,?,?);";
 						
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -235,6 +236,8 @@ public class HandlebarOperations {
 				}
 			}
 			
+		} catch (SQLIntegrityConstraintViolationException e1) { 
+			throw e1;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}

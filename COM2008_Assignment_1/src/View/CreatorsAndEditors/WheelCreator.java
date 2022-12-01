@@ -1,6 +1,9 @@
 package View.CreatorsAndEditors;
 
 import java.awt.Window;
+import java.sql.SQLIntegrityConstraintViolationException;
+
+import javax.swing.JOptionPane;
 
 import Database.WheelOperations;
 import Domain.BrakeType;
@@ -27,7 +30,12 @@ public class WheelCreator extends AbstractWheelCreator {
 		BrakeType brakeType = brakeTypeRow.getFieldValue();
 		int availableStock = stockRow.getFieldValue();
 		
-		Wheel newWheel = WheelOperations.createWheel(brandName, serialNumber, cost, diameter, tyreType, brakeType, availableStock);
+		Wheel newWheel = null;
+		try {
+			newWheel = WheelOperations.createWheel(brandName, serialNumber, cost, diameter, tyreType, brakeType, availableStock);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			JOptionPane.showMessageDialog(this, "Error adding component - Frameset/Serial number combination already in use", "Error!", JOptionPane.ERROR_MESSAGE);
+		}
 		return newWheel;
 	}
 }

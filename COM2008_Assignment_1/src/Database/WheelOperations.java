@@ -246,8 +246,9 @@ public class WheelOperations {
 	 * @param brakeType
 	 * @param stockNum
 	 * @return created wheel object
+	 * @throws SQLIntegrityConstraintViolationException 
 	 */
-	public static Wheel createWheel(String brandName, int serialNumber, double cost, double diameter, TyreType tyreType, BrakeType brakeType, int stockNum) {
+	public static Wheel createWheel(String brandName, int serialNumber, double cost, double diameter, TyreType tyreType, BrakeType brakeType, int stockNum) throws SQLIntegrityConstraintViolationException {
 		String sqlTemplate = "INSERT INTO Wheels(serial_number, brand_name, cost, diameter, tyre_type, brake_type, stock_num) VALUES(?,?,?,?,?,?,?);";
 						
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -294,6 +295,8 @@ public class WheelOperations {
 				}
 			}
 			
+		} catch (SQLIntegrityConstraintViolationException e1) { 
+			throw e1;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}

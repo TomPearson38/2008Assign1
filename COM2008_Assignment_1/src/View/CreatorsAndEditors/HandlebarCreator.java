@@ -1,6 +1,9 @@
 package View.CreatorsAndEditors;
 
 import java.awt.Window;
+import java.sql.SQLIntegrityConstraintViolationException;
+
+import javax.swing.JOptionPane;
 
 import Database.HandlebarOperations;
 import Domain.Handlebar;
@@ -24,7 +27,12 @@ public class HandlebarCreator extends AbstractHandlebarCreator{
 		HandlebarStyles style = stylesRow.getFieldValue();
 		int availableStock = stockRow.getFieldValue();
 		
-		Handlebar newHandlebar = HandlebarOperations.createHandlebar(brandName, serialNumber, cost, style, availableStock);
+		Handlebar newHandlebar = null;
+		try {
+			newHandlebar = HandlebarOperations.createHandlebar(brandName, serialNumber, cost, style, availableStock);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			JOptionPane.showMessageDialog(this, "Error adding component - Frameset/Serial number combination already in use", "Error!", JOptionPane.ERROR_MESSAGE);
+		}
 		return newHandlebar;
 	}
 

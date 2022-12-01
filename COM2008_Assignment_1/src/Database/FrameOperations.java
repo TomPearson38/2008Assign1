@@ -216,8 +216,9 @@ public class FrameOperations {
 	 * @param gears
 	 * @param stockNum
 	 * @return New frameset object
+	 * @throws SQLIntegrityConstraintViolationException 
 	 */
-	public static Frameset insertFrameset(int serialNumber, String brandName, double cost, double size, boolean shocks, Gearset gears, int stockNum) {
+	public static Frameset insertFrameset(int serialNumber, String brandName, double cost, double size, boolean shocks, Gearset gears, int stockNum) throws SQLIntegrityConstraintViolationException {
 		String sqlTemplate = "INSERT INTO Frames(serial_number, brand_name, cost, size, shocks, gears_id, stock_num) VALUES(?,?,?,?,?,?,?);";
 		
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -243,7 +244,10 @@ public class FrameOperations {
 				}
 			}
 			
-		} catch (SQLException ex) {
+		} catch (SQLIntegrityConstraintViolationException e1) { 
+			throw e1;
+		}
+		catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		
