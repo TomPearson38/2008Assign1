@@ -1,12 +1,9 @@
 package View.CreatorsAndEditors;
 
 import java.awt.Dialog;
-import java.awt.Frame;
-
 import Database.HandlebarOperations;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
-import View.AbstractPicker.IEditor;
 
 public class HandlebarEditor extends AbstractHandlebarCreator {
 	

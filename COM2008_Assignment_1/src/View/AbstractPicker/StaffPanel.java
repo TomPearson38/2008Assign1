@@ -1,22 +1,13 @@
 package View.AbstractPicker;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
-
-import View.Pickers.FramesetPicker;
 
 
 class StaffPanel<T> extends JPanel {

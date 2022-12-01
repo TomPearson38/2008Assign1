@@ -2,19 +2,23 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import Database.CustomerOperations;
 import Database.OrderOperations;
-import Database.StaffOperations;
 import Domain.Customer;
 import Domain.Order;
 import View.StaffWindow.ExpandedBikeView;
@@ -44,7 +48,6 @@ public class CustomerLogin extends JDialog implements ActionListener {
 	JPanel inputPanel = new JPanel(new GridLayout(3,2));
 	JPanel buttonPanel = new JPanel(new BorderLayout());
 
-	private JFrame _parent;
 	
 	Customer foundCustomer = null;
 	
@@ -57,8 +60,6 @@ public class CustomerLogin extends JDialog implements ActionListener {
 	private void StartUp(String title) {		
 		setTitle(title);
 		
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Dimension screenSize = toolkit.getScreenSize();
 		
 		setSize(500, 400);
 		setLocationRelativeTo(null); //Compact panel centring
@@ -137,7 +138,7 @@ public class CustomerLogin extends JDialog implements ActionListener {
 		if(command.equals("Login")) {
 			foundCustomer = CustomerOperations.findCustomer(forenameInput.getText(), surenameInput.getText(), houseNumNameInput.getText(), streetNameInput.getText(), cityInput.getText(),postCodeInput.getText());
 			if(foundCustomer != null) {
-				PreviousCustomerOrders po = new PreviousCustomerOrders(foundCustomer);
+				new PreviousCustomerOrders(foundCustomer);
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Incorrect Customer Details.\nPlease try again.");
@@ -148,7 +149,7 @@ public class CustomerLogin extends JDialog implements ActionListener {
 			try {
 				foundOrder = OrderOperations.getOrder(Integer.parseInt(orderNumberInput.getText()));
 				if(foundOrder != null) {
-					ExpandedBikeView ex = new ExpandedBikeView(new OrderModelRow(foundOrder), false, null, "Order Found");
+					new ExpandedBikeView(new OrderModelRow(foundOrder), false, null, "Order Found");
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Incorrect Order Number.\nPlease try again.");
@@ -166,7 +167,6 @@ public class CustomerLogin extends JDialog implements ActionListener {
 	 */
 	public CustomerLogin(JFrame parent) {
 		super(parent);
-		_parent = parent;
 		StartUp("Customer Login");
 	}
 }

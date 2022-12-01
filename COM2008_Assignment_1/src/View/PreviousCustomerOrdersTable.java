@@ -45,7 +45,7 @@ public class PreviousCustomerOrdersTable extends AbstractTable<OrderModelRow>{
 	
 	@Override
 	protected void doubleClicked(OrderModelRow row) {
-		ExpandedBikeView ex = new ExpandedBikeView(row, false, null, "Selected Order");
+		new ExpandedBikeView(row, false, null, "Selected Order");
 	}
 	
 	

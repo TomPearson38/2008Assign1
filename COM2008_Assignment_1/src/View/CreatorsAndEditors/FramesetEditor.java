@@ -1,13 +1,9 @@
 package View.CreatorsAndEditors;
 
 import java.awt.Dialog;
-import java.awt.Frame;
-
 import Database.FrameOperations;
 import Domain.Frameset;
 import Domain.Gearset;
-import Domain.Wheel;
-import View.AbstractPicker.IEditor;
 
 public class FramesetEditor extends AbstractFramesetCreator {
 	

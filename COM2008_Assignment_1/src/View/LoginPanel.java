@@ -100,7 +100,7 @@ public class LoginPanel extends JDialog implements ActionListener {
 	};
 	
 	private void attemptLogin() {
-		loggedInUser = StaffOperations.attemptLogin(usernameField.getText(), passwordField.getText());
+		loggedInUser = StaffOperations.attemptLogin(usernameField.getText(), passwordField.getPassword());
 		if(loggedInUser != null) {
 			StaffWindow newStaffWindow = new StaffWindow(_parent);
 			newStaffWindow.showDialog();

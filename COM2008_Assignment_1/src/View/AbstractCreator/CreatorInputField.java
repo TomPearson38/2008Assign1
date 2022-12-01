@@ -1,9 +1,7 @@
 package View.AbstractCreator;
 
-import java.util.function.BiConsumer;
-import java.util.function.Function;
-
 import java.awt.Component;
+import java.util.function.Function;
 
 public class CreatorInputField<T, ComponentType extends Component> implements ICreatorInputField<T, ComponentType> {
 	

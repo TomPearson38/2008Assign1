@@ -1,7 +1,6 @@
 package View.CreatorsAndEditors;
 
 import java.awt.Dialog;
-import java.awt.Frame;
 
 import Database.HandlebarOperations;
 import Domain.Handlebar;

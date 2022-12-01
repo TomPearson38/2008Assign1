@@ -1,8 +1,6 @@
 package View.BicycleDesigner;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -16,9 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.PlainDocument;
-
-
 import Database.BicycleOperations;
 import Database.BicycleOperations.CreateBicycleRequest;
 import Domain.Bicycle;

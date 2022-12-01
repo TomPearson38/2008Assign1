@@ -13,12 +13,6 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import Domain.Bicycle;
-import Domain.Order;
-import View.PreviousCustomerOrdersTable.PastOrderTableModel;
-import View.StaffWindow.ExpandedBikeView;
-import View.StaffWindow.OrderModelRow;
-
 public abstract class AbstractTable<T> extends JScrollPane implements EditedObjectsChangedListener<T> {
 	private InternalTable interiorTable = new InternalTable();
 	private GenericAbstractTableModel<T> tableModel = getTableModel();

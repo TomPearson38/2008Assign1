@@ -1,7 +1,6 @@
 package View.Table;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.swing.table.TableCellEditor;

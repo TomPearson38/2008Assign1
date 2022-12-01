@@ -1,12 +1,8 @@
 package View.StaffWindow;
 
-import Database.BicycleOperations;
-import Domain.Bicycle;
 import Domain.BicycleComponent;
 import Domain.Frameset;
 import Domain.Handlebar;
-import Domain.Order;
-import Domain.OrderStatus;
 import Domain.Wheel;
 
 public class PartsModelRow {

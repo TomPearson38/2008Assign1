@@ -6,29 +6,19 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ComboBoxEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.text.PlainDocument;
-
-
-import Database.CustomerOperations;
 import Database.OrderOperations;
 import Domain.Bicycle;
 import Domain.Order;
 import Domain.OrderStatus;
-import View.StaffWindow.*;
 import View.StaffWindow.OrderTable.OrderTableModel;
-import View.Table.Column;
-import View.Table.EditedObjectsChangedListener;
-import View.Table.EnumRenderer;
 
 /*
  * Pop up window to display information on the current order that can't be displayed in the table
@@ -37,7 +27,7 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
 	private Order currentOrder;
 	private static Bicycle currentBike;
 	private OrderModelRow _row;
-	private JComboBox orderStatusCombo;
+	private JComboBox<OrderStatus> orderStatusCombo;
 	private boolean _staffMember;
 	private JButton confirmButton;
 	
@@ -101,7 +91,7 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
 		
 		infoPanel.add(new JLabel("Order Status:"));
 		if(_staffMember) {
-			orderStatusCombo = new JComboBox(OrderStatus.values());
+			orderStatusCombo = new JComboBox<OrderStatus>(OrderStatus.values());
 			orderStatusCombo.setSelectedItem(currentOrder.get_order_status());			
 			infoPanel.add(orderStatusCombo);
 		}

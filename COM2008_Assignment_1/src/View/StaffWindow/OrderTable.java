@@ -5,9 +5,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.swing.DefaultCellEditor;
-import javax.swing.JComboBox;
-
 import Database.OrderOperations;
 import Domain.Bicycle;
 import Domain.Order;
@@ -15,7 +12,6 @@ import Domain.OrderStatus;
 import View.Table.AbstractTable;
 import View.Table.Column;
 import View.Table.ComboBoxEditor;
-import View.Table.EditedObjectsChangedListener;
 import View.Table.EnumRenderer;
 import View.Table.GenericAbstractTableModel;
 import View.Table.SterlingRenderer;
@@ -65,7 +61,7 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 	 */
 	@Override
 	protected void doubleClicked(OrderModelRow row) {
-		ExpandedBikeView ex = new ExpandedBikeView(row, true, loadedOrderTableModel, "Edit Order");
+		new ExpandedBikeView(row, true, loadedOrderTableModel, "Edit Order");
 		
 	}
 	

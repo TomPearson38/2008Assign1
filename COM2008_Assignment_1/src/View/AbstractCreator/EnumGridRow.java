@@ -4,8 +4,6 @@ import java.util.function.Predicate;
 
 import javax.swing.JComboBox;
 
-import View.UserControls.JDoubleField;
-
 public class EnumGridRow<E extends Enum<E>> extends GridRow<E, JComboBox<E>> {
 	
 	public EnumGridRow(String labelText, E[] enumValues) {

@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -21,7 +20,6 @@ import javax.swing.border.EmptyBorder;
 
 import Database.BicycleOperations;
 import Domain.Bicycle;
-import Domain.Customer;
 import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.Wheel;
@@ -170,7 +168,7 @@ public class CustomerMenu extends JFrame {
 			boolean checkStock = stockChecker(bikeToOrder);
 			
 			if(checkStock) {
-				CreateCustomerDetails cd = new CreateCustomerDetails(this, bikeToOrder);
+				new CreateCustomerDetails(this, bikeToOrder);
 			}
 			
 		} catch (DesignNotSavedException ex) {

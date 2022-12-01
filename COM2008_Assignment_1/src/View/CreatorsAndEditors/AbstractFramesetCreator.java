@@ -1,6 +1,5 @@
 package View.CreatorsAndEditors;
 
-import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Frame;
 import java.util.Arrays;
@@ -10,26 +9,18 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
-import Database.FrameOperations;
 import Database.GearsetOperations;
 import Domain.Frameset;
 import Domain.Gearset;
 import View.AbstractCreator.AbstractCreator;
 import View.AbstractCreator.BooleanGridRow;
 import View.AbstractCreator.CollectionGridRow;
-import View.AbstractCreator.GridRow;
 import View.AbstractCreator.IGridRow;
-import View.AbstractCreator.IntegerCreatorInputField;
 import View.AbstractCreator.IntegerGridRow;
-import View.AbstractCreator.StringCreatorInputField;
 import View.AbstractCreator.StringGridRow;
 import View.UserControls.JDoubleField;
 import View.UserControls.JIntegerField;
-import View.AbstractCreator.CreatorInputField;
-import View.AbstractCreator.DoubleCreatorInputField;
 import View.AbstractCreator.DoubleGridRow;
-import View.AbstractCreator.EnumCreatorInputField;
-import View.AbstractCreator.EnumGridRow;
 
 public abstract class AbstractFramesetCreator extends AbstractCreator<Frameset> {
 	IGridRow<Integer, JIntegerField> serialNumberRow;

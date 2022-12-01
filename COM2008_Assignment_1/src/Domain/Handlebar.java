@@ -1,7 +1,5 @@
 package Domain;
 
-import java.util.Objects;
-
 /**
  * Handlebar object for the bike
  * @author Alex Dobson

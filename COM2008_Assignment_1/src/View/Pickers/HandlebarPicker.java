@@ -58,10 +58,9 @@ public class HandlebarPicker extends AbstractPicker<Handlebar>{
 		try {
 			 allHandlebars = HandlebarOperations.getAllHandlebars();
 		} catch (EnumMappingException ex) {
-			
-		} finally {
-			return allHandlebars;
+			ex.printStackTrace();
 		}
+		return allHandlebars;
 	}
 
 	@Override

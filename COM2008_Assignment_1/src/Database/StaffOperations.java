@@ -1,20 +1,19 @@
 package Database;
 
-import java.nio.charset.StandardCharsets;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
-import Domain.BrakeType;
 import Domain.Staff;
-import Domain.TyreType;
-import Domain.Wheel;
 
 /**
  * Class contains all the SQL operations of the Staff Class
@@ -69,13 +68,13 @@ public class StaffOperations {
 	 * @param attemptPassword
 	 * @return if successful, the staff member that it matches is returned
 	 */
-	public static Staff attemptLogin(String attemptUsername, String attemptPassword) {
+	public static Staff attemptLogin(String attemptUsername, char[] attemptPassword) {
 		String hashedPassword;
 		try {
 			hashedPassword = getSHA(attemptPassword);
 		} catch (NoSuchAlgorithmException e1) {
-			hashedPassword = attemptPassword;
-			e1.printStackTrace();
+//			hashedPassword = attemptPassword;
+			return null;
 		}
 		
 		Staff foundUser = null;
@@ -91,6 +90,17 @@ public class StaffOperations {
 	}
 	
 	
+	/*
+	 * From https://stackoverflow.com/questions/5513144/converting-char-to-byte
+	 */
+	private static byte[] convertCharArraytoBytes(char[] chars) {
+	  CharBuffer charBuffer = CharBuffer.wrap(chars);
+	  ByteBuffer byteBuffer = Charset.forName("UTF-8").encode(charBuffer);
+	  byte[] bytes = Arrays.copyOfRange(byteBuffer.array(),
+	            byteBuffer.position(), byteBuffer.limit());
+	  Arrays.fill(byteBuffer.array(), (byte) 0); // clear sensitive data
+	  return bytes;
+	}
 
 	/**
 	 * Encrypts the provided password into SHA hashing before it is compared to saved password
@@ -102,9 +112,9 @@ public class StaffOperations {
 	 * @return Hashed password
 	 * @throws NoSuchAlgorithmException
 	 */
-	private static String getSHA(String unEncoded) throws NoSuchAlgorithmException{
+	private static String getSHA(char[] unEncoded) throws NoSuchAlgorithmException{
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-		byte[] hash = digest.digest(unEncoded.getBytes(StandardCharsets.UTF_8));
+		byte[] hash = digest.digest(convertCharArraytoBytes(unEncoded));
 		String hashedPassword = bytesToHex(hash);
 		
 		return hashedPassword;

@@ -9,12 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import Domain.BrakeType;
-import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
-import Domain.TyreType;
-import Domain.Wheel;
 
 /**
  * Class contains all SQL operations of the Handlebar class

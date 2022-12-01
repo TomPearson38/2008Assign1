@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import Domain.Gearset;
-import Domain.Handlebar;
-import Domain.HandlebarStyles;
 
 /**
  * Class contains all SQL operations of the Gearset Class

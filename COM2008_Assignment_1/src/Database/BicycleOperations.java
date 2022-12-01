@@ -11,7 +11,6 @@ import java.util.Collection;
 
 import Domain.Bicycle;
 import Domain.Frameset;
-import Domain.Gearset;
 import Domain.Handlebar;
 import Domain.Wheel;
 

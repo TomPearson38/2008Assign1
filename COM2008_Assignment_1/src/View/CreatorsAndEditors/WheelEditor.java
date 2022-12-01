@@ -1,14 +1,10 @@
 package View.CreatorsAndEditors;
 
 import java.awt.Dialog;
-import java.awt.Frame;
-
 import Database.WheelOperations;
 import Domain.BrakeType;
-import Domain.Handlebar;
 import Domain.TyreType;
 import Domain.Wheel;
-import View.AbstractPicker.IEditor;
 
 public class WheelEditor extends AbstractWheelCreator {
 	int wheelID;

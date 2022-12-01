@@ -3,24 +3,16 @@ package Database;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import Domain.Address;
 import Domain.Bicycle;
-import Domain.BrakeType;
 import Domain.Customer;
-import Domain.Frameset;
-import Domain.Gearset;
-import Domain.Handlebar;
 import Domain.Order;
 import Domain.OrderStatus;
-import Domain.TyreType;
-import Domain.Wheel;
 
 /**
  * Contains all the SQL operations of the Order class

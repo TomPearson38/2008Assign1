@@ -6,15 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.swing.DefaultCellEditor;
-import javax.swing.JComboBox;
-import javax.swing.table.AbstractTableModel;
-
-import Database.OrderOperations;
-import Domain.Bicycle;
 import Domain.BicycleComponent;
-import Domain.Order;
-import Domain.OrderStatus;
 import View.Table.*;
 
 /*

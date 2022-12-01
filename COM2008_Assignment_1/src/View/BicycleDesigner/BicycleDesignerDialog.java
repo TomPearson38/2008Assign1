@@ -1,25 +1,10 @@
 package View.BicycleDesigner;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import Domain.Bicycle;
-import Domain.Frameset;
-import Domain.Handlebar;
-import Domain.Wheel;
-import View.Pickers.FramesetPicker;
-import View.Pickers.HandlebarPicker;
-import View.Pickers.WheelPicker;
 
 public class BicycleDesignerDialog extends JDialog {
 	

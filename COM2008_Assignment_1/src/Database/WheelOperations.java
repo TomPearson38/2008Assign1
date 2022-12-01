@@ -11,9 +11,6 @@ import java.util.Collection;
 
 import Domain.Bicycle;
 import Domain.BrakeType;
-import Domain.Frameset;
-import Domain.Handlebar;
-import Domain.HandlebarStyles;
 import Domain.TyreType;
 import Domain.Wheel;
 

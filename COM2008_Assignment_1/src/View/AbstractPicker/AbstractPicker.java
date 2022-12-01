@@ -6,23 +6,15 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
-import java.util.function.Function;
-import java.util.function.Supplier;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingWorker;
-
 import Domain.IToUIString;
-import Domain.Wheel;
-import View.Pickers.WheelPicker;
 
 public abstract class AbstractPicker<T extends IToUIString> extends JDialog {
     JComboBox<Boolean> shocksComboBox;

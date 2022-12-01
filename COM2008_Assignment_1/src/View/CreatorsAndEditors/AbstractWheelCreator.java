@@ -1,6 +1,5 @@
 package View.CreatorsAndEditors;
 
-import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Frame;
 import java.util.Arrays;
@@ -9,24 +8,16 @@ import java.util.Collection;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
-import Database.HandlebarOperations;
-import Database.WheelOperations;
 import Domain.BrakeType;
 import Domain.TyreType;
 import Domain.Wheel;
 import View.AbstractCreator.AbstractCreator;
-import View.AbstractCreator.GridRow;
 import View.AbstractCreator.IGridRow;
-import View.AbstractCreator.IntegerCreatorInputField;
 import View.AbstractCreator.IntegerGridRow;
-import View.AbstractCreator.StringCreatorInputField;
 import View.AbstractCreator.StringGridRow;
 import View.UserControls.JDoubleField;
 import View.UserControls.JIntegerField;
-import View.AbstractCreator.CreatorInputField;
-import View.AbstractCreator.DoubleCreatorInputField;
 import View.AbstractCreator.DoubleGridRow;
-import View.AbstractCreator.EnumCreatorInputField;
 import View.AbstractCreator.EnumGridRow;
 
 public abstract class AbstractWheelCreator extends AbstractCreator<Wheel> {

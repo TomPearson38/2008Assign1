@@ -1,11 +1,8 @@
 package View.AbstractCreator;
 
-import java.util.Collection;
 import java.util.function.Predicate;
 
 import javax.swing.JComboBox;
-
-import View.UserControls.JDoubleField;
 
 public class CollectionGridRow<C> extends GridRow<C, JComboBox<C>> {
 	

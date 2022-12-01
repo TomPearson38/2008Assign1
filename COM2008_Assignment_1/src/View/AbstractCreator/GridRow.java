@@ -1,11 +1,7 @@
 package View.AbstractCreator;
 
 import java.awt.Component;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Predicate;
-
-import javax.swing.JComponent;
 
 public class GridRow<T, ComponentType extends Component> implements IGridRow<T, ComponentType> {
 	private String labelText;

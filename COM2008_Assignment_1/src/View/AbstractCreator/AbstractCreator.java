@@ -1,36 +1,20 @@
 package View.AbstractCreator;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dialog;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.NumberFormatter;
-
-import Database.HandlebarOperations;
-import Domain.Bicycle;
-import Domain.Handlebar;
-import Domain.HandlebarStyles;
-import View.UserControls.JIntegerField;
 
 public abstract class AbstractCreator<T> extends JDialog {
 	private JPanel gridPanel;
@@ -83,7 +67,7 @@ public abstract class AbstractCreator<T> extends JDialog {
 	T result = null;
 	public void confirmButtonClicked() {
 		
-		Collection<IGridRow> invalidRows = gridValuesToAdd.stream().filter(row -> !row.isRowValid()).collect(Collectors.toList());
+		Collection<IGridRow<?, ?>> invalidRows = gridValuesToAdd.stream().filter(row -> !row.isRowValid()).collect(Collectors.toList());
 		if (invalidRows.size() > 0) {
 			String [] invalidRowLabels = invalidRows.stream().map(IGridRow::getRowLabel).toArray(String[]::new);
 			JOptionPane.showMessageDialog(this, "The following rows are invalid: " + String.join(", ", invalidRowLabels), "Error: Input Error", JOptionPane.ERROR_MESSAGE);

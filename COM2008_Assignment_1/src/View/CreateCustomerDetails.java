@@ -61,7 +61,6 @@ public class CreateCustomerDetails extends JDialog implements ActionListener{
 	JLabel costLabel;
 
 	
-	private JFrame _parent;	
 	private Bicycle _bikeToOrder;
 	
 	/**
@@ -173,7 +172,7 @@ public class CreateCustomerDetails extends JDialog implements ActionListener{
 			HandlebarOperations.updateHandlebar(decreasedHandlebars);
 			
 			//Opens expanded window of new order
-			ExpandedBikeView eb = new ExpandedBikeView(new OrderModelRow(createdOrder), false, null, "Order Placed");
+			new ExpandedBikeView(new OrderModelRow(createdOrder), false, null, "Order Placed");
 		}
 		
 		this.dispose();
@@ -187,7 +186,6 @@ public class CreateCustomerDetails extends JDialog implements ActionListener{
 	public CreateCustomerDetails(JFrame parent, Bicycle bikeToOrder) {
 		super(parent);
 		_bikeToOrder = bikeToOrder;
-		_parent = parent;
 		StartUp("Enter your details.");
 	}
 }

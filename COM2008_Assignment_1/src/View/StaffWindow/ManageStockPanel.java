@@ -7,15 +7,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import View.CreatorsAndEditors.AbstractFramesetCreator;
-import View.CreatorsAndEditors.AbstractHandlebarCreator;
-import View.CreatorsAndEditors.AbstractWheelCreator;
 import View.CreatorsAndEditors.FramesetCreator;
 import View.CreatorsAndEditors.GearsetCreator;
-import View.CreatorsAndEditors.AbstractGearsetCreator;
 import View.CreatorsAndEditors.HandlebarCreator;
 import View.CreatorsAndEditors.WheelCreator;
 import View.Pickers.BicyclePicker;

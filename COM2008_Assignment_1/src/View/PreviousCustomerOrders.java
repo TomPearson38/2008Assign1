@@ -9,15 +9,11 @@ import javax.swing.JDialog;
 import Database.OrderOperations;
 import Domain.Customer;
 import Domain.Order;
-import View.StaffWindow.ExpandOrderTable;
-import View.StaffWindow.OrderModelRow;
 
 public class PreviousCustomerOrders extends JDialog{
 	private static Collection<Order> customersOrders;
-	private Customer currentCustomer;
 
 	public PreviousCustomerOrders(Customer customer) {
-		currentCustomer = customer;
 		customersOrders = OrderOperations.getOrdersForCustomer(customer.get_id());
 		setLocationRelativeTo(null); //Compact panel centring
     	setLayout(new GridBagLayout());

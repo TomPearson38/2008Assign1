@@ -1,7 +1,5 @@
 package Domain;
 
-import java.util.Objects;
-
 /**
  * Wheel is a bicycle component used to assemble a bike
  * @author Alex Dobson
