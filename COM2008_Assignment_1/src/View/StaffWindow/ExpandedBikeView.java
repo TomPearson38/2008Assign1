@@ -16,6 +16,8 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.text.PlainDocument;
+
 
 import Database.CustomerOperations;
 import Database.OrderOperations;
@@ -61,10 +63,13 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
     	
     	orderDate = new JLabel(currentOrder.get_date());
     	bikeName = new JLabel(currentOrder.get_bike().getCustomerGivenName());
+    	
+    	if(bikeName.getText().length() > 15)
+    		bikeName.setText(bikeName.getText().substring(0, 13) + "...");
+    	
     	orderNumLabel = new JLabel(orderModelRow.getOrderNumber().toString());
     	orderStatusLabel = new JLabel(orderModelRow.getOrderStatus().toString());
     	customerNameLabel = new JLabel(currentOrder.get_customer().get_full_name());
-    	System.out.println(currentOrder.get_customer().get_id());
     	costLabel = new JLabel(orderModelRow.getCost().toString());
     	
 		addComponents();
@@ -106,7 +111,7 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
 		
 		infoPanel.add(new JLabel("Frame Name:"));
 		infoPanel.add(bikeName);
-		
+				
 		infoPanel.add(new JLabel("Customer Name:"));
 		infoPanel.add(customerNameLabel);
 		
@@ -146,7 +151,6 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
 			_row.setOrderStatus((OrderStatus) orderStatusCombo.getSelectedItem());
 			_loadedOrderTable.addToChanged(_row);
 			_loadedOrderTable.fireTableDataChanged();
-			System.out.println("Success");
 			this.dispose();
 		}
 	}

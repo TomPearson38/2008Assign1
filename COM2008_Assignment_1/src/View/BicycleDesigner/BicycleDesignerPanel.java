@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.PlainDocument;
+
 
 import Database.BicycleOperations;
 import Database.BicycleOperations.CreateBicycleRequest;
@@ -26,6 +28,7 @@ import Domain.Wheel;
 import View.Pickers.FramesetPicker;
 import View.Pickers.HandlebarPicker;
 import View.Pickers.WheelPicker;
+import View.UserControls.LimitedJTextField;
 
 public class BicycleDesignerPanel extends JPanel {
 	private JLabel nameFieldLabel = new JLabel("Name: ");
@@ -230,6 +233,9 @@ public class BicycleDesignerPanel extends JPanel {
 		topPanel.setLayout(new BorderLayout());
 		topPanel.add(namePanel, BorderLayout.NORTH);
 		topPanel.add(componentsPanel, BorderLayout.CENTER);
+		
+		//Limits the length name attribute to 40
+		nameField.setDocument(new LimitedJTextField(40));
 				
 		this.add(topPanel, BorderLayout.NORTH);
 		this.add(centralPanel, BorderLayout.CENTER);
