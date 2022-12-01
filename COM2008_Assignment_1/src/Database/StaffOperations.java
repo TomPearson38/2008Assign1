@@ -76,9 +76,7 @@ public class StaffOperations {
 				String hashedPassword;
 				try {
 					char[] saltedPassword = mergeTwoCharArrays(attemptPassword , (currentStaff.getSalt()).toCharArray());
-					System.out.println(new String(saltedPassword));
 					hashedPassword = getSHA(saltedPassword);
-					System.out.println(hashedPassword);
 					if(currentStaff.validLogin(attemptUsername, hashedPassword))
 						foundUser = currentStaff;
 					break;

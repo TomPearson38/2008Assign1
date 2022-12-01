@@ -11,7 +11,7 @@ import View.Table.*;
 
 /**
  * Table implementation for displaying all the BicycleComponent parts in use in a Bicycle
- * @author Alex Dobson
+ * @author Tom Pearson
  */
 public class BicycleComponentTable extends AbstractTable<PartsModelRow> {	
 	@Override

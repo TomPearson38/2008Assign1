@@ -63,9 +63,7 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 	@Override
 	protected void doubleClicked(OrderModelRow row) {
 		new ExpandedBikeView(row, true, loadedOrderTableModel, "Edit Order");
-		
 	}
-	
 	
 	public class OrderTableModel extends GenericAbstractTableModel<OrderModelRow> {
 		
@@ -73,6 +71,11 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 		public OrderTableModel(Collection<Order> orders, List<Column<OrderModelRow, ?>> columns) {
 			//Maps a list of domain objects (<Order>) into their ViewModel objects (<OrderModelRow>)
 			super(orders.stream().map(OrderModelRow::new).collect(Collectors.toList()), columns);
+		}
+		
+		@Override
+		public void deleteRow() {
+			((ManageOrdersPanel) getParent()).redraw();
 		}
 	}
 	

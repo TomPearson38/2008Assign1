@@ -8,7 +8,9 @@ import java.awt.BorderLayout;
  * @author Alex Dobson
  */
 public class ManageOrdersPanel extends JPanel {
-	
+	OrderTable ordersTable;
+	final OrdersSaveButton saveButton = new OrdersSaveButton();
+
 	
 	public ManageOrdersPanel() {
 		super();
@@ -17,16 +19,16 @@ public class ManageOrdersPanel extends JPanel {
 	}
 	
 	private void addComponents() {
+		this.removeAll();
 		this.setLayout(new BorderLayout());
 		
 		final JPanel bottomPanel = new JPanel(new BorderLayout());
-		final OrdersSaveButton saveButton = new OrdersSaveButton();
 
 		bottomPanel.add(saveButton, BorderLayout.EAST);
 		
 		this.add(bottomPanel, BorderLayout.SOUTH);
 		
-		final OrderTable ordersTable = new OrderTable();
+		ordersTable = new OrderTable();
 		ordersTable.addEditedObjectsChangedListener(saveButton);
 
 		this.add(ordersTable, BorderLayout.CENTER);
@@ -34,6 +36,10 @@ public class ManageOrdersPanel extends JPanel {
 		
 		
 	
+	}
+
+	public void redraw() {
+		addComponents();
 	}
 		
 	

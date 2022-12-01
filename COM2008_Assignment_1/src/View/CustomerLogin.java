@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -9,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -47,6 +49,8 @@ public class CustomerLogin extends JDialog implements ActionListener {
 	
 	JPanel inputPanel = new JPanel(new GridLayout(3,2));
 	JPanel buttonPanel = new JPanel(new BorderLayout());
+	
+	PreviousCustomerOrders pco;
 
 	
 	Customer foundCustomer = null;
@@ -83,10 +87,18 @@ public class CustomerLogin extends JDialog implements ActionListener {
 		
 		contentPanel.add(orderNumberPanel, c);
 		
+		c.gridx = 0;
 		c.gridy = 1;
 		c.ipady = 0;
 		c.weighty = 0.1;
-		contentPanel.add(new JLabel("---------- OR ----------"), c);
+		JPanel middle = new JPanel();
+		middle.setLayout(new GridLayout(4,0));
+		middle.add(new JLabel("------------------------------------ OR ------------------------------------"));
+		middle.add(new JLabel("Please Enter Your Details to Login"));
+		middle.add(new JLabel("When Logged in you can view your existing orders"));
+		middle.add(new JLabel("Cancel pending orders and edit your details."));
+		
+		contentPanel.add(middle, c);
 		
 		//Login with Details
 		fillerPanel.setLayout(new GridLayout(2,0));
@@ -138,7 +150,7 @@ public class CustomerLogin extends JDialog implements ActionListener {
 		if(command.equals("Login")) {
 			foundCustomer = CustomerOperations.findCustomer(forenameInput.getText(), surenameInput.getText(), houseNumNameInput.getText(), streetNameInput.getText(), cityInput.getText(),postCodeInput.getText());
 			if(foundCustomer != null) {
-				new PreviousCustomerOrders(foundCustomer);
+				pco = new PreviousCustomerOrders(foundCustomer);
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Incorrect Customer Details.\nPlease try again.");

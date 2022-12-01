@@ -347,4 +347,25 @@ public class OrderOperations {
 		}
 		return null;	
 	}
+
+	public static boolean deleteOrder(Order currentOrder) {
+		String sqlTemplate = "DELETE FROM Orders WHERE order_number=?; ";
+		
+		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
+			
+			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
+			
+			statement.setInt(1, currentOrder.get_order_number());
+			
+			int rowsAffected = statement.executeUpdate();
+			statement.close();
+			
+			return rowsAffected > 0;
+			
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return false;
+		
+	}
 }

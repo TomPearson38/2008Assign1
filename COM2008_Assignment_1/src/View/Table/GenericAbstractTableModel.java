@@ -8,6 +8,9 @@ import java.util.Set;
 
 import javax.swing.table.AbstractTableModel;
 
+import Domain.Order;
+import View.StaffWindow.OrderModelRow;
+
 /**
  * Reusable table model for representing a list of types T with the columns controlled by Column objects
  * @author Alex Dobson
@@ -104,6 +107,16 @@ public abstract class GenericAbstractTableModel<T> extends AbstractTableModel {
 		
 		column.setValueAsObject(row, aValue);
 		fireTableCellUpdated(rowIndex, columnIndex);
+	}
+
+	public void deleteRow() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void deleteRow(Order removeOrder) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 
