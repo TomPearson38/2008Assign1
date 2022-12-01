@@ -134,8 +134,9 @@ public class HandlebarOperations {
 	 * successful or not
 	 * @param handlebarToUpdate handlebar object to update
 	 * @return successful?
+	 * @throws SQLException 
 	 */
-	public static boolean updateHandlebar(Handlebar handlebarToUpdate) {
+	public static boolean updateHandlebar(Handlebar handlebarToUpdate) throws SQLIntegrityConstraintViolationException {
 		
 		String sqlTemplate = "UPDATE Handlebars SET serial_number = ?, brand_name = ?, cost = ?, style = ?, stock_num = ? WHERE id = ?;";
 		
@@ -154,10 +155,10 @@ public class HandlebarOperations {
 			int rowsAffected = statement.executeUpdate();
 			statement.close();
 			return rowsAffected > 0;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
+		} catch (SQLIntegrityConstraintViolationException e) {
+			throw e;
+		} catch (SQLException e2) {
+			e2.printStackTrace();
 			return false;
 		}
 	}

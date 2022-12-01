@@ -176,8 +176,9 @@ public class WheelOperations {
 	 * successful or not
 	 * @param wheelToUpdate Wheel object to update
 	 * @return successful?
+	 * @throws SQLException 
 	 */
-	public static boolean updateWheel(Wheel wheelToUpdate) {
+	public static boolean updateWheel(Wheel wheelToUpdate) throws SQLIntegrityConstraintViolationException {
 		
 		String sqlTemplate = "UPDATE Wheels SET serial_number = ?, brand_name = ?, cost = ?, diameter = ?, tyre_type = ?, brake_type = ?, stock_num = ? WHERE id = ?;";		
 		
@@ -196,10 +197,10 @@ public class WheelOperations {
 			int rowsAffected = statement.executeUpdate();
 			statement.close();
 			return rowsAffected > 0;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
+		} catch (SQLIntegrityConstraintViolationException e) {
+			throw e;
+		} catch (SQLException e2) {
+			e2.printStackTrace();
 			return false;
 		}
 	}

@@ -150,8 +150,9 @@ public class FrameOperations {
 	 * Updates a Frameset in the database returning whether the update was successful or not
 	 * @param FramesetToUpdate
 	 * @return Successful?
+	 * @throws SQLException 
 	 */
-	public static boolean updateFrameset(Frameset FramesetToUpdate) {
+	public static boolean updateFrameset(Frameset FramesetToUpdate) throws SQLIntegrityConstraintViolationException {
 		
 		String sqlTemplate = "UPDATE Frames SET serial_number = ?, brand_name = ?, cost = ?, shocks = ?, size = ?, gears_id = ?, stock_num = ? WHERE id = ?;";
 		
@@ -170,10 +171,10 @@ public class FrameOperations {
 			int rowsAffected = statement.executeUpdate();
 			statement.close();
 			return rowsAffected > 0;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
+		} catch (SQLIntegrityConstraintViolationException e) {
+			throw e;
+		} catch (SQLException e2) {
+			e2.printStackTrace();
 			return false;
 		}
 	}

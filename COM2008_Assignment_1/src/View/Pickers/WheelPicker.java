@@ -75,10 +75,6 @@ public class WheelPicker extends AbstractPicker<Wheel>{
 		
 		return Arrays.asList(brakesFilter, tyresFilter, costFilter);
 	}
-
-	protected Boolean updateComponent(Wheel wheelData) {
-		return WheelOperations.updateWheel(wheelData);
-	}
 	
 	protected Boolean deleteComponent(Wheel wheelToDelete) throws SQLIntegrityConstraintViolationException {
 		

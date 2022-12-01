@@ -1,6 +1,10 @@
 package View.CreatorsAndEditors;
 
 import java.awt.Window;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
+import javax.swing.JOptionPane;
 
 import Database.FrameOperations;
 import Domain.Frameset;
@@ -34,7 +38,12 @@ public class FramesetEditor extends AbstractFramesetCreator {
 		int availableStock = stockRow.getFieldValue();
 		
 		Frameset framesetToUpdate = new Frameset(this.framesetID, brandName, serialNumber, cost, size, gears, shocks, availableStock);
-		FrameOperations.updateFrameset(framesetToUpdate);
+		try {
+			FrameOperations.updateFrameset(framesetToUpdate);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			JOptionPane.showMessageDialog(this, "Error editing component - Frameset/Serial number combination already in use", "Error!", JOptionPane.ERROR_MESSAGE);
+			
+		}
 		return framesetToUpdate;
 	}
 	

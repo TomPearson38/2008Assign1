@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.concurrent.ThreadLocalRandom;
@@ -161,15 +162,30 @@ public class CreateCustomerDetails extends JDialog implements ActionListener{
 		if(createdOrder != null) {
 			Frameset decreasedFrame = _bikeToOrder.get_frame();
 			decreasedFrame.reduceStockNum();
-			FrameOperations.updateFrameset(decreasedFrame);
+			try {
+				FrameOperations.updateFrameset(decreasedFrame);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			Wheel decreasedWheels = _bikeToOrder.get_Wheels();
 			decreasedWheels.reduceStockNum();
-			WheelOperations.updateWheel(decreasedWheels);
+			try {
+				WheelOperations.updateWheel(decreasedWheels);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			Handlebar decreasedHandlebars = _bikeToOrder.get_handlebar();
 			decreasedHandlebars.reduceStockNum();
-			HandlebarOperations.updateHandlebar(decreasedHandlebars);
+			try {
+				HandlebarOperations.updateHandlebar(decreasedHandlebars);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			//Opens expanded window of new order
 			new ExpandedBikeView(new OrderModelRow(createdOrder), false, null, "Order Placed");

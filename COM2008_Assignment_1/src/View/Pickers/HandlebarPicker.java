@@ -77,9 +77,6 @@ public class HandlebarPicker extends AbstractPicker<Handlebar>{
 		return Arrays.asList(stylesFilter, costFilter);
 	}
 	
-	protected Boolean updateComponent(Handlebar handlebarData) {
-		return HandlebarOperations.updateHandlebar(handlebarData);
-	}
 	
 	protected Boolean deleteComponent(Handlebar handlebarToDelete) throws SQLIntegrityConstraintViolationException  {
 		return HandlebarOperations.deleteHandlebar(handlebarToDelete);
