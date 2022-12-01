@@ -4,8 +4,9 @@ import Domain.Bicycle;
 import Domain.Order;
 import Domain.OrderStatus;
 
-/*
+/**
  * ViewModel object to mask interaction between UI and backing domain objects
+ * @author Alex Dobson
  */
 public class OrderModelRow {
 	private Order backingOrder;

@@ -6,8 +6,12 @@ import java.util.function.Function;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-/*
+/**
  * Column represents a column in the TableModel where O is the type of the underlying object and T the type of the return object
+ * @author Alex Dobson
+ * 
+ * @param <O> the type of the object that represents the row
+ * @param <T> the type of the values in this column
  */
 public class Column<O, T> {
 	private String name;
