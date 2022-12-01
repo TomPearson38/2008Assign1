@@ -79,7 +79,7 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
     }
 	
 	private void addComponents() {
-		ExpandOrderTable bikeTable = new ExpandOrderTable();
+		BicycleComponentTable bikeTable = new BicycleComponentTable();
 		bikeTable.setPreferredSize(new Dimension(480, 83));
 		tablePanel.add(bikeTable);
 
