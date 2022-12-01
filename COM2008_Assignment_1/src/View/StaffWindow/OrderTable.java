@@ -16,8 +16,9 @@ import View.Table.EnumRenderer;
 import View.Table.GenericAbstractTableModel;
 import View.Table.SterlingRenderer;
 
-/*
+/**
  * Represents a Table that contains information about all the orders in the database
+ * @author Alex Dobson
  */
 public class OrderTable extends AbstractTable<OrderModelRow> {
 	private OrderTableModel loadedOrderTableModel;
