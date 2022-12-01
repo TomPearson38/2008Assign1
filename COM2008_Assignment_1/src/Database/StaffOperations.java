@@ -45,8 +45,9 @@ public class StaffOperations {
 			while (rs.next()) {
 				String username = rs.getString("username");
 				String password = rs.getString("password");
+				String salt = rs.getString("salt");
 	
-			    Staff retreived_staff = new Staff(username, password);
+			    Staff retreived_staff = new Staff(username, password, salt);
 			   
 			    Staff.add(retreived_staff);			   
 			                    
@@ -69,26 +70,36 @@ public class StaffOperations {
 	 * @return if successful, the staff member that it matches is returned
 	 */
 	public static Staff attemptLogin(String attemptUsername, char[] attemptPassword) {
-		String hashedPassword;
-		try {
-			hashedPassword = getSHA(attemptPassword);
-		} catch (NoSuchAlgorithmException e1) {
-//			hashedPassword = attemptPassword;
-			return null;
-		}
-		
 		Staff foundUser = null;
-		
 		for(Staff currentStaff: allStaff) {
-			if(currentStaff.validLogin(attemptUsername, hashedPassword)) {
-				foundUser = currentStaff;
-				break;
+			if(currentStaff.get_username().equals(attemptUsername)) {
+				String hashedPassword;
+				try {
+					char[] saltedPassword = mergeTwoCharArrays(attemptPassword , (currentStaff.getSalt()).toCharArray());
+					System.out.println(new String(saltedPassword));
+					hashedPassword = getSHA(saltedPassword);
+					System.out.println(hashedPassword);
+					if(currentStaff.validLogin(attemptUsername, hashedPassword))
+						foundUser = currentStaff;
+					break;
+				} catch (NoSuchAlgorithmException e1) {
+					e1.printStackTrace();
+					return null;
+				}
+				
 			}
 		}
-		
 		return foundUser;
 	}
 	
+	private static char[] mergeTwoCharArrays(char[] array1, char[] array2) {				
+		int c1 = array1.length + array2.length;
+		char[] c = new char[c1];
+		System.arraycopy(array1, 0, c, 0, array1.length);
+		System.arraycopy(array2, 0, c, array1.length, array2.length);
+
+		return c;
+	}
 	
 	/*
 	 * From https://stackoverflow.com/questions/5513144/converting-char-to-byte

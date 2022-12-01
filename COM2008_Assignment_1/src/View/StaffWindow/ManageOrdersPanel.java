@@ -3,8 +3,9 @@ package View.StaffWindow;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 
-/*
+/**
  * Panel for managing all customer's orders from a staff perspective
+ * @author Alex Dobson
  */
 public class ManageOrdersPanel extends JPanel {
 	

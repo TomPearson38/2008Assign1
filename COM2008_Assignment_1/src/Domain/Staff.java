@@ -9,15 +9,18 @@ package Domain;
 public class Staff implements IToUIString{
 	private String _username;
 	private String _password;
+	private String _salt;
 	
 	/**
 	 * New staff member is initialised
 	 * @param username 
 	 * @param password
+	 * @param salt
 	 */
-	public Staff(String username, String password) {
+	public Staff(String username, String password, String salt) {
 		_username = username;
 		_password = password;
+		_salt = salt;
 	}
 
 	public String get_username() {
@@ -56,5 +59,9 @@ public class Staff implements IToUIString{
 	
 	public String toString() {
 		return _username;
+	}
+	
+	public String getSalt() {
+		return _salt;
 	}
 }

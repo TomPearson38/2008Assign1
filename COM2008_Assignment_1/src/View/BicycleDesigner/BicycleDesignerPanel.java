@@ -20,6 +20,8 @@ import Database.BicycleOperations.CreateBicycleRequest;
 import Domain.Bicycle;
 import Domain.Frameset;
 import Domain.Handlebar;
+import Domain.HandlebarStyles;
+import Domain.TyreType;
 import Domain.Wheel;
 import View.Pickers.FramesetPicker;
 import View.Pickers.HandlebarPicker;
@@ -158,7 +160,15 @@ public class BicycleDesignerPanel extends JPanel {
 		
 		if (value != null) {
 			chooseWheelsButton.setText(value.toUIString());
-			centralPanel.setWheelSprite(DefaultSprites.getDefaultWheelSprite());
+			if (value.get_tyre() == TyreType.ROAD) {
+				centralPanel.setWheelSprite(DefaultSprites.getRoadWheelSprite());
+			}
+			else if (value.get_tyre() == TyreType.HYBRID) {
+				centralPanel.setWheelSprite(DefaultSprites.getHyrbidWheelSprite());
+			}
+			else {
+				centralPanel.setWheelSprite(DefaultSprites.getOffroadWheelSprite());
+			}
 		} else {
 			chooseWheelsButton.setText("Wheels");
 			centralPanel.setWheelSprite(null);
@@ -174,7 +184,15 @@ public class BicycleDesignerPanel extends JPanel {
 		
 		if (value != null) {
 			chooseHandlebarsButton.setText(value.toUIString());
-			centralPanel.setHandlebarSprite(DefaultSprites.getDefaultHandlebarSprite());
+			if (value.get_style() == HandlebarStyles.HIGH) {
+				centralPanel.setHandlebarSprite(DefaultSprites.getHighHandlebarsSprite());
+			}
+			else if (value.get_style() == HandlebarStyles.DROPPED) {
+				centralPanel.setHandlebarSprite(DefaultSprites.getDroppedHandlebarsSprite());
+			}
+			else {
+				centralPanel.setHandlebarSprite(DefaultSprites.getDefaultHandlebarsSprite());
+			}
 		} else {
 			chooseHandlebarsButton.setText("Handlebars");
 			centralPanel.setHandlebarSprite(null);

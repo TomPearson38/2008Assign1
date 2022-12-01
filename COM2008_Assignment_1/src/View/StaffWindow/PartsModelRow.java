@@ -5,6 +5,11 @@ import Domain.Frameset;
 import Domain.Handlebar;
 import Domain.Wheel;
 
+/**
+ * ViewModel component that intermediates between domain BicycleComponent objects and ExpandedBikeView
+ * @author Tom Pearson
+ *
+ */
 public class PartsModelRow {
 	private BicycleComponent bikePart;
 	

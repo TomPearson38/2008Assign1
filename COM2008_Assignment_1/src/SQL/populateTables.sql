@@ -74,11 +74,11 @@ INSERT INTO Addresses(house_num_name, street_name, city, post_code) VALUES ('76'
 INSERT INTO Addresses(house_num_name, street_name, city, post_code) VALUES ('Small Grotto', 'Country Lane', 'Middleton','L21 1AP');
 INSERT INTO Addresses(house_num_name, street_name, city, post_code) VALUES ('Babble', 'Space Station', 'Space','SP1 1AA');
 
-INSERT INTO Staff(username, password) VALUES ('User1', '008c70392e3abfbd0fa47bbc2ed96aa99bd49e159727fcba0f2e6abeb3a9d601'); /*Password123*/
-INSERT INTO Staff(username, password) VALUES ('LogicInReason', 'd9ba78c4143760c9a116cfbc40ac334b03fe247016793111c54623c04cfa71ac'); /*Under_Pr3ssur3*/
-INSERT INTO Staff(username, password) VALUES ('AdamFirstName', '45f5bddf86fe8f0af2af0c4ccddf1402de36071a9b094e2ef980e3cab29137bc'); /*MiddleName!!1*/
-INSERT INTO Staff(username, password) VALUES ('AlexAdmin', '46b28ac4602b66e81dc884598730b34770f2477d9ee3a72f339f3f5018212b58'); /*JavaGod1*/
-INSERT INTO Staff(username, password) VALUES ('OwenMakingAStart', 'e295f6cf317791a77d28c229298f733f20e1e414d459b6f1a1acf34ad6e075b0'); /*Slug&Lettuce4Life*/
+INSERT INTO Staff(username, password, salt) VALUES ('User1', 'cab44c9186239c3a14fced41fff06ddb4589a3f12a6caf855e1b28c959acfbd1', 'REIBTLGEKRGDYIF'); /*Password123*/
+INSERT INTO Staff(username, password, salt) VALUES ('LogicInReason', '4be5990d206c57ab6ebb411b70344c790baf68c3ad2fa6f909a46fee52ce6eab', 'EXAHSMROGVULHSB'); /*Under_Pr3ssur3*/
+INSERT INTO Staff(username, password, salt) VALUES ('AdamFirstName', 'f96e92e2477e784c4005d9de227e534fb7e83a85bcc842f4ff575bbf62325ec5', 'YHFZYFUZQZIOZGZ'); /*MiddleName!!1*/
+INSERT INTO Staff(username, password, salt) VALUES ('AlexAdmin', '2021b81e2ff14dce586d5c606945a444579698d8ad22b5c8d6504dd175eee0b4', 'GVCGDAWOHBIVASG'); /*JavaGod1*/
+INSERT INTO Staff(username, password, salt) VALUES ('OwenMakingAStart', 'f213250573677558082ca3a3cb0969155bd16ad4ebc186f95b8779cd85bdf3ba', 'LRMHBKCUYZIZKRV'); /*Slug&Lettuce4Life*/
 
 INSERT INTO Customers(forename, surname, address_id) VALUES ('Tom', 'Pearson', (SELECT id FROM Addresses WHERE house_num_name='6'));
 INSERT INTO Customers(forename, surname, address_id) VALUES ('Owen', 'Davies', (SELECT id FROM Addresses WHERE house_num_name='12'));

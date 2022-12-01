@@ -13,8 +13,9 @@ import Domain.Order;
 import Resources.ResourceSingleton;
 import View.Table.EditedObjectsChangedListener;
 
-/*
+/**
  * JButton containing a list of edited OrderModelRow that when clicked saves all those objects to the database
+ * @author Alex Dobson
  */
 public class OrdersSaveButton extends JButton implements EditedObjectsChangedListener<OrderModelRow>, ActionListener {
 	

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 /**
  * Provided class in order to connect to our database on the university servers
- * @author University of Sheffield
+ * @author Alex Dobson
  *
  */
 public class ConnectionManager {

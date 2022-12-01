@@ -2,9 +2,7 @@ package View.AbstractCreator;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Window;
 import java.sql.SQLException;
@@ -17,6 +15,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/**
+ * Abstract class for creating dialogs with rows of label/component values
+ * @author Alex Dobson
+ *
+ * @param <T> The type that the creator returns when it creates
+ */
 public abstract class AbstractCreator<T> extends JDialog {
 	private JPanel gridPanel;
 	private JPanel bottomPanel;
@@ -29,6 +33,10 @@ public abstract class AbstractCreator<T> extends JDialog {
 		addComponents();
 	}
 	
+	/**
+	 * get the IGridRow objects to display in the dialog
+	 * @return
+	 */
 	protected abstract Collection<IGridRow<?, ?>> getGridValues();
 	
 	protected abstract T sendValueToDatabase() throws SQLException;

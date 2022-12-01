@@ -13,6 +13,12 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+/**
+ * Reusable JTable implementation that supports scrolling, double clicking and abstracts implementation away to a rows and columns generalisation
+ * @author Alex Dobson
+ *
+ * @param <T> the type of row to use, it's recommended to use an intermediary ViewModel object rather than a direct domain object
+ */
 public abstract class AbstractTable<T> extends JScrollPane implements EditedObjectsChangedListener<T> {
 	private InternalTable interiorTable = new InternalTable();
 	private GenericAbstractTableModel<T> tableModel = getTableModel();
