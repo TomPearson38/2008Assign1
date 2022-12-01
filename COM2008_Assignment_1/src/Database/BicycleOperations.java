@@ -15,6 +15,11 @@ import Domain.Gearset;
 import Domain.Handlebar;
 import Domain.Wheel;
 
+/**
+ * A class to handle all the bicycle class interactions with the database
+ * @author Alex Dobson
+ *
+ */
 public class BicycleOperations {
 	public final static String id = "bike_id";
 	public final static String name = "given_name";
@@ -29,8 +34,10 @@ public class BicycleOperations {
 			", Bicycles.handlebar_id AS " + handlebar_id + 
 			", Bicycles.wheels_id AS " + wheels_id;
 	
-	/*
-	 * Returns all the records in the Bicycle table as Bicycle objects
+
+	/**
+	 * Returns all the bicycles in the bicycle table as bicycle objects
+	 * @return All the bicycles
 	 */
 	public static Collection<Bicycle> getAllBikes() {
 	
@@ -72,6 +79,13 @@ public class BicycleOperations {
 		
 	}
 	
+	/**
+	 * Converts a result set into a bicycle object
+	 * @param rs
+	 * @return bicycle object
+	 * @throws SQLException
+	 * @throws EnumMappingException
+	 */
 	public static Bicycle parseBicycleFromResultset(ResultSet rs) throws SQLException, EnumMappingException {
 		int id = rs.getInt(BicycleOperations.id);
 		Frameset frame = FrameOperations.parseFramesetFromResultSet(rs);
@@ -83,6 +97,11 @@ public class BicycleOperations {
 		return new Bicycle(id, frame, hb, wheels, givenName);
 	}
 	
+	/**
+	 * Gets Bicycle details given a Bicycle ID number.
+	 * @param id Id to lookup
+	 * @return Bicycle found, returns null if none found
+	 */
 	public static Bicycle getBike(int id) {
 		String sql= 
 "SELECT " + column_string + " FROM Bicycles" +  
@@ -116,6 +135,11 @@ public class BicycleOperations {
 		return foundBike;
 	}
 	
+	/**
+	 * Used in bicycle designer panel when the save button is selected.
+	 * @author tomap
+	 *
+	 */
 	public static class CreateBicycleRequest {
 		private Frameset frame;
 		private Handlebar handlebars;
@@ -143,6 +167,12 @@ public class BicycleOperations {
 		}
 	}
 	
+	/**
+	 * Uses createBicycleRequest in order to create a new bike from the picker panel objects
+	 * @param request
+	 * @return
+	 * @throws SQLException
+	 */
 	public static Bicycle addBicycle(CreateBicycleRequest request) throws SQLException {
 		String sqlTemplate = "INSERT INTO Bicycles(frameset_id, handlebar_id, wheels_id, given_name) VALUES(?,?,?,?);";
 						
@@ -173,6 +203,11 @@ public class BicycleOperations {
 						return null;
 	}
 	
+	/**
+	 * Updates the provided bicycle object in the database
+	 * @param bicycleToUpdate
+	 * @return
+	 */
 	public static boolean updateBicycle(Bicycle bicycleToUpdate) {
 		
 		String sqlTemplate = "UPDATE Bicycles SET frameset_id = ?, handlebar_id = ?, wheels_id = ?, given_name = ? WHERE id = ?;";
@@ -196,6 +231,12 @@ public class BicycleOperations {
 		}
 	}
 	
+	/**
+	 * Deletes the provided bicycle object in the database
+	 * @param bicycleToDelete
+	 * @return
+	 * @throws SQLIntegrityConstraintViolationException
+	 */
 	public static boolean deleteBicycle(Bicycle bicycleToDelete) throws SQLIntegrityConstraintViolationException  {
 		String sql = "DELETE FROM Bicycles WHERE id = ?;";
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {

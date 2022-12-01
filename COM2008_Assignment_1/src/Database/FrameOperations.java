@@ -12,6 +12,11 @@ import java.util.Collection;
 import Domain.Frameset;
 import Domain.Gearset;
 
+/**
+ * Class contains all SQL operations of the Frame Class
+ * @author Adam Jenkins
+ *
+ */
 public class FrameOperations {
 	
 	/*
@@ -34,8 +39,9 @@ public class FrameOperations {
 			", Frames.shocks AS " + shocks +
 			", Frames.stock_num AS " + stock_number;
 	
-	/*
+	/**
 	 * Returns all the records in the Framesets table as Frameset objects
+	 * @return
 	 */
 	public static Collection<Frameset> getAllFrames() {
 	
@@ -74,6 +80,13 @@ public class FrameOperations {
 		
 	}
 	
+	/**
+	 * Assuming that all the ResultSet columns match these then it 
+	 * will parse them into an Frame set object
+	 * @param rs
+	 * @return Parsed frameset
+	 * @throws SQLException
+	 */
 	public static Frameset parseFramesetFromResultSet(ResultSet rs) throws SQLException {
 		int id = rs.getInt(FrameOperations.id);
 		int serial_number = rs.getInt(FrameOperations.serial_number);
@@ -91,7 +104,11 @@ public class FrameOperations {
 	    return new Frameset(id, brand_name, serial_number, cost, size, retrieved_gearset, shocks, stock_num);
 	}
 	
-	
+	/**
+	 * Gets Frameset details given a Frameset ID number.
+	 * @param idNum
+	 * @return Frameset found, returns null if none found
+	 */
 	public static Frameset getFrameset(int idNum) {
 		String sqlTemplate = "SELECT * FROM Frames WHERE id= ?;";
 		
@@ -129,8 +146,10 @@ public class FrameOperations {
 	}
 	
 	
-	/*
+	/**
 	 * Updates a Frameset in the database returning whether the update was successful or not
+	 * @param FramesetToUpdate
+	 * @return Successful?
 	 */
 	public static boolean updateFrameset(Frameset FramesetToUpdate) {
 		
@@ -159,6 +178,12 @@ public class FrameOperations {
 		}
 	}
 	
+	/**
+	 * Deletes a frameset in the database returning if the deletion was successful or not
+	 * @param framesetToDelete
+	 * @return successful?
+	 * @throws SQLIntegrityConstraintViolationException
+	 */
 	public static boolean deleteFrameset(Frameset framesetToDelete) throws SQLIntegrityConstraintViolationException  {
 		String sql = "DELETE FROM Frames WHERE id = ?;";
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -180,6 +205,17 @@ public class FrameOperations {
 		}
 	}
 	
+	/**
+	 * Inserts a frame set into the database using the provided information
+	 * @param serialNumber
+	 * @param brandName
+	 * @param cost
+	 * @param size
+	 * @param shocks
+	 * @param gears
+	 * @param stockNum
+	 * @return New frameset object
+	 */
 	public static Frameset insertFrameset(int serialNumber, String brandName, double cost, double size, boolean shocks, Gearset gears, int stockNum) {
 		String sqlTemplate = "INSERT INTO Frames(serial_number, brand_name, cost, size, shocks, gears_id, stock_num) VALUES(?,?,?,?,?,?,?);";
 		
@@ -213,13 +249,12 @@ public class FrameOperations {
 		return null;
 	}
 
+	/**
+	 * Used to for the filters in the picker page to identify 
+	 * the possible brands of parts
+	 * @return
+	 */
 	public static Collection<String> getBrandsInFramesTable() {
 		return ComponentOperations.getAllBrands("Frames");
 	}
-	
-	public static void decreaseStock(int id, int newStock) {
-		
-	}
-	
-	
 }

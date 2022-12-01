@@ -11,6 +11,11 @@ import java.util.Collection;
 import Domain.Customer;
 import Domain.Address;
 
+/**
+ * Class contains all SQL operations of the Customer Class
+ * @author tomap
+ *
+ */
 public class CustomerOperations {
 	
 	public final static String id = "customer_id";
@@ -24,8 +29,9 @@ public class CustomerOperations {
 			", Customers.surname AS " + surname + 
 			", Customers.address_id AS " + address_id;
 	
-	/*
+	/**
 	 * Returns all the records in the Customers table as Customer objects
+	 * @return
 	 */
 	public static Collection<Customer> getAllCustomers() {
 	
@@ -70,8 +76,11 @@ public class CustomerOperations {
 		
 	}
 	
-	/*
-	 * assuming that all the ResultSet columns match these then it will parse them into an Address object
+	/**
+	 * Assuming that all the ResultSet columns match the address object,
+	 * then it will parse them into an Address object
+	 * @param rs
+	 * @return Address object
 	 */
 	public static Address parseAddressFromResultset(ResultSet rs) {
 		try {
@@ -89,8 +98,10 @@ public class CustomerOperations {
 		return null;
 	}
 	
-	/*
+	/**
 	 * assuming that all the ResultSet columns match these then it will parse them into an Customer object
+	 * @param rs
+	 * @return Customer object
 	 */
 	public static Customer parseCustomerFromResultset(ResultSet rs) {
 		try {
@@ -108,6 +119,16 @@ public class CustomerOperations {
 		return null;
 	}
 	
+	/**
+	 * Finds a customer from the database using provided information
+	 * @param forename
+	 * @param surname
+	 * @param houseNumName
+	 * @param streetName
+	 * @param city
+	 * @param postCode
+	 * @return Found customer, null if not found
+	 */
 	public static Customer findCustomer(String forename, String surname, String houseNumName, String streetName ,String city, String postCode){
 		
 		Address foundAddress = AddressOperations.findAddress(houseNumName, streetName, city, postCode);
@@ -146,6 +167,13 @@ public class CustomerOperations {
 		return selectedCustomer;
 	}
 	
+	/**
+	 * Creates a customer from the provided information and saves it to the database
+	 * @param forename
+	 * @param surname
+	 * @param address Address object associated with the customer
+	 * @return Customer created
+	 */
 	public static Customer createCustomer(String forename, String surname, Address address) {
 		String sqlTemplate = "INSERT INTO Customers(forename, surname, address_id) VALUES(?,?,?);";
 						
@@ -175,6 +203,12 @@ public class CustomerOperations {
 						return null;
 	}
 	
+	/**
+	 * Gets a customer based upon the ID provided. Normally used in order to find
+	 * Associated customer with order
+	 * @param id
+	 * @return
+	 */
 	public static Customer getCustomer(int id) {		
 		String sqlCustomer = "SELECT * FROM Customers WHERE id=?;";
 				
@@ -206,12 +240,32 @@ public class CustomerOperations {
 		return selectedCustomer;
 	}
 	
+	/**
+	 * Used when the customer places an order.
+	 * It either finds a customer or creates one.
+	 * @param _forename
+	 * @param _surname
+	 * @param _houseNumName
+	 * @param _streetName
+	 * @param _city
+	 * @param _postCode
+	 * @return A new or existing customer
+	 */
 	public static Customer customerCreatingOrder(String _forename, String _surname, String _houseNumName, String _streetName, String _city, String _postCode) {
+		//Looks up customer based upon details
 		Customer desiredCustomer = CustomerOperations.findCustomer(_forename, _surname, _houseNumName, _streetName, _city, _postCode);
+		
+		//Customer not found
 		if(desiredCustomer == null) {
+			//Checks to see if address is in database
 			Address foundAddress = AddressOperations.findAddress(_houseNumName, _streetName, _city, _postCode);
+			
+			//Address not found
 			if(foundAddress == null)
+				//Address created
 				foundAddress = AddressOperations.createAddress(_houseNumName, _streetName, _city, _postCode);
+			
+			//Customer created
 			desiredCustomer = createCustomer(_forename, _surname, foundAddress);
 		}
 

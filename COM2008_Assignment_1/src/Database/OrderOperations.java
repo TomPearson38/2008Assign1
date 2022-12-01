@@ -22,6 +22,11 @@ import Domain.OrderStatus;
 import Domain.TyreType;
 import Domain.Wheel;
 
+/**
+ * Contains all the SQL operations of the Order class
+ * @author tomap
+ *
+ */
 public class OrderOperations {
 	public final static String order_number = "order_number";
 	public final static String customer_id = "customer_id";
@@ -39,7 +44,14 @@ public class OrderOperations {
 			", Orders.bike_id AS " + bike_id + 
 			", Orders.serial_number AS " + serial_number +
 			", Orders.order_date AS " + order_date;
-													
+				
+	/**
+	 * Converts a results set into a Order object provided all the fields are correct
+	 * @param rs Results set
+	 * @return New Order Object
+	 * @throws SQLException
+	 * @throws EnumMappingException
+	 */
 	public static Order parseOrderFromResultSet(ResultSet rs) throws SQLException, EnumMappingException {
 		int orderNum = rs.getInt(OrderOperations.order_number);
 		
@@ -55,6 +67,11 @@ public class OrderOperations {
 
 	    return new Order(orderNum, retrieved_customer, cost, os, retrieved_bike, serial_number, date);
 	}
+	
+	/**
+	 * Returns all orders in the database
+	 * @return All orders
+	 */
 	public static Collection<Order> getAllOrders() {
 		
 		String sql = 				
@@ -103,6 +120,10 @@ public class OrderOperations {
 		
 	}
 	
+	/**
+	 * Updates the provided list of orders in the database
+	 * @param ordersToUpdate List of orders to update
+	 */
 	public static void updateOrders(Collection<Order> ordersToUpdate) {
 		try {
 			Connection connection = ConnectionManager.getConnection();
@@ -125,6 +146,11 @@ public class OrderOperations {
 		
 	}
 	
+	/**
+	 * Used to convert order status ENUM to string
+	 * @param status Order status to convert
+	 * @return Converted string
+	 */
 	private static String mapOrderStatusToDBEnum(OrderStatus status) {
 		switch (status) {
 		case PENDING:
@@ -137,6 +163,12 @@ public class OrderOperations {
 			return null;
 		}
 	}
+	
+	/**
+	 * Gets provided order from the database based upon the id number
+	 * @param idNum ID to lookup
+	 * @return Order object found, null if none found
+	 */
 	public static Order getOrder(int idNum) {
 		String sql = 				
 "SELECT " + OrderOperations.column_string + ", " + CustomerOperations.column_string + ", " + AddressOperations.column_string + ", " + BicycleOperations.column_string + ", " + FrameOperations.column_string + ", " + GearsetOperations.column_string + ", " +  HandlebarOperations.column_string + ", " + WheelOperations.column_string + " " + 
@@ -181,10 +213,22 @@ public class OrderOperations {
 	}
 
 	
-
+	/**
+	 * Reduced order to update call
+	 * Updates the provided order object in the database
+	 * @param orderToUpdate 
+	 * @return successful?
+	 */
 	public static boolean updateOrder(Order orderToUpdate) {
 		return updateOrder(orderToUpdate, true);
 	}
+	
+	/**
+	 * Updates the provided order object in the database
+	 * @param orderToUpdate
+	 * @param autoClose
+	 * @return successful?
+	 */
 	public static boolean updateOrder(Order orderToUpdate, boolean autoClose) {
 		
 		String sqlTemplate = "UPDATE Orders SET order_number = ?, customer_id = ?, cost = ?, order_status = ?, bike_id = ?, serial_number = ?, order_date = ? WHERE order_number = ?;";
@@ -221,7 +265,11 @@ public class OrderOperations {
 		}
 	}
 	
-
+	/**
+	 * Using the provided customer id, all the customers orders are loaded from the database
+	 * @param get_id Id to lookup
+	 * @return Orders found, null if empty
+	 */
 	public static Collection<Order> getOrdersForCustomer(int get_id) {
 		String sql = 				
 "SELECT " + OrderOperations.column_string + ", " + CustomerOperations.column_string + ", " + AddressOperations.column_string + ", " + BicycleOperations.column_string + ", " + FrameOperations.column_string + ", " + GearsetOperations.column_string + ", " +  HandlebarOperations.column_string + ", " + WheelOperations.column_string + " " + 
@@ -270,6 +318,15 @@ public class OrderOperations {
 		
 	}
 	
+	/**
+	 * Creates a new order based upon provided information. Saves it to DB
+	 * @param _customer
+	 * @param assignedBike Bike to be ordered
+	 * @param cost Cost of bike
+	 * @param date Date of order
+	 * @param serialNumber Serial number of bike
+	 * @return Created order
+	 */
 	public static Order createNewOrder(Customer _customer, Bicycle assignedBike, double cost, Date date, int serialNumber) {
 		String sqlTemplate = "INSERT INTO Orders(customer_id, cost, order_status, bike_id, serial_number, order_date) VALUES(?,?,?,?,?,?);";
 		

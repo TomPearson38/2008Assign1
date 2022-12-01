@@ -17,6 +17,11 @@ import Domain.HandlebarStyles;
 import Domain.TyreType;
 import Domain.Wheel;
 
+/**
+ * Class contains all the SQL operations of the Wheel Class
+ * @author Alex Dobson
+ *
+ */
 public class WheelOperations {
 	
 	public final static String id = "wheel_id";
@@ -38,6 +43,12 @@ public class WheelOperations {
 			", brake_type AS " + brake + 
 			", Wheels.stock_num AS " + stock_num;
 	
+	/**
+	 * Converts provided results set into wheel object provided all elements match
+	 * @param rs
+	 * @return Converted wheel object, null if not found
+	 * @throws SQLException
+	 */
 	public static Wheel parseWheelFromResultset(ResultSet rs) throws SQLException {
 		int id = rs.getInt(WheelOperations.id);
 		int serialNum = rs.getInt(WheelOperations.serial_number);
@@ -51,8 +62,9 @@ public class WheelOperations {
 	   return new Wheel(id, serialNum, brandName, cost, diameter, tyre, brake, stockNum);
 	}
 
-	/*
-	 * Returns all the records in the Wheels table as Wheel objects
+	/**
+	 * Returns all the objects in the Wheels table as Wheel objects
+	 * @return all wheels
 	 */
 	public static Collection<Wheel> getAllWheels() {
 	
@@ -86,6 +98,11 @@ public class WheelOperations {
 		return Wheels;		
 	}
 	
+	/**
+	 * Checks to see if a wheel object is in use in the bicycles table
+	 * @param wheel_id Wheel to check for
+	 * @return in use?
+	 */
 	public boolean checkForeignKeyUsage(int wheel_id){
 		String sql = 
 "SELECT COUNT(*) "+
@@ -120,6 +137,11 @@ public class WheelOperations {
 		
 	}
 	
+	/**
+	 * Gets wheel object from database based upon provided wheel id number
+	 * @param idNum ID number to look up
+	 * @return wheel object, null if not found
+	 */
 	public static Wheel getWheel(int idNum) {
 		String sql = 				
 "SELECT "  + column_string + 
@@ -152,8 +174,11 @@ public class WheelOperations {
 		return currentWheel;	
 	}
 	
-	/*
-	 * Updates a Wheel in the database returning whether the update was successful or not
+	/**
+	 * Updates a Wheel in the database returning whether the update was 
+	 * successful or not
+	 * @param wheelToUpdate Wheel object to update
+	 * @return successful?
 	 */
 	public static boolean updateWheel(Wheel wheelToUpdate) {
 		
@@ -182,6 +207,12 @@ public class WheelOperations {
 		}
 	}
 	
+	/**
+	 * Deletes wheel from the database based upon the provided object
+	 * @param wheelToDelete Wheel to be deleted
+	 * @return Successful?
+	 * @throws SQLIntegrityConstraintViolationException
+	 */
 	public static boolean deleteWheel(Wheel wheelToDelete) throws SQLIntegrityConstraintViolationException {
 		String sql = "DELETE FROM Wheels WHERE id = ?;";
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
@@ -206,7 +237,18 @@ public class WheelOperations {
 	
 	
 	
-	
+	/**
+	 * Creates a new wheel object and saves it in the database, 
+	 * based upon provided information
+	 * @param brandName
+	 * @param serialNumber
+	 * @param cost
+	 * @param diameter
+	 * @param tyreType
+	 * @param brakeType
+	 * @param stockNum
+	 * @return created wheel object
+	 */
 	public static Wheel createWheel(String brandName, int serialNumber, double cost, double diameter, TyreType tyreType, BrakeType brakeType, int stockNum) {
 		String sqlTemplate = "INSERT INTO Wheels(serial_number, brand_name, cost, diameter, tyre_type, brake_type, stock_num) VALUES(?,?,?,?,?,?,?);";
 						

@@ -13,6 +13,11 @@ import Domain.Gearset;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
 
+/**
+ * Class contains all SQL operations of the Gearset Class
+ * @author Alex Dobson
+ *
+ */
 public class GearsetOperations {
 	
 	public final static String id = "gearset_id";
@@ -23,6 +28,13 @@ public class GearsetOperations {
 			", Gearsets.name AS " + name;
 	
 	
+	/**
+	 * Assuming that all the ResultSet columns match these then it 
+	 * will parse them into an gearset object
+	 * @param rs ResultsSet
+	 * @return Gearset object found, null if not found
+	 * @throws SQLException
+	 */
 	public static Gearset parseGearsFromResultset(ResultSet rs) throws SQLException {
 		int gearset_id = rs.getInt(id);
 	    String gearset_name = rs.getString(name);
@@ -30,8 +42,9 @@ public class GearsetOperations {
 	    return new Gearset(gearset_id, gearset_name);
 	}
 	
-	/*
+	/**
 	 * Returns all the records in the Gearsets table as Gearset objects
+	 * @return all gearsets
 	 */
 	public static Collection<Gearset> getAllGears() {
 	
@@ -67,6 +80,11 @@ public class GearsetOperations {
 		
 	}
 	
+	/**
+	 * Gets a specific gear set from the table based upon provided id
+	 * @param _id ID to lookup
+	 * @return Gearset found, if not found null is returned
+	 */
 	public static Gearset getGear(int _id) {
 		String sql = 			
 "SELECT " + column_string + 
@@ -97,6 +115,11 @@ public class GearsetOperations {
 		return selectedGear;
 	}
 	
+	/**
+	 * Creates gearset off provided information
+	 * @param name Name of new gearset
+	 * @return created gearset
+	 */
 	public static Gearset createGearset(String name) throws SQLException {
 		String sqlTemplate = "INSERT INTO Gearsets(name) VALUES(?);";
 						
@@ -139,6 +162,12 @@ public class GearsetOperations {
 		}
 		
 	}
+
+	/**
+	 * Updates provided gearset object in the database
+	 * @param gearsetToUpdate Gearset to be updated
+	 * @return update successful?
+	 */
 	public static Gearset updateGearset(GearsetUpdateRequest request) throws SQLException {
 	    String sqlTemplate = 
 	            "UPDATE Gearsets " +
@@ -165,6 +194,12 @@ public class GearsetOperations {
 	                    }
 	}
 	
+	/**
+	 * Deletes provided gearset from the database
+	 * @param gearsetToDelete Gear to delete 
+	 * @return Successfull?
+	 * @throws SQLIntegrityConstraintViolationException
+	 */
 	public static boolean deleteGearset(Gearset gearsetToDelete) throws SQLIntegrityConstraintViolationException {
 	       String sql = 
 	               "DELETE " +
