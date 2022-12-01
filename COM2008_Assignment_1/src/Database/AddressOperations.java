@@ -12,6 +12,11 @@ import Domain.Address;
 import Domain.Frameset;
 import Domain.Staff;
 
+/**
+ * Class contains all SQL operations of the Address Class
+ * @author tomap
+ *
+ */
 public class AddressOperations {
 	
 	public final static String id = "handlebar_id";
@@ -27,6 +32,12 @@ public class AddressOperations {
 			", Addresses.post_code AS " + post_code +
 			", Addresses.city AS " + city;
 	
+	/**
+	 * Converts a result set into a Address Object
+	 * @param rs Provided SQL result set
+	 * @return Address Object
+	 * @throws SQLException 
+	 */
 	public static Address parseAddressFromResultSet(ResultSet rs) throws SQLException {
 		int id = rs.getInt(AddressOperations.id);
 		String houseNumName = rs.getString(AddressOperations.house_num_name);
@@ -37,6 +48,10 @@ public class AddressOperations {
 	    return new Address(id, houseNumName, streetName, city, postCode);
 	}
 	
+	/**
+	 * Gets all addresses from the database
+	 * @return all Addresses
+	 */
 	public static Collection<Address> getAllAddresses() {
 		
 		String sql = 				
@@ -72,6 +87,15 @@ public class AddressOperations {
 		
 	}
 	
+	/**
+	 * Finds an address based on provided information. Mainly used to check if address exists in
+	 * the table or to find the ID of an existing address. Returns null if no address found
+	 * @param houseNumName 
+	 * @param streetName
+	 * @param city
+	 * @param postCode
+	 * @return Address Object Found
+	 */
 	public static Address findAddress(String houseNumName, String streetName, String city ,String postCode) {		
 		String sql = "SELECT id, house_num_name, street_name, city,post_code FROM Addresses WHERE house_num_name=? AND street_name=? AND city=? AND post_code= ?;";
 		
@@ -105,6 +129,11 @@ public class AddressOperations {
 		return foundAddress;
 	}
 
+	/**
+	 * Gets address details given a Address ID number.
+	 * @param id Id to lookup
+	 * @return Address found, returns null if none found
+	 */
 	public static Address getAddress(int id) {
 		String sql = "SELECT * FROM Addresses WHERE id=?";
 		
@@ -135,6 +164,14 @@ public class AddressOperations {
 		return foundAddress;
 	}
 	
+	/**
+	 * Creates an address based off provided information
+	 * @param houseNumName 
+	 * @param streetName
+	 * @param city
+	 * @param postCode
+	 * @return Created address object
+	 */
 	public static Address createAddress(String houseNumName, String streetName, String city, String postCode) {
 		String sqlTemplate = "INSERT INTO Addresses(house_num_name, street_Name, city, post_code) VALUES(?,?,?,?);";
 						

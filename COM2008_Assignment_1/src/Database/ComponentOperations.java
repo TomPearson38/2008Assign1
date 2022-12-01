@@ -7,10 +7,28 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * A collection of all the bike component operations and interactions with sql
+ * Used to generate the filer options from the picker panels
+ * @author Alex Dobson
+ *
+ */
 public class ComponentOperations {
+	/**
+	 * Gets all the brands from the provided database table
+	 * @param tableName
+	 * @return
+	 */
 	public static Collection<String> getAllBrands(String tableName) {
 		return ComponentOperations.getAllBrands(tableName, "brand_name");
 	}
+	
+	/**
+	 * Gets all the brands from the provided database table and given column identifier
+	 * @param tableName Table to get columns from
+	 * @param brandNameColumnIdentifier Column name
+	 * @return
+	 */
 	public static Collection<String> getAllBrands(String tableName, String brandNameColumnIdentifier) {
 		String sql = "SELECT " + brandNameColumnIdentifier + " FROM " + tableName + " GROUP BY " + brandNameColumnIdentifier + ";";
 		

@@ -16,6 +16,11 @@ import Domain.HandlebarStyles;
 import Domain.TyreType;
 import Domain.Wheel;
 
+/**
+ * Class contains all SQL operations of the Handlebar class
+ * @author Alex Dobson
+ *
+ */
 public class HandlebarOperations {
 	
 	public final static String id = "handlebar_id";
@@ -33,6 +38,13 @@ public class HandlebarOperations {
 			", Handlebars.style AS " + style +
 			", Handlebars.stock_num AS " + stock;
 	
+	/**
+	 * Provided all elements match, converts provided results set into a handle bar object
+	 * @param rs 
+	 * @return Handlebar object parsed
+	 * @throws SQLException
+	 * @throws EnumMappingException
+	 */
 	public static Handlebar parseHandlebarFromResultset(ResultSet rs) throws SQLException, EnumMappingException {
 		int id = rs.getInt(HandlebarOperations.id);
 		int serial_number = rs.getInt(HandlebarOperations.serial_number);
@@ -47,8 +59,10 @@ public class HandlebarOperations {
 		return new Handlebar(id, brand_name, serial_number, cost, handlebarStyle, stockNum);
 	}
 	
-	/*
+	/**
 	 * Returns all the records in the Handlebars table as Handlebar objects
+	 * @return all handlebars
+	 * @throws EnumMappingException
 	 */
 	public static Collection<Handlebar> getAllHandlebars() throws EnumMappingException {
 	
@@ -83,6 +97,11 @@ public class HandlebarOperations {
 		
 	}
 	
+	/**
+	 * Looks up handlebars from the database based upon provided id
+	 * @param idNum ID to look up
+	 * @return handlebar object, if not found null
+	 */
 	public static Handlebar getHandlebar(int idNum) {
 		String sql = 				
 "SELECT " + column_string + " " +
@@ -114,8 +133,11 @@ public class HandlebarOperations {
 		return currentHandleBar;	
 	}
 	
-	/*
-	 * Updates a handlebar in the database returning whether the update was successful or not
+	/**
+	 * Updates a handlebar in the database returning whether the update was 
+	 * successful or not
+	 * @param handlebarToUpdate handlebar object to update
+	 * @return successful?
 	 */
 	public static boolean updateHandlebar(Handlebar handlebarToUpdate) {
 		
@@ -144,12 +166,18 @@ public class HandlebarOperations {
 		}
 	}
 	
-	public static boolean deleteHandlebar(Handlebar wheelToDelete) throws SQLIntegrityConstraintViolationException  {
+	/**
+	 * Deletes provided handlebar object from the database
+	 * @param handleBarToDelete 
+	 * @return successful?
+	 * @throws SQLIntegrityConstraintViolationException
+	 */
+	public static boolean deleteHandlebar(Handlebar handleBarToDelete) throws SQLIntegrityConstraintViolationException  {
 		String sql = "DELETE FROM Handlebars WHERE id = ?;";
 		try(Connection mySQLConnection = ConnectionManager.getConnection()) {
 			PreparedStatement statement = mySQLConnection.prepareStatement(sql);
 			
-			statement.setInt(1, wheelToDelete.get_id());
+			statement.setInt(1, handleBarToDelete.get_id());
 			
 			int rowsAffected = statement.executeUpdate();
 			statement.close();
@@ -166,6 +194,15 @@ public class HandlebarOperations {
 		}
 	}
 	
+	/**
+	 * Saves provided fields in the database. Returns an object of new handlebar
+	 * @param brandName
+	 * @param serialNumber
+	 * @param cost
+	 * @param style
+	 * @param stockNum
+	 * @return Handlebar created from information
+	 */
 	public static Handlebar createHandlebar(String brandName, int serialNumber, double cost, HandlebarStyles style, int stockNum) {
 		String sqlTemplate = "INSERT INTO Handlebars(serial_number, brand_name, cost, style, stock_num) VALUES(?,?,?,?,?);";
 						

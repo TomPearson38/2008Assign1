@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
+/**
+ * Provided class in order to connect to our database on the university servers
+ * @author University of Sheffield
+ *
+ */
 public class ConnectionManager {
 	
 	private static Connection _conn;
