@@ -1,5 +1,8 @@
 package View.UserControls;
 
+/*
+ * A version of JTextField that only allows for double values
+ */
 public class JDoubleField extends JRegexField {
 
 

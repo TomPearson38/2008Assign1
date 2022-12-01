@@ -1,5 +1,8 @@
 package View.UserControls;
 
+/*
+ * A version of JTextField that only allows for integer values
+ */
 public class JIntegerField extends JRegexField {
 
 	@Override
