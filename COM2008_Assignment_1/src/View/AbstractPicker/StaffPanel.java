@@ -2,6 +2,7 @@ package View.AbstractPicker;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,7 +29,7 @@ class StaffPanel<T> extends JPanel {
 	
 	Runnable refreshPicker;
 	
-	public StaffPanel(AttemptDatabaseOperation<T> updateComponent, AttemptDatabaseOperation<T> deleteComponent, Runnable refreshPicker) {
+	public StaffPanel(EditorOpener<T> editor, AttemptDatabaseDelete<T> deleteComponent, Runnable refreshPicker) {
 		super();
 		this.setLayout(staffPanelLayout);
 		
@@ -36,20 +37,15 @@ class StaffPanel<T> extends JPanel {
 		
 		editButton = new JButton("Edit");
 		editButton.addActionListener(e -> {
-			try {
-				updateComponent.apply(_currentObject);
-				refreshPicker.run();
-			} catch (SQLIntegrityConstraintViolationException e1) {
-				// TODO Display error message for foreign key constrain 
-				
-				e1.printStackTrace();
-			} 
+			editor.editObject(_currentObject);
+			
+			refreshPicker.run();
 		});
 		
 		deleteButton = new JButton("Delete");
 		deleteButton.addActionListener(e -> {
 			try {
-				deleteComponent.apply(_currentObject);
+				deleteComponent.delete(_currentObject);
 				refreshPicker.run();
 			} catch (SQLIntegrityConstraintViolationException e1) {
 				// Display error message for foreign key violation
@@ -75,7 +71,13 @@ class StaffPanel<T> extends JPanel {
 		deleteButton.setEnabled(true);
 	}	
 	
-	public interface AttemptDatabaseOperation<T>{
-		public boolean apply(T Object) throws SQLIntegrityConstraintViolationException;
+	public interface AttemptDatabaseDelete<T>{
+		public boolean delete(T Object) throws SQLIntegrityConstraintViolationException;
+	}
+	public interface AttemptDatabaseUpdate<T> {
+		public boolean update(T Object) throws SQLException;
+	}
+	public interface EditorOpener<T> {
+		public T editObject(T object);
 	}
 }

@@ -3,10 +3,12 @@ package View.AbstractCreator;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -31,26 +33,24 @@ import Domain.HandlebarStyles;
 import View.UserControls.JIntegerField;
 
 public abstract class AbstractCreator<T> extends JDialog {
-	
-	private JIntegerField serialNumberField;
-	private JTextField brandNameField;
-	private JIntegerField costField;
-	
 	private JPanel gridPanel;
 	private JPanel bottomPanel;
 	
-	private Frame parent;
-	final Collection<IGridRow> gridValuesToAdd = getGridValues();
-
-	public AbstractCreator(Frame owner) {
-		super(owner);
+	final Collection<IGridRow<?, ?>> gridValuesToAdd = getGridValues();
+	
+	public AbstractCreator(Dialog owner) {
+		super(owner, true);
 		addComponents();
-		parent = owner;
 	}
 	
-	protected abstract Collection<IGridRow> getGridValues();
+	public AbstractCreator(Frame owner) {
+		super(owner, true);
+		addComponents();
+	}
 	
-	protected abstract T sendValueToDatabase();
+	protected abstract Collection<IGridRow<?, ?>> getGridValues();
+	
+	protected abstract T sendValueToDatabase() throws SQLException;
 	
 	private void addComponents() {
 		
@@ -86,12 +86,20 @@ public abstract class AbstractCreator<T> extends JDialog {
 		Collection<IGridRow> invalidRows = gridValuesToAdd.stream().filter(row -> !row.isRowValid()).collect(Collectors.toList());
 		if (invalidRows.size() > 0) {
 			String [] invalidRowLabels = invalidRows.stream().map(IGridRow::getRowLabel).toArray(String[]::new);
-			JOptionPane.showMessageDialog(parent, "The following rows are invalid: " + String.join(", ", invalidRowLabels), "Error: Input Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "The following rows are invalid: " + String.join(", ", invalidRowLabels), "Error: Input Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		T objectFromDatabase = sendValueToDatabase();
+		T objectFromDatabase;
+		try {
+			objectFromDatabase = sendValueToDatabase();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Error deleting/updating component!", "Error!", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
 		if (objectFromDatabase == null) {
-			JOptionPane.showMessageDialog(parent, "Error: Invalid Input", "Input Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Error: Invalid Input", "Input Error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		result = objectFromDatabase;

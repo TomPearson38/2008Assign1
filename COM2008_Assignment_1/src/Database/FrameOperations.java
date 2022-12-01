@@ -90,6 +90,7 @@ public class FrameOperations {
 	public static Frameset parseFramesetFromResultSet(ResultSet rs) throws SQLException {
 		int id = rs.getInt(FrameOperations.id);
 		int serial_number = rs.getInt(FrameOperations.serial_number);
+		
 	    String brand_name = rs.getString(FrameOperations.brand_name);
 	    double cost = rs.getDouble(FrameOperations.cost);
 	    double size = rs.getDouble(FrameOperations.size);

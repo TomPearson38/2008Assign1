@@ -21,7 +21,7 @@ public abstract class JRegexField extends JTextField {
 	private void configure() {
         AbstractDocument document = (AbstractDocument) this.getDocument();
         final int maxCharacters = 10;
-        document.setDocumentFilter(new DocumentFilter() {
+        document.setDocumentFilter(new DocumentFilter() {//adapted and generalised from Integer filter https://stackoverflow.com/a/11093360
             public void replace(FilterBypass fb, int offs, int length,
                     String str, AttributeSet a) throws BadLocationException {
 

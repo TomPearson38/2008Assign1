@@ -1,9 +1,11 @@
 package View.Pickers;
 
+import java.awt.Dialog;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import Database.FrameOperations;
@@ -17,6 +19,7 @@ import View.AbstractPicker.CommonFilters;
 import View.AbstractPicker.Filter;
 import View.AbstractPicker.FilterValue;
 import View.AbstractPicker.PropertyDescriptor;
+import View.CreatorsAndEditors.FramesetEditor;
 
 /**
  * Used for the customer to be able to pick a frame from stock
@@ -32,8 +35,17 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 	 */
 	public FramesetPicker(JFrame parent, Boolean isStaffMode) {
 		super(parent, isStaffMode);
-		
 	}
+	public FramesetPicker(Dialog owner, Boolean isStaffMode) {
+		super(owner, isStaffMode);
+	}
+	
+	public static Frameset chooseFrameset(JDialog parent, Boolean isStaffMode) {
+    	FramesetPicker PickerWindow = new FramesetPicker(parent, isStaffMode);
+
+    	return configureAndShowPicker(PickerWindow);  	
+    }
+	
 	/**
 	 * Used to initialise the choseFrame when the staff mode is not provided
 	 * @param parent
@@ -51,10 +63,13 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 	 */
     public static Frameset chooseFrameset(JFrame parent, Boolean isStaffMode) {
     	FramesetPicker PickerWindow = new FramesetPicker(parent, isStaffMode);
+
+    	return configureAndShowPicker(PickerWindow);  	
+    }
+    private static Frameset configureAndShowPicker(FramesetPicker pickerWindow) {
+    	pickerWindow.setTitle("Frameset Picker");
     	
-    	PickerWindow.setTitle("Frameset Picker");
-    	
-    	return PickerWindow.showDialog();  	
+    	return pickerWindow.showDialog(); 
     }
 
 	@Override
@@ -96,17 +111,16 @@ public class FramesetPicker extends AbstractPicker<Frameset> {
 		return Arrays.asList(shocksFilter, sizeFilter, costFilter, brandFilter);
 	}
 	
-	/**
-	 * Returns if the component update has been successful
-	 */
-	protected Boolean updateComponent(Frameset frameSetData) {
-		return FrameOperations.updateFrameset(frameSetData);
-	}
 	
 	/**
 	 * Returns if the component deletion has been successful
 	 */
 	protected Boolean deleteComponent(Frameset frameSetToDelete) throws SQLIntegrityConstraintViolationException  {
 		return FrameOperations.deleteFrameset(frameSetToDelete);
+	}
+	@Override
+	protected Frameset editObject(Frameset currentObject) {
+		return FramesetEditor.openEditor(this, currentObject);
+		
 	}
 }

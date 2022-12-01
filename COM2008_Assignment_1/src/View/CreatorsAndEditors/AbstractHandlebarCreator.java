@@ -1,6 +1,6 @@
 package View.CreatorsAndEditors;
 
-import java.awt.Component;
+import java.awt.Dialog;
 import java.awt.Frame;
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,22 +8,15 @@ import java.util.Collection;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
-import Database.HandlebarOperations;
 import Domain.Handlebar;
 import Domain.HandlebarStyles;
 import View.AbstractCreator.AbstractCreator;
-import View.AbstractCreator.GridRow;
 import View.AbstractCreator.IGridRow;
-import View.AbstractCreator.IntegerCreatorInputField;
 import View.AbstractCreator.IntegerGridRow;
-import View.AbstractCreator.StringCreatorInputField;
 import View.AbstractCreator.StringGridRow;
 import View.UserControls.JDoubleField;
 import View.UserControls.JIntegerField;
-import View.AbstractCreator.CreatorInputField;
-import View.AbstractCreator.DoubleCreatorInputField;
 import View.AbstractCreator.DoubleGridRow;
-import View.AbstractCreator.EnumCreatorInputField;
 import View.AbstractCreator.EnumGridRow;
 
 public abstract class AbstractHandlebarCreator extends AbstractCreator<Handlebar> {
@@ -36,15 +29,14 @@ public abstract class AbstractHandlebarCreator extends AbstractCreator<Handlebar
 	public AbstractHandlebarCreator(Frame owner) {
 		super(owner);
 	}
-	
-	public static Handlebar addHandlebar(Frame owner) {
-		HandlebarCreator myWindow = new HandlebarCreator(owner);
-		return myWindow.showCreatorDialog();
+
+	public AbstractHandlebarCreator(Dialog owner) {
+		super(owner);
 	}
 
-
+	
 	@Override
-	protected Collection<IGridRow> getGridValues() {
+	protected Collection<IGridRow<?, ?>> getGridValues() {
 
 		serialNumberRow = new IntegerGridRow("Serial Number");
 		

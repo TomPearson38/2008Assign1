@@ -17,7 +17,7 @@ public class StaffWindow extends JDialog {
 	public StaffWindow(JFrame owner) {
 		super(owner);
 		
-		stockPanel = new ManageStockPanel(owner);
+		stockPanel = new ManageStockPanel(this);
 		
 		ordersPanel = new ManageOrdersPanel();
 		

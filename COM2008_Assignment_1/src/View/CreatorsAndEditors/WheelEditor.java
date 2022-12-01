@@ -1,16 +1,19 @@
 package View.CreatorsAndEditors;
 
+import java.awt.Dialog;
 import java.awt.Frame;
 
 import Database.WheelOperations;
 import Domain.BrakeType;
+import Domain.Handlebar;
 import Domain.TyreType;
 import Domain.Wheel;
+import View.AbstractPicker.IEditor;
 
 public class WheelEditor extends AbstractWheelCreator {
 	int wheelID;
 
-	public WheelEditor(Frame owner, Wheel wheelToEdit) {
+	public WheelEditor(Dialog owner, Wheel wheelToEdit) {
 		// TODO Auto-generated constructor stub#
 		super(owner);
 		wheelID = wheelToEdit.get_id();
@@ -33,6 +36,12 @@ public class WheelEditor extends AbstractWheelCreator {
 		int availableStock = stockRow.getFieldValue();
 		
 		Wheel newWheel = new Wheel(this.wheelID, serialNumber, brandName, cost, diameter, tyreType, brakeType, availableStock);
+		WheelOperations.updateWheel(newWheel);
 		return newWheel;
+	}
+	
+	public static Wheel openEditor(Dialog owner, Wheel object) {
+		WheelEditor newEditorWindow = new WheelEditor(owner, object);
+		return newEditorWindow.showCreatorDialog();
 	}
 }

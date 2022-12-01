@@ -6,14 +6,18 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import View.CreatorsAndEditors.AbstractFramesetCreator;
 import View.CreatorsAndEditors.AbstractHandlebarCreator;
 import View.CreatorsAndEditors.AbstractWheelCreator;
+import View.CreatorsAndEditors.FramesetCreator;
 import View.CreatorsAndEditors.GearsetCreator;
+import View.CreatorsAndEditors.AbstractGearsetCreator;
 import View.CreatorsAndEditors.HandlebarCreator;
+import View.CreatorsAndEditors.WheelCreator;
 import View.Pickers.BicyclePicker;
 import View.Pickers.FramesetPicker;
 import View.Pickers.GearPicker;
@@ -21,9 +25,9 @@ import View.Pickers.HandlebarPicker;
 import View.Pickers.WheelPicker;
 
 public class ManageStockPanel extends JPanel {	
-	private JFrame owner;
+	private JDialog owner;
 	
-	public ManageStockPanel(JFrame owner) {
+	public ManageStockPanel(JDialog owner) {
 		super();
 		this.owner = owner;
 		
@@ -37,7 +41,7 @@ public class ManageStockPanel extends JPanel {
 		manageFramesButton.addActionListener(e -> FramesetPicker.chooseFrameset(owner, true));
 		
 		final JButton addFrameButton = new JButton("Add Frame");
-		addFrameButton.addActionListener(e -> AbstractFramesetCreator.addHFrameset(owner));
+		addFrameButton.addActionListener(e -> FramesetCreator.addFrameset(owner));
 		
 		final JPanel framesetBox = new ManagementBox("Framesets", manageFramesButton, addFrameButton);
 		this.add(framesetBox);
@@ -48,7 +52,7 @@ public class ManageStockPanel extends JPanel {
 		manageWheelsButton.addActionListener(e -> WheelPicker.chooseWheels(owner, true));
 		
 		final JButton addWheelsButton = new JButton("Add Wheel");
-		addWheelsButton.addActionListener(e -> AbstractWheelCreator.addWheel(owner));
+		addWheelsButton.addActionListener(e -> WheelCreator.addWheel(owner));
 		
 		final JPanel wheelsBox = new ManagementBox("Wheels", manageWheelsButton, addWheelsButton);
 		this.add(wheelsBox);
@@ -59,7 +63,7 @@ public class ManageStockPanel extends JPanel {
 		manageHandlebarButton.addActionListener(e -> HandlebarPicker.chooseHandlebar(owner, true));
 		
 		final JButton addHandlebarButton = new JButton("Add Handlebar");
-		addHandlebarButton.addActionListener(e -> AbstractHandlebarCreator.addHandlebar(owner));
+		addHandlebarButton.addActionListener(e -> HandlebarCreator.addHandlebar(owner));
 		
 		final JPanel handlebarBox = new ManagementBox("Handlebars", manageHandlebarButton, addHandlebarButton);
 		this.add(handlebarBox);
