@@ -1,5 +1,6 @@
 package View.StaffWindow;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 
@@ -24,6 +25,8 @@ public class ManageOrdersPanel extends JPanel {
 		
 		final JPanel bottomPanel = new JPanel(new BorderLayout());
 
+		bottomPanel.add(new JLabel("----------------Double Click an order to Expand----------------"), BorderLayout.CENTER);
+		
 		bottomPanel.add(saveButton, BorderLayout.EAST);
 		
 		this.add(bottomPanel, BorderLayout.SOUTH);
