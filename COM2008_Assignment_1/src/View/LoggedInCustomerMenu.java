@@ -23,7 +23,7 @@ import Database.OrderOperations;
 import Domain.Customer;
 import Domain.Order;
 
-public class LoggedInCustomerMenu extends JFrame implements ActionListener{
+public class LoggedInCustomerMenu extends JFrame {
 	private Customer customer;
 	private static Collection<Order> customersOrders;
 	private PreviousCustomerOrdersTable previousOrders;
@@ -51,10 +51,10 @@ public class LoggedInCustomerMenu extends JFrame implements ActionListener{
 		c.gridy = 0;
 		c.ipady = 0;
 		redrawButton = new JButton("Refresh Table");
-		redrawButton.addActionListener(this);
+		redrawButton.addActionListener(this::redrawButtonClicked);
 		
 		editDetailsButton = new JButton("Edit Your Details");
-		editDetailsButton.addActionListener(this);
+		editDetailsButton.addActionListener(this::editDetailsButtonClicked);
 		
 		topPanel.add(redrawButton);
 		topPanel.add(editDetailsButton);
@@ -111,15 +111,12 @@ public class LoggedInCustomerMenu extends JFrame implements ActionListener{
 		initilise();
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getSource() == redrawButton) {
-			redraw();
-		}
-		else {
-			CustomerEditDetails ced = new CustomerEditDetails(customer);
-		}
+	
+	private void redrawButtonClicked(ActionEvent e) {
+		redraw();
+	}
+	private void editDetailsButtonClicked(ActionEvent e) {
+		CustomerEditDetails ced = new CustomerEditDetails(customer);
 	}
 	
 }
