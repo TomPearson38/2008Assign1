@@ -1,0 +1,1 @@
+To use this run the entry point class COM2008_Assignment_1\src\project\StartProject.java
