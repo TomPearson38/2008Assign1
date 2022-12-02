@@ -154,8 +154,8 @@ public class CustomerEditDetails extends JFrame implements ActionListener{
 	}
 	
 	private boolean checkNullValues(){
-		if(forenameInput.getText() == "" || surenameInput.getText() == "" || houseNumNameInput.getText() == ""
-				|| streetNameInput.getText() == "" || cityInput.getText() == "" || postCodeInput.getText() == "") {
+		if(forenameInput.getText().equals("") || surenameInput.getText().equals("") || houseNumNameInput.getText().equals("")
+				|| streetNameInput.getText().equals("") || cityInput.getText().equals("") || postCodeInput.getText().equals("")) {
 			return false;
 		}
 		else
