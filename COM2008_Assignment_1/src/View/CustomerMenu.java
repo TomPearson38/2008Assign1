@@ -93,9 +93,9 @@ public class CustomerMenu extends JFrame {
 		Image shoppingImage = ResourceSingleton.getShoppingImage();
 		submitOrderButton.setIcon(new ImageIcon(shoppingImage.getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
 		submitOrderButton.setEnabled(false);
-		
+		mainPanel.addDesignSavedListener(submitOrderButton::setEnabled); 
 		submitOrderButton.addActionListener(this::orderButtonClicked);
-		
+				
 		bottomRightContainerPanel.add(saveDesignButton);
 		bottomRightContainerPanel.add(submitOrderButton);
 		
