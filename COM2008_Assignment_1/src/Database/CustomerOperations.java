@@ -271,6 +271,41 @@ public class CustomerOperations {
 
 		return desiredCustomer;
 	}
-	
+
+	public static Customer UpdateCustomer(Customer currentCustomer) {
+		Address newAddress = AddressOperations.findAddress(currentCustomer.get_address().get_houseNumName(),
+				currentCustomer.get_address().get_streetName(),
+				currentCustomer.get_address().get_city(),
+				currentCustomer.get_address().get_postCode());
+		
+		if(newAddress == null) {
+			newAddress = AddressOperations.createAddress(currentCustomer.get_address().get_houseNumName(),
+					currentCustomer.get_address().get_streetName(),
+					currentCustomer.get_address().get_city(),
+					currentCustomer.get_address().get_postCode());
+		}
+		
+		String sqlTemplate = "UPDATE Customers SET forename = ?, surname = ?, address_id =? WHERE id = ?;";
+		Connection mySQLConnection = ConnectionManager.getConnection();
+		try {
+			PreparedStatement statement = mySQLConnection.prepareStatement(sqlTemplate);
+			
+			statement.setString(1, currentCustomer.get_forename());
+			statement.setString(2, currentCustomer.get_surname());
+			statement.setInt(3, newAddress.get_id());
+			statement.setInt(4, currentCustomer.get_id());
+			
+			int rowsAffected = statement.executeUpdate();
+			statement.close();
+			return new Customer(currentCustomer.get_id(), currentCustomer.get_forename(),
+					currentCustomer.get_surname(),newAddress);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return null;
+		}
+	}
 	
 }

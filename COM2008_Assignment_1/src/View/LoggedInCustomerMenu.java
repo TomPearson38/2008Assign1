@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -22,15 +23,17 @@ import Database.OrderOperations;
 import Domain.Customer;
 import Domain.Order;
 
-public class LoggedInCustomerMenu extends JFrame implements WindowFocusListener, ActionListener{
+public class LoggedInCustomerMenu extends JFrame implements ActionListener{
 	private Customer customer;
 	private static Collection<Order> customersOrders;
 	private PreviousCustomerOrdersTable previousOrders;
 	private JButton redrawButton;
+	private JButton editDetailsButton;
 
 	public LoggedInCustomerMenu(Customer _customer) {
 		customer = _customer;
 		initilise();
+		setLocationRelativeTo(null); //Compact panel centring
 	}
 	
 	private void addComponents() {
@@ -38,6 +41,7 @@ public class LoggedInCustomerMenu extends JFrame implements WindowFocusListener,
 		previousOrders.setPreferredSize(new Dimension(480, 83));
 		this.setLayout(new BorderLayout());
 		final JPanel fillterPanel = new JPanel(new GridBagLayout());
+		JPanel topPanel = new JPanel(new GridLayout(0,2));
 		this.add(fillterPanel);
 		GridBagConstraints c = new GridBagConstraints();
 
@@ -48,7 +52,14 @@ public class LoggedInCustomerMenu extends JFrame implements WindowFocusListener,
 		c.ipady = 0;
 		redrawButton = new JButton("Refresh Table");
 		redrawButton.addActionListener(this);
-		fillterPanel.add(redrawButton, c);
+		
+		editDetailsButton = new JButton("Edit Your Details");
+		editDetailsButton.addActionListener(this);
+		
+		topPanel.add(redrawButton);
+		topPanel.add(editDetailsButton);
+		
+		fillterPanel.add(topPanel, c);
 		
 		JLabel messageToDoubleClick = new JLabel("Double click an order to expand it and configure");
 		c.gridy = 1;
@@ -99,23 +110,14 @@ public class LoggedInCustomerMenu extends JFrame implements WindowFocusListener,
 	}
 
 	@Override
-	public void windowGainedFocus(WindowEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("Triggered");
-		redraw();
-
-	}
-
-	@Override
-	public void windowLostFocus(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		redraw();
+		if(e.getSource() == redrawButton) {
+			redraw();
+		}
+		else {
+			CustomerEditDetails ced = new CustomerEditDetails(customer);
+		}
 	}
 	
 }
