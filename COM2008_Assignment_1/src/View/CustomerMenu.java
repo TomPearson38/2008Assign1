@@ -16,6 +16,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import Database.BicycleOperations;
@@ -70,9 +71,10 @@ public class CustomerMenu extends JFrame {
 		customerButtonsPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		
 		
-		final JButton viewOrderButton = new JButton("<html> View Orders </html>");
+		final JButton viewOrderButton = new JButton("<html> View Orders / Customer Login</html>");
 		viewOrderButton.setPreferredSize(new Dimension(100, 100));
 		viewOrderButton.addActionListener(e -> new CustomerLogin(this));
+		viewOrderButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		
 		final JButton chooseTemplateButton = new JButton("<html> Choose Template </html>");
 		chooseTemplateButton.setPreferredSize(new Dimension(100, 100));
