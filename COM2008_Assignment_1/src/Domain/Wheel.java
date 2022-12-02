@@ -59,7 +59,7 @@ public class Wheel extends BicycleComponent implements IDataRecord, IToUIString{
 	@Override
 	public String toUIString() {
 		// TODO Auto-generated method stub
-		return "<html>" + getBrandName() + "<br>" + get_diameter() + "cm" + "</html>";
+		return "<html>" + getBrandName() + "<br>" + get_diameter() + "cm" + "<br>" + get_tyre().toString() + "<br>" + get_brakes().toString() + "<br>" + "£" + getCost() + "</html>";
 	}
 	
 	/**

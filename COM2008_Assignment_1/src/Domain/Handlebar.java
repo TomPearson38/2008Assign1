@@ -30,7 +30,7 @@ public class Handlebar extends BicycleComponent implements IToUIString {
 	@Override
 	public String toUIString() {
 		// TODO Auto-generated method stub
-		return "<html>" + getBrandName() + "<br>" + get_style().toString() + "</html>";
+		return "<html>" + getBrandName() + "<br>" + get_style().toString() + "<br>" + "£" + getCost() + "</html>";
 	}
 
 	/**
