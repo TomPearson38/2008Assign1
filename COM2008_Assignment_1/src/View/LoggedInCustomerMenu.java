@@ -22,13 +22,13 @@ import Database.OrderOperations;
 import Domain.Customer;
 import Domain.Order;
 
-public class PreviousCustomerOrders extends JFrame implements WindowFocusListener, ActionListener{
+public class LoggedInCustomerMenu extends JFrame implements WindowFocusListener, ActionListener{
 	private Customer customer;
 	private static Collection<Order> customersOrders;
 	private PreviousCustomerOrdersTable previousOrders;
 	private JButton redrawButton;
 
-	public PreviousCustomerOrders(Customer _customer) {
+	public LoggedInCustomerMenu(Customer _customer) {
 		customer = _customer;
 		initilise();
 	}

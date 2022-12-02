@@ -16,7 +16,7 @@ import View.Table.AbstractTable;
 import View.Table.Column;
 import View.Table.GenericAbstractTableModel;
 import View.Table.SterlingRenderer;
-import View.PreviousCustomerOrders;
+import View.LoggedInCustomerMenu;
 
 public class PreviousCustomerOrdersTable extends AbstractTable<OrderModelRow>{
 	private PastOrderTableModel loadedOrderTableModel;
@@ -44,7 +44,7 @@ public class PreviousCustomerOrdersTable extends AbstractTable<OrderModelRow>{
 	@Override
 	protected GenericAbstractTableModel<OrderModelRow> getTableModel() {
 		
-		Collection<Order> allOrders = PreviousCustomerOrders.getCustomerOrders();
+		Collection<Order> allOrders = LoggedInCustomerMenu.getCustomerOrders();
 			
 		loadedOrderTableModel = new PastOrderTableModel(allOrders, getColumns());
 		

@@ -20,7 +20,7 @@ import Database.OrderOperations;
 import Domain.Bicycle;
 import Domain.Order;
 import Domain.OrderStatus;
-import View.PreviousCustomerOrders;
+import View.LoggedInCustomerMenu;
 import View.PreviousCustomerOrdersTable.PastOrderTableModel;
 import View.StaffWindow.OrderTable.OrderTableModel;
 import View.Table.GenericAbstractTableModel;
@@ -187,7 +187,7 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
 						_loadedParentTable.deleteRow();
 					}
 					else if(_loadedParentTable != null && _loadedParentTable.getClass() == PastOrderTableModel.class) {
-						PreviousCustomerOrders.removeOrder(currentOrder);
+						LoggedInCustomerMenu.removeOrder(currentOrder);
 					}
 					
 					this.dispose();

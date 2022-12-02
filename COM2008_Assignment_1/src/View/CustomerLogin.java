@@ -50,7 +50,7 @@ public class CustomerLogin extends JDialog implements ActionListener {
 	JPanel inputPanel = new JPanel(new GridLayout(3,2));
 	JPanel buttonPanel = new JPanel(new BorderLayout());
 	
-	PreviousCustomerOrders pco;
+	LoggedInCustomerMenu pco;
 
 	
 	Customer foundCustomer = null;
@@ -150,7 +150,7 @@ public class CustomerLogin extends JDialog implements ActionListener {
 		if(command.equals("Login")) {
 			foundCustomer = CustomerOperations.findCustomer(forenameInput.getText(), surenameInput.getText(), houseNumNameInput.getText(), streetNameInput.getText(), cityInput.getText(),postCodeInput.getText());
 			if(foundCustomer != null) {
-				pco = new PreviousCustomerOrders(foundCustomer);
+				pco = new LoggedInCustomerMenu(foundCustomer);
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Incorrect Customer Details.\nPlease try again.");
