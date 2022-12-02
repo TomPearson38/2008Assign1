@@ -1,0 +1,3 @@
+To use these SQL files you can either run build.sql from the mysql command line interface or run each of the files referenced in build.sql in MySQL Workbench individually in that order.
+
+After creating the tables you can populate them with some default data using populateTables.sql
