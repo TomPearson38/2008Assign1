@@ -57,6 +57,11 @@ public class Customer extends DataRecord implements IDataRecord, IToUIString{
 	}
 
 	
+	@Override
+	public String toString() {
+		return _surname + ", " + _forename;
+	}
+
 	/**
 	 * Converts class to UIString to be represented by the UI
 	 * @return String

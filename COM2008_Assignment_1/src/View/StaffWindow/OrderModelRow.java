@@ -1,6 +1,7 @@
 package View.StaffWindow;
 
 import Domain.Bicycle;
+import Domain.Customer;
 import Domain.Order;
 import Domain.OrderStatus;
 
@@ -41,6 +42,10 @@ public class OrderModelRow {
 	
 	public OrderStatus getOrderStatus() {
 		return backingOrder.get_order_status();
+	}
+	
+	public Customer getCustomer() {
+		return backingOrder.get_customer();
 	}
 	public void setOrderStatus(OrderStatus value) {
 		backingOrder.set_order_status(value);

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import Database.OrderOperations;
 import Domain.Bicycle;
+import Domain.Customer;
 import Domain.Order;
 import Domain.OrderStatus;
 import View.Table.AbstractTable;
@@ -33,6 +34,8 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 		
 		final Column<OrderModelRow, Bicycle> bikeColumn = new Column<OrderModelRow, Bicycle>("Bicycle", OrderModelRow::getBicycle, Bicycle.class);
 		
+		final Column<OrderModelRow, Customer> customerColumn = new Column<OrderModelRow, Customer>("Customer", OrderModelRow::getCustomer, Customer.class);
+		
 		final Column<OrderModelRow, Double> costColumn = new Column<OrderModelRow, Double>("Cost", OrderModelRow::getCost, Double.class);
 		costColumn.setCustomRenderer(new SterlingRenderer());
 		
@@ -42,7 +45,7 @@ public class OrderTable extends AbstractTable<OrderModelRow> {
 		orderStatusColumn.setEditable(true);
 		orderStatusColumn.setValueSetter(OrderModelRow::setOrderStatus);
 		
-		return Arrays.asList(orderNumberColumn, customerGivenNameColumn, bikeColumn, costColumn, orderStatusColumn);
+		return Arrays.asList(orderNumberColumn, customerGivenNameColumn, bikeColumn, customerColumn, costColumn, orderStatusColumn);
 		
 	}
 	
