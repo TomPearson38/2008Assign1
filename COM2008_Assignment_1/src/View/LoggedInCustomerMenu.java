@@ -73,21 +73,23 @@ public class LoggedInCustomerMenu extends JFrame implements ActionListener{
 
 	}
 
+	private void initiliseTable() {
+		previousOrders = new PreviousCustomerOrdersTable();
+		previousOrders.setPreferredSize(new Dimension(480, 83));
+	}
+	
 	private void initilise() {
 		customersOrders = OrderOperations.getOrdersForCustomer(customer.get_id());
 		setLocationRelativeTo(null); //Compact panel centring
     	setLayout(new GridBagLayout());
 		
 		if(!customersOrders.isEmpty()) {
-			addComponents();
-	        setLocationRelativeTo(getParent());
-			setSize(500 ,300);
-			this.setVisible(true);
+			initiliseTable();
 		}
-		else {
-			JOptionPane.showMessageDialog(this, "No orders found for selected customer");
-			this.dispose();
-		}
+		addComponents();
+        setLocationRelativeTo(getParent());
+		setSize(500 ,300);
+		this.setVisible(true);
 	}
 	
 	public static Collection<Order> getCustomerOrders() {
