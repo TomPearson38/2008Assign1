@@ -147,7 +147,7 @@ public class ExpandedBikeView extends JDialog implements ActionListener{
 			buttonPanel.add(confirmButton, c);
 		}
 		
-		if(currentOrder.get_order_status() == OrderStatus.PENDING) {
+		if(currentOrder.get_order_status() == OrderStatus.PENDING && _loadedParentTable != null) {
 			c.gridx = 1;
 			deleteOrder = new JButton("Delete Order");
 			deleteOrder.addActionListener(this);
